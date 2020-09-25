@@ -10,11 +10,11 @@ except ImportError:
 
 
 setup(name='PyPowerStore',
-      version='1.1.0.0',
+      version='1.2.0.0',
       description='Python Library for Dell EMC PowerStore',
-      author='Prashant Rakheja',
-      author_email='prashant.rakheja@dell.com',
+      author='Ansible Team at Dell EMC',
+      author_email='ansible.team@dell.com',
       install_requires=['requests'],
-      url='https://github.com/dell',
+      url='https://github.com/dell/python-powerstore',
       packages=['PyPowerStore', 'PyPowerStore.utils'],
       )

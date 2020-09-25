@@ -2,6 +2,7 @@
 # Copyright: (c) 2019, Dell EMC
 
 """Helper module for PowerStore"""
+import logging
 
 
 def prepare_querystring(*query_arguments, **kw_query_arguments):
@@ -17,3 +18,22 @@ def prepare_querystring(*query_arguments, **kw_query_arguments):
             querystring.update(argument_dict)
     querystring.update(kw_query_arguments)
     return querystring
+
+
+def get_logger(module_name, enable_log=False):
+    """Return a logger with the specified name
+
+    :param module_name: Name of the module
+    :type module_name: str
+    :param enable_log: (optional) Whether to enable log or not
+    :type enable_log: bool
+    :return: Logger object
+    :rtype: logging.Logger
+    """
+    LOG = logging.getLogger(module_name)
+    LOG.setLevel(logging.DEBUG)
+    if enable_log:
+        LOG.disabled = False
+    else:
+        LOG.disabled = True
+    return LOG
