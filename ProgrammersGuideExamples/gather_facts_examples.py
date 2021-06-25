@@ -48,3 +48,39 @@ print(RESP)
 # Get protection policies list
 RESP = CONN.protection.get_protection_policies()
 print(RESP)
+
+# Get file systems list
+RESP = CONN.provisioning.get_file_systems()
+print(RESP)
+
+# Get NAS servers list
+RESP = CONN.provisioning.get_nas_servers()
+print(RESP)
+
+# Get NFS exports list
+RESP = CONN.provisioning.get_nfs_exports()
+print(RESP)
+
+# Get SMB shares list
+RESP = CONN.provisioning.get_smb_shares()
+print(RESP)
+
+# Get tree quotas list
+RESP = CONN.provisioning.get_file_tree_quotas()
+print(RESP)
+
+# Get user quotas list
+RESP = CONN.provisioning.get_file_user_quotas()
+print(RESP)
+
+# Get replication rules list
+RESP = CONN.protection.get_replication_rules()
+print(RESP)
+
+# Get replication sessions list
+RESP = CONN.protection.get_replication_sessions()
+print(RESP)
+
+# Get remote systems list
+RESP = CONN.protection.get_remote_systems()
+print(RESP)

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019, Dell EMC
-# Copyright: (c) 2019, Ivan Pchelintsev <Ivan.Pchelintsev@emc.com>
+# Copyright: (c) 2019-2021, Dell EMC
+# Copyright: (c) 2019-2021, Ivan Pchelintsev <Ivan.Pchelintsev@emc.com>
 
 """Collection of protection related functions for PowerStore"""
 
@@ -19,23 +19,51 @@ POLICY_TYPE = namedtuple('PolicyType',
                          'protection '
                          'performance')(protection='Protection',
                                         performance='Performance')
-SNAPSHOT_RULE_FILTER = {'is_replica': constants.EQUALS + 'false'}
+# Snapshot Rule
 SNAPSHOT_RULE_DETAILS_QUERY = {
     'select': 'id,name,interval,days_of_week,time_of_day,desired_retention,'
               'policies(id,name)'
 }
+# Replication Rule
+REPLICATION_RULE_DETAILS_QUERY = {
+    'select': 'id,name,rpo,remote_system_id,is_replica,alert_threshold,'
+              'policies(id,name)'
+}
+# Protection Policy
 PROTECTION_POLICY_FILTER = {'type': constants.EQUALS + POLICY_TYPE.protection}
 PROTECTION_POLICY_DETAILS_QUERY = {
     'select': 'id,name,description,type,replication_rules(id,name),'
               'snapshot_rules(id,name)'
 }
 
+# Remote System
+REMOTE_SYSTEM_DETAILS_QUERY = {
+    'select': 'id,name,description,serial_number,management_address,type,'
+              'user_name,state,data_connection_state,iscsi_addresses,'
+              'discovery_chap_mode,session_chap_mode,data_network_latency,'
+              'data_connections,type_l10n,state_l10n,'
+              'data_connection_state_l10n,discovery_chap_mode_l10n,'
+              'session_chap_mode_l10n,data_network_latency_l10n,'
+              'import_sessions,replication_sessions'
+}
+
+# Replication session
+REPLICATION_SESSION_DETAILS_QUERY = {
+    'select': 'id,state,role,resource_type,last_sync_timestamp,'
+              'local_resource_id,remote_resource_id,remote_system_id,'
+              'progress_percentage,estimated_completion_timestamp,'
+              'replication_rule_id,storage_element_pairs,state_l10n,'
+              'role_l10n,resource_type_l10n,remote_system(id,name),'
+              'migration_session(id,name),replication_rule(id,name)'
+}
+
 # TODO: kept LOG as global for now will improve it to avoid overriding
 LOG = helpers.get_logger(__name__)
 
 
-class ProtectionFunctions():
+class ProtectionFunctions:
     """Protection related functionality for PowerStore."""
+
     def __init__(self, provisioning, enable_log=False):
         """ Initializes ProtectionFunctions Class
 
@@ -306,7 +334,7 @@ class ProtectionFunctions():
         LOG.info("Getting snapshot_rules with filter: '%s' and all_pages: '%s'"
                  % (filter_dict, all_pages))
         querystring = helpers.prepare_querystring(
-            SNAPSHOT_RULE_FILTER, constants.SELECT_ID_AND_NAME, filter_dict)
+            constants.SELECT_ID_AND_NAME, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
         return self.rest_client.request(
             constants.GET,
@@ -326,7 +354,7 @@ class ProtectionFunctions():
             constants.GET,
             constants.SNAPSHOT_RULE_LIST_URL.format(self.server_ip),
             querystring=helpers.prepare_querystring(
-                SNAPSHOT_RULE_FILTER, constants.SELECT_ID_AND_NAME,
+                constants.SELECT_ID_AND_NAME,
                 name=constants.EQUALS + name))
 
     def get_snapshot_rule_details(self, snapshot_rule_id):
@@ -630,6 +658,46 @@ class ProtectionFunctions():
             remove_snapshot_rule_ids=remove_snapshot_rule_ids
         )
 
+    def add_replication_rules_to_protection_policy(
+            self, policy_id, add_replication_rule_ids):
+        """
+        Add replication rule to protection policy.
+
+        :param policy_id: Protection policy unique identifier.
+        :type policy_id: str
+        :param add_replication_rule_ids: Replication rule identifiers to be
+         added to  policy.
+        :type add_replication_rule_ids: list[str]
+        :return: Protection policy details.
+        :rtype: dict
+        """
+        LOG.info("Adding replication rule: '%s' to policy: '%s'"
+                 % (add_replication_rule_ids, policy_id))
+        return self.modify_protection_policy(
+            policy_id=policy_id,
+            add_replication_rule_ids=add_replication_rule_ids
+        )
+
+    def remove_replication_rules_from_protection_policy(
+            self, policy_id, remove_replication_rule_ids):
+        """
+        Remove replication rules from protection policy.
+
+        :param policy_id: Protection policy unique identifier.
+        :type policy_id: str
+        :param remove_replication_rule_ids: Replication rule identifiers to be
+                                         removed from this policy.
+        :type remove_replication_rule_ids: list[str]
+        :return: Protection policy details.
+        :rtype: dict
+        """
+        LOG.info("Removing replication rule: '%s' from policy: '%s'"
+                 % (remove_replication_rule_ids, policy_id))
+        return self.modify_protection_policy(
+            policy_id=policy_id,
+            remove_replication_rule_ids=remove_replication_rule_ids
+        )
+
     def modify_protection_policy(self, policy_id, name=None, description=None,
                                  snapshot_rule_ids=None,
                                  replication_rule_ids=None,
@@ -800,7 +868,311 @@ class ProtectionFunctions():
         return self.rest_client.request(constants.DELETE,
                                         constants.DELETE_FILESYSTEM_URL.
                                         format(self.server_ip, snapshot_id))
+
     # FS Snapshot Methods end
+
+    # Replication Rule Methods
+
+    def get_replication_rules(self, filter_dict=None, all_pages=False):
+        """Get all replication rules.
+
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all elements
+                          or not
+        :type all_pages: bool
+        :return: replication rules.
+        :rtype: list[dict]
+        """
+        LOG.info(
+            "Getting replication_rules with filter: '%s' and all_pages: '%s'"
+            % (filter_dict, all_pages))
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID_AND_NAME, filter_dict)
+        LOG.info("Querystring: '%s'" % querystring)
+        return self.rest_client.request(
+            constants.GET,
+            constants.REPLICATION_RULE_LIST_URL.format(self.server_ip),
+            querystring=querystring, all_pages=all_pages)
+
+    def get_replication_rule_by_name(self, name):
+        """Get replication rule details by name.
+
+        :param name: Replication rule name.
+        :type name: str
+        :return: Replication rule with corresponding name.
+        :rtype: list[dict]
+        """
+        LOG.info("Getting replication_rule details by name: '%s'" % name)
+        return self.rest_client.request(
+            constants.GET,
+            constants.REPLICATION_RULE_LIST_URL.format(self.server_ip),
+            querystring=helpers.prepare_querystring(
+                constants.SELECT_ID_AND_NAME,
+                name=constants.EQUALS + name))
+
+    def get_replication_rule_details(self, replication_rule_id):
+        """Get details of a particular replication rule.
+
+        :param replication_rule_id: Replication rule unique identifier.
+        :type replication_rule_id: str
+        :return: Replication rule details.
+        :rtype: dict
+        """
+        LOG.info("Getting replication_rule details by ID: '%s'"
+                 % replication_rule_id)
+        return self.rest_client.request(
+            constants.GET,
+            constants.REPLICATION_RULE_OBJECT_URL.format(self.server_ip,
+                                                         replication_rule_id),
+            querystring=REPLICATION_RULE_DETAILS_QUERY
+        )
+
+    def create_replication_rule(self, **kwargs):
+        """Create a new replication rule using provided arguments.
+
+        :return: Replication rule details.
+        :rtype: dict
+        """
+        LOG.info("Creating a replication rule with params: '%s'" % kwargs)
+        payload = self._prepare_create_modify_replication_rule_payload(
+            **kwargs)
+        response = self.rest_client.request(
+            constants.POST,
+            constants.REPLICATION_RULE_LIST_URL.format(self.server_ip),
+            payload
+        )
+        if isinstance(response, dict) and response.get('id'):
+            return self.get_replication_rule_details(response['id'])
+        return response
+
+    def modify_replication_rule(self, replication_rule_id, name=None,
+                                rpo=None, remote_system_id=None,
+                                alert_threshold=None):
+        """Modify a replication rule
+
+        :param replication_rule_id: Replication rule unique identifier
+        :param name: (optional) New rule name (used for renaming a rule)
+        :type name: str
+        :param rpo: (optional) Recovery point objective
+        :type rpo: str
+        :param remote_system_id: (optional) Id of the remote system
+        :type remote_system_id: str
+        :param alert_threshold: Acceptable delay in minutes between the
+        expected and actual replication sync intervals
+        :type alert_threshold: str
+        :return: Replication rule details.
+        :rtype: dict
+        """
+        LOG.info("Modifying replication_rule: '%s'" % replication_rule_id)
+        payload = self._prepare_create_modify_replication_rule_payload(
+            name=name,
+            rpo=rpo, remote_system_id=remote_system_id,
+            alert_threshold=alert_threshold
+        )
+        self.rest_client.request(
+            constants.PATCH,
+            constants.REPLICATION_RULE_OBJECT_URL.format(self.server_ip,
+                                                         replication_rule_id),
+            payload
+        )
+        return self.get_replication_rule_details(replication_rule_id)
+
+    def delete_replication_rule(self, replication_rule_id):
+        """Delete a replication rule.
+
+        :param replication_rule_id: Replication rule unique identifier.
+        :type replication_rule_id: str
+        """
+        LOG.info("Deleting replication_rule: '%s'"
+                 % replication_rule_id)
+        return self.rest_client.request(
+            constants.DELETE,
+            constants.REPLICATION_RULE_OBJECT_URL.format(self.server_ip,
+                                                         replication_rule_id))
+
+    # Replication Rule end
+
+    # Replication Session start
+
+    def get_replication_sessions(self, filter_dict=None, all_pages=False):
+        """Get all replication sessions.
+
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all elements
+                          or not
+        :type all_pages: bool
+        :return: replication sessions.
+        :rtype: list[dict]
+        """
+        LOG.info(
+            "Getting replication sessions with filter: '%s' and "
+            "all_pages: '%s'" % (filter_dict, all_pages))
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID, filter_dict)
+        LOG.info("Querystring: '%s'" % querystring)
+        return self.rest_client.request(
+            constants.GET,
+            constants.REPLICATION_SESSION_LIST_URL.format(self.server_ip),
+            querystring=querystring, all_pages=all_pages)
+
+    def get_replication_session_details(self, session_id):
+        """Get details of a particular replication session.
+
+        :param session_id: Replication session unique identifier.
+        :type session_id: str
+        :return: Replication session details.
+        :rtype: dict
+        """
+        LOG.info("Getting replication session details by ID: '%s'"
+                 % session_id)
+        return self.rest_client.request(
+            constants.GET,
+            constants.REPLICATION_SESSION_OBJECT_URL.format(
+                self.server_ip, session_id),
+            querystring=REPLICATION_SESSION_DETAILS_QUERY
+        )
+
+    def sync_replication_session(self, session_id):
+        """
+        Synchronize the replication session
+        :param session_id: Replication session id
+        :type session_id: str
+        """
+        LOG.info("Synchronize the replication session with ID: '%s'"
+                 % session_id)
+        return self.rest_client.request(
+            constants.POST,
+            constants.REPLICATION_SESSION_SYNC_URL.format(
+                self.server_ip, session_id)
+        )
+
+    def pause_replication_session(self, session_id):
+        """
+        Pause the replication session
+        :param session_id: Replication session id
+        :type session_id: str
+        """
+        LOG.info("Pause the replication session with ID: '%s'"
+                 % session_id)
+        return self.rest_client.request(
+            constants.POST,
+            constants.REPLICATION_SESSION_PAUSE_URL.format(
+                self.server_ip, session_id)
+        )
+
+    def resume_replication_session(self, session_id):
+        """
+        Resume the replication session
+        :param session_id: Replication session id
+        :type session_id: str
+        """
+        LOG.info("Resume the replication session with ID: '%s'"
+                 % session_id)
+        return self.rest_client.request(
+            constants.POST,
+            constants.REPLICATION_SESSION_RESUME_URL.format(
+                self.server_ip, session_id)
+        )
+
+    def failover_replication_session(self, session_id, is_planned=None,
+                                     reverse=None):
+        """
+        Fail over the replication session
+        :param session_id: Replication session id
+        :type session_id: str
+        :param is_planned: Indicates whether the replication session failover
+         is planned or unplanned.
+        :type is_planned: bool
+        :param reverse: Indicates whether the system is auto-reprotected.
+         Auto-reprotect is combination of failover and reprotect.
+        :type reverse: bool
+        """
+        LOG.info("Fail over the replication session with ID: '%s'"
+                 % session_id)
+        payload = self._prepare_failover_replication_session_payload(
+            is_planned=is_planned,
+            reverse=reverse
+        )
+        return self.rest_client.request(
+            constants.POST,
+            constants.REPLICATION_SESSION_FAILOVER_URL.format(
+                self.server_ip, session_id),
+            payload
+        )
+
+    def reprotect_replication_session(self, session_id):
+        """
+        Reprotect over the replication session
+        """
+        LOG.info("Reprotect the replication session with ID: '%s'"
+                 % session_id)
+        return self.rest_client.request(
+            constants.POST,
+            constants.REPLICATION_SESSION_REPROTECT_URL.format(
+                self.server_ip, session_id)
+        )
+
+    # Replication Session end
+
+    # Remote System start
+    def get_remote_systems(self, filter_dict=None, all_pages=False):
+        """Get all remote systems.
+
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all elements
+                          or not
+        :type all_pages: bool
+        :return: remote systems.
+        :rtype: list[dict]
+        """
+        LOG.info(
+            "Getting remote_systems with filter: '%s' and all_pages: '%s'"
+            % (filter_dict, all_pages))
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID_AND_NAME, filter_dict)
+        LOG.info("Querystring: '%s'" % querystring)
+        return self.rest_client.request(
+            constants.GET,
+            constants.REMOTE_SYSTEM_LIST_URL.format(self.server_ip),
+            querystring=querystring, all_pages=all_pages)
+
+    def get_remote_system_by_name(self, name):
+        """Get remote system details by name.
+
+        :param name: Remote system name.
+        :type name: str
+        :return: Remote system with corresponding name.
+        :rtype: list[dict]
+        """
+        LOG.info("Getting remote_system details by name: '%s'" % name)
+        return self.rest_client.request(
+            constants.GET,
+            constants.REMOTE_SYSTEM_LIST_URL.format(self.server_ip),
+            querystring=helpers.prepare_querystring(
+                constants.SELECT_ID_AND_NAME,
+                name=constants.EQUALS + name))
+
+    def get_remote_system_details(self, remote_system_id):
+        """Get details of a particular remote system.
+
+        :param remote_system_id: Remote system unique identifier.
+        :type remote_system_id: str
+        :return: Remote system details.
+        :rtype: dict
+        """
+        LOG.info("Getting remote system details by ID: '%s'"
+                 % remote_system_id)
+        return self.rest_client.request(
+            constants.GET,
+            constants.REMOTE_SYSTEM_OBJECT_URL.format(self.server_ip,
+                                                      remote_system_id),
+            querystring=REMOTE_SYSTEM_DETAILS_QUERY
+        )
+
+    # Remote System end
 
     @staticmethod
     def _prepare_create_modify_snapshot_payload(**kwargs):
@@ -847,4 +1219,32 @@ class ProtectionFunctions():
                         'remove_replication_rule_ids'):
             if kwargs.get(argname) is not None:
                 payload[argname] = kwargs[argname]
+        return payload
+
+    @staticmethod
+    def _prepare_create_modify_replication_rule_payload(**kwargs):
+        """Prepare a create/modify replication rule request body using provided
+        arguments.
+
+        :return: Request body.
+        :rtype: dict
+        """
+        payload = dict()
+        for arg_name in ('name', 'rpo', 'remote_system_id', 'alert_threshold'):
+            if kwargs.get(arg_name) is not None:
+                payload[arg_name] = kwargs[arg_name]
+        return payload
+
+    @staticmethod
+    def _prepare_failover_replication_session_payload(**kwargs):
+        """Prepare a failover replication session request body using provided
+        arguments.
+
+        :return: Request body.
+        :rtype: dict
+        """
+        payload = dict()
+        for arg_name in ('is_planned', 'reverse'):
+            if kwargs.get(arg_name) is not None:
+                payload[arg_name] = kwargs[arg_name]
         return payload

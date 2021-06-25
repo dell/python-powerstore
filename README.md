@@ -35,7 +35,7 @@ The library docs are available under 'docs' folder.
 
 This library uses python's "requests" library.
 
-PyPowerStore officially supports Python 2.7 & 3.5.
+PyPowerStore officially supports Python 3.5, 3.6, 3.7 and 3.8.
 
 
 ## Support

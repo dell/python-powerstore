@@ -62,6 +62,7 @@ SELECT_ALL_VOL_GROUP = {"select": "id,name,description,creation_"
                                   "type_l10n,volumes(name,id)"}
 
 SELECT_ID_AND_NAME = {"select": "id,name"}
+SELECT_ID = {"select": "id"}
 SELECT_ID_AND_PATH = {"select": "id,path"}
 SELECT_ALL_HOST_VOLUME_MAPPING = {"select": "id, host_id, host_group_id,"
                                             "logical_unit_number"}
@@ -206,11 +207,28 @@ GET_NODE = 'https://{0}/api/rest/node'
 SNAPSHOT_RULE_LIST_URL = 'https://{0}/api/rest/snapshot_rule'
 SNAPSHOT_RULE_OBJECT_URL = 'https://{0}/api/rest/snapshot_rule/{1}'
 
+# Replication rule endpoints
+REPLICATION_RULE_LIST_URL = 'https://{0}/api/rest/replication_rule'
+REPLICATION_RULE_OBJECT_URL = 'https://{0}/api/rest/replication_rule/{1}'
+
+# Replication session endpoints
+REPLICATION_SESSION_LIST_URL = 'https://{0}/api/rest/replication_session'
+REPLICATION_SESSION_OBJECT_URL = 'https://{0}/api/rest/replication_session/{1}'
+REPLICATION_SESSION_SYNC_URL = 'https://{0}/api/rest/replication_session/{1}/sync'
+REPLICATION_SESSION_PAUSE_URL = 'https://{0}/api/rest/replication_session/{1}/pause'
+REPLICATION_SESSION_RESUME_URL = 'https://{0}/api/rest/replication_session/{1}/resume'
+REPLICATION_SESSION_FAILOVER_URL = 'https://{0}/api/rest/replication_session/{1}/failover'
+REPLICATION_SESSION_REPROTECT_URL = 'https://{0}/api/rest/replication_session/{1}/reprotect'
+
+# Remote system endpoints
+REMOTE_SYSTEM_LIST_URL = 'https://{0}/api/rest/remote_system'
+REMOTE_SYSTEM_OBJECT_URL = 'https://{0}/api/rest/remote_system/{1}'
+
 # Protection Policy endpoint
 PROTECTION_POLICY_LIST_URL = 'https://{0}/api/rest/policy'
 PROTECTION_POLICY_OBJECT_URL = 'https://{0}/api/rest/policy/{1}'
 
-# Host Volume Mapping enpoints
+# Host Volume Mapping endpoints
 HOST_VOLUME_MAPPING_URL = 'https://{0}/api/rest/host_volume_mapping'
 
 # NAS Server endpoints
@@ -257,5 +275,4 @@ DELETE_FILESYSTEM_URL = GET_FILESYSTEM_DETAILS_URL
 MODIFY_FILESYSTEM_URL = GET_FILESYSTEM_DETAILS_URL
 CREATE_FILESYSTEM_SNAPSHOT_URL = 'https://{0}/api/rest/file_system/{1}/' \
                                  'snapshot'
-
 GET_SNAPSHOTS_FILESYSTEM_URL = GET_FILE_SYSTEM_LIST_URL
