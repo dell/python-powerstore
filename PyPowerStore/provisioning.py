@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019, Dell EMC
+# Copyright: (c) 2019-2021, Dell EMC
 
 """Collection of provisioning related functions for PowerStore"""
 
@@ -37,6 +37,26 @@ class Provisioning:
         self.client = Client(username, password, verify, application_type,
                              timeout, enable_log=enable_log)
         LOG = helpers.get_logger(__name__, enable_log=enable_log)
+        helpers.set_provisioning_obj(self)
+
+    def get_array_version(self):
+        """Get the software version of this array.
+
+        :return: software version details
+        :rtype: str
+        """
+        LOG.info("Getting the software version of this array")
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_VERSION)
+        LOG.info("Querystring: '%s'" % querystring)
+        sw_versions =  self.client.request(constants.GET,
+                                   constants.GET_SOFTWARE_VERSION.format
+                                   (self.server_ip), payload=None,
+                                   querystring=querystring)
+        version = None
+        if sw_versions and len(sw_versions) >0:
+            version =  sw_versions[0]['release_version']
+        return version
 
     def create_volume(self, name, size, description=None,
                       volume_group_id=None, protection_policy_id=None,
@@ -1739,3 +1759,32 @@ class Provisioning:
                                    .format(self.server_ip, tree_quota_id))
 
     # FS Quota Methods end
+
+    # Job Methods start
+
+    def get_job_details(self, job_id):
+        """Get details of a Job with its id.
+        :param job_id: The Id of job.
+        :type job_id: str
+        :return: Job details
+        :rtype: dict
+        """
+        LOG.info("Getting job details: '%s'" % job_id)
+        querystring = constants.JOB_DETAILS_QUERY
+        if helpers.is_foot_hill_or_higher():
+            querystring = {
+                'select': 'id,resource_action,resource_type,resource_id,'
+                          'resource_name,description_l10n,state,start_time,'
+                          'phase,end_time,estimated_completion_time,'
+                          'progress_percentage,parent_id,root_id,user,'
+                          'response_body,response_status,step_order,'
+                          'resource_action_l10n,resource_type_l10n,'
+                          'state_l10n,phase_l10n,response_status_l10n'
+            }
+        return self.client.request(
+            constants.GET,
+            constants.GET_JOB_DETAILS_URL.format(self.server_ip, job_id),
+            querystring=querystring
+        )
+
+    # Job Methods end
