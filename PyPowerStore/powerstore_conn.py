@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019, Dell EMC
+# Copyright: (c) 2019-2021, Dell EMC
 
 """Module for establishing connection with PowerStore"""
 
 from PyPowerStore.protection import ProtectionFunctions
 from PyPowerStore.provisioning import Provisioning
+from PyPowerStore.configuration import Configuration
 
 
 class PowerStoreConn():
@@ -34,3 +35,5 @@ class PowerStoreConn():
                                          enable_log=enable_log)
         self.protection = ProtectionFunctions(self.provisioning,
                                               enable_log=enable_log)
+        self.config_mgmt = Configuration(self.provisioning,
+                                         enable_log=enable_log)

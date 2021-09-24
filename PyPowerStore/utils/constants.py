@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019, Dell EMC
+# Copyright: (c) 2019-2021, Dell EMC
 
 """Module for PowerStore constants"""
 
@@ -62,7 +62,10 @@ SELECT_ALL_VOL_GROUP = {"select": "id,name,description,creation_"
                                   "type_l10n,volumes(name,id)"}
 
 SELECT_ID_AND_NAME = {"select": "id,name"}
+# For getting the list of appliances (mentioned in configuration.py)
+SELECT_ID_NAME_AND_MODEL = {"select": "id,name,model"}
 SELECT_ID = {"select": "id"}
+SELECT_VERSION = {"select": "release_version"}
 SELECT_ID_AND_PATH = {"select": "id,path"}
 SELECT_ALL_HOST_VOLUME_MAPPING = {"select": "id, host_id, host_group_id,"
                                             "logical_unit_number"}
@@ -144,11 +147,88 @@ SELECT_ALL_NFS_EXPORT = {"select": "id, name, file_system(id, name, "
                                    "anonymous_GID, is_no_SUID, "
                                    "default_access_l10n, min_security_l10n"}
 
+# SELECT JOB DETAILS
+JOB_DETAILS_QUERY = {
+    'select': 'id,resource_action,resource_type,resource_id,resource_name,'
+              'description_l10n,state,start_time,phase,end_time,'
+              'estimated_completion_time,progress_percentage,parent_id,'
+              'root_id,user,response_body,step_order,'
+              'resource_action_l10n,resource_type_l10n,state_l10n,phase_l10n'
+}
+
+# Select cluster details
+CLUSTER_DETAILS_QUERY = {
+    'select': 'id,global_id,name,management_address,'
+              'storage_discovery_address,master_appliance_id,'
+              'appliance_count,physical_mtu,is_encryption_enabled,'
+              'compatibility_level,state,state_l10n'
+}
+
+# Network details
+NETWORK_DETAILS_QUERY = {
+    'select': 'id,type,ip_version,vlan_id,prefix_length,'
+              'gateway,mtu,type_l10n,ip_version_l10n'
+}
+
+# Role details
+ROLE_DETAILS_QUERY = {
+    'select': 'id,name,is_built_in,description'
+}
+
+# IP pool details
+IP_DETAILS_QUERY = {
+    'select': 'id,network_id,ip_port_id,appliance_id,node_id,address,'
+              'purposes,purposes_l10n'
+}
+
+# CHAP config details
+CHAP_CONFIG_DETAILS_QUERY = {
+    'select': 'id,mode,mode_l10n'
+}
+
+# Service config details
+SERVICE_CONFIG_DETAILS_QUERY = {
+    'select': 'id,appliance_id,is_ssh_enabled'
+}
+
+# Service user details
+SERVICE_USER_DETAILS_QUERY = {
+    'select': 'id,name,is_built_in,is_default_password'
+}
+
+# Local user details
+LOCAL_USER_DETAILS_QUERY = {
+    'select': 'id,name,is_built_in,is_locked,is_default_password,role_id'
+}
+
+# IP port details
+IP_PORT_DETAILS_QUERY = {
+    'select': 'id,partner_id,target_iqn,available_usages,current_usages,'
+              'bond_id,eth_port_id,veth_port_id,available_usages_l10n,'
+              'current_usages_l10n'
+}
+
+# vCenter details
+VCENTER_DETAILS_QUERY = {
+    'select': 'id,instance_uuid,address,username'
+}
+
+# Appliance details
+APPLIANCE_DETAILS_QUERY = {
+    'select': 'id,name,service_tag,express_service_code,model,nodes,'
+              'veth_ports,maintenance_windows,fc_ports,sas_ports,eth_ports,'
+              'software_installed,virtual_volumes,hardware,volumes,'
+              'ip_pool_addresses'
+}
+
 # Select all Snapshot
 
 EQUALS = 'eq.'
 
 # API endpoints
+
+# Software version
+GET_SOFTWARE_VERSION = 'https://{0}/api/rest/software_installed'
 
 # Volume endpoints
 VOLUME_CREATE_URL = 'https://{0}/api/rest/volume'
@@ -276,3 +356,67 @@ MODIFY_FILESYSTEM_URL = GET_FILESYSTEM_DETAILS_URL
 CREATE_FILESYSTEM_SNAPSHOT_URL = 'https://{0}/api/rest/file_system/{1}/' \
                                  'snapshot'
 GET_SNAPSHOTS_FILESYSTEM_URL = GET_FILE_SYSTEM_LIST_URL
+
+# Network endpoints
+GET_NETWORK_DETAILS_URL = 'https://{0}/api/rest/network/{1}'
+GET_NETWORK_LIST_URL = 'https://{0}/api/rest/network'
+MODIFY_NETWORK_URL = GET_NETWORK_DETAILS_URL
+ADD_REMOVE_IP_PORTS = 'https://{0}/api/rest/network/{1}/scale'
+
+# Role endpoints
+GET_ROLE_LIST_URL = 'https://{0}/api/rest/role'
+GET_ROLE_DETAILS_URL = 'https://{0}/api/rest/role/{1}'
+
+# Logout endpoint
+LOGOUT_URL = 'https://{0}/api/rest/logout'
+
+# Login session endpoint
+LOGIN_SESSION = 'https://{0}/api/rest/login_session'
+
+# Local_user endpoints
+GET_LOCAL_USER_LIST_URL = 'https://{0}/api/rest/local_user'
+
+# IP Pool Address endpoint
+GET_IP_POOL_LIST_URL = 'https://{0}/api/rest/ip_pool_address'
+
+# Cluster endpoints
+GET_CLUSTER_DETAILS_URL = 'https://{0}/api/rest/cluster/{1}'
+GET_CLUSTER_LIST_URL = 'https://{0}/api/rest/cluster'
+MODIFY_CLUSTER_URL = GET_CLUSTER_DETAILS_URL
+
+# CHAP config endpoints
+GET_CHAP_CONFIG_LIST_URL = 'https://{0}/api/rest/chap_config'
+GET_CHAP_CONFIG_DETAILS_URL = 'https://{0}/api/rest/chap_config/{1}'
+MODIFY_CHAP_CONFIG_URL = GET_CHAP_CONFIG_DETAILS_URL
+
+# Service config endpoints
+GET_SERVICE_CONFIG_LIST_URL = 'https://{0}/api/rest/service_config'
+GET_SERVICE_CONFIG_DETAILS_URL = 'https://{0}/api/rest/service_config/{1}'
+MODIFY_SERVICE_CONFIG_URL = GET_SERVICE_CONFIG_DETAILS_URL
+
+# Service user endpoints
+GET_SERVICE_USER_LIST_URL = 'https://{0}/api/rest/service_user'
+GET_SERVICE_USER_DETAILS_URL = 'https://{0}/api/rest/service_user/{1}'
+MODIFY_SERVICE_USER_URL = GET_SERVICE_USER_DETAILS_URL
+
+# Local user endpoints
+GET_LOCAL_USER_LIST_URL = 'https://{0}/api/rest/local_user'
+GET_LOCAL_USER_DETAILS_URL = 'https://{0}/api/rest/local_user/{1}'
+MODIFY_LOCAL_USER_URL = GET_LOCAL_USER_DETAILS_URL
+DELETE_LOCAL_USER_URL = GET_LOCAL_USER_DETAILS_URL
+CREATE_LOCAL_USER_URL = GET_LOCAL_USER_LIST_URL
+
+# IP port endpoints
+GET_IP_PORT_DETAILS_URL = 'https://{0}/api/rest/ip_port/{1}'
+
+# Job endpoints
+GET_JOB_DETAILS_URL = 'https://{0}/api/rest/job/{1}'
+
+# vCenter endpoints
+GET_VCENTER_LIST_URL = 'https://{0}/api/rest/vcenter'
+GET_VCENTER_DETAILS_URL = 'https://{0}/api/rest/vcenter/{1}'
+MODIFY_VCENTER_URL = GET_VCENTER_DETAILS_URL
+
+# Appliance endpoints
+GET_APPLIANCE_LIST_URL = 'https://{0}/api/rest/appliance'
+GET_APPLIANCE_DETAILS_URL = 'https://{0}/api/rest/appliance/{1}'

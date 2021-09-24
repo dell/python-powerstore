@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019, Dell EMC
+# Copyright: (c) 2019-2021, Dell EMC
 
 """ Gather Facts Module Operations"""
 
@@ -83,4 +83,44 @@ print(RESP)
 
 # Get remote systems list
 RESP = CONN.protection.get_remote_systems()
+print(RESP)
+
+# Get networks list
+RESP = CONN.config_mgmt.get_networks()
+print(RESP)
+
+# Get clusters list
+RESP = CONN.config_mgmt.get_clusters()
+print(RESP)
+
+# Get local users list
+RESP = CONN.config_mgmt.get_local_users()
+print(RESP)
+
+# Get roles list
+RESP = CONN.config_mgmt.get_roles()
+print(RESP)
+
+# Get appliances list
+RESP = CONN.config_mgmt.get_appliances()
+print(RESP)
+
+# Get ip pool addresses list
+RESP = CONN.config_mgmt.get_ip_pool_address()
+print(RESP)
+
+# Get chap configs list
+RESP = CONN.config_mgmt.get_chap_configs()
+print(RESP)
+
+# Get service configs list
+RESP = CONN.config_mgmt.get_service_configs()
+print(RESP)
+
+# Get service users list
+RESP = CONN.config_mgmt.get_service_users()
+print(RESP)
+
+# Get vcenters list
+RESP = CONN.config_mgmt.get_vcenters()
 print(RESP)
