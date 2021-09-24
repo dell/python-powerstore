@@ -1,7 +1,7 @@
 # PyPowerStore Change Log
 ## Version 1.4.0 - release on 28/09/21
 - Added configuration operations includes managing clusters, networks, local users and getting high level facts about all these entities.
-- Enhancements
+- Enhancement in authentication mechanism. 
 
 ## Version 1.3.0 - released on 25/06/21
 - Added replication functionalities includes managing replication rule, replication session and getting high level facts about all these entities.
