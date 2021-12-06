@@ -31,7 +31,7 @@ all_networks = conn.config_mgmt.get_networks()
 
 ## Documentation
 
-The library docs are available under 'docs' folder.
+The library docs are available under [docs](/docs) folder.
 
 
 ## Requirements
