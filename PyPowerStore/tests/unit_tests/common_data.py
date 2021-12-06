@@ -710,7 +710,7 @@ class CommonData(object):
         ],
         "vlan_id": 0,
         "prefix_length": 24,
-        "gateway": "10.230.42.1",
+        "gateway": "10.****.****.1",
         "mtu": 1400,
         "type_l10n": "Storage",
         "ip_version_l10n": "IPv4",
@@ -812,25 +812,25 @@ class CommonData(object):
     # IP pool address start
 
     ip_pool_list = [
-        {'id': 'IP16', 'name': 'iSCI (10.230.42.94)', 'network_id': 'NW6',
+        {'id': 'IP16', 'name': 'iSCI (10.***.***.***)', 'network_id': 'NW6',
          'ip_port_id': 'IP_PORT16', 'appliance_id': 'A1', 'node_id': 'N2',
-         'address': '10.230.42.94',
+         'address': '10.***.***.***',
          'purposes': ['Storage_Iscsi_Target', 'External_Replication_Iscsi'],
          'purposes_l10n': ['Storage Iscsi Target',
                            'External Replication iSCSI Port']},
-        {'id': 'IP17', 'name': 'iSCI (10.230.42.95)', 'network_id': 'NW6',
+        {'id': 'IP17', 'name': 'iSCI (10.***.***.***)', 'network_id': 'NW6',
          'ip_port_id': 'IP_PORT6', 'appliance_id': 'A1', 'node_id': 'N1',
-         'address': '10.230.42.95',
+         'address': '10.***.***.***',
          'purposes': ['Storage_Iscsi_Target', 'External_Replication_Iscsi'],
          'purposes_l10n': ['Storage Iscsi Target',
                            'External Replication iSCSI Port']},
-        {'id': 'IP22', 'name': 'iSCI (10.230.42.96)', 'network_id': 'NW6',
+        {'id': 'IP22', 'name': 'iSCI (10.***.***.***)', 'network_id': 'NW6',
          'ip_port_id': 'IP_PORT8', 'appliance_id': 'A1', 'node_id': 'N2',
-         'address': '10.230.42.96', 'purposes': ['Storage_Iscsi_Target'],
+         'address': '10.***.***.***', 'purposes': ['Storage_Iscsi_Target'],
          'purposes_l10n': ['Storage Iscsi Target']},
-        {'id': 'IP23', 'name': 'iSCI (10.230.42.97)', 'network_id': 'NW6',
+        {'id': 'IP23', 'name': 'iSCI (10.***.***.***)', 'network_id': 'NW6',
          'ip_port_id': 'IP_PORT15', 'appliance_id': 'A1', 'node_id': 'N1',
-         'address': '10.230.42.97', 'purposes': ['Storage_Iscsi_Target'],
+         'address': '10.***.***.***', 'purposes': ['Storage_Iscsi_Target'],
          'purposes_l10n': ['Storage Iscsi Target']}
     ]
 
@@ -1056,9 +1056,9 @@ class CommonData(object):
         "master_appliance_id": "A1",
         "state": "Configured",
         "appliance_count": 1,
-        "management_address": "10.230.24.33",
+        "management_address": "10***.***.***",
         "is_encryption_enabled": True,
-        "storage_discovery_address": "10.230.42.228",
+        "storage_discovery_address": "10.***.***.***",
         "compatibility_level": 10,
         "state_l10n": "Configured"
     }
