@@ -10,7 +10,7 @@ Go to the root of the project where setup.py file is present, and execute:
 
 ## Examples
 
-The examples for the library are available under 'ProgrammersGuideExamples' folder.
+The examples for the library are available under [ProgrammersGuideExamples](/ProgrammersGuideExamples) folder.
 
 ```
 from PyPowerStore import powerstore_conn
