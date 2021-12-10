@@ -5,13 +5,13 @@ manage Dell EMC PowerStore.
 
 ## Installation
 
-###- PyPowerStore can be installed from pypi.org using below mentioned command:
+### PyPowerStore can be installed from pypi.org using below mentioned command:
         
         pip install PyPowerStore==<pypowerstore_version>
 
         'pypowerstore_version' needs to be replaced with actual version. 
 
-###- PyPowerStore can be installed from the source code in github using below mentioned steps:
+### PyPowerStore can be installed from the source code in github using below mentioned steps:
   
   i) go to the root of the project where setup.py file is present, and execute:
 
