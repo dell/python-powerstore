@@ -4,13 +4,22 @@ manage Dell EMC PowerStore.
 
 
 ## Installation
-Go to the root of the project where setup.py file is present, and execute:
 
-`pip install .`
+###- PyPowerStore can be installed from pypi.org using below mentioned command:
+        
+        pip install PyPowerStore==<pypowerstore_version>
+
+        'pypowerstore_version' needs to be replaced with actual version. 
+
+###- PyPowerStore can be installed from the source code in github using below mentioned steps:
+  
+  i) go to the root of the project where setup.py file is present, and execute:
+
+        pip install .
 
 ## Examples
 
-The examples for the library are available under [ProgrammersGuideExamples](/ProgrammersGuideExamples) folder.
+The examples for the library are available under 'ProgrammersGuideExamples' folder.
 
 ```
 from PyPowerStore import powerstore_conn
@@ -31,14 +40,14 @@ all_networks = conn.config_mgmt.get_networks()
 
 ## Documentation
 
-The library docs are available under [docs](/docs) folder.
+The library docs are available under 'docs' folder.
 
 
 ## Requirements
 
 This library uses python's "requests" library.
 
-PyPowerStore officially supports Python 3.5, 3.6, 3.7 and 3.8.
+PyPowerStore officially supports Python 3.7, 3.8 and 3.9.
 
 
 ## Support

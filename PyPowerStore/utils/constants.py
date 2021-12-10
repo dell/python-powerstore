@@ -22,6 +22,7 @@ MAX_LIMIT = 2000
 
 # Query params
 
+# Volume Query
 SELECT_ALL_VOLUME = {"select": "id,name,description,type,wwn,appliance_id,"
                                "state,size,creation_timestamp,"
                                "protection_policy_id,performance_policy_id,"
@@ -31,12 +32,32 @@ SELECT_ALL_VOLUME = {"select": "id,name,description,type,wwn,appliance_id,"
                                "migration_session_id,"
                                "protection_data,location_history,type_l10n,"
                                "state_l10n,host_group(name,id),host(name,id),"
-                               "volume_groups(name,id)"
+                               "volume_groups(name,id),"
+                               "mapped_volumes(id,logical_unit_number)"
                      }
+FHC_VOLUME_DETAILS_QUERY = {
+    "select": "id,name,description,type,wwn,appliance_id,state,size,"
+              "creation_timestamp,protection_policy_id,performance_policy_id,"
+              "protection_policy(name,id),performance_policy(name,id),"
+              "is_replication_destination,migration_session_id,"
+              "protection_data,location_history,type_l10n,state_l10n,"
+              "host_group(name,id),host(name,id),volume_groups(name,id),"
+              "mapped_volumes(id,logical_unit_number),nsid,nguid,"
+              "node_affinity,node_affinity_l10n"
+}
+
+# Host Query
 SELECT_ALL_HOST = {"select": "id,name,description,os_type,"
                              "host_group_id,"
-                             "host_initiators,os_type_l10n"
+                             "host_initiators,os_type_l10n,"
+                             "mapped_hosts(id,logical_unit_number,"
+                             "host_group(id,name),volume(id,name))"
                    }
+FHC_HOST_DETAILS_QUERY = {
+    "select": "id,name,description,os_type,host_group_id,host_initiators,"
+              "os_type_l10n,mapped_hosts(id,logical_unit_number,"
+              "host_group(id,name),volume(id,name)),type,type_l10n"
+}
 
 SELECT_ALL_HOST_GROUP = {"select": "name,id,description,hosts(id,name)"}
 
@@ -155,6 +176,14 @@ JOB_DETAILS_QUERY = {
               'root_id,user,response_body,step_order,'
               'resource_action_l10n,resource_type_l10n,state_l10n,phase_l10n'
 }
+FHC_JOB_DETAILS_QUERY = {
+    'select': 'id,resource_action,resource_type,resource_id,resource_name,'
+              'description_l10n,state,start_time,phase,end_time,'
+              'estimated_completion_time,progress_percentage,parent_id,'
+              'root_id,user,response_body,response_status,step_order,'
+              'resource_action_l10n,resource_type_l10n,state_l10n,phase_l10n,'
+              'response_status_l10n'
+}
 
 # Select cluster details
 CLUSTER_DETAILS_QUERY = {
@@ -221,6 +250,30 @@ APPLIANCE_DETAILS_QUERY = {
               'ip_pool_addresses'
 }
 
+# Remote System
+REMOTE_SYSTEM_DETAILS_QUERY = {
+    'select': 'id,name,description,serial_number,management_address,type,'
+              'user_name,state,data_connection_state,iscsi_addresses,'
+              'discovery_chap_mode,session_chap_mode,data_network_latency,'
+              'data_connections,type_l10n,state_l10n,'
+              'data_connection_state_l10n,discovery_chap_mode_l10n,'
+              'session_chap_mode_l10n,data_network_latency_l10n,'
+              'import_sessions,replication_sessions'
+}
+
+# Certificate details
+CERTIFICATE_DETAILS_QUERY = {
+    'select': 'id,type,type_l10n,service,service_l10n,scope,is_current,'
+               'is_valid,members(subject,serial_number,signature_algorithm,'
+               'issuer,valid_from,valid_to,public_key_algorithm,key_length,'
+               'thumbprint_algorithm,thumbprint_algorithm_l10n,thumbprint,'
+               'certificate,depth,subject_alternative_names)'
+}
+
+# Security config details
+SECURITY_CONFIG_DETAILS_QUERY = {
+    'select': 'id,idle_timeout,protocol_mode,protocol_mode_l10n'
+}
 # Select all Snapshot
 
 EQUALS = 'eq.'
@@ -301,8 +354,12 @@ REPLICATION_SESSION_FAILOVER_URL = 'https://{0}/api/rest/replication_session/{1}
 REPLICATION_SESSION_REPROTECT_URL = 'https://{0}/api/rest/replication_session/{1}/reprotect'
 
 # Remote system endpoints
-REMOTE_SYSTEM_LIST_URL = 'https://{0}/api/rest/remote_system'
-REMOTE_SYSTEM_OBJECT_URL = 'https://{0}/api/rest/remote_system/{1}'
+GET_REMOTE_SYSTEM_LIST_URL = 'https://{0}/api/rest/remote_system'
+GET_REMOTE_SYSTEM_DETAILS_URL = 'https://{0}/api/rest/remote_system/{1}'
+CREATE_REMOTE_SYSTEM_URL = GET_REMOTE_SYSTEM_LIST_URL
+MODIFY_REMOTE_SYSTEM_URL = GET_REMOTE_SYSTEM_DETAILS_URL
+DELETE_REMOTE_SYSTEM_URL = GET_REMOTE_SYSTEM_DETAILS_URL
+
 
 # Protection Policy endpoint
 PROTECTION_POLICY_LIST_URL = 'https://{0}/api/rest/policy'
@@ -420,3 +477,22 @@ MODIFY_VCENTER_URL = GET_VCENTER_DETAILS_URL
 # Appliance endpoints
 GET_APPLIANCE_LIST_URL = 'https://{0}/api/rest/appliance'
 GET_APPLIANCE_DETAILS_URL = 'https://{0}/api/rest/appliance/{1}'
+
+# Certificate endpoints
+GET_CERTIFICATE_LIST_URL = 'https://{0}/api/rest/x509_certificate'
+GET_CERTIFICATE_DETAILS_URL = 'https://{0}/api/rest/x509_certificate/{1}'
+EXCHANGE_CERTIFICATE_URL = 'https://{0}/api/rest/x509_certificate/exchange'
+CREATE_CERTIFICATE_URL = GET_CERTIFICATE_LIST_URL
+MODIFY_CERTIFICATE_URL = GET_CERTIFICATE_DETAILS_URL
+RESET_CERTIFICATE_URL = 'https://{0}/api/rest/x509_certificate/reset_certificates'
+
+# Security config endpoints
+GET_SECURITY_CONFIG_LIST_URL = 'https://{0}/api/rest/security_config'
+GET_SECURITY_CONFIG_DETAILS_URL = 'https://{0}/api/rest/security_config/{1}'
+MODIFY_SECURITY_CONFIG_URL = GET_SECURITY_CONFIG_DETAILS_URL
+
+# ads endpoints
+GET_AD_LIST_URL = 'https://{0}/api/rest/file_ftp'
+
+# ldap endpoints
+GET_LDAP_LIST_URL = 'https://{0}/api/rest/file_ldap'

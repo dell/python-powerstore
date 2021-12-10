@@ -11,7 +11,8 @@ from PyPowerStore.configuration import Configuration
 class PowerStoreConn():
     """Class for establishing connection with PowerStore"""
     def __init__(self, username, password, server_ip, verify=False,
-                 application_type=None, timeout=None, enable_log=False):
+                 application_type=None, timeout=None, enable_log=False,
+                 port_no=None):
         """ Initializes PowerStoreConn Class
 
         :param username: array username
@@ -20,6 +21,8 @@ class PowerStoreConn():
         :type password: str
         :param server_ip: The array IP
         :type server_ip: str
+        :param port_no: The port number
+        :type port_no: int
         :param verify: (optional) Whether the SSL cert will be verified
         :type verify: bool
         :param application_type: (optional) Application Type
@@ -32,7 +35,8 @@ class PowerStoreConn():
         """
         self.provisioning = Provisioning(server_ip, username, password,
                                          verify, application_type, timeout,
-                                         enable_log=enable_log)
+                                         enable_log=enable_log,
+                                         port_no=port_no)
         self.protection = ProtectionFunctions(self.provisioning,
                                               enable_log=enable_log)
         self.config_mgmt = Configuration(self.provisioning,

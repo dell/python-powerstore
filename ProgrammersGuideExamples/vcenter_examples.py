@@ -22,10 +22,11 @@ print(vcenter_details)
 
 # Register VASA provider
 param_dict = {
-'vasa_provider_credentials': {
-'username': "<<admin_user>>",
-'password': "<<admin_password>>"
+    'vasa_provider_credentials': {
+        'username': "<<admin_user>>",
+        'password': "<<admin_password>>"
+    }
 }
-}
+
 vcenter_details = CONN.config_mgmt.modify_vcenter(vcenter_id=vcenters_list[0]['id'], modify_param_dict=param_dict)
 print(vcenter_details)

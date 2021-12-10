@@ -953,6 +953,204 @@ class Configuration:
                 name=constants.EQUALS + appliance_name))
     # Appliance operations end
 
+    # Certificate operations start
+    def get_certificates(self, filter_dict=None, all_pages=None):
+        """Get all certificates.
+
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all certificates or not
+        :type all_pages: bool
+        :return: List of certificates
+        :rtype: list[dict]
+        """
+        LOG.info(
+            "Getting certificates with filter: '%s' and all_pages: '%s'"
+            % (filter_dict, all_pages))
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID, filter_dict)
+        LOG.info("Querystring: '%s'" % querystring)
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_CERTIFICATE_LIST_URL.format(self.server_ip),
+            querystring=querystring, all_pages=all_pages)
+    
+    def get_certificate_details(self, certificate_id):
+        """ Get details of a particular certificate.
+
+        :param certificate_id: ID of the certificate
+        :type certificate_id: str
+        :return: certificate details
+        :rtype: dict
+        """
+
+        LOG.info("Getting certificate details by ID: '%s'" % certificate_id)
+        querystring = constants.CERTIFICATE_DETAILS_QUERY
+
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_CERTIFICATE_DETAILS_URL.format(self.server_ip,
+                                                       certificate_id),
+            querystring=querystring
+        )
+
+    def exchange_certificate(self, exchange_cert_dict):
+        """
+        Exchange the certificates between peers for remote system
+        :param exchange_cert_dict: Exchange certificate dict includes
+        address, port, service, username and password
+        :type exchange_cert_dict: dict
+        :return: None
+        :rtype: NoneType
+        """
+        LOG.info("Exchanging certificates")
+        if 'port' not in exchange_cert_dict.keys():
+            exchange_cert_dict['port'] = 443
+        self.config_client.request(
+            constants.POST,
+            constants.EXCHANGE_CERTIFICATE_URL.format(self.server_ip),
+            exchange_cert_dict
+        )
+    def create_certificate(self, create_cert_dict):
+        """create a certificate.
+        :param create_cert_dict: The create parameters which includes type, service,
+        scope,certificate,private_key,passphrase and is_current
+        :type create_cert_dict: dict
+        :return: certificate_id if success else raise exception
+        :rtype: dict
+        """
+        LOG.info("Creating certificate")
+        payload = dict()
+        if create_cert_dict:
+            for key, value in create_cert_dict.items():
+                payload[key] = value
+
+        return self.config_client.request(
+            constants.POST, constants.CREATE_CERTIFICATE_URL.format(
+                self.server_ip,),
+            payload=payload)
+
+    def modify_certificate(self, certificate_id, modify_cert_dict):
+        """"Modify certificate properties.
+
+        :param certificate_id: ID of the certificate
+        :type certificate_id: str
+        :param modify_cert_dict: The modify parameters which include certificate and is_current
+        :type modify_cert_dict: dict
+        :return: None
+        :rtype : NoneType
+        """
+        LOG.info("Modifying certificate properties")
+
+        return self.config_client.request(
+            constants.PATCH,
+            constants.MODIFY_CERTIFICATE_URL.format(self.server_ip, certificate_id),
+            payload=modify_cert_dict
+        )
+
+    def reset_certificates(self, reset_cert_dict):
+        """Reset certificates.
+
+        :param reset_cert_dict: Contains service parameter
+        :type reset_cert_dict: dict
+        :return: None
+        :rtype : NoneType
+        """
+        LOG.info("Resetting certificates of the service: '%s'"%(
+            reset_cert_dict['service']))
+        payload = dict()
+        if reset_cert_dict:
+            for key, value in reset_cert_dict.items():
+                payload[key] = value
+
+        return self.config_client.request(
+            constants.POST, constants.RESET_CERTIFICATE_URL.format(
+                self.server_ip,),
+            payload=payload)
+
+    # Certificate operations end
+
+
+    # security configuration operations start
+
+    def get_security_configs(self, filter_dict=None, all_pages=False):
+        """ Get all security configurations.
+
+        :param filter_dict: (optional) filter dict
+        :type filter_dict: dict
+        :param all_pages: (optional) indicate whether to return all elements
+                          or not
+        :type all_pages: bool
+        :return: List of all security configs
+        :rtype: list[dict]
+        """
+        LOG.info("Getting security configs with filter: '%s'" % filter_dict)
+        if all_pages:
+            raise Exception("Pagination is not supported"
+                            "for security configs.")
+
+        if not filter_dict:
+            querystring = helpers.prepare_querystring(constants.SELECT_ID)
+            return self.config_client.request(
+                constants.GET, constants.GET_SECURITY_CONFIG_LIST_URL.format(
+                    self.server_ip), querystring=querystring, all_pages=False)
+        querystring = helpers.prepare_querystring(
+            constants.SECURITY_CONFIG_DETAILS_QUERY, filter_dict)
+        resp = self.config_client.request(
+            constants.GET,
+            constants.GET_SECURITY_CONFIG_LIST_URL.format(self.server_ip),
+            querystring=querystring, all_pages=False)
+
+        filterable_key = ['id']
+        if helpers.is_foot_hill_or_higher():
+            filterable_key = ['id', 'protocol_mode']
+        return helpers.filtered_details(filterable_key, filter_dict, resp,
+                                        'security config')
+
+    def get_security_config_details(self, security_config_id):
+        """ Get details of particular security configuration.
+
+        :param security_config_id: id of security config
+        :type security_config_id: int
+        :return: security config details
+        :rtype: dict
+        """
+        LOG.info("Getting security config details by ID: '%s'"
+                 % security_config_id)
+
+        querystring = constants.SECURITY_CONFIG_DETAILS_QUERY
+        if not helpers.is_foot_hill_or_higher():
+            querystring = {
+                'select': 'id,idle_timeout'
+            }
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_SECURITY_CONFIG_DETAILS_URL.format(
+                self.server_ip, security_config_id),
+            querystring=querystring)
+
+    def modify_security_config(self, security_config_id, protocol_mode):
+        """ Modify Security configuration.
+
+        :param security_config_id: id of security config
+        :type security_config_id: int
+        :param protocol_mode: protocol mode of security config
+        :type protocol_mode: str
+        :return: security config details
+        :rtype: dict
+        """
+        LOG.info("Modify security config properties: '%s' with params '%s'"
+                 % (security_config_id, protocol_mode))
+
+        payload = dict()
+        payload['protocol_mode'] = protocol_mode
+        return self.config_client.request(
+            constants.PATCH,
+            constants.MODIFY_SECURITY_CONFIG_URL.format(
+                self.server_ip, security_config_id), payload=payload
+        )
+    # security configuration operations end
+
     @staticmethod
     def _prepare_local_user_payload(**kwargs):
         """Prepare a local user request body using provided arguments.

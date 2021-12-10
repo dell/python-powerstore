@@ -35,18 +35,6 @@ PROTECTION_POLICY_DETAILS_QUERY = {
     'select': 'id,name,description,type,replication_rules(id,name),'
               'snapshot_rules(id,name)'
 }
-
-# Remote System
-REMOTE_SYSTEM_DETAILS_QUERY = {
-    'select': 'id,name,description,serial_number,management_address,type,'
-              'user_name,state,data_connection_state,iscsi_addresses,'
-              'discovery_chap_mode,session_chap_mode,data_network_latency,'
-              'data_connections,type_l10n,state_l10n,'
-              'data_connection_state_l10n,discovery_chap_mode_l10n,'
-              'session_chap_mode_l10n,data_network_latency_l10n,'
-              'import_sessions,replication_sessions'
-}
-
 # Replication session
 REPLICATION_SESSION_DETAILS_QUERY = {
     'select': 'id,state,role,resource_type,last_sync_timestamp,'
@@ -1136,24 +1124,55 @@ class ProtectionFunctions:
         LOG.info("Querystring: '%s'" % querystring)
         return self.rest_client.request(
             constants.GET,
-            constants.REMOTE_SYSTEM_LIST_URL.format(self.server_ip),
+            constants.GET_REMOTE_SYSTEM_LIST_URL.format(self.server_ip),
             querystring=querystring, all_pages=all_pages)
 
-    def get_remote_system_by_name(self, name):
+    def get_remote_system_by_name(self, name, remote_address=None):
         """Get remote system details by name.
 
         :param name: Remote system name.
         :type name: str
+        :param remote_address: Remote system address.
+        :type remote_address: str
         :return: Remote system with corresponding name.
         :rtype: list[dict]
         """
         LOG.info("Getting remote_system details by name: '%s'" % name)
+        filter_dict = {
+            'name': 'eq.' + name
+        }
+        if remote_address:
+            filter_dict = {
+                'name': 'eq.' + name,
+                'management_address': 'eq.' + remote_address
+            }
         return self.rest_client.request(
             constants.GET,
-            constants.REMOTE_SYSTEM_LIST_URL.format(self.server_ip),
+            constants.GET_REMOTE_SYSTEM_LIST_URL.format(self.server_ip),
             querystring=helpers.prepare_querystring(
-                constants.SELECT_ID_AND_NAME,
-                name=constants.EQUALS + name))
+                constants.REMOTE_SYSTEM_DETAILS_QUERY,
+                filter_dict))
+
+    def get_remote_system_by_mgmt_address(self, remote_address):
+        """ Get remote system details by remote management
+        address.
+
+        :param remote_address: Remote system address.
+        :type remote_address: str
+        :return: Remote system with corresponding address.
+        :rtype: list[dict]
+        """
+        LOG.info("Getting remote_system details by" \
+                 " address: '%s'" % remote_address)
+        filter_dict = {
+            'management_address': 'eq.' + remote_address
+        }
+        return self.rest_client.request(
+            constants.GET,
+            constants.GET_REMOTE_SYSTEM_LIST_URL.format(self.server_ip),
+            querystring=helpers.prepare_querystring(
+                constants.REMOTE_SYSTEM_DETAILS_QUERY,
+                filter_dict))
 
     def get_remote_system_details(self, remote_system_id):
         """Get details of a particular remote system.
@@ -1167,10 +1186,73 @@ class ProtectionFunctions:
                  % remote_system_id)
         return self.rest_client.request(
             constants.GET,
-            constants.REMOTE_SYSTEM_OBJECT_URL.format(self.server_ip,
-                                                      remote_system_id),
-            querystring=REMOTE_SYSTEM_DETAILS_QUERY
+            constants.GET_REMOTE_SYSTEM_DETAILS_URL.format(self.server_ip,
+            remote_system_id),
+            querystring=constants.REMOTE_SYSTEM_DETAILS_QUERY
         )
+    
+    def create_remote_system(self, create_remote_sys_dict):
+        """
+        Create a new remote system
+        :params create_remote_sys_dict: The create dictionary includes
+        management_address, description and data_network_latency keys.
+        :type create_remote_sys_dict: dict
+        :return: Remote system details.
+        :rtype: dict
+        """
+        LOG.info("Creating a remote system")
+ 
+        response = self.rest_client.request(
+            constants.POST,
+            constants.CREATE_REMOTE_SYSTEM_URL.format(self.server_ip),
+            create_remote_sys_dict
+        )
+        if isinstance(response, dict) and response.get('id'):
+            return self.get_remote_system_details(response['id'])
+        return response
+
+    def modify_remote_system(self,remote_system_id, modify_remote_sys_dict, is_async=True):
+        """
+        Modify a remote system
+        :params remote_system_id: ID of the remote system.
+        :type remote_system_id: str
+        :params modify_remote_sys_dict: The modify dictionary includes
+        management_address, description and data_network_latency keys.
+        :type modify_remote_sys_dict: dict
+        :return: Remote system details.
+        :param is_async: Flag to indicate sync/async operation
+        :type is_async: bool
+        :rtype: dict
+        """
+        LOG.info("Modifying a remote system")
+        modify_url = constants.MODIFY_REMOTE_SYSTEM_URL
+        if is_async:
+            modify_url = modify_url + "?is_async=true"
+        return self.rest_client.request(
+            constants.PATCH,
+            modify_url.format(self.server_ip,
+            remote_system_id),
+            modify_remote_sys_dict
+        )
+
+    
+    def delete_remote_system(self, remote_system_id, is_async=True):
+        """ Delete a remote system.
+
+        :param remote_system_id: Remote system ID.
+        :type remote_system_id: str
+        :param is_async: Flag to indicate sync/async operation
+        :type is_async: bool
+        """
+        LOG.info("Deleting remote system: '%s'"
+                 % remote_system_id)
+        delete_url = constants.DELETE_REMOTE_SYSTEM_URL
+        if is_async:
+            delete_url = delete_url + "?is_async=true"
+        return self.rest_client.request(
+            constants.DELETE,
+            delete_url.format(self.server_ip, remote_system_id))
+
 
     # Remote System end
 

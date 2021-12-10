@@ -26,6 +26,11 @@ from PyPowerStore.tests.unit_tests.entity.cluster import ClusterResponse
 from PyPowerStore.tests.unit_tests.entity.service_user import ServiceUserResponse
 from PyPowerStore.tests.unit_tests.entity.service_config import ServiceConfigResponse
 from PyPowerStore.tests.unit_tests.entity.chap_config import ChapConfigResponse
+from PyPowerStore.tests.unit_tests.entity.certificate import CertificateResponse
+from PyPowerStore.tests.unit_tests.entity.security_config import SecurityConfigResponse
+from PyPowerStore.tests.unit_tests.entity.remote_system import RemoteSystemResponse
+from PyPowerStore.tests.unit_tests.entity.ads import AdsResponse
+from PyPowerStore.tests.unit_tests.entity.ldap import LdapResponse
 import json
 
 # map the entity class name with the url resource name
@@ -57,7 +62,12 @@ ENTITY_CLASS_MAPPING = {
     'cluster': ClusterResponse,
     'service_user': ServiceUserResponse,
     'service_config': ServiceConfigResponse,
-    'chap_config': ChapConfigResponse
+    'chap_config': ChapConfigResponse,
+    'x509_certificate': CertificateResponse,
+    'security_config': SecurityConfigResponse,
+    'remote_system': RemoteSystemResponse,
+    'file_ftp': AdsResponse,
+    'file_ldap': LdapResponse
 }
 
 
