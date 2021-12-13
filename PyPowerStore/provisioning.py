@@ -13,11 +13,13 @@ LOG = helpers.get_logger(__name__)
 class Provisioning:
     """Provisioning related functionality for PowerStore."""
     def __init__(self, server_ip, username, password, verify,
-                 application_type, timeout, enable_log=False):
+                 application_type, timeout, enable_log=False, port_no=None):
         """ Initializes Provisioning Class
 
         :param server_ip: The array IP
         :type server_ip: str
+        :param port_no: The port number
+        :type port_no: int
         :param username: array username
         :type username: str
         :param password: array password
@@ -33,7 +35,9 @@ class Provisioning:
         :type enable_log: bool
         """
         global LOG
-        self.server_ip = server_ip
+        if port_no is None:
+            port_no = 443
+        self.server_ip = server_ip + ":" + str(port_no)
         self.client = Client(username, password, verify, application_type,
                              timeout, enable_log=enable_log)
         LOG = helpers.get_logger(__name__, enable_log=enable_log)
@@ -346,10 +350,13 @@ class Provisioning:
         :rtype: dict
         """
         LOG.info("Getting volume details by ID: '%s'" % volume_id)
+        querystring = constants.SELECT_ALL_VOLUME
+        if helpers.is_foot_hill_or_higher():
+            querystring = constants.FHC_VOLUME_DETAILS_QUERY
         resp = self.client.request(constants.GET,
                                    constants.GET_VOLUME_DETAILS_URL.format
                                    (self.server_ip, volume_id), payload=None,
-                                   querystring=constants.SELECT_ALL_VOLUME)
+                                   querystring=querystring)
 
         hlu_details = self.get_host_volume_mapping(volume_id=volume_id)
 
@@ -452,10 +459,13 @@ class Provisioning:
         :rtype: dict
         """
         LOG.info("Getting host details by ID: '%s'" % host_id)
+        querystring = constants.SELECT_ALL_HOST
+        if helpers.is_foot_hill_or_higher():
+            querystring = constants.FHC_HOST_DETAILS_QUERY
         return self.client.request(constants.GET,
                                    constants.GET_HOST_DETAILS_URL.format(
                                        self.server_ip, host_id), payload=None,
-                                   querystring=constants.SELECT_ALL_HOST)
+                                   querystring=querystring)
 
     def modify_host(self, host_id, name=None, description=None,
                     remove_initiators=None, add_initiators=None,
@@ -1772,15 +1782,7 @@ class Provisioning:
         LOG.info("Getting job details: '%s'" % job_id)
         querystring = constants.JOB_DETAILS_QUERY
         if helpers.is_foot_hill_or_higher():
-            querystring = {
-                'select': 'id,resource_action,resource_type,resource_id,'
-                          'resource_name,description_l10n,state,start_time,'
-                          'phase,end_time,estimated_completion_time,'
-                          'progress_percentage,parent_id,root_id,user,'
-                          'response_body,response_status,step_order,'
-                          'resource_action_l10n,resource_type_l10n,'
-                          'state_l10n,phase_l10n,response_status_l10n'
-            }
+            querystring = constants.FHC_JOB_DETAILS_QUERY
         return self.client.request(
             constants.GET,
             constants.GET_JOB_DETAILS_URL.format(self.server_ip, job_id),
@@ -1788,3 +1790,54 @@ class Provisioning:
         )
 
     # Job Methods end
+
+    # AD methods start
+
+    def get_file_ads(self, filter_dict=None, all_pages=False):
+        """Get a list of active directories.
+
+        :param filter_dict: (optional) Filter detail
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all element
+                          or not
+        :type all_pages: bool
+        :returns: active directories
+        :rtype: list of dict
+        """
+        LOG.info("Getting active directories with filter: '%s' and all_pages: %s"
+                 % (filter_dict, all_pages))
+        querystring = helpers.prepare_querystring(filter_dict)
+        LOG.info("Querystring: '%s'" % querystring)
+        return self.client.request(constants.GET,
+                                   constants.GET_AD_LIST_URL.format
+                                   (self.server_ip), payload=None,
+                                   querystring=querystring,
+                                   all_pages=all_pages)
+
+
+    # AD Methods end
+
+    # LDAP method start
+
+    def get_file_ldaps(self, filter_dict=None, all_pages=False):
+        """Get a list of ldap.
+
+        :param filter_dict: (optional) Filter detail
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all element
+                          or not
+        :type all_pages: bool
+        :returns: ldap
+        :rtype: list of dict
+        """
+        LOG.info("Getting ldap with filter: '%s' and all_pages: %s"
+                 % (filter_dict, all_pages))
+        querystring = helpers.prepare_querystring(filter_dict)
+        LOG.info("Querystring: '%s'" % querystring)
+        return self.client.request(constants.GET,
+                                   constants.GET_LDAP_LIST_URL.format
+                                   (self.server_ip), payload=None,
+                                   querystring=querystring,
+                                   all_pages=all_pages)
+
+    #LDAP method end

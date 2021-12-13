@@ -93,7 +93,8 @@ def filtered_details(filterable_keys, filter_dict, resource_list,
                 temp_dict = dict()
                 temp_dict['id'] = resource['id']
                 # check if resource has 'name' parameter or not.
-                if resource_name not in ["CHAP config", "service config"]:
+                if resource_name not in ["CHAP config", "service config",
+                                         "security config"]:
                     temp_dict['name'] = resource['name']
                 response.append(temp_dict)
     return response

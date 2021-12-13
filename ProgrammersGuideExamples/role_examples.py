@@ -24,4 +24,3 @@ print(role_details)
 # Get role details by name
 role_details = CONN.config_mgmt.get_role_by_name(name=roles_list[0]['name'])
 print(role_details)
-
