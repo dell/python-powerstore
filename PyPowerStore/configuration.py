@@ -301,7 +301,7 @@ class Configuration:
         """create a local user.
 
         :param create_params: The create params
-        :type create_params: list<disc>
+        :type create_params: list<dict>
         :return: user id if success else raise exception
         :rtype: None
         """
@@ -1111,7 +1111,7 @@ class Configuration:
         """ Get details of particular security configuration.
 
         :param security_config_id: id of security config
-        :type security_config_id: int
+        :type security_config_id: str
         :return: security config details
         :rtype: dict
         """
@@ -1133,11 +1133,11 @@ class Configuration:
         """ Modify Security configuration.
 
         :param security_config_id: id of security config
-        :type security_config_id: int
+        :type security_config_id: str
         :param protocol_mode: protocol mode of security config
         :type protocol_mode: str
-        :return: security config details
-        :rtype: dict
+        :return: None
+        :rtype: None
         """
         LOG.info("Modify security config properties: '%s' with params '%s'"
                  % (security_config_id, protocol_mode))
@@ -1150,6 +1150,543 @@ class Configuration:
                 self.server_ip, security_config_id), payload=payload
         )
     # security configuration operations end
+
+    # email operations start
+
+    def get_destination_emails(self, filter_dict=None, all_pages=False):
+        """Get all destination email addresses.
+
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all elements
+                          or not
+        :type all_pages: bool
+        :return: destination emails.
+        :rtype: list[dict]
+        """
+        LOG.info(
+            "Getting email addresses with filter: '%s' and all_pages: '%s'"
+            % (filter_dict, all_pages))
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID_AND_ADDRESS, filter_dict)
+        LOG.info("Querystring: '%s'" % querystring)
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_EMAIL_LIST_URL.format(self.server_ip),
+            querystring=querystring, all_pages=all_pages)
+
+    def get_destination_email_details(self, email_id):
+        """ Get details of particular email notification destination.
+
+        :param email_id: id of email notification destination
+        :type email_id: str
+        :return: email details
+        :rtype: dict
+        """
+        LOG.info("Getting email details by ID: '%s'"
+                 % email_id)
+
+        querystring = constants.EMAIL_DETAILS_QUERY
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_EMAIL_DETAILS_URL.format(
+                self.server_ip, email_id),
+            querystring=querystring)
+
+    def get_destination_email_by_address(self, email_address):
+        """Get destination email details by address.
+
+        :param email_address: Destination email address.
+        :type email_address: str
+        :return: Destination email details with corresponding email_address.
+        :rtype: list[dict]
+        """
+        LOG.info("Getting destination email details by address: '%s'" % email_address)
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_EMAIL_LIST_URL.format(self.server_ip),
+            querystring=helpers.prepare_querystring(
+                constants.EMAIL_DETAILS_QUERY,
+                email_address=constants.EQUALS + email_address))
+
+    def modify_destination_email_details(self, email_id, modify_parameters):
+        """Modify destination_email properties.
+
+        :param email_id: ID of the email destination 
+        :type email_id: str
+        :param modify_parameters: Dictionary containing attributes to be
+                                    modified for the email address
+        :type modify_parameters: dict
+        :return: None
+        :rtype : None
+        """
+        LOG.info("Modifying destination email properties: '%s' with params '%s'" % (
+            email_id, modify_parameters))
+
+        email_url = constants.MODIFY_EMAIL_URL
+        return self.config_client.request(
+            constants.PATCH,
+            email_url.format(self.server_ip, email_id),
+            payload=modify_parameters
+        )
+
+    def delete_destination_email(self, email_id):
+        """Delete a destination_email.
+
+        :param email_id: ID of the email destination
+        :type email_id: str
+        :return: None if success else raise exception
+        :rtype: None
+        """
+        LOG.info("Deleting email id: '%s'" % email_id)
+        return self.config_client.request(
+            constants.DELETE, constants.DELETE_EMAIL_URL.format(
+                self.server_ip, email_id),
+            payload=None)
+
+    def test_destination_email(self, email_id):
+        """Send a test mail to the destination.
+
+        :param email_id: ID of the email destination
+        :type email_id: str
+        :return: None if success else raise exception
+        :rtype: None
+        """
+        LOG.info("Testing email id: '%s'" % email_id)
+        return self.config_client.request(
+            constants.POST, constants.TEST_EMAIL_URL.format(
+                self.server_ip, email_id),
+            payload=None)
+
+    def create_destination_email(self, create_params):
+        """create a destination_email.
+
+        :param create_params: The create params
+        :type create_params: list<dict>
+        :return: email id if success else raise exception
+        :rtype: dict
+        """
+        LOG.info("creating email notification destination")
+
+        payload = dict()
+        if create_params:
+            for key, value in create_params.items():
+                payload[key] = value
+
+        return self.config_client.request(
+            constants.POST, constants.CREATE_EMAIL_URL.format(
+                self.server_ip,),
+            payload=payload)
+
+    # email operations end
+
+    # smtp operations start
+
+    def get_smtp_configs(self, filter_dict=None, all_pages=None):
+        """Get all SMTP configurationss.
+
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all smtp servers or not
+        :type all_pages: bool
+        :return: List of SMTP servers
+        :rtype: list[dict]
+        """
+        LOG.info(
+            "Getting SMTP configs with filter: '%s' and all_pages: '%s'"
+            % (filter_dict, all_pages))
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID, filter_dict)
+        LOG.info("Querystring: '%s'" % querystring)
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_SMTP_LIST_URL.format(self.server_ip),
+            querystring=querystring, all_pages=all_pages)
+
+    def get_smtp_config_details(self, smtp_id):
+        """ Get details of an SMTP configuration instance.
+
+        :param smtp_id: Unique identifier of smtp configuration
+        :type smtp_id: str
+        :return: smtp details
+        :rtype: dict
+        """
+        LOG.info("Getting SMTP config details by ID: '%s'"
+                 % smtp_id)
+
+        querystring = constants.SMTP_DETAILS_QUERY
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_SMTP_DETAILS_URL.format(
+                self.server_ip, smtp_id),
+            querystring=querystring)
+
+    def modify_smtp_config_details(self, smtp_id, modify_parameters):
+        """Modify SMTP configuration properties.
+
+        :param smtp_id: ID of the SMTP configuration 
+        :type smtp_id: str
+        :param modify_parameters: Dictionary containing attributes to be
+                                    modified for the SMTP configuration
+        :type modify_parameters: dict
+        :return: None
+        :rtype : None
+        """
+        LOG.info("Modifying SMTP configuration properties: '%s' with params '%s'" % (
+            smtp_id, modify_parameters))
+
+        smtp_url = constants.MODIFY_SMTP_URL
+        return self.config_client.request(
+            constants.PATCH,
+            smtp_url.format(self.server_ip, smtp_id),
+            payload=modify_parameters)
+
+    def test_smtp_config(self, smtp_id, test_parameters):
+        """Send a test mail from the SMTP configuration.
+
+        :param smtp_id: ID of the SMTP configuration
+        :type smtp_id: str
+        :param test_parameters: Dictionary containing destination
+                                email address for the SMTP configuration
+        :type test_parameters: dict
+        :return: None if success else raise exception
+        :rtype: None
+        """
+        LOG.info("Testing smtp id: '%s'" % smtp_id)
+        return self.config_client.request(
+            constants.POST, constants.TEST_SMTP_URL.format(
+                self.server_ip, smtp_id),
+            payload=test_parameters)
+
+    # smtp operations end
+
+    # dns operations start
+
+    def get_dns_list(self, filter_dict=None, all_pages=None):
+        """Get all DNS servers available on array.
+
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all DNS or not
+        :type all_pages: bool
+        :return: List of DNS on array
+        :rtype: list[dict]
+        """
+        LOG.info(
+            "Getting all DNS servers with filter: '%s' and all_pages: '%s'"
+            % (filter_dict, all_pages))
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID, filter_dict)
+        LOG.info("Querystring: '%s'" % querystring)
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_DNS_LIST_URL.format(self.server_ip),
+            querystring=querystring, all_pages=all_pages)
+
+    def get_dns_details(self, dns_id):
+        """ Get details of a DNS instance.
+
+        :param dns_id: Unique identifier of the DNS setting
+        :type dns_id: str
+        :return: DNS setting details
+        :rtype: dict
+        """
+        LOG.info("Getting DNS details by ID: '%s'"
+                 % dns_id)
+
+        querystring = constants.DNS_DETAILS_QUERY
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_DNS_DETAILS_URL.format(
+                self.server_ip, dns_id),
+            querystring=querystring)
+
+
+    def modify_dns_details(self, dns_id, modify_parameters):
+        """Modify DNS properties.
+
+        :param dns_id: Unique identifier of the DNS setting 
+        :type dns_id: str
+        :param modify_parameters: Dictionary containing list of
+                                  DNS server addresses in IPv4 format
+        :type modify_parameters: dict
+        :return: None
+        :rtype : None
+        """
+        LOG.info("Modifying DNS : '%s' with params '%s'" % (
+            dns_id, modify_parameters))
+
+        dns_url = constants.MODIFY_DNS_URL
+        return self.config_client.request(
+            constants.PATCH,
+            dns_url.format(self.server_ip, dns_id),
+            payload=modify_parameters) 
+
+    # dns operations end
+
+    # NTP operations start
+    def get_ntp_list(self, filter_dict=None, all_pages=None):
+        """Get all NTP servers available on array.
+
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all NTP
+                          or not
+        :type all_pages: bool
+        :return: List of NTP on array
+        :rtype: list[dict]
+        """
+        LOG.info(
+            "Getting all NTP servers with filter: '%s' and all_pages: '%s'"
+            % (filter_dict, all_pages))
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID, filter_dict)
+        LOG.info("Querystring: '%s'" % querystring)
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_NTP_LIST_URL.format(self.server_ip),
+            querystring=querystring, all_pages=all_pages)
+
+    def get_ntp_details(self, ntp_id):
+        """ Get details of a NTP instance.
+
+        :param ntp_id: Unique identifier of the NTP setting
+        :type ntp_id: str
+        :return: NTP setting details
+        :rtype: dict
+        """
+        LOG.info("Getting NTP details by ID: '%s'"
+                 % ntp_id)
+
+        querystring = constants.NTP_DETAILS_QUERY
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_NTP_DETAILS_URL.format(
+                self.server_ip, ntp_id),
+            querystring=querystring)
+
+    def modify_ntp_details(self, ntp_id, modify_parameters):
+        """Modify NTP properties.
+
+        :param ntp_id: Unique identifier of the NTP setting
+        :type ntp_id: str
+        :param modify_parameters: Dictionary containing list of
+                                  NTP server addresses, could be host names or
+                                  IPv4 addresses
+        :type modify_parameters: dict
+        :return: None
+        :rtype : None
+        """
+        LOG.info("Modifying NTP : '%s' with params '%s'" % (
+            ntp_id, modify_parameters))
+
+        ntp_url = constants.MODIFY_NTP_URL
+        return self.config_client.request(
+            constants.PATCH,
+            ntp_url.format(self.server_ip, ntp_id),
+            payload=modify_parameters)
+    # NTP operations end
+
+    # Remote Support operations start
+
+    def get_remote_support_list(self, filter_dict=None, all_pages=None):
+        """Get all Remote Support configurations available on array.
+
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all remote
+                          support configurations or not
+        :type all_pages: bool
+        :return: List of remote support configurations on array
+        :rtype: list[dict]
+        """
+        LOG.info(
+            "Getting all remote_support with filter: '%s' and all_pages: '%s'"
+            % (filter_dict, all_pages))
+        if helpers.is_foot_hill_or_higher():
+            querystring = helpers.prepare_querystring(
+                constants.SELECT_ID, filter_dict)
+            LOG.info("Querystring: '%s'" % querystring)
+            return self.config_client.request(
+                constants.GET,
+                constants.GET_REMOTE_SUPPORT_LIST_URL.format(self.server_ip),
+                querystring=querystring, all_pages=all_pages)
+
+        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+
+    def get_remote_support_details(self, remote_support_id,
+                                   return_support_license_text=False):
+        """ Get details of a remote support configuration instance.
+
+        :param remote_support_id: Unique identifier of the remote support configuration
+        :type remote_support_id: str
+        :return: remote support configuration details
+        :rtype: dict
+        """
+        LOG.info("Getting remote_support details by ID: '%s'"
+                 % remote_support_id)
+        if helpers.is_foot_hill_or_higher():
+            querystring = constants.REMOTE_SUPPORT_DETAILS_QUERY
+            if return_support_license_text is True:
+                querystring['select'] = querystring['select']+',support_assist_license_agreement_text'
+
+            return self.config_client.request(
+                constants.GET,
+                constants.GET_REMOTE_SUPPORT_DETAILS_URL.format(
+                    self.server_ip, remote_support_id),
+                querystring=querystring)
+
+        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+
+    def modify_remote_support_details(self, remote_support_id, modify_parameters,
+                                      is_async=False):
+        """Modify remote support configuration properties.
+
+        :param remote_support_id: Unique identifier of the remote support configuration
+        :type remote_support_id: str
+        :param modify_parameters: Dictionary containing list of parameters of 
+                                  remote support configuration to be modified.
+        :type modify_parameters: dict
+        :return: None
+        :rtype : None
+        """
+        LOG.info("Modifying remote_support : '%s' with params '%s'" % (
+            remote_support_id, modify_parameters))
+        if helpers.is_foot_hill_or_higher():
+            remote_support_url = constants.MODIFY_REMOTE_SUPPORT_URL
+            if is_async:
+                remote_support_url = remote_support_url + "?is_async=true"
+            return self.config_client.request(
+                constants.PATCH,
+                remote_support_url.format(self.server_ip, remote_support_id),
+                payload=modify_parameters)
+
+        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+
+    def verify_remote_support_config(self, remote_support_id, verify_parameters):
+        """Verify remote support configuration .
+
+        :param remote_support_id: Unique identifier of the remote support configuration
+        :type remote_support_id: str
+        :param verify_parameters: Dictionary containing list of
+                                  parameters to verify the remote 
+                                  support configuration
+        :type verify_parameters: dict
+        :return: None
+        :rtype : None
+        """
+        LOG.info("Verifying remote_support : '%s' with params '%s'" % (
+            remote_support_id, verify_parameters))
+        if helpers.is_foot_hill_or_higher():
+            remote_support_url = constants.VERIFY_REMOTE_SUPPORT_URL
+            return self.config_client.request(
+                constants.POST,
+                remote_support_url.format(self.server_ip, remote_support_id),
+                payload=verify_parameters)
+
+        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+
+    def test_remote_support_config(self, remote_support_id):
+        """Send a test alert for the remote support configuration.
+
+        :param remote_support_id: Unique identifier of the remote support configuration
+        :type remote_support_id: str
+        :return: None
+        :rtype : None
+        """
+        LOG.info("Sending a test alert for remote_support : '%s'" % (
+            remote_support_id))
+        if helpers.is_foot_hill_or_higher():
+            remote_support_url = constants.SEND_ALERT_REMOTE_SUPPORT_URL
+            return self.config_client.request(
+                constants.POST,
+                remote_support_url.format(self.server_ip, remote_support_id))
+
+        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+
+    # Remote Support operations end
+
+    # Remote Support conatct operations start
+
+    def get_remote_support_contact_list(self, filter_dict=None, all_pages=None):
+        """Get all remote support contacts available on array.
+
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all 
+                          remote support contacts or not
+        :type all_pages: bool
+        :return: List of remote support contacts on array
+        :rtype: list[dict]
+        """
+        LOG.info(
+            "Getting all remote support contact with filter: '%s' and all_pages: '%s'"
+            % (filter_dict, all_pages))
+        if helpers.is_foot_hill_or_higher():
+            querystring = helpers.prepare_querystring(
+                constants.SELECT_ID, filter_dict)
+            LOG.info("Querystring: '%s'" % querystring)
+            array_version = self.provisioning.get_array_version()
+            if array_version == '2.0.0.0':
+                resp = self.config_client.request(
+                    constants.GET,
+                    constants.GET_REMOTE_SUPPORT_CONTACT_LIST_URL.format(self.server_ip),
+                    querystring=constants.REMOTE_SUPPORT_CONTACT_DETAILS_QUERY, all_pages=False)
+
+                filterable_keys = ['id', 'email', 'first_name', 'last_name', 'phone']
+                return helpers.filtered_details(filterable_keys, filter_dict,
+                                                resp, 'remote_support_contact')
+            else:
+                return self.config_client.request(
+                    constants.GET,
+                    constants.GET_REMOTE_SUPPORT_CONTACT_LIST_URL.format(self.server_ip),
+                    querystring=querystring, all_pages=all_pages)
+
+        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+
+    def get_remote_support_contact_details(self, remote_support_contact_id):
+        """ Get details of a remote support contact instance.
+
+        :param remote_support_contact_id: Unique identifier of the remote support contacts
+        :type remote_support_contact_id: str
+        :return: remote support contacts details
+        :rtype: dict
+        """
+        LOG.info("Getting remote support contact details by ID: '%s'"
+                 % remote_support_contact_id)
+        if helpers.is_foot_hill_or_higher():
+            querystring = constants.REMOTE_SUPPORT_CONTACT_DETAILS_QUERY
+            return self.config_client.request(
+                constants.GET,
+                constants.GET_REMOTE_SUPPORT_CONTACT_DETAILS_URL.format(
+                    self.server_ip, remote_support_contact_id),
+                querystring=querystring)
+
+        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+
+    def modify_remote_support_contact_details(self, remote_support_contact_id, modify_parameters):
+        """Modify remote support contacts properties.
+
+        :param remote_support_contact_id: Unique identifier of the remote support contacts
+        :type remote_support_contact_id: str
+        :param modify_parameters: Dictionary containing list of parameters of
+                                  remote support contact to be modified.
+        :type modify_parameters: dict
+        :return: None
+        :rtype : None
+        """
+        LOG.info("Modifying remote support contact : '%s' with params '%s'" % (
+            remote_support_contact_id, modify_parameters))
+        print(remote_support_contact_id)
+        if helpers.is_foot_hill_or_higher():
+            remote_support_contact_url = constants.MODIFY_REMOTE_SUPPORT_CONTACT_URL
+            return self.config_client.request(
+                constants.PATCH,
+                remote_support_contact_url.format(self.server_ip, remote_support_contact_id),
+                payload=modify_parameters)
+        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+
+    # Remote Support conatct operations end
 
     @staticmethod
     def _prepare_local_user_payload(**kwargs):
@@ -1177,4 +1714,3 @@ class Configuration:
             if kwargs.get(argname) is not None:
                 payload[argname] = kwargs[argname]
         return payload
-

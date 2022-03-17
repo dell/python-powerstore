@@ -31,6 +31,12 @@ from PyPowerStore.tests.unit_tests.entity.security_config import SecurityConfigR
 from PyPowerStore.tests.unit_tests.entity.remote_system import RemoteSystemResponse
 from PyPowerStore.tests.unit_tests.entity.ads import AdsResponse
 from PyPowerStore.tests.unit_tests.entity.ldap import LdapResponse
+from PyPowerStore.tests.unit_tests.entity.email import EmailResponse
+from PyPowerStore.tests.unit_tests.entity.smtp_config import SmtpConfigResponse
+from PyPowerStore.tests.unit_tests.entity.dns import DnsResponse
+from PyPowerStore.tests.unit_tests.entity.ntp import NtpResponse
+from PyPowerStore.tests.unit_tests.entity.remote_support import RemoteSupportResponse
+from PyPowerStore.tests.unit_tests.entity.remote_support_contact import RemoteSupportContactResponse
 import json
 
 # map the entity class name with the url resource name
@@ -67,7 +73,13 @@ ENTITY_CLASS_MAPPING = {
     'security_config': SecurityConfigResponse,
     'remote_system': RemoteSystemResponse,
     'file_ftp': AdsResponse,
-    'file_ldap': LdapResponse
+    'file_ldap': LdapResponse,
+    'email_notify_destination': EmailResponse,
+    'smtp_config': SmtpConfigResponse,
+    'dns': DnsResponse,
+    'ntp': NtpResponse,
+    'remote_support': RemoteSupportResponse,
+    'remote_support_contact': RemoteSupportContactResponse
 }
 
 
