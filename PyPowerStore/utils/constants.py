@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019-2021, Dell EMC
+# Copyright: (c) 2019, Dell EMC
 
 """Module for PowerStore constants"""
 
@@ -86,6 +86,7 @@ SELECT_ID_AND_NAME = {"select": "id,name"}
 # For getting the list of appliances (mentioned in configuration.py)
 SELECT_ID_NAME_AND_MODEL = {"select": "id,name,model"}
 SELECT_ID = {"select": "id"}
+SELECT_ID_AND_ADDRESS = {"select": "id,email_address"}
 SELECT_VERSION = {"select": "release_version"}
 SELECT_ID_AND_PATH = {"select": "id,path"}
 SELECT_ALL_HOST_VOLUME_MAPPING = {"select": "id, host_id, host_group_id,"
@@ -273,6 +274,38 @@ CERTIFICATE_DETAILS_QUERY = {
 # Security config details
 SECURITY_CONFIG_DETAILS_QUERY = {
     'select': 'id,idle_timeout,protocol_mode,protocol_mode_l10n'
+}
+
+# Email details
+EMAIL_DETAILS_QUERY = {
+     'select': 'id,email_address,notify_critical,notify_major,notify_minor,notify_info'
+}
+
+# SMTP details
+SMTP_DETAILS_QUERY = {
+      'select': 'id,address,port,source_email'
+}
+
+# DNS details
+DNS_DETAILS_QUERY = {
+      'select': 'id,addresses'
+}
+# NTP details
+NTP_DETAILS_QUERY = {
+    'select': 'id,addresses'
+}
+
+# Remote Support details
+REMOTE_SUPPORT_DETAILS_QUERY = {
+    'select': 'id,type,is_cloudiq_enabled,is_support_assist_license_accepted,'
+              'is_rsc_enabled,connectivity_status,last_update,remote_support_servers,'
+              'proxy_address,proxy_port,proxy_username,policy_manager_address,'
+              'policy_manager_port,type_l10n,connectivity_status_l10n'
+}
+
+# Remote Support Contact details
+REMOTE_SUPPORT_CONTACT_DETAILS_QUERY = {
+    'select': 'id,email,first_name,last_name,phone'
 }
 # Select all Snapshot
 
@@ -496,3 +529,39 @@ GET_AD_LIST_URL = 'https://{0}/api/rest/file_ftp'
 
 # ldap endpoints
 GET_LDAP_LIST_URL = 'https://{0}/api/rest/file_ldap'
+
+# Email endpoints
+GET_EMAIL_LIST_URL = 'https://{0}/api/rest/email_notify_destination'
+GET_EMAIL_DETAILS_URL = 'https://{0}/api/rest/email_notify_destination/{1}'
+CREATE_EMAIL_URL = GET_EMAIL_LIST_URL
+MODIFY_EMAIL_URL = GET_EMAIL_DETAILS_URL
+DELETE_EMAIL_URL = GET_EMAIL_DETAILS_URL
+TEST_EMAIL_URL = 'https://{0}/api/rest/email_notify_destination/{1}/test'
+
+# SMTP endpoints
+GET_SMTP_LIST_URL = 'https://{0}/api/rest/smtp_config'
+GET_SMTP_DETAILS_URL = 'https://{0}/api/rest/smtp_config/{1}'
+MODIFY_SMTP_URL = GET_SMTP_DETAILS_URL
+TEST_SMTP_URL = 'https://{0}/api/rest/smtp_config/{1}/test'
+
+# DNS endpoints
+GET_DNS_LIST_URL = 'https://{0}/api/rest/dns'
+GET_DNS_DETAILS_URL = 'https://{0}/api/rest/dns/{1}'
+MODIFY_DNS_URL = GET_DNS_DETAILS_URL
+
+# NTP endpoints
+GET_NTP_LIST_URL = 'https://{0}/api/rest/ntp'
+GET_NTP_DETAILS_URL = 'https://{0}/api/rest/ntp/{1}'
+MODIFY_NTP_URL = GET_NTP_DETAILS_URL
+
+# Remote Support endpoints
+GET_REMOTE_SUPPORT_LIST_URL = 'https://{0}/api/rest/remote_support'
+GET_REMOTE_SUPPORT_DETAILS_URL = 'https://{0}/api/rest/remote_support/{1}'
+MODIFY_REMOTE_SUPPORT_URL = GET_REMOTE_SUPPORT_DETAILS_URL
+VERIFY_REMOTE_SUPPORT_URL = 'https://{0}/api/rest/remote_support/{1}/verify'
+SEND_ALERT_REMOTE_SUPPORT_URL = 'https://{0}/api/rest/remote_support/{1}/send_test_alert'
+
+# Remote Support Contact endpoints
+GET_REMOTE_SUPPORT_CONTACT_LIST_URL = 'https://{0}/api/rest/remote_support_contact'
+GET_REMOTE_SUPPORT_CONTACT_DETAILS_URL = 'https://{0}/api/rest/remote_support_contact/{1}'
+MODIFY_REMOTE_SUPPORT_CONTACT_URL = GET_REMOTE_SUPPORT_CONTACT_DETAILS_URL

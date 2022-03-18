@@ -56,7 +56,7 @@ def is_foot_hill_or_higher():
     foot_hill_version = '2.0.0.0'
     array_version = provisioning_obj.get_array_version()
     if array_version and (
-            parse_version(array_version) >= parse_version(foot_hill_version)):
+            parse_version(array_version[0:7]) >= parse_version(foot_hill_version)):
         return True
     return False
 
@@ -94,7 +94,7 @@ def filtered_details(filterable_keys, filter_dict, resource_list,
                 temp_dict['id'] = resource['id']
                 # check if resource has 'name' parameter or not.
                 if resource_name not in ["CHAP config", "service config",
-                                         "security config"]:
+                                         "security config", "remote_support_contact"]:
                     temp_dict['name'] = resource['name']
                 response.append(temp_dict)
     return response

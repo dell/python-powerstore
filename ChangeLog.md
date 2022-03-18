@@ -1,8 +1,11 @@
 # PyPowerStore Change Log
 
+## Version 1.6.0 - released on 25/03/22
+- Added configuration operations includes SMTP configuration, email notification, NTP servers, DNS servers, remote support and remote support contacts and getting high level facts about all these entities.
+
 ## Version 1.5.0 - released on 16/12/21
-- Added configuration operations includes certificates and security configuration.
-- Added protection operations includes remote systems.
+- Added configuration operations includes certificates and security configuration and getting high level facts about all these entities.
+- Added protection operations includes remote systems and getting high level facts about remote systems.
 
 ## Version 1.4.0 - released on 25/09/21
 - Added configuration operations includes managing clusters, networks, local users and getting high level facts about all these entities.

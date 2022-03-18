@@ -21,7 +21,7 @@ LOG = helpers.get_logger(__name__)
 
 # Codes
 VALID_CODES = [200, 201, 202, 204, 206, 207]
-
+ENGVIS_LIST = ["remote_support"]
 
 class Client():
     """Client class for PowerStore"""
@@ -79,6 +79,9 @@ class Client():
         split_host = url.split('/')
         auth_headers = {}
         auth_headers = self.get_auth_token(split_host[2], headers)
+
+        if split_host[5] in ENGVIS_LIST:
+            headers['DELL-VISIBILITY'] = 'internal'
 
         if auth_headers:
             headers.update(auth_headers)

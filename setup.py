@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019-2021, Dell EMC
+# Copyright: (c) 2019, Dell EMC
 
 """Setup file for PowerStore SDK"""
 
@@ -10,9 +10,9 @@ except ImportError:
 
 
 setup(name='PyPowerStore',
-      version='1.5.0.0',
-      description='Python Library for Dell EMC PowerStore',
-      author='Ansible Team at Dell EMC',
+      version='1.6.0.0',
+      description='Python Library for Dell PowerStore',
+      author='Ansible Team at Dell',
       author_email='ansible.team@dell.com',
       install_requires=[
         'urllib3>=1.26.7',
