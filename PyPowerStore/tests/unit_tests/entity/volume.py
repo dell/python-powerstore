@@ -28,7 +28,7 @@ class VolumeResponse(Entity):
             # its a GET request
             if self.url.endswith('/volume'):
                 if self.kwargs.get('params', {}).get('select') == \
-                   constants.SELECT_ALL_VOLUME.get('select'):
+                   constants.FHC_VOLUME_DETAILS_QUERY.get('select'):
                     return self.get_volume_by_name
                 else:
                     return self.get_volume_list

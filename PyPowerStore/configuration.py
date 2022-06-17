@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2021, Dell EMC
+# Copyright: (c) 2021, Dell Technologies
 
 """Collection of configuration related functions for PowerStore"""
 
@@ -1283,7 +1283,7 @@ class Configuration:
     # smtp operations start
 
     def get_smtp_configs(self, filter_dict=None, all_pages=None):
-        """Get all SMTP configurationss.
+        """Get all SMTP configurations.
 
         :param filter_dict: (optional) Filter details
         :type filter_dict: dict
@@ -1606,7 +1606,7 @@ class Configuration:
 
     # Remote Support operations end
 
-    # Remote Support conatct operations start
+    # Remote Support contact operations start
 
     def get_remote_support_contact_list(self, filter_dict=None, all_pages=None):
         """Get all remote support contacts available on array.
@@ -1686,7 +1686,281 @@ class Configuration:
                 payload=modify_parameters)
         raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
 
-    # Remote Support conatct operations end
+    # Remote Support contact operations end
+
+    # LDAP Domain operations start
+
+    def get_ldap_domain_configuration_list(self, filter_dict=None, all_pages=None):
+        """Get all LDAP domain configurations available on array.
+
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all ldap
+                          domain configurations or not
+        :type all_pages: bool
+        :return: List of ldap domain configurations on array
+        :rtype: list[dict]
+        """
+        LOG.info(
+            "Getting all ldap domain with filter: '%s' and all_pages: '%s'"
+            % (filter_dict, all_pages))
+
+        if all_pages:
+            raise Exception("Pagination is not supported for LDAP domain.")
+        if not filter_dict:
+            querystring = helpers.prepare_querystring(
+                constants.LDAP_DOMAIN_DETAILS_QUERY)
+            return self.config_client.request(
+                constants.GET, constants.GET_LDAP_DOMAIN_LIST_URL.format(
+                    self.server_ip), querystring=querystring, all_pages=False)
+
+        resp = self.config_client.request(
+            constants.GET,
+            constants.GET_LDAP_DOMAIN_LIST_URL.format(self.server_ip),
+            querystring=constants.LDAP_DOMAIN_DETAILS_QUERY, all_pages=False)
+
+        filterable_keys = ['domain_name', 'id', 'protocol', 'ldap_server_type']
+        ldap_domain_resp = helpers.filtered_details(filterable_keys, filter_dict,
+                                                    resp, 'ldap_domain')
+
+        if ldap_domain_resp:
+            filter_list = []
+            ldap_domain_dict = self.get_ldap_domain_configuration_details(ldap_domain_resp[0]['id'])
+            filter_list.append(ldap_domain_dict)
+            return filter_list
+        return ldap_domain_resp
+
+    def get_ldap_domain_configuration_details(self, ldap_domain_id):
+        """ Get details of a ldap domain instance.
+
+        :param ldap_domain_id: Unique identifier of the ldap domain
+        :type ldap_domain_id: str
+        :return: ldap domain details
+        :rtype: dict
+        """
+        LOG.info("Getting ldap domain details by ID: '%s'" % ldap_domain_id)
+
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_LDAP_DOMAIN_DETAILS_URL.format(
+                self.server_ip, ldap_domain_id),
+            querystring=constants.LDAP_DOMAIN_DETAILS_QUERY)
+
+    def get_ldap_domain_configuration_details_by_name(self, ldap_domain_name):
+        """ Get details of a ldap domain instance.
+
+        :param ldap_domain_name: LDAP domain name
+        :type ldap_domain_name: str
+        :return: ldap domain details
+        :rtype: dict
+        """
+        LOG.info("Getting ldap domain details by name")
+
+        resp = self.config_client.request(
+            constants.GET,
+            constants.GET_LDAP_DOMAIN_LIST_URL.format(
+                self.server_ip, ldap_domain_name),
+            querystring=helpers.prepare_querystring(
+                constants.LDAP_DOMAIN_DETAILS_QUERY,
+                name=constants.EQUALS + ldap_domain_name)
+        )
+
+        filterable_keys = ['domain_name', 'id', 'protocol', 'ldap_server_type']
+        filter_dict = {'domain_name': 'eq.{0}'.format(ldap_domain_name)}
+        resp = helpers.filtered_details(filterable_keys, filter_dict,
+                                        resp, 'ldap_domain')
+        if resp:
+            return self.get_ldap_domain_configuration_details(resp[0]['id'])
+
+    def create_ldap_domain_configuration(self, create_parameters):
+        """ Create LDAP domain configuration.
+
+        :param create_parameters: Parameters for creating LDAP domain
+        :type create_parameters: dict
+        :return: Unique identifier of the new LDAP domain instance created
+        :rtype: dict
+        """
+        LOG.info("creating LDAP domain")
+
+        return self.config_client.request(
+            constants.POST,
+            constants.CREATE_LDAP_DOMAIN_URL.format(
+                self.server_ip), payload=create_parameters)
+
+    def modify_ldap_domain_configuration(self, ldap_domain_id, modify_parameters):
+        """ Modify LDAP domain configuration.
+
+        :param ldap_domain_id: Unique ID of the LDAP domain instance
+        :type ldap_domain_id: str
+        :param modify_parameters: Parameters for modifying LDAP domain
+        :type modify_parameters: dict
+        :return: None
+        :rtype: None
+        """
+        LOG.info("Modifying LDAP domain configuration id: '%s'" % ldap_domain_id)
+
+        return self.config_client.request(
+            constants.PATCH,
+            constants.MODIFY_LDAP_DOMAIN_URL.format(
+                self.server_ip, ldap_domain_id), payload=modify_parameters)
+
+    def delete_ldap_domain_configuration(self, ldap_domain_id):
+        """ Delete LDAP domain configuration.
+
+        :param ldap_domain_id: Unique ID of the LDAP domain instance
+        :type ldap_domain_id: str
+        :return: None
+        :rtype: None
+        """
+        LOG.info("Deleting LDAP domain configuration id: '%s'" % ldap_domain_id)
+
+        return self.config_client.request(
+            constants.DELETE,
+            constants.DELETE_LDAP_DOMAIN_URL.format(
+                self.server_ip, ldap_domain_id))
+
+    def verify_ldap_domain_configuration(self, ldap_domain_id):
+        """ Verify LDAP domain configuration.
+
+        :param ldap_domain_id: Unique ID of the LDAP domain instance
+        :type ldap_domain_id: str
+        :return: None
+        :rtype: None
+        """
+        LOG.info("Verifying LDAP domain configuration id: '%s'" % ldap_domain_id)
+
+        return self.config_client.request(
+            constants.POST,
+            constants.VERIFY_LDAP_DOMAIN_URL.format(
+                self.server_ip, ldap_domain_id))
+
+    # LDAP Domain operations end
+
+    # LDAP Account operations begin
+
+    def get_ldap_account_list(self, filter_dict=None, all_pages=None):
+        """Get all LDAP accounts available on array.
+
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all LDAP
+                          accounts or not
+        :type all_pages: bool
+        :return: List of LDAP accounts on array
+        :rtype: list[dict]
+        """
+        LOG.info(
+            "Getting all ldap accounts with filter: '%s' and all_pages: '%s'"
+            % (filter_dict, all_pages))
+
+        if all_pages:
+            raise Exception("Pagination is not supported for LDAP accounts.")
+        if not filter_dict:
+            querystring = helpers.prepare_querystring(
+                constants.LDAP_ACCOUNT_DETAILS_QUERY)
+            return self.config_client.request(
+                constants.GET, constants.GET_LDAP_ACCOUNT_LIST_URL.format(
+                    self.server_ip), querystring=querystring, all_pages=False)
+
+        resp = self.config_client.request(
+            constants.GET,
+            constants.GET_LDAP_ACCOUNT_LIST_URL.format(self.server_ip),
+            querystring=constants.LDAP_ACCOUNT_DETAILS_QUERY, all_pages=False)
+
+        filterable_keys = ['name', 'id', 'role_id', 'type']
+        ldap_account_resp = helpers.filtered_details(filterable_keys, filter_dict,
+                                                     resp, 'ldap_accounts')
+
+        # Return all the details for each LDAP account
+        if ldap_account_resp:
+            resp_list = []
+            for resp in ldap_account_resp:
+                resp_dict = self.get_ldap_account_details(resp['id'])
+                resp_list.append(resp_dict)
+            return resp_list
+        return ldap_account_resp
+
+    def get_ldap_account_details(self, ldap_account_id):
+        """ Get details of a LDAP account instance.
+
+        :param ldap_account_id: Unique identifier of the LDAP Account
+        :type ldap_account_id: str
+        :return: LDAP account details
+        :rtype: dict
+        """
+        LOG.info("Getting LDAP account details by ID: '%s'" % ldap_account_id)
+
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_LDAP_ACCOUNT_DETAILS_URL.format(
+                self.server_ip, ldap_account_id),
+            querystring=constants.LDAP_ACCOUNT_DETAILS_QUERY)
+
+    def get_ldap_account_details_by_name(self, ldap_account_name):
+        """ Get details of an ldap account instance.
+
+        :param ldap_account_name: LDAP account name
+        :type ldap_account_name: str
+        :return: ldap account details
+        :rtype: dict
+        """
+        LOG.info("Getting LDAP Account details by name: '%s'" % ldap_account_name)
+        resp = self.get_ldap_account_list()
+
+        for account in resp:
+            if account['name'] == ldap_account_name:
+                return self.get_ldap_account_details(account['id'])
+
+
+    def create_ldap_account(self, create_parameters):
+        """ Create LDAP account configuration.
+
+        :param create_parameters: Parameters for creating LDAP account
+        :type create_parameters: dict
+        :return: Unique identifier of the new LDAP account instance created
+        :rtype: dict
+        """
+        LOG.info("creating LDAP account")
+
+        return self.config_client.request(
+            constants.POST,
+            constants.CREATE_LDAP_ACCOUNT_URL.format(
+                self.server_ip), payload=create_parameters)
+
+    def modify_ldap_account_details(self, ldap_account_id, modify_parameters):
+        """ Modify LDAP account configuration.
+
+        :param ldap_account_id: Unique ID of the LDAP account instance
+        :type ldap_account_id: str
+        :param modify_parameters: Parameters for modifying LDAP account
+        :type modify_parameters: dict
+        :return: None
+        :rtype: None
+        """
+        LOG.info("Modifying LDAP account id: '%s'" % ldap_account_id)
+
+        return self.config_client.request(
+            constants.PATCH,
+            constants.MODIFY_LDAP_ACCOUNT_URL.format(
+                self.server_ip, ldap_account_id), payload=modify_parameters)
+
+    def delete_ldap_account(self, ldap_account_id):
+        """ Delete LDAP account.
+
+        :param ldap_account_id: Unique ID of the LDAP account instance
+        :type ldap_account_id: str
+        :return: None
+        :rtype: None
+        """
+        LOG.info("Deleting LDAP account configuration id: '%s'" % ldap_account_id)
+
+        return self.config_client.request(
+            constants.DELETE,
+            constants.DELETE_LDAP_ACCOUNT_URL.format(
+                self.server_ip, ldap_account_id))
+
+
+    # LDAP Account operations end    
 
     @staticmethod
     def _prepare_local_user_payload(**kwargs):

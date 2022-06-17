@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2021, Dell EMC
+# Copyright: (c) 2021, Dell Technologies
 
 """ Local User Operations"""
 from PyPowerStore import powerstore_conn

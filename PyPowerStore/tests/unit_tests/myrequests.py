@@ -37,6 +37,8 @@ from PyPowerStore.tests.unit_tests.entity.dns import DnsResponse
 from PyPowerStore.tests.unit_tests.entity.ntp import NtpResponse
 from PyPowerStore.tests.unit_tests.entity.remote_support import RemoteSupportResponse
 from PyPowerStore.tests.unit_tests.entity.remote_support_contact import RemoteSupportContactResponse
+from PyPowerStore.tests.unit_tests.entity.ldap_domain import LDAPDomainResponse
+from PyPowerStore.tests.unit_tests.entity.ldap_account import LDAPAccountResponse
 import json
 
 # map the entity class name with the url resource name
@@ -79,7 +81,9 @@ ENTITY_CLASS_MAPPING = {
     'dns': DnsResponse,
     'ntp': NtpResponse,
     'remote_support': RemoteSupportResponse,
-    'remote_support_contact': RemoteSupportContactResponse
+    'remote_support_contact': RemoteSupportContactResponse,
+    'ldap_domain': LDAPDomainResponse,
+    'ldap_account': LDAPAccountResponse
 }
 
 

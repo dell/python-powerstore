@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019-2021, Dell EMC
+# Copyright: (c) 2019, Dell Technologies
 
 """Client module for PowerStore"""
 
@@ -21,7 +21,8 @@ LOG = helpers.get_logger(__name__)
 
 # Codes
 VALID_CODES = [200, 201, 202, 204, 206, 207]
-ENGVIS_LIST = ["remote_support"]
+ENGVIS_LIST = ["remote_support", "node", "volume_group"]
+
 
 class Client():
     """Client class for PowerStore"""

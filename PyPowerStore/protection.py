@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019-2021, Dell EMC
-# Copyright: (c) 2019-2021, Ivan Pchelintsev <Ivan.Pchelintsev@emc.com>
+# Copyright: (c) 2019, Dell Technologies
+# Copyright: (c) 2019, Ivan Pchelintsev <Ivan.Pchelintsev@emc.com>
 
 """Collection of protection related functions for PowerStore"""
 
