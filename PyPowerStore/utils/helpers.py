@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019-2021, Dell EMC
+# Copyright: (c) 2019, Dell Technologies
 
 """Helper module for PowerStore"""
 import logging
@@ -61,6 +61,20 @@ def is_foot_hill_or_higher():
     return False
 
 
+def is_foot_hill_prime_or_higher():
+    """Return a true if the array version is foothill prime or higher.
+
+    :return: True if foothill prime or higher
+    :rtype: bool
+    """
+    foot_hill_prime_version = '3.0.0.0'
+    array_version = provisioning_obj.get_array_version()
+    if array_version and (
+            parse_version(array_version[0:7]) >= parse_version(foot_hill_prime_version)):
+        return True
+    return False
+
+
 def filtered_details(filterable_keys, filter_dict, resource_list,
                      resource_name):
     """
@@ -94,7 +108,7 @@ def filtered_details(filterable_keys, filter_dict, resource_list,
                 temp_dict['id'] = resource['id']
                 # check if resource has 'name' parameter or not.
                 if resource_name not in ["CHAP config", "service config",
-                                         "security config", "remote_support_contact"]:
+                                         "security config", "remote_support_contact", "ldap_domain"]:
                     temp_dict['name'] = resource['name']
                 response.append(temp_dict)
     return response
@@ -105,6 +119,19 @@ def apply_operators(filter_dict, key, resource, count):
     Returns the count for the filters applied on the keys
     """
     split_list = filter_dict[key].split(".")
+    if len(split_list) > 2:
+        search_string = ""
+        for item in range(1, len(split_list)):
+            if item == len(split_list) - 1:
+                search_string += split_list[item]
+            else:
+                search_string += str(split_list[item] + ".")
+
+        if split_list[0] == 'eq' and str(resource[key]) == search_string:
+            count += 1
+        elif split_list[0] == 'neq' and str(resource[key]) != search_string:
+            count += 1
+
     if split_list[0] == 'eq' and str(resource[key]) == str(split_list[1]):
         count += 1
     elif split_list[0] == 'neq' and str(resource[key]) != str(split_list[1]):

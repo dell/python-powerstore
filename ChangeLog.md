@@ -1,5 +1,8 @@
 # PyPowerStore Change Log
 
+## Version 1.7.0 - released on 28/06/22
+- Added configuration operations include LDAP domain and LDAP accounts and getting high level facts about the LDAP accounts.
+
 ## Version 1.6.0 - released on 25/03/22
 - Added configuration operations includes SMTP configuration, email notification, NTP servers, DNS servers, remote support and remote support contacts and getting high level facts about all these entities.
 

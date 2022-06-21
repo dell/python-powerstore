@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019, Dell EMC
+# Copyright: (c) 2019, Dell Technologies
 
 """Module for PowerStore constants"""
 
@@ -42,6 +42,17 @@ FHC_VOLUME_DETAILS_QUERY = {
               "is_replication_destination,migration_session_id,"
               "protection_data,location_history,type_l10n,state_l10n,"
               "host_group(name,id),host(name,id),volume_groups(name,id),"
+              "mapped_volumes(id,logical_unit_number),nsid,nguid,"
+              "node_affinity,node_affinity_l10n"
+}
+
+FHP_VOLUME_DETAILS_QUERY = {
+    "select": "id,name,description,type,wwn,appliance_id,state,size,"
+              "creation_timestamp,protection_policy_id,performance_policy_id,"
+              "protection_policy(name,id),performance_policy(name,id),"
+              "is_replication_destination,"
+              "protection_data,location_history,type_l10n,state_l10n,"
+              "host_group(name,id),volume_groups(name,id),"
               "mapped_volumes(id,logical_unit_number),nsid,nguid,"
               "node_affinity,node_affinity_l10n"
 }
@@ -307,6 +318,18 @@ REMOTE_SUPPORT_DETAILS_QUERY = {
 REMOTE_SUPPORT_CONTACT_DETAILS_QUERY = {
     'select': 'id,email,first_name,last_name,phone'
 }
+
+# LDAP Domain details
+LDAP_DOMAIN_DETAILS_QUERY = {
+    'select': 'id,domain_name,ldap_servers,port,ldap_server_type,protocol,bind_user,ldap_timeout,'
+              'is_global_catalog,user_id_attribute,user_object_class,user_search_path,'
+              'group_name_attribute,group_member_attribute,group_object_class,'
+              'group_search_path,group_search_level,ldap_server_type_l10n,protocol_l10n'
+}
+# LDAP Account details
+LDAP_ACCOUNT_DETAILS_QUERY = {
+    'select': 'id,role_id,domain_id,name,type,type_l10n,dn'
+}
 # Select all Snapshot
 
 EQUALS = 'eq.'
@@ -565,3 +588,18 @@ SEND_ALERT_REMOTE_SUPPORT_URL = 'https://{0}/api/rest/remote_support/{1}/send_te
 GET_REMOTE_SUPPORT_CONTACT_LIST_URL = 'https://{0}/api/rest/remote_support_contact'
 GET_REMOTE_SUPPORT_CONTACT_DETAILS_URL = 'https://{0}/api/rest/remote_support_contact/{1}'
 MODIFY_REMOTE_SUPPORT_CONTACT_URL = GET_REMOTE_SUPPORT_CONTACT_DETAILS_URL
+
+# LDAP Domain endpoints
+GET_LDAP_DOMAIN_LIST_URL = 'https://{0}/api/rest/ldap_domain'
+GET_LDAP_DOMAIN_DETAILS_URL = 'https://{0}/api/rest/ldap_domain/{1}'
+CREATE_LDAP_DOMAIN_URL = GET_LDAP_DOMAIN_LIST_URL
+MODIFY_LDAP_DOMAIN_URL = GET_LDAP_DOMAIN_DETAILS_URL
+DELETE_LDAP_DOMAIN_URL = GET_LDAP_DOMAIN_DETAILS_URL
+VERIFY_LDAP_DOMAIN_URL = 'https://{0}/api/rest/ldap_domain/{1}/verify'
+
+# LDAP Account endpoints
+GET_LDAP_ACCOUNT_LIST_URL = 'https://{0}/api/rest/ldap_account'
+GET_LDAP_ACCOUNT_DETAILS_URL = 'https://{0}/api/rest/ldap_account/{1}'
+CREATE_LDAP_ACCOUNT_URL = GET_LDAP_ACCOUNT_LIST_URL
+MODIFY_LDAP_ACCOUNT_URL = GET_LDAP_ACCOUNT_DETAILS_URL
+DELETE_LDAP_ACCOUNT_URL = GET_LDAP_ACCOUNT_DETAILS_URL

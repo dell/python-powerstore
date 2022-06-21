@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019-2021, Dell EMC
+# Copyright: (c) 2019, Dell Technologies
 
 """Collection of provisioning related functions for PowerStore"""
 
@@ -351,8 +351,11 @@ class Provisioning:
         """
         LOG.info("Getting volume details by ID: '%s'" % volume_id)
         querystring = constants.SELECT_ALL_VOLUME
-        if helpers.is_foot_hill_or_higher():
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = constants.FHP_VOLUME_DETAILS_QUERY
+        elif helpers.is_foot_hill_or_higher():
             querystring = constants.FHC_VOLUME_DETAILS_QUERY
+
         resp = self.client.request(constants.GET,
                                    constants.GET_VOLUME_DETAILS_URL.format
                                    (self.server_ip, volume_id), payload=None,
@@ -373,12 +376,17 @@ class Provisioning:
         :rtype: dict
         """
         LOG.info("Getting volume details by name: '%s'" % volume_name)
+        querystring = constants.SELECT_ALL_VOLUME
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = constants.FHP_VOLUME_DETAILS_QUERY
+        elif helpers.is_foot_hill_or_higher():
+            querystring = constants.FHC_VOLUME_DETAILS_QUERY
+
         resp = self.client.request(
             constants.GET,
             constants.GET_VOLUME_BY_NAME_URL.format(self.server_ip),
             payload=None, querystring=helpers.prepare_querystring(
-                constants.SELECT_ALL_VOLUME,
-                name=constants.EQUALS + volume_name
+                querystring, name=constants.EQUALS + volume_name
             )
         )
 

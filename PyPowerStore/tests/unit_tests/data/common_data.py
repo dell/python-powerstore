@@ -744,8 +744,8 @@ class CommonData(object):
 
     # installed software start
 
-    software_list = [{'release_version': '2.0.0.0'},
-                     {'release_version': '2.0.0.0'}]
+    software_list = [{'release_version': '2.1.0.0'},
+                     {'release_version': '2.1.0.0'}]
 
     # installed software end
 

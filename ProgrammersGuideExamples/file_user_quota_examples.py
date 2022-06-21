@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2020, Dell EMC
+# Copyright: (c) 2020, Dell Technologies
 
 """ File User Quota Operations"""
 from PyPowerStore import powerstore_conn

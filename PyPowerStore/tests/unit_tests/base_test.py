@@ -14,6 +14,7 @@ from PyPowerStore.tests.unit_tests.data.dns_data import DnsData
 from PyPowerStore.tests.unit_tests.data.ntp_data import NtpData
 from PyPowerStore.tests.unit_tests.data.remote_support_data import RemoteSupportData
 from PyPowerStore.tests.unit_tests.data.remote_support_contact_data import RemoteSupportContactData
+from PyPowerStore.tests.unit_tests.data.ldap_account_data import LdapAccountData
 from unittest import mock
 
 class TestBase(TestCase):
@@ -31,6 +32,7 @@ class TestBase(TestCase):
         self.ntp_data = NtpData()
         self.remote_support_data = RemoteSupportData()
         self.remote_support_contact_data = RemoteSupportContactData()
+        self.ldap_account_data = LdapAccountData()
         self.conf = PowerStoreConfig()
         self.mock_client = mock.patch('PyPowerStore.provisioning.Client',
                                       new=MockClient)
