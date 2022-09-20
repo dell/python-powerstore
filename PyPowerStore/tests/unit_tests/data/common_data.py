@@ -56,6 +56,11 @@ class CommonData(object):
     vg_id2 = "007a5fad-7520-4f2a-a364-6c243d8d4ecf"
     vg_name2 = "my_vg2"
 
+    create_snapshot = True
+    snapshot_id = "008a5fad-7520-4f2a-a364-6c243d8d4ecf"
+    backup_snapshot_profile = {'name' : 'backup_snapshot_name', 'description': '',
+                               'expiration_timestamp': '2023-01-01 00:00:00'}
+
     volumegroup_list = [{"id": vg_id1, "name": vg_name1},
                         {"id": vg_id2, "name": vg_name2}]
 
@@ -324,7 +329,8 @@ class CommonData(object):
                   'operational_status': 'Started',
                   'operational_status_l10n': 'Started',
                   'production_IPv4_interface_id': None,
-                  'production_IPv6_interface_id': None}
+                  'production_IPv6_interface_id': None,
+                  'protection_policy_id': 'samplepolicyid'}
 
     nas_valid_param_list = [
         'name', 'description', 'current_node_id', 'preferred_node_id',
@@ -332,7 +338,7 @@ class CommonData(object):
         'default_windows_user', 'is_username_translation_enabled',
         'is_auto_user_mapping_enabled', 'production_IPv4_interface_id',
         'production_IPv6_interface_id', 'backup_IPv4_interface_id',
-        'backup_IPv6_interface_id']
+        'backup_IPv6_interface_id', 'protection_policy_id']
 
     nas_id_not_exist = "5f4a3017-0bad-899e-e1eb-c6f547282e66"
     nas_error = {
@@ -1062,6 +1068,19 @@ class CommonData(object):
         "compatibility_level": 10,
         "state_l10n": "Configured"
     }
+    cluster = {"name": "test_cluster", "ignore_network_warnings": True}
+    appliances = [{"link_local_address": "4x.3x.2x.1x"}]
+    dns_servers = ["4x.3x.2x.1x"]
+    ntp_servers = ["4x.3x.2x.1x"]
+    networks = [
+        {
+            "type": "Management",
+            "prefix_length": 24,
+            "addresses": ["4x.3x.2x.1x", "1xx.2xx.3xx.4xx"]
+        }
+    ]
+    is_http_redirect_enabled = True
+
     invalid_cluster_id = '10'
     cluster_error = {
         404: {

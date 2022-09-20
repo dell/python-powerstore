@@ -520,6 +520,90 @@ class Configuration:
         )
         return self.get_cluster_details(cluster_id)
 
+    def cluster_create_validate(self, cluster, appliances, dns_servers,
+                                ntp_servers, networks,
+                                is_http_redirect_enabled,
+                                physical_switches=None, vcenters=None):
+        """Validate the creation of cluster configuration
+        :param cluster: Dict containing parameters for the cluster
+        :type cluster: dict
+        :param appliances: List containing appliances
+        :type appliances: list[dict]
+        :param dns_servers: List containing IP addresses for DNS Servers
+        :type dns_servers: list[str]
+        :param ntp_servers: List containing IP addresses for NTP Servers
+        :type ntp_servers: list[dict]
+        :param physical_switches: List containing physical switches
+        :type physical_switches: list[dict]
+        :param networks: List containing networks
+        :type networks: list[dict]
+        :param vcenters: List of vCenters
+        :type vcenters: list[dict]
+        :param is_http_redirect_enabled: Whether to redirect the http requests
+            to https
+        :type is_http_redirect_enabled: bool
+        :return: None
+        :rtype: None
+        """
+        LOG.info("Validating the create cluster configuration")
+        cluster_url = constants.CREATE_CLUSTER_VALIDATE_URL
+
+        cluster_payload = self.\
+            _prepare_create_cluster_payload(is_http_redirect_enabled=is_http_redirect_enabled,
+                                            cluster=cluster,
+                                            appliances=appliances,
+                                            dns_servers=dns_servers,
+                                            ntp_servers=ntp_servers,
+                                            physical_switches=physical_switches,
+                                            networks=networks,
+                                            vcenters=vcenters)
+        return self.config_client.request(constants.POST,
+                                          cluster_url.format(self.server_ip),
+                                          payload=cluster_payload)
+
+    def cluster_create(self, cluster, appliances, dns_servers, ntp_servers,
+                       networks, is_http_redirect_enabled,
+                       physical_switches=None, vcenters=None, is_async=False):
+        """Create a Cluster of one or more appliances
+        :param cluster: Dict containing parameters for the cluster
+        :type cluster: dict
+        :param appliances: List containing appliances
+        :type appliances: list[dict]
+        :param dns_servers: List containing IP addresses for DNS Servers
+        :type dns_servers: list[str]
+        :param ntp_servers: List containing IP addresses for NTP Servers
+        :type ntp_servers: list[dict]
+        :param physical_switches: List containing physical switches
+        :type physical_switches: list[dict]
+        :param networks: List containing networks
+        :type networks: list[dict]
+        :param vcenters: List of vCenters
+        :type vcenters: list[dict]
+        :param is_http_redirect_enabled: Whether to redirect the http requests
+            to https
+        :type is_http_redirect_enabled: bool
+        :param is_async: Flag to indicate sync/async operation
+        :type is_async: bool
+        :return: Unique identifier of the new instance created
+        :rtype: str
+        """
+        LOG.info("Creating new cluster configuration")
+        cluster_url = constants.CREATE_CLUSTER_URL
+        if is_async:
+            cluster_url = cluster_url + "?is_async=true"
+        cluster_payload = self.\
+            _prepare_create_cluster_payload(is_http_redirect_enabled=is_http_redirect_enabled,
+                                            cluster=cluster,
+                                            appliances=appliances,
+                                            dns_servers=dns_servers,
+                                            ntp_servers=ntp_servers,
+                                            physical_switches=physical_switches,
+                                            networks=networks,
+                                            vcenters=vcenters)
+        return self.config_client.request(constants.POST,
+                                          cluster_url.format(self.server_ip),
+                                          payload=cluster_payload)
+
     # Cluster operations end
 
     # CHAP config operations start
@@ -1987,4 +2071,23 @@ class Configuration:
         for argname in ('add_port_ids', 'remove_port_ids'):
             if kwargs.get(argname) is not None:
                 payload[argname] = kwargs[argname]
+        return payload
+
+    @staticmethod
+    def _prepare_create_cluster_payload(is_http_redirect_enabled, **kwargs):
+        """Prepare payload for creation of cluster
+        :return: Request body
+        :rtype: dict
+        """
+        payload = dict()
+        for agrname in ('cluster', 'appliances', 'dns_servers', 'ntp_servers',
+                        'physical_switches', 'networks', 'vcenters'):
+            if kwargs.get(agrname) is not None:
+                payload[agrname] = kwargs[agrname]
+
+        if is_http_redirect_enabled is not None:
+            security_config = dict()
+            security_config['is_http_redirect_enabled'] = is_http_redirect_enabled
+            payload['security_config'] = security_config
+
         return payload

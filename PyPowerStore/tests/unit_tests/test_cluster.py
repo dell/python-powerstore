@@ -29,3 +29,23 @@ class TestCluster(TestBase):
         cluster_list = self.configuration.get_cluster_by_name(
             self.data.cluster_name_1)
         self.assertListEqual(cluster_list, self.data.cluster_list)
+
+    def test_validate_cluster_create(self):
+        resp = self.configuration.\
+            cluster_create_validate(cluster=self.data.cluster,
+                                    appliances=self.data.appliances,
+                                    dns_servers=self.data.dns_servers,
+                                    ntp_servers=self.data.ntp_servers,
+                                    networks=self.data.networks,
+                                    is_http_redirect_enabled=self.data.is_http_redirect_enabled)
+        self.assertIsNone(resp)
+
+    def test_cluster_create(self):
+        resp = self.configuration.\
+            cluster_create(cluster=self.data.cluster,
+                           appliances=self.data.appliances,
+                           dns_servers=self.data.dns_servers,
+                           ntp_servers=self.data.ntp_servers,
+                           networks=self.data.networks,
+                           is_http_redirect_enabled=self.data.is_http_redirect_enabled)
+        self.assertEqual(resp, self.data.cluster_id_1)

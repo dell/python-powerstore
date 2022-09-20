@@ -22,7 +22,7 @@ copyright = '2022, Dell'
 author = 'Dell'
 
 # The full version, including alpha/beta/rc tags
-release = '1.6.0'
+release = '1.8.0'
 
 
 # -- General configuration ---------------------------------------------------

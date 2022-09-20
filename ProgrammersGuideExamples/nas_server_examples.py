@@ -14,7 +14,8 @@ print(CONN)
 
 MODIFY_PARAMS = {
     'description': 'My Description',
-    'current_unix_directory_service': 'Local_Files'
+    'current_unix_directory_service': 'Local_Files',
+    'protection_policy_id': 'samplepolicyid'
 }
 
 # Get nasserver list
