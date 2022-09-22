@@ -875,6 +875,104 @@ class Provisioning:
                                    constants.CREATE_VOLUME_GROUP_URL.format(
                                        self.server_ip), payload=payload)
 
+    def clone_volume_group(self, volume_group_id, name, description=None, protection_policy_id=None):
+        """Clone a volume group.
+
+        :param volume_group_id: ID of the volume group to clone
+        :type volume_group_id: str
+        :param name: Unique name for the clone volume group.
+        :type name: str
+        :param description: (optional) Description for the clone volume group.
+        :type description: str
+        :param protection_policy_id: (optional) Unique identifier of the protection 
+                                     policy to assign to the clone volume group
+        :type protection_policy_id: str
+        :return: Unique identifier of the new instance created if success else raise exception
+        :rtype: dict
+        """
+        LOG.info("Cloning volumegroup: '%s'" % volume_group_id)
+        payload = self._prepare_clone_vg_payload(name, description, protection_policy_id)
+        return self.client.request(
+            constants.POST,
+            constants.CLONE_VOLUME_GROUP_URL.format(self.server_ip,
+                                                    volume_group_id),
+            payload=payload)
+
+    def refresh_volume_group(self, volume_group_id, src_vol_group,
+                             create_backup_snap=None, backup_snap_profile=None):
+        """Refresh a volume group.
+
+        :param volume_group_id: ID of the volume group to refresh
+        :type volume_group_id: str
+        :param src_vol_group: Unique identifier of the volume group to refresh from.
+        :type src_vol_group: str
+        :param create_backup_snap: (optional) specifies whether a backup snapshot set of the
+                                   target volume group needs to be created before refreshing it.
+        :type create_backup_snap: bool
+        :param backup_snap_profile: (optional) Backup profile of the snapshot set to be created.
+        :type backup_snap_profile: dict
+        :return: Unique identifier of the backup snapshot set or None if create_backup_snap is None
+                 if success else raise exception
+        :rtype: dict
+        """
+        LOG.info("Refreshing volumegroup: '%s'" % volume_group_id)
+        payload = self._prepare_vg_payload('refresh', src_vol_group, create_backup_snap,
+                                           backup_snap_profile)
+        return self.client.request(
+            constants.POST,
+            constants.REFRESH_VOLUME_GROUP_URL.format(self.server_ip,
+                                                      volume_group_id),
+            payload=payload)
+
+    def restore_volume_group(self, volume_group_id, src_snap_id,
+                             create_backup_snap=None, backup_snap_profile=None):
+        """Restore a volume group.
+
+        :param volume_group_id: ID of the volume group to restore
+        :type volume_group_id: str
+        :param src_snap_id: Unique identifier of the snapshot set to restore from.
+        :type src_snap_id: str
+        :param create_backup_snap: (optional) specifies whether a backup snapshot set of the
+                                   target volume group needs to be created before restore.
+        :type create_backup_snap: bool
+        :param backup_snap_profile: (optional) Backup profile of the snapshot set to be created.
+        :type backup_snap_profile: dict
+        :return: Unique identifier of the backup snapshot set or None if create_backup_snap is None
+                 if success else raise exception
+        :rtype: dict
+        """
+        LOG.info("Restoring volumegroup: '%s'" % volume_group_id)
+        payload = self._prepare_vg_payload('restore', src_snap_id, create_backup_snap, backup_snap_profile)
+        return self.client.request(
+            constants.POST,
+            constants.RESTORE_VOLUME_GROUP_URL.format(self.server_ip,
+                                                      volume_group_id),
+            payload=payload)
+
+    def _prepare_clone_vg_payload(self, name, description, protection_policy_id):
+        vol_group_clone = dict()
+        if name is not None:
+            vol_group_clone['name'] = name
+        if description is not None:
+            vol_group_clone['description'] = description
+        if protection_policy_id is not None:
+            vol_group_clone['protection_policy_id'] = protection_policy_id
+        return vol_group_clone
+
+    def _prepare_vg_payload(self, action, src_vol_group, create_backup_snap,
+                            backup_snap_profile):
+        vg_payload = dict()
+        if action == 'refresh':
+            vg_payload['from_object_id'] = src_vol_group
+        else:
+            vg_payload['from_snap_id'] = src_vol_group
+        if create_backup_snap is not None:
+            vg_payload['create_backup_snap'] = create_backup_snap
+        if backup_snap_profile:
+            vg_payload['backup_snap_profile'] = backup_snap_profile
+
+        return vg_payload
+
     def _prepare_create_vg_payload(self, name, description, volume_ids,
                                    is_write_order_consistent,
                                    protection_policy_id):
@@ -1116,6 +1214,7 @@ class Provisioning:
         )
 
     # NAS Server methods
+ 
     def get_nas_servers(self, filter_dict=None, all_pages=False):
         """Get a list of nas servers.
 
@@ -1146,13 +1245,17 @@ class Provisioning:
         :return: NAS server details
         :rtype: dict
         """
+        querystring = constants.SELECT_ALL_NAS_SERVER
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = constants.FHP_NAS_QUERYSTRING
+
         LOG.info("Getting nasserver details by ID: '%s'" % nas_server_id)
         return self.client.request(
             constants.GET,
             constants.GET_NAS_SERVER_DETAILS_URL.format(self.server_ip,
                                                         nas_server_id),
             payload=None,
-            querystring=constants.SELECT_ALL_NAS_SERVER)
+            querystring=querystring)
 
     def get_nas_server_by_name(self, nas_server_name):
         """Get details of a NAS Server by name.
@@ -1162,13 +1265,17 @@ class Provisioning:
         :return: NAS server details
         :rtype: dict
         """
+        querystring = constants.SELECT_ALL_NAS_SERVER
+        if helpers.is_foot_hill_prime_or_higher():
+        	querystring = constants.FHP_NAS_QUERYSTRING
+
         LOG.info("Getting nasserver details by name: '%s'" % nas_server_name)
         return self.client.request(
             constants.GET,
             constants.GET_NAS_SERVER_DETAILS_BY_NAME_URL.format(
                 self.server_ip),
             payload=None, querystring=helpers.prepare_querystring(
-                constants.SELECT_ALL_NAS_SERVER,
+                querystring,
                 name=constants.EQUALS + nas_server_name
             )
         )

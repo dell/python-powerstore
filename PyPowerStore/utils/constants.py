@@ -122,6 +122,31 @@ SELECT_ALL_FILESYSTEM = {"select": "id,name, description,"
                          "creator_type_l10n,nas_server(name,id),"
                          "protection_policy(name,id)"}
 
+
+FHP_NAS_QUERYSTRING = {"select": "id,name, description, operational_status,"
+                       "current_node_id,preferred_node_id,"
+                       "default_unix_user,default_windows_user,"
+                       "current_unix_directory_service,"
+                       "is_username_translation_enabled,"
+                       "is_auto_user_mapping_enabled,"
+                       "production_IPv4_interface_id,"
+                       "production_IPv6_interface_id,"
+                       "backup_IPv4_interface_id,"
+                       "backup_IPv6_interface_id,"
+                       "current_preferred_IPv4_interface_id,"
+                       "current_preferred_IPv6_interface_id,"
+                       "protection_policy_id,"
+                       "operational_status_l10n,"
+                       "current_unix_directory_service_l10n,"
+                       "file_interfaces(name,id,ip_address),"
+                       "nfs_servers,smb_servers,"
+                       "file_ldaps,file_nises,file_systems(id,name)"
+                       "file_events_publishing_mode,"
+                       "is_replication_destination,"
+                       "is_production_mode_enabled,"
+                       "current_unix_directory_service_l10n,"
+                       "file_events_publishing_mode_l10n"}
+                       
 SELECT_ALL_NAS_SERVER = {"select": "id,name, description, operational_status,"
                          "current_node_id,preferred_node_id,"
                          "default_unix_user,default_windows_user,"
@@ -377,6 +402,9 @@ CREATE_VOLUME_GROUP_URL = GET_VOLUME_GROUP_LIST_URL
 GET_VOLUME_GROUP_DETAILS_URL = 'https://{0}/api/rest/volume_group/{1}'
 MODIFY_VOLUME_GROUP_URL = GET_VOLUME_GROUP_DETAILS_URL
 DELETE_VOLUME_GROUP_URL = GET_VOLUME_GROUP_DETAILS_URL
+CLONE_VOLUME_GROUP_URL = 'https://{0}/api/rest/volume_group/{1}/clone'
+REFRESH_VOLUME_GROUP_URL = 'https://{0}/api/rest/volume_group/{1}/refresh'
+RESTORE_VOLUME_GROUP_URL = 'https://{0}/api/rest/volume_group/{1}/restore'
 ADD_MEMBERS_TO_VOLUME_GROUP_URL = \
     'https://{0}/api/rest/volume_group/{1}/add_members'
 REMOVE_MEMBERS_FROM_VOLUME_GROUP_URL = \
@@ -496,6 +524,8 @@ GET_IP_POOL_LIST_URL = 'https://{0}/api/rest/ip_pool_address'
 GET_CLUSTER_DETAILS_URL = 'https://{0}/api/rest/cluster/{1}'
 GET_CLUSTER_LIST_URL = 'https://{0}/api/rest/cluster'
 MODIFY_CLUSTER_URL = GET_CLUSTER_DETAILS_URL
+CREATE_CLUSTER_URL = GET_CLUSTER_LIST_URL
+CREATE_CLUSTER_VALIDATE_URL = 'https://{0}/api/rest/cluster/validate_create'
 
 # CHAP config endpoints
 GET_CHAP_CONFIG_LIST_URL = 'https://{0}/api/rest/chap_config'

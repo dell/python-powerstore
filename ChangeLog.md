@@ -1,5 +1,10 @@
 # PyPowerStore Change Log
 
+## Version 1.8.0 - released on 27/09/22
+- Added configuration operations include validate create cluster attributes and create cluster.
+- Added support for clone, restore, and refresh a volume group.
+- Added support for protection_policy_id for NAS server for FHP and above.
+
 ## Version 1.7.0 - released on 28/06/22
 - Added configuration operations include LDAP domain and LDAP accounts and getting high level facts about the LDAP accounts.
 

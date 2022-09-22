@@ -23,6 +23,12 @@ class VolumeGroupResponse(Entity):
         elif self.method == 'POST':
             if self.url.endswith('/add_members'):
                 return self.add_members_to_volume_group
+            elif self.url.endswith('/clone'):
+                return self.clone_volume_group
+            elif self.url.endswith('/restore'):
+                return self.restore_volume_group
+            elif self.url.endswith('/refresh'):
+                return self.refresh_volume_group
             return self.create_volume_group
         elif self.method == 'PATCH':
             return self.modify_volume_group
@@ -61,3 +67,12 @@ class VolumeGroupResponse(Entity):
 
     def delete_volume_group(self):
         return 204, None
+
+    def clone_volume_group(self):
+        return self.status_code, self.data.vg_id2
+
+    def refresh_volume_group(self):
+        return self.status_code, self.data.snapshot_id
+
+    def restore_volume_group(self):
+        return self.status_code, self.data.snapshot_id

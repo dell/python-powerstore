@@ -22,6 +22,11 @@ class ClusterResponse(Entity):
                 return self.get_cluster_details
         elif self.method == 'PATCH':
             return self.modify_cluster
+        elif self.method == 'POST':
+            if self.url.endswith('/validate_create'):
+                return self.cluster_create_validate
+            else:
+                return self.cluster_create
 
     def execute_api(self, api_name):
         status_code, response = api_name()
@@ -41,4 +46,10 @@ class ClusterResponse(Entity):
 
     def modify_cluster(self):
         return 204, self.data.cluster_details_1
+
+    def cluster_create(self):
+        return 201, self.data.cluster_id_1
+
+    def cluster_create_validate(self):
+        return 204, None
 
