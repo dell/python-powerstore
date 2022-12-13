@@ -55,11 +55,10 @@ HOST_DETAILS = CONN.provisioning.get_host_details(
 print(HOST_DETAILS)
 
 # Modify the Host
-HOST_MODIFIED = CONN.provisioning.modify_host(host_id=RESP['id'],
-                                              name="powerstore_renamed",
-                                              description="This is a new "
-                                                          "description "
-                                              )
+HOST_MODIFIED = CONN.provisioning.modify_host(
+    host_id=RESP['id'], name="powerstore_renamed",
+    description="This is a new description ",
+    host_connectivity="Metro_Optimize_Both")
 print(HOST_MODIFIED)
 
 # Remove Initiators from Host

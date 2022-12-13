@@ -47,6 +47,8 @@ class CommonData(object):
 
     volume_snap_list = volume_list
 
+    metro_replication_session_id = uuid
+
     # Volume End
 
     # VolumeGroup
@@ -648,6 +650,8 @@ class CommonData(object):
         }
     }
 
+    session_role = "Metro_Preferred"
+
     # replication session end
 
     # replication rule start
@@ -750,8 +754,8 @@ class CommonData(object):
 
     # installed software start
 
-    software_list = [{'release_version': '2.1.0.0'},
-                     {'release_version': '2.1.0.0'}]
+    software_list = [{'release_version': '3.0.0.0'},
+                     {'release_version': '3.0.0.0'}]
 
     # installed software end
 

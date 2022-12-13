@@ -50,11 +50,13 @@ FHP_VOLUME_DETAILS_QUERY = {
     "select": "id,name,description,type,wwn,appliance_id,state,size,"
               "creation_timestamp,protection_policy_id,performance_policy_id,"
               "protection_policy(name,id),performance_policy(name,id),"
-              "is_replication_destination,"
+              "is_replication_destination,logical_used,"
               "protection_data,location_history,type_l10n,state_l10n,"
               "host_group(name,id),volume_groups(name,id),"
               "mapped_volumes(id,logical_unit_number),nsid,nguid,"
-              "node_affinity,node_affinity_l10n"
+              "node_affinity,node_affinity_l10n,metro_replication_session_id,"
+              "is_host_access_available,app_type,app_type_other,app_type_l10n,"
+              "migration_session_id"
 }
 
 # Host Query
@@ -69,8 +71,20 @@ FHC_HOST_DETAILS_QUERY = {
               "os_type_l10n,mapped_hosts(id,logical_unit_number,"
               "host_group(id,name),volume(id,name)),type,type_l10n"
 }
+FHP_HOST_DETAILS_QUERY = {
+    "select": "id,name,description,type,os_type,host_group_id,"
+              "host_connectivity,os_type_l10n,"
+              "mapped_hosts(id,logical_unit_number,host_group(id,name),"
+              "volume(id,name)),type_l10n,host_connectivity_l10n,"
+              "initiators(id,port_name,port_type,chap_single_username,"
+              "chap_mutual_username,active_sessions),host_initiators"
+}
 
 SELECT_ALL_HOST_GROUP = {"select": "name,id,description,hosts(id,name)"}
+FHP_HOST_GROUP_QUERY = {"select": "name,id,description,hosts(id,name),"
+                                  "host_connectivity,host_connectivity_l10n,"
+                                  "mapped_host_groups(id,volume_id,"
+                                  "logical_unit_number)"}
 
 SELECT_ALL_VG = {"select": "id,name,description,creation_"
                            "timestamp, member_type,"
@@ -297,6 +311,19 @@ REMOTE_SYSTEM_DETAILS_QUERY = {
               'session_chap_mode_l10n,data_network_latency_l10n,'
               'import_sessions,replication_sessions'
 }
+REMOTE_SYSTEM_FHP_DETAILS_QUERY = {
+    'select': 'id,name,description,serial_number,version,management_address,'
+              'management_port,type,user_name,state,data_connection_type,'
+              'data_connection_state,iscsi_addresses,fc_target_wwns,'
+              'discovery_chap_mode,session_chap_mode,data_network_latency,'
+              'data_connections,capabilities,file_connection_address,'
+              'file_connection_state,vnx_file_username,import_sessions,'
+              'appliance_details,type_l10n,replication_sessions,'
+              'state_l10n,data_connection_type_l10n,file_connection_state_l10n,'
+              'data_connection_state_l10n,discovery_chap_mode_l10n,'
+              'session_chap_mode_l10n,data_network_latency_l10n,'
+              'capabilities_l10n,storage_container_destinations'
+}
 
 # Certificate details
 CERTIFICATE_DETAILS_QUERY = {
@@ -375,6 +402,11 @@ UNMAP_VOLUME_FROM_HOST_URL = 'https://{0}/api/rest/volume/{1}/detach'
 RESTORE_VOLUME_FROM_SNAPSHOT_URL = 'https://{0}/api/rest/volume/{1}/restore'
 GET_VOLUME_BY_NAME_URL = VOLUME_CREATE_URL
 CREATE_VOLUME_SNAPSHOT_URL = 'https://{0}/api/rest/volume/{1}/snapshot'
+CLONE_VOLUME_URL = 'https://{0}/api/rest/volume/{1}/clone'
+REFRESH_VOLUME_URL = 'https://{0}/api/rest/volume/{1}/refresh'
+RESTORE_VOLUME_URL = 'https://{0}/api/rest/volume/{1}/restore'
+CONFIGURE_METRO_VOLUME = 'https://{0}/api/rest/volume/{1}/configure_metro'
+END_METRO_VOLUME = 'https://{0}/api/rest/volume/{1}/end_metro'
 
 # Host endpoints
 GET_HOST_LIST_URL = 'https://{0}/api/rest/host'
@@ -436,6 +468,7 @@ REPLICATION_SESSION_PAUSE_URL = 'https://{0}/api/rest/replication_session/{1}/pa
 REPLICATION_SESSION_RESUME_URL = 'https://{0}/api/rest/replication_session/{1}/resume'
 REPLICATION_SESSION_FAILOVER_URL = 'https://{0}/api/rest/replication_session/{1}/failover'
 REPLICATION_SESSION_REPROTECT_URL = 'https://{0}/api/rest/replication_session/{1}/reprotect'
+MODIFY_REPLICATION_SESSION_URL = REPLICATION_SESSION_OBJECT_URL
 
 # Remote system endpoints
 GET_REMOTE_SYSTEM_LIST_URL = 'https://{0}/api/rest/remote_system'
@@ -443,6 +476,7 @@ GET_REMOTE_SYSTEM_DETAILS_URL = 'https://{0}/api/rest/remote_system/{1}'
 CREATE_REMOTE_SYSTEM_URL = GET_REMOTE_SYSTEM_LIST_URL
 MODIFY_REMOTE_SYSTEM_URL = GET_REMOTE_SYSTEM_DETAILS_URL
 DELETE_REMOTE_SYSTEM_URL = GET_REMOTE_SYSTEM_DETAILS_URL
+GET_REMOTE_APPLIANCE_URL = 'https://{0}/api/rest/remote_system/{1}/query_appliances'
 
 
 # Protection Policy endpoint

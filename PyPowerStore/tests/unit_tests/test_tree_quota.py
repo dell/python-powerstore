@@ -2,7 +2,7 @@ from PyPowerStore.utils import constants, helpers
 from PyPowerStore.tests.unit_tests.base_test import TestBase
 from PyPowerStore.utils.exception import PowerStoreException
 
-import mock
+from unittest import mock
 
 
 class TestTreeQuota(TestBase):

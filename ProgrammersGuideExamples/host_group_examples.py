@@ -56,7 +56,8 @@ HG_MODIFIED = CONN.provisioning.modify_host_group(
     host_group_id=RESP["id"],
     name="modified-pr-hg-name-x1",
     remove_host_ids=[HOST['id']],
-    description="Modified desc from sdk")
+    description="Modified desc from sdk",
+    host_connectivity="Metro_Optimize_Local")
 print(HG_MODIFIED)
 
 # Add Hosts to Host Group

@@ -173,6 +173,202 @@ class Provisioning:
 
         return modify_volume_dict
 
+    def clone_volume(self, volume_id, name=None,
+                     description=None, host_id=None,
+                     host_group_id=None,
+                     logical_unit_number=None,
+                     protection_policy_id=None,
+                     performance_policy_id=None):
+        """Clone a volume.
+
+        :param volume_id: The volume ID
+        :type volume_id: str
+        :param name: Name of the clone
+        :type name: str
+        :param description: Description of the clone
+        :type description: str
+        :param host_id: Unique identifier of the host to be attached to the clone.
+        :type host_id: str
+        :param host_group_id: Unique identifier of the host group to be attached to the clone.
+        :type host_group_id: str
+        :param logical_unit_number: Optional logical unit number when creating a mapped volume.
+        :type logical_unit_number: int
+        :param protection_policy_id: The protection policy ID
+        :type protection_policy_id: str
+        :param performance_policy_id: The performance policy ID
+        :type performance_policy_id: str
+        :return: 'id' Unique identifier of the new clone volume if success else raise exception
+        :rtype: dict
+        """
+        LOG.info("Cloning the volume: '%s'" % volume_id)
+        payload = self.\
+            _prepare_clone_volume_payload(name,
+                                          description,
+                                          host_id,
+                                          host_group_id,
+                                          logical_unit_number,
+                                          protection_policy_id,
+                                          performance_policy_id)
+        return self.client.request(
+            constants.POST, constants.CLONE_VOLUME_URL.format(
+                self.server_ip, volume_id),
+            payload)
+
+    def _prepare_clone_volume_payload(self, name=None, description=None, host_id=None,
+                                      host_group_id=None,
+                                      logical_unit_number=None,
+                                      protection_policy_id=None,
+                                      performance_policy_id=None):
+
+        clone_volume_dict = dict()
+        if name is not None:
+            clone_volume_dict['name'] = name
+        if description is not None:
+            clone_volume_dict['description'] = description
+        if host_id is not None:
+            clone_volume_dict['host_id'] = host_id
+        if host_group_id is not None:
+            clone_volume_dict['host_group_id'] = host_group_id
+        if logical_unit_number is not None:
+            clone_volume_dict['logical_unit_number'] = logical_unit_number
+        if protection_policy_id is not None:
+            clone_volume_dict['protection_policy_id'] = protection_policy_id
+        if performance_policy_id is not None:
+            clone_volume_dict['performance_policy_id'] = \
+                performance_policy_id
+
+        return clone_volume_dict
+    
+    def refresh_volume(self, volume_id, volume_id_to_refresh_from=None,
+                       create_backup_snap=None,
+                       backup_snap_name=None,
+                       backup_snap_description=None,
+                       backup_snap_expiration_timestamp=None,
+                       backup_snap_performance_policy_id=None):
+        """Refresh a volume.
+
+        :param volume_id: The volume ID
+        :type volume_id: str
+        :param volume_id_to_refresh_from: Unique identifier of the source volume that will be used for the refresh operation
+        :type volume_id_to_refresh_from: str
+        :param create_backup_snap: Indicates whether a backup snapshot of the target volume will be created before it is refreshed from the source volume
+        :type create_backup_snap: bool
+        :param backup_snap_name: Name of the backup snapshot to be created. The default name of the volume snapshot is the date and time when the snapshot is taken
+        :type backup_snap_name: str
+        :param backup_snap_description: Description of the backup snapshot.
+        :type backup_snap_description: str
+        :param backup_snap_performance_policy_id: Unique identifier of the performance policy assigned to the snapshot.
+        :type backup_snap_performance_policy_id: str
+        :param backup_snap_expiration_timestamp: Time at which the backup snapshot will expire.
+        :type backup_snap_expiration_timestamp: str
+        :return: 'backup_snapshot_id' Unique identifier of the backup snapshot of the target volume, if one is created prior to the refresh operation.
+        :rtype: dict
+        """
+        LOG.info("Refreshing the volume: '%s'" % volume_id)
+        payload = self.\
+            _prepare_refresh_volume_payload(volume_id_to_refresh_from,
+                                            create_backup_snap,
+                                            backup_snap_name,
+                                            backup_snap_description,
+                                            backup_snap_expiration_timestamp,
+                                            backup_snap_performance_policy_id)
+        return self.client.request(
+            constants.POST, constants.REFRESH_VOLUME_URL.format(
+                self.server_ip, volume_id),
+            payload)
+
+    def _prepare_refresh_volume_payload(self, volume_id_to_refresh_from=None,
+                                        create_backup_snap=None,
+                                        backup_snap_name=None,
+                                        backup_snap_description=None,
+                                        backup_snap_expiration_timestamp=None,
+                                        backup_snap_performance_policy_id=None):
+
+        refresh_volume_dict = dict()
+        if volume_id_to_refresh_from is not None:
+            refresh_volume_dict['from_object_id'] = volume_id_to_refresh_from
+        if create_backup_snap is not None:
+            refresh_volume_dict['create_backup_snap'] = create_backup_snap
+
+        refresh_volume_dict['backup_snap_profile'] = {}
+        if backup_snap_name is not None:
+            refresh_volume_dict['backup_snap_profile']['name'] = backup_snap_name
+        if backup_snap_description is not None:
+            refresh_volume_dict['backup_snap_profile']['description'] = backup_snap_description
+        if backup_snap_expiration_timestamp is not None:
+            refresh_volume_dict['backup_snap_profile']['expiration_timestamp'] = \
+                backup_snap_expiration_timestamp
+        if backup_snap_performance_policy_id is not None:
+            refresh_volume_dict['backup_snap_profile']['performance_policy_id'] = \
+                backup_snap_performance_policy_id
+
+        return refresh_volume_dict
+    
+    def restore_volume(self, volume_id, snap_id_to_restore_from=None,
+                       create_backup_snap=None,
+                       backup_snap_name=None,
+                       backup_snap_description=None,
+                       backup_snap_expiration_timestamp=None,
+                       backup_snap_performance_policy_id=None):
+        """Restore a volume.
+
+        :param volume_id: The volume ID
+        :type volume_id: str
+        :param snap_id_to_restore_from: Unique identifier of the source snapshot that will be used for the restore operation.
+        :type snap_id_to_restore_from: str
+        :param create_backup_snap: Indicates whether a backup snapshot of the target volume will be created before it is restored from the snapshot.
+        :type create_backup_snap: bool
+        :param backup_snap_name: Name of the backup snapshot to be created. The default name of the volume snapshot is the date and time when the snapshot is taken
+        :type backup_snap_name: str
+        :param backup_snap_description: Description of the backup snapshot.
+        :type backup_snap_description: str
+        :param backup_snap_performance_policy_id: Unique identifier of the performance policy assigned to the snapshot.
+        :type backup_snap_performance_policy_id: str
+        :param backup_snap_expiration_timestamp: Time at which the backup snapshot will expire.
+        :type backup_snap_expiration_timestamp: str
+        :return: 'backup_snapshot_id' Unique identifier of the backup snapshot of the target volume, if one is created prior to the restore operation.
+        :rtype: dict
+        """
+        LOG.info("Restoring the volume: '%s'" % volume_id)
+        payload = self.\
+            _prepare_restore_volume_payload(snap_id_to_restore_from,
+                                            create_backup_snap,
+                                            backup_snap_name,
+                                            backup_snap_description,
+                                            backup_snap_expiration_timestamp,
+                                            backup_snap_performance_policy_id)
+        return self.client.request(
+            constants.POST, constants.RESTORE_VOLUME_URL.format(
+                self.server_ip, volume_id),
+            payload)
+
+    def _prepare_restore_volume_payload(self, snap_id_to_restore_from=None,
+                                        create_backup_snap=None,
+                                        backup_snap_name=None,
+                                        backup_snap_description=None,
+                                        backup_snap_expiration_timestamp=None,
+                                        backup_snap_performance_policy_id=None):
+
+        refresh_volume_dict = dict()
+        if snap_id_to_restore_from is not None:
+            refresh_volume_dict['from_snap_id'] = snap_id_to_restore_from
+        if create_backup_snap is not None:
+            refresh_volume_dict['create_backup_snap'] = create_backup_snap
+
+        refresh_volume_dict['backup_snap_profile'] = {}
+        if backup_snap_name is not None:
+            refresh_volume_dict['backup_snap_profile']['name'] = backup_snap_name
+        if backup_snap_description is not None:
+            refresh_volume_dict['backup_snap_profile']['description'] = backup_snap_description
+        if backup_snap_expiration_timestamp is not None:
+            refresh_volume_dict['backup_snap_profile']['expiration_timestamp'] = \
+                backup_snap_expiration_timestamp
+        if backup_snap_performance_policy_id is not None:
+            refresh_volume_dict['backup_snap_profile']['performance_policy_id'] = \
+                backup_snap_performance_policy_id
+
+        return refresh_volume_dict
+
     def add_protection_policy_for_volume(self, volume_id,
                                          protection_policy_id):
         """Add protection policy for volume.
@@ -398,6 +594,59 @@ class Provisioning:
 
         return resp
 
+    def configure_metro_volume(self, volume_id, remote_system_id,
+                               remote_appliance_id=None):
+        """ Configure the metro volume
+        :param volume_id: ID of the volume
+        :type volume_id: str
+        :param remote_system_id: ID of the remote system
+        :type remote_system_id: str
+        :param remote_appliance_id: ID of remote appliance to which volume will
+                                    be assigned
+        :type remote_appliance_id: str
+        :return: ID of metro session
+        :rtype: str
+        """
+        LOG.info("Configuring the metro volume %s to remote system %s"
+                 % (volume_id, remote_system_id))
+
+        if helpers.is_foot_hill_prime_or_higher():
+            metro_url = constants.CONFIGURE_METRO_VOLUME
+            payload = dict()
+            payload['remote_system_id'] = remote_system_id
+            if remote_appliance_id is not None:
+                payload['remote_appliance_id'] = remote_appliance_id
+
+            return self.client.request(
+                constants.POST, metro_url.format(self.server_ip, volume_id),
+                payload=payload)
+        raise Exception("Not supported for PowerStore version less than 3.0.0.0")
+
+    def end_volume_metro_config(self, volume_id, delete_remote_volume=None):
+        """
+        End a metro configuration from a volume and keep both copies.The local
+        copy will retain its SCSI Identity while the remote volume will get a
+        new SCSI Identity
+        :param volume_id: ID of the volume
+        :type volume_id: str
+        :param delete_remote_volume: Whether to delete the remote volume during
+                                     the removal
+        :type delete_remote_volume: bool
+        :return: None if success else raise exception
+        :rtype: None
+        """
+        LOG.info("End a metro configuration from a volume %s", volume_id)
+        if helpers.is_foot_hill_prime_or_higher():
+            end_metro_url = constants.END_METRO_VOLUME
+            payload = dict()
+            if delete_remote_volume is not None:
+                payload['delete_remote_volume'] = delete_remote_volume
+
+            return self.client.request(
+                constants.POST, end_metro_url.format(self.server_ip, volume_id),
+                payload=payload)
+        raise Exception("Not supported for PowerStore version less than 3.0.0.0")
+
     def get_hosts(self, filter_dict=None, all_pages=False):
         """Get a list of all the registered hosts.
 
@@ -421,31 +670,33 @@ class Provisioning:
                                    all_pages=all_pages)
 
     def create_host(self, name, os_type, initiators,
-                    description=None):
+                    description=None, host_connectivity=None):
         """Register a host on the array.
 
         :param name: The name of the host
         :type name: str
         :param os_type: The OS type of the host
-        :type name: str
+        :type os_type: str
         :param initiators: Host initiators
-        :type name: list of dict
+        :type initiators: list of dict
         :param description: (optional) The description for the host
-        :type name: str
+        :type description: str
+        :param host_connectivity: (optional) Connectivity type for hosts
+        :type host_connectivity: str
         :return: Host ID if success else raise exception
         :rtype: dict
         """
         LOG.info("Creating host with name: '%s' os_type: '%s' initiators: '%s'"
                  % (name, os_type, initiators))
         payload = self._prepare_create_host_payload(name, description,
-                                                    os_type,
-                                                    initiators)
+                                                    os_type, initiators,
+                                                    host_connectivity)
         return self.client.request(constants.POST,
                                    constants.CREATE_HOST_URL.format(
                                        self.server_ip), payload)
 
     def _prepare_create_host_payload(self, name, description,
-                                     os_type, initiators):
+                                     os_type, initiators, host_connectivity):
         create_host_dict = dict()
         if name is not None:
             create_host_dict['name'] = name
@@ -455,6 +706,8 @@ class Provisioning:
             create_host_dict['os_type'] = os_type
         if initiators is not None:
             create_host_dict['initiators'] = initiators
+        if host_connectivity is not None:
+            create_host_dict['host_connectivity'] = host_connectivity
 
         return create_host_dict
 
@@ -468,7 +721,9 @@ class Provisioning:
         """
         LOG.info("Getting host details by ID: '%s'" % host_id)
         querystring = constants.SELECT_ALL_HOST
-        if helpers.is_foot_hill_or_higher():
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = constants.FHP_HOST_DETAILS_QUERY
+        elif helpers.is_foot_hill_or_higher():
             querystring = constants.FHC_HOST_DETAILS_QUERY
         return self.client.request(constants.GET,
                                    constants.GET_HOST_DETAILS_URL.format(
@@ -477,7 +732,7 @@ class Provisioning:
 
     def modify_host(self, host_id, name=None, description=None,
                     remove_initiators=None, add_initiators=None,
-                    modify_initiators=None):
+                    modify_initiators=None, host_connectivity=None):
         """Modify a given host - Only one of add, remove
            or update in the same request.
 
@@ -493,6 +748,8 @@ class Provisioning:
         :type add_initiators: list
         :param modify_initiators: (optional) Initiators to be modified
         :type modify_initiators: list
+        :param host_connectivity: (optional)Connectivity types for hosts
+        :type host_connectivity: str
         :return: None if success else raise exception
         :rtype: None
         """
@@ -501,7 +758,8 @@ class Provisioning:
                                                     description,
                                                     remove_initiators,
                                                     add_initiators,
-                                                    modify_initiators)
+                                                    modify_initiators,
+                                                    host_connectivity)
         return self.client.request(
             constants.PATCH, constants.MODIFY_HOST_URL.format(
                 self.server_ip, host_id),
@@ -510,7 +768,8 @@ class Provisioning:
     def _prepare_modify_host_payload(self, name=None, description=None,
                                      remove_initiators=None,
                                      add_initiators=None,
-                                     modify_initiators=None
+                                     modify_initiators=None,
+                                     host_connectivity=None
                                      ):
 
         modify_host_dict = dict()
@@ -524,6 +783,8 @@ class Provisioning:
             modify_host_dict['add_initiators'] = add_initiators
         elif modify_initiators is not None:
             modify_host_dict['modify_initiators'] = modify_initiators
+        elif host_connectivity is not None:
+            modify_host_dict['host_connectivity'] = host_connectivity
 
         return modify_host_dict
 
@@ -591,11 +852,16 @@ class Provisioning:
         :rtype: dict
         """
         LOG.info("Getting host details by name: '%s'" % host_name)
+        querystring = constants.SELECT_ALL_HOST
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = constants.FHP_HOST_DETAILS_QUERY
+        elif helpers.is_foot_hill_or_higher():
+            querystring = constants.FHC_HOST_DETAILS_QUERY
         return self.client.request(
             constants.GET,
             constants.GET_HOST_BY_NAME_URL.format(self.server_ip),
             payload=None, querystring=helpers.prepare_querystring(
-                constants.SELECT_ALL_HOST, name=constants.EQUALS + host_name
+                querystring, name=constants.EQUALS + host_name
             )
         )
 
@@ -662,11 +928,15 @@ class Provisioning:
         :rtype: dict
         """
         LOG.info("Getting hostgroup details by ID: '%s'" % host_group_id)
+        querystring = constants.SELECT_ALL_HOST_GROUP
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = constants.FHP_HOST_GROUP_QUERY
+
         return self.client.request(constants.GET,
                                    constants.GET_HOST_GROUP_DETAILS_URL.format(
                                        self.server_ip, host_group_id),
                                    payload=None,
-                                   querystring=constants.SELECT_ALL_HOST_GROUP)
+                                   querystring=querystring)
 
     def get_host_group_by_name(self, host_group_name):
         """Get details of a Host Group with its name.
@@ -677,13 +947,15 @@ class Provisioning:
         :rtype: dict
         """
         LOG.info("Getting hostgroup details by name: '%s'" % host_group_name)
+        querystring = constants.SELECT_ALL_HOST_GROUP
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = constants.FHP_HOST_GROUP_QUERY
+
         return self.client.request(
             constants.GET,
             constants.GET_HOST_GROUP_BY_NAME_URL.format(self.server_ip),
             payload=None, querystring=helpers.prepare_querystring(
-                constants.SELECT_ALL_HOST_GROUP,
-                name=constants.EQUALS + host_group_name
-            )
+                querystring, name=constants.EQUALS + host_group_name)
         )
 
     def get_hosts_from_host_group(self, host_group_name):
@@ -707,7 +979,8 @@ class Provisioning:
 
     def modify_host_group(self, host_group_id, name=None,
                           remove_host_ids=None,
-                          add_host_ids=None, description=None):
+                          add_host_ids=None, description=None,
+                          host_connectivity=None):
         """Modify a Host group.
 
         :param host_group_id: The ID of the host group to be modified
@@ -722,12 +995,15 @@ class Provisioning:
         :param description: (optional) The modified description for the
                             host group
         :type description: str
+        :param host_connectivity: (Optional)Connectivity for host group
+        :type host_connectivity: str
         :return: None if success else raise exception
         :rtype: None
         """
         LOG.info("Modifying hostgroup: '%s'" % host_group_id)
         payload = self._prepare_modify_host_group_payload(
-            name, remove_host_ids, add_host_ids, description)
+            name, remove_host_ids, add_host_ids, description,
+            host_connectivity)
         return self.client.request(
             constants.PATCH, constants.MODIFY_HOST_GROUP_URL.format(
                 self.server_ip, host_group_id),
@@ -736,13 +1012,16 @@ class Provisioning:
     def _prepare_modify_host_group_payload(self, name=None,
                                            remove_host_ids=None,
                                            add_host_ids=None,
-                                           description=None):
+                                           description=None,
+                                           host_connectivity=None):
 
         modify_host_group_dict = dict()
         if name is not None:
             modify_host_group_dict['name'] = name
         if description is not None:
             modify_host_group_dict['description'] = description
+        if host_connectivity is not None:
+            modify_host_group_dict['host_connectivity'] = host_connectivity
 
         if remove_host_ids is not None:
             modify_host_group_dict['remove_host_ids'] = remove_host_ids
@@ -1267,7 +1546,7 @@ class Provisioning:
         """
         querystring = constants.SELECT_ALL_NAS_SERVER
         if helpers.is_foot_hill_prime_or_higher():
-        	querystring = constants.FHP_NAS_QUERYSTRING
+            querystring = constants.FHP_NAS_QUERYSTRING
 
         LOG.info("Getting nasserver details by name: '%s'" % nas_server_name)
         return self.client.request(

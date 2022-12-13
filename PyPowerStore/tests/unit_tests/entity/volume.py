@@ -12,23 +12,37 @@ class VolumeResponse(Entity):
         self.data = CommonData()
         self.status_code = 200
 
+    def get_post_api_name(self):
+        if self.url.endswith('/volume'):
+            return self.create_volume
+        elif self.url.endswith('/attach'):
+            return self.map_volume
+        elif self.url.endswith('/detach'):
+            return self.unmap_volume
+        elif self.url.endswith('/snapshot'):
+            return self.create_snap
+        elif self.url.endswith('/clone'):
+            return self.clone_volume
+        elif self.url.endswith('/refresh'):
+            return self.refresh_volume
+        elif self.url.endswith('/restore'):
+            return self.restore_volume
+        elif self.url.endswith('/configure_metro'):
+            return self.configure_metro_volume
+        elif self.url.endswith('/end_metro'):
+            return self.end_volume_metro_config
+
     def get_api_name(self):
         if self.method == 'PATCH':
             return self.modify_volume
         elif self.method == 'POST':
-            if self.url.endswith('/volume'):
-                return self.create_volume
-            elif self.url.endswith('/attach'):
-                return self.map_volume
-            elif self.url.endswith('/detach'):
-                return self.unmap_volume
-            elif self.url.endswith('/snapshot'):
-                return self.create_snap
+            return self.get_post_api_name()
+
         elif self.method == 'GET':
             # its a GET request
             if self.url.endswith('/volume'):
                 if self.kwargs.get('params', {}).get('select') == \
-                   constants.FHC_VOLUME_DETAILS_QUERY.get('select'):
+                   constants.FHP_VOLUME_DETAILS_QUERY.get('select'):
                     return self.get_volume_by_name
                 else:
                     return self.get_volume_list
@@ -71,3 +85,18 @@ class VolumeResponse(Entity):
 
     def create_snap(self):
         return 200, self.data.create_vol_snap
+
+    def clone_volume(self):
+        return self.status_code, self.data.vol_id2
+
+    def refresh_volume(self):
+        return self.status_code, self.data.snapshot_id
+
+    def restore_volume(self):
+        return self.status_code, self.data.snapshot_id
+
+    def configure_metro_volume(self):
+        return 200, self.data.metro_replication_session_id
+
+    def end_volume_metro_config(self):
+        return 204, None

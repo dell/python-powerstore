@@ -70,3 +70,10 @@ class RemoteSystemData():
 
     modify_job_id_1 = "55d1-de22-4d39-b24d-08ba329f"
 
+    remote_app_details = [
+        {
+            "id": "A1",
+            "name": "Appliance-RS-000",
+            "model": "PowerStore 1000T"
+        }
+    ]
