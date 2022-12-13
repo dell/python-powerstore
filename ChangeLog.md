@@ -1,6 +1,6 @@
 # PyPowerStore Change Log
 
-## Version 1.9.0 - released on 21/12/22
+## Version 1.9.0 - released on 20/12/22
 - Added support for clone, restore, and refresh a volume.
 - Added support for metro sync to volume, host, host group and replication session.
 
