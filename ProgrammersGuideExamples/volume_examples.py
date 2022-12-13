@@ -85,3 +85,29 @@ print(DEL_VOL)
 # Delete a Host Group
 HG_DELETE = CONN.provisioning.delete_host_group(host_group_id=HG['id'])
 print(HG_DELETE)
+
+# Clone Volume
+CLONE_VOLUME = CONN.provisioning.clone_volume(volume_id=VOL[0]['id'],
+                                              name='test_clone_volume',
+                                              description='Testing', 
+                                              host_group_id=HG['id'])
+print(CLONE_VOLUME)
+
+# Refresh Volume
+REFRESH_VOLUME_SNAPSHOT = CONN.provisioning.refresh_volume(volume_id=VOL[0]['id'],
+                                                           volume_id_to_refresh_from=CLONE_VOLUME['id'])
+print(REFRESH_VOLUME_SNAPSHOT)
+
+# Restore Volume
+RESTORE_VOLUME_SNAPSHOT = CONN.provisioning.restore_volume(volume_id=VOL[0]['id'],
+                                                           snap_id_to_restore_from=REFRESH_VOLUME_SNAPSHOT['id'])
+print(RESTORE_VOLUME_SNAPSHOT)
+
+# Configure a metro volume
+CONN.provisioning.configure_metro_volume(
+    volume_id=VOL[0]['id'],
+    remote_system_id='434f534e-7009-4e60-8e1e-5cf721ae40df')
+
+# End a volume metro session
+CONN.provisioning.end_volume_metro_config(volume_id=VOL[0]['id'],
+                                          delete_remote_volume=True)

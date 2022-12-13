@@ -23,6 +23,8 @@ class RemoteSystemResponse(Entity):
             else:
                 return self.get_remote_system_details
         elif self.method == 'POST':
+            if self.url.endswith('/query_appliances'):
+                return self.get_remote_system_appliance_details
             return self.create_remote_system
         elif self.method == "PATCH":
             return self.modify_remote_system
@@ -53,3 +55,6 @@ class RemoteSystemResponse(Entity):
 
     def delete_remote_system(self):
         return 204, None
+
+    def get_remote_system_appliance_details(self):
+        return self.status_code, self.data.remote_app_details

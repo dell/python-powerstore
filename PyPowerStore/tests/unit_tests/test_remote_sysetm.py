@@ -37,3 +37,8 @@ class TestRemoteSystem(TestBase):
             self.remote_system_data.remote_system_id_1)
         self.assertIsNone(remote_system)
 
+    def test_get_remote_appliance_details(self):
+        remote_app_details_1 = self.protection.get_remote_system_appliance_details(
+            self.remote_system_data.remote_system_id_1)
+        self.assertEqual(remote_app_details_1,
+                         self.remote_system_data.remote_app_details)

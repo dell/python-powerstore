@@ -16,7 +16,7 @@ class NASServerResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/nas_server'):
                 sel = self.kwargs.get('params', {}).get('select', {})
-                if sel and sel == constants.SELECT_ALL_NAS_SERVER['select']:
+                if sel and sel == constants.FHP_NAS_QUERYSTRING['select']:
                     return self.get_nasserver_detail
                 else:
                     return self.get_nasservers

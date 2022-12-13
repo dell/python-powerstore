@@ -31,3 +31,8 @@ print(RESP)
 RESP = CONN.protection.sync_replication_session(
     session_id="24f4236f-f7b6-4ae1-8130-8463b256fae6")
 print(RESP)
+
+# Modify the role of the replication session
+RESP = CONN.protection.modify_replication_session(
+    session_id="24f4236f-f7b6-4ae1-8130-8463b256fae6", role="Metro_Preferred")
+print(RESP)

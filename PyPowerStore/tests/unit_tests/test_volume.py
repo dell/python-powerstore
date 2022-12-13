@@ -24,6 +24,34 @@ class TestVolume(TestBase):
                                               self.data.vol_name1)
         self.assertIsNone(vol)
 
+    def test_clone_volume(self):
+        vol_clone_id = self.provisioning.clone_volume(self.data.vol_id1, self.data.vol_name2, None, self.data.host_id1,
+                                                      self.data.hg_id1,
+                                                      1,
+                                                      self.data.pol_id,
+                                                      'default_low')
+        self.assertEqual(vol_clone_id, self.data.vol_id2)
+
+    def test_refresh_volume(self):
+        vol_snap_id = self.provisioning.refresh_volume(self.data.vol_id1,
+                                                       self.data.vol_id2,
+                                                       self.data.create_snapshot,
+                                                       self.data.backup_snapshot_profile['name'],
+                                                       self.data.backup_snapshot_profile['description'],
+                                                       self.data.backup_snapshot_profile['expiration_timestamp'],
+                                                       'default_low')
+        self.assertEqual(vol_snap_id, self.data.snapshot_id)
+
+    def test_restore_volume(self):
+        vol_snap_id = self.provisioning.restore_volume(self.data.vol_id1,
+                                                       self.data.vol_snap_id,
+                                                       self.data.create_snapshot,
+                                                       self.data.backup_snapshot_profile['name'],
+                                                       self.data.backup_snapshot_profile['description'],
+                                                       self.data.backup_snapshot_profile['expiration_timestamp'],
+                                                       'default_low')
+        self.assertEqual(vol_snap_id, self.data.snapshot_id)
+
     def test_delete_volume(self):
         vol = self.provisioning.delete_volume(self.data.vol_id1)
         self.assertIsNone(vol)
@@ -105,4 +133,13 @@ class TestVolume(TestBase):
 
     def test_delete_volume_snapshot(self):
         resp = self.protection.delete_volume_snapshot(self.data.vol_snap_id)
+        self.assertIsNone(resp)
+
+    def test_config_metro_volume(self):
+        resp = self.provisioning.configure_metro_volume(
+            self.data.vol_id1, self.data.remote_system_id)
+        self.assertEqual(resp, self.data.metro_replication_session_id)
+
+    def test_end_metro_volume_config(self):
+        resp = self.provisioning.end_volume_metro_config(self.data.vol_id1)
         self.assertIsNone(resp)
