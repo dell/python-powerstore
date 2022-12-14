@@ -10,7 +10,7 @@ except ImportError:
 
 
 setup(name='PyPowerStore',
-      version='1.8.0.0',
+      version='1.9.0.0',
       description='Python Library for Dell PowerStore',
       author='Ansible Team at Dell',
       author_email='ansible.team@dell.com',

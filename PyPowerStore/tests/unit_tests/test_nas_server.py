@@ -3,7 +3,7 @@ from PyPowerStore.tests.unit_tests.base_test import TestBase
 from PyPowerStore.utils.exception import PowerStoreException
 
 import copy
-import mock
+from unittest import mock
 
 
 class TestNASServer(TestBase):

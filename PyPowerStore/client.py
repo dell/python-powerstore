@@ -21,7 +21,7 @@ LOG = helpers.get_logger(__name__)
 
 # Codes
 VALID_CODES = [200, 201, 202, 204, 206, 207]
-ENGVIS_LIST = ["remote_support", "node", "volume_group"]
+ENGVIS_LIST = ["remote_support", "node", "volume_group", "remote_system"]
 
 
 class Client():

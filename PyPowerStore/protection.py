@@ -44,6 +44,19 @@ REPLICATION_SESSION_DETAILS_QUERY = {
               'role_l10n,resource_type_l10n,remote_system(id,name),'
               'migration_session(id,name),replication_rule(id,name)'
 }
+REPLICATION_SESSION_DETAILS_FHP_QUERY = {
+    'select': 'id,state,role,resource_type,last_sync_timestamp,'
+              'local_resource_id,remote_resource_id,remote_system_id,'
+              'progress_percentage,estimated_completion_timestamp,'
+              'replication_rule_id,storage_element_pairs,state_l10n,'
+              'role_l10n,resource_type_l10n,remote_system(id,name),'
+              'migration_session(id,name),replication_rule(id,name),'
+              'data_transfer_state,type,last_sync_duration,type_l10n,'
+              'next_sync_timestamp,failover_test_in_progress,error_code,'
+              'data_connection_state,parent_replication_session_id,'
+              'local_resource_state,data_transfer_state_l10n,'
+              'data_connection_state_l10n,local_resource_state_l10n'
+}
 
 # TODO: kept LOG as global for now will improve it to avoid overriding
 LOG = helpers.get_logger(__name__)
@@ -1015,11 +1028,15 @@ class ProtectionFunctions:
         """
         LOG.info("Getting replication session details by ID: '%s'"
                  % session_id)
+        querystring = REPLICATION_SESSION_DETAILS_QUERY
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = REPLICATION_SESSION_DETAILS_FHP_QUERY
+
         return self.rest_client.request(
             constants.GET,
             constants.REPLICATION_SESSION_OBJECT_URL.format(
                 self.server_ip, session_id),
-            querystring=REPLICATION_SESSION_DETAILS_QUERY
+            querystring=querystring
         )
 
     def sync_replication_session(self, session_id):
@@ -1102,6 +1119,27 @@ class ProtectionFunctions:
                 self.server_ip, session_id)
         )
 
+    def modify_replication_session(self, session_id, role):
+        """
+        Modify the replication session
+        :param session_id: ID of replication session
+        :type session_id: str
+        :param role: Role of the replication session
+        :type role: str
+        :return: None if success
+        :rtype: None
+        """
+        LOG.info("Modify the replication session ID: '%s'" % session_id)
+        payload = dict()
+        if role is not None:
+            payload['role'] = role
+
+        return self.rest_client.request(
+            constants.PATCH,
+            constants.MODIFY_REPLICATION_SESSION_URL.format(
+                self.server_ip, session_id), payload=payload
+        )
+
     # Replication Session end
 
     # Remote System start
@@ -1146,12 +1184,15 @@ class ProtectionFunctions:
                 'name': 'eq.' + name,
                 'management_address': 'eq.' + remote_address
             }
+
+        querystring = constants.REMOTE_SYSTEM_DETAILS_QUERY
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = constants.REMOTE_SYSTEM_FHP_DETAILS_QUERY
+
         return self.rest_client.request(
             constants.GET,
             constants.GET_REMOTE_SYSTEM_LIST_URL.format(self.server_ip),
-            querystring=helpers.prepare_querystring(
-                constants.REMOTE_SYSTEM_DETAILS_QUERY,
-                filter_dict))
+            querystring=helpers.prepare_querystring(querystring, filter_dict))
 
     def get_remote_system_by_mgmt_address(self, remote_address):
         """ Get remote system details by remote management
@@ -1167,12 +1208,14 @@ class ProtectionFunctions:
         filter_dict = {
             'management_address': 'eq.' + remote_address
         }
+
+        querystring = constants.REMOTE_SYSTEM_DETAILS_QUERY
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = constants.REMOTE_SYSTEM_FHP_DETAILS_QUERY
         return self.rest_client.request(
             constants.GET,
             constants.GET_REMOTE_SYSTEM_LIST_URL.format(self.server_ip),
-            querystring=helpers.prepare_querystring(
-                constants.REMOTE_SYSTEM_DETAILS_QUERY,
-                filter_dict))
+            querystring=helpers.prepare_querystring(querystring, filter_dict))
 
     def get_remote_system_details(self, remote_system_id):
         """Get details of a particular remote system.
@@ -1184,12 +1227,15 @@ class ProtectionFunctions:
         """
         LOG.info("Getting remote system details by ID: '%s'"
                  % remote_system_id)
+
+        querystring = constants.REMOTE_SYSTEM_DETAILS_QUERY
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = constants.REMOTE_SYSTEM_FHP_DETAILS_QUERY
+
         return self.rest_client.request(
             constants.GET,
-            constants.GET_REMOTE_SYSTEM_DETAILS_URL.format(self.server_ip,
-            remote_system_id),
-            querystring=constants.REMOTE_SYSTEM_DETAILS_QUERY
-        )
+            constants.GET_REMOTE_SYSTEM_DETAILS_URL.format(
+                self.server_ip, remote_system_id), querystring=querystring)
     
     def create_remote_system(self, create_remote_sys_dict):
         """
@@ -1235,7 +1281,6 @@ class ProtectionFunctions:
             modify_remote_sys_dict
         )
 
-    
     def delete_remote_system(self, remote_system_id, is_async=True):
         """ Delete a remote system.
 
@@ -1253,6 +1298,18 @@ class ProtectionFunctions:
             constants.DELETE,
             delete_url.format(self.server_ip, remote_system_id))
 
+    def get_remote_system_appliance_details(self, remote_system_id):
+        """ Get all appliance details for a remote system
+        :param remote_system_id: Remote system ID
+        :type remote_system_id: str
+        :rtype: dict
+        """
+        LOG.info("Querying details for all appliances for a remote system.")
+
+        return self.rest_client.request(
+            constants.POST,
+            constants.GET_REMOTE_APPLIANCE_URL.format(self.server_ip,
+                                                      remote_system_id))
 
     # Remote System end
 
