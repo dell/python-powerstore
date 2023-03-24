@@ -60,16 +60,19 @@ FHP_VOLUME_DETAILS_QUERY = {
 }
 
 # Host Query
-SELECT_ALL_HOST = {"select": "id,name,description,os_type,"
-                             "host_group_id,"
-                             "host_initiators,os_type_l10n,"
-                             "mapped_hosts(id,logical_unit_number,"
-                             "host_group(id,name),volume(id,name))"
+SELECT_ALL_HOST = {
+    "select": "id,name,description,os_type,"
+              "host_group_id,"
+              "host_initiators,os_type_l10n,"
+              "mapped_hosts(id,logical_unit_number,"
+              "host_group(id,name),volume(id,name)),"
+              "host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)"
                    }
 FHC_HOST_DETAILS_QUERY = {
     "select": "id,name,description,os_type,host_group_id,host_initiators,"
               "os_type_l10n,mapped_hosts(id,logical_unit_number,"
-              "host_group(id,name),volume(id,name)),type,type_l10n"
+              "host_group(id,name),volume(id,name)),type,type_l10n,"
+              "host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)"
 }
 FHP_HOST_DETAILS_QUERY = {
     "select": "id,name,description,type,os_type,host_group_id,"
@@ -77,11 +80,13 @@ FHP_HOST_DETAILS_QUERY = {
               "mapped_hosts(id,logical_unit_number,host_group(id,name),"
               "volume(id,name)),type_l10n,host_connectivity_l10n,"
               "initiators(id,port_name,port_type,chap_single_username,"
-              "chap_mutual_username,active_sessions),host_initiators"
+              "chap_mutual_username,active_sessions),host_initiators,"
+              "host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)"
 }
 
 SELECT_ALL_HOST_GROUP = {"select": "name,id,description,hosts(id,name)"}
-FHP_HOST_GROUP_QUERY = {"select": "name,id,description,hosts(id,name),"
+FHP_HOST_GROUP_QUERY = {"select": "name,id,description,hosts(id,name,host_virtual_volume_mappings(id,"
+                                  "host_id,host_group_id,virtual_volume_id)),"
                                   "host_connectivity,host_connectivity_l10n,"
                                   "mapped_host_groups(id,volume_id,"
                                   "logical_unit_number)"}
@@ -136,6 +141,32 @@ SELECT_ALL_FILESYSTEM = {"select": "id,name, description,"
                          "creator_type_l10n,nas_server(name,id),"
                          "protection_policy(name,id)"}
 
+SELECT_ALL_FILESYSTEM_PRIME = {"select": "id,name, description,"
+                               "parent_id, filesystem_type, size_total,size_used,"
+                               "access_policy,locking_policy,"
+                               "folder_rename_policy, is_smb_sync_writes_enabled,"
+                               "is_smb_op_locks_enabled, is_smb_no_notify_enabled,"
+                               "is_smb_notify_on_access_enabled,"
+                               "is_smb_notify_on_write_enabled,"
+                               "smb_notify_on_change_dir_depth,"
+                               "is_async_MTime_enabled, is_quota_enabled,"
+                               "grace_period, default_hard_limit,"
+                               "default_soft_limit, creation_timestamp,"
+                               "expiration_timestamp, last_refresh_timestamp,"
+                               "last_writable_timestamp, is_modified,access_type,"
+                               "creator_type, filesystem_type_l10n,"
+                               "access_policy_l10n, locking_policy_l10n,"
+                               "folder_rename_policy_l10n, access_type_l10n,"
+                               "creator_type_l10n,nas_server(name,id),"
+                               "protection_policy(name,id),"
+                               "file_events_publishing_mode,"
+                               "file_events_publishing_mode_l10n,"
+                               "config_type, config_type_l10n,flr_attributes,"
+                               "host_io_size,host_io_size_l10n"}
+
+FILESYSTEM_PRIME = ['config_type', 'is_async_MTime_enabled',
+                    'file_events_publishing_mode', 'flr_attributes',
+                    'host_io_size']
 
 FHP_NAS_QUERYSTRING = {"select": "id,name, description, operational_status,"
                        "current_node_id,preferred_node_id,"
@@ -292,6 +323,20 @@ IP_PORT_DETAILS_QUERY = {
 VCENTER_DETAILS_QUERY = {
     'select': 'id,instance_uuid,address,username'
 }
+FHC_MALKA_VCENTER_QUERY = {
+    'select': 'id,instance_uuid,address,username,vendor_provider_status,'
+              'vendor_provider_status_l10n,'
+              'virtual_machines(id,name,instance_uuid,type,status,'
+              'virtual_volumes,protection_policy_id)'
+}
+FHP_VCENTER_QUERY = {
+    'select': 'id,instance_uuid,address,username,version,'
+              'vendor_provider_status,vendor_provider_status_l10n,'
+              'virtual_machines(id,name,instance_uuid,type,status,'
+              'virtual_volumes,protection_policy_id),'
+              'datastores(id,instance_uuid,name,type,'
+              'storage_container_id),vsphere_hosts(id,name,version)'
+}
 
 # Appliance details
 APPLIANCE_DETAILS_QUERY = {
@@ -328,10 +373,10 @@ REMOTE_SYSTEM_FHP_DETAILS_QUERY = {
 # Certificate details
 CERTIFICATE_DETAILS_QUERY = {
     'select': 'id,type,type_l10n,service,service_l10n,scope,is_current,'
-               'is_valid,members(subject,serial_number,signature_algorithm,'
-               'issuer,valid_from,valid_to,public_key_algorithm,key_length,'
-               'thumbprint_algorithm,thumbprint_algorithm_l10n,thumbprint,'
-               'certificate,depth,subject_alternative_names)'
+              'is_valid,members(subject,serial_number,signature_algorithm,'
+              'issuer,valid_from,valid_to,public_key_algorithm,key_length,'
+              'thumbprint_algorithm,thumbprint_algorithm_l10n,thumbprint,'
+              'certificate,depth,subject_alternative_names)'
 }
 
 # Security config details
@@ -377,6 +422,21 @@ LDAP_DOMAIN_DETAILS_QUERY = {
               'is_global_catalog,user_id_attribute,user_object_class,user_search_path,'
               'group_name_attribute,group_member_attribute,group_object_class,'
               'group_search_path,group_search_level,ldap_server_type_l10n,protocol_l10n'
+}
+VIRTUAL_VOLUME_FHP_DETAILS_QUERY = {
+    'select': 'id,name,size,type,usage_type,appliance_id,storage_container_id,io_priority,profile_id,'
+              'replication_group_id,creator_type,is_readonly,migration_session_id,virtual_machine_uuid,'
+              'family_id,parent_id,source_id,source_timestamp,creation_timestamp,naa_name,'
+              'is_replication_destination,location_history,protection_policy_id,nsid,nguid,type_l10n,'
+              'usage_type_l10n,io_priority_l10n,creator_type_l10n,'
+              'host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)'
+}
+VIRTUAL_VOLUME_DETAILS_QUERY = {
+    'select': 'id,name,size,type,usage_type,appliance_id,storage_container_id,io_priority,profile_id,'
+              'creator_type,is_readonly,migration_session_id,virtual_machine_uuid,'
+              'family_id,parent_id,source_id,source_timestamp,creation_timestamp,'
+              'location_history,type_l10n,usage_type_l10n,io_priority_l10n,creator_type_l10n,'
+              'host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)'
 }
 # LDAP Account details
 LDAP_ACCOUNT_DETAILS_QUERY = {
@@ -592,7 +652,9 @@ GET_JOB_DETAILS_URL = 'https://{0}/api/rest/job/{1}'
 # vCenter endpoints
 GET_VCENTER_LIST_URL = 'https://{0}/api/rest/vcenter'
 GET_VCENTER_DETAILS_URL = 'https://{0}/api/rest/vcenter/{1}'
+ADD_VCENTER_URL = GET_VCENTER_LIST_URL
 MODIFY_VCENTER_URL = GET_VCENTER_DETAILS_URL
+REMOVE_VCENTER_URL = GET_VCENTER_DETAILS_URL
 
 # Appliance endpoints
 GET_APPLIANCE_LIST_URL = 'https://{0}/api/rest/appliance'
@@ -667,3 +729,7 @@ GET_LDAP_ACCOUNT_DETAILS_URL = 'https://{0}/api/rest/ldap_account/{1}'
 CREATE_LDAP_ACCOUNT_URL = GET_LDAP_ACCOUNT_LIST_URL
 MODIFY_LDAP_ACCOUNT_URL = GET_LDAP_ACCOUNT_DETAILS_URL
 DELETE_LDAP_ACCOUNT_URL = GET_LDAP_ACCOUNT_DETAILS_URL
+
+# virtual volume endpoints
+GET_VIRTUAL_VOLUME_LIST_URL = 'https://{0}/api/rest/virtual_volume'
+GET_VIRTUAL_VOLUME_DETAILS_URL = 'https://{0}/api/rest/virtual_volume/{1}'

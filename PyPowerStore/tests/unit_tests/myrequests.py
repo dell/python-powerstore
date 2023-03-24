@@ -17,6 +17,7 @@ from PyPowerStore.tests.unit_tests.entity.network import NetworkResponse
 from PyPowerStore.tests.unit_tests.entity.software_installed import SoftwareResponse
 from PyPowerStore.tests.unit_tests.entity.job import JobResponse
 from PyPowerStore.tests.unit_tests.entity.vcenter import VcenterResponse
+from PyPowerStore.tests.unit_tests.entity.virtual_volume import VirtualVolumeResponse
 from PyPowerStore.tests.unit_tests.entity.ip_pool_address import IPPoolAddressResponse
 from PyPowerStore.tests.unit_tests.entity.ip_port import IPPortResponse
 from PyPowerStore.tests.unit_tests.entity.local_user import LocalUserResponse
@@ -62,6 +63,7 @@ ENTITY_CLASS_MAPPING = {
     'software_installed': SoftwareResponse,
     'job': JobResponse,
     'vcenter': VcenterResponse,
+    'virtual_volume': VirtualVolumeResponse,
     'ip_pool_address': IPPoolAddressResponse,
     'ip_port': IPPortResponse,
     'local_user': LocalUserResponse,

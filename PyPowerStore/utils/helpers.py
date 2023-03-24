@@ -48,7 +48,7 @@ def get_logger(module_name, enable_log=False):
 
 
 def is_foot_hill_or_higher():
-    """Return a true if the array version is foot hill or higher.
+    """Returns true if the array version is foot hill or higher.
 
     :return: True if foot hill or higher
     :rtype: bool
@@ -60,9 +60,21 @@ def is_foot_hill_or_higher():
         return True
     return False
 
+def is_malka_or_higher():
+    """Returns true if the array version is Malka or higher.
+
+    :return: True if array version is Malka or higher
+    :rtype: bool
+    """
+    malka_version = '2.1.0.0'
+    array_version = provisioning_obj.get_array_version()
+    if array_version and (
+            parse_version(array_version[0:7]) >= parse_version(malka_version)):
+        return True
+    return False
 
 def is_foot_hill_prime_or_higher():
-    """Return a true if the array version is foothill prime or higher.
+    """Returns true if the array version is foothill prime or higher.
 
     :return: True if foothill prime or higher
     :rtype: bool

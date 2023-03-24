@@ -136,3 +136,8 @@ print(RESP)
 # Get certificate list
 RESP = CONN.config_mgmt.get_certificates()
 print(RESP)
+
+# Get virtual volume list
+RESP = CONN.config_mgmt.get_virtual_volume_list()
+print(RESP)
+

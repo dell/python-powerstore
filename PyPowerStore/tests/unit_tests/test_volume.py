@@ -19,6 +19,20 @@ class TestVolume(TestBase):
                                               self.data.size)
         self.assertIsNone(vol)
 
+    def test_create_vol_with_app_type(self):
+        vol = self.provisioning.create_volume(self.data.vol_name1,
+                                              self.data.size,
+                                              app_type=self.data.app_type1)
+        self.assertIsNone(vol)
+
+    def test_create_vol_with_app_type_and_with_app_type_other(self):
+        vol = self.provisioning.create_volume(self.data.vol_name1,
+                                              self.data.size,
+                                              app_type=self.data.app_type2,
+                                              app_type_other=self.data.
+                                              app_type_other)
+        self.assertIsNone(vol)
+
     def test_modify_volume(self):
         vol = self.provisioning.modify_volume(self.data.vol_id1,
                                               self.data.vol_name1)

@@ -901,7 +901,6 @@ class Configuration:
     # IP ports operations end
 
     # vCenter operations start
-
     def get_vcenters(self, filter_dict=None, all_pages=False):
         """Get all vcenters.
         :param filter_dict: (optional) Filter details
@@ -916,11 +915,18 @@ class Configuration:
         querystring = helpers.prepare_querystring(
             constants.SELECT_ID, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
-        return self.config_client.request(
-            constants.GET,
-            constants.GET_VCENTER_LIST_URL.format(self.server_ip),
-            querystring=querystring, all_pages=all_pages
-        )
+        vcenter_list = self.config_client.\
+            request(constants.GET,
+                    constants.GET_VCENTER_LIST_URL.format(self.server_ip),
+                    querystring=querystring, all_pages=all_pages)
+
+        if vcenter_list:
+            resp_list = []
+            for vcenter in vcenter_list:
+                resp_dict = self.get_vcenter_details(vcenter['id'])
+                resp_list.append(resp_dict)
+            return resp_list
+        return vcenter_list
 
     def get_vcenter_details(self, vcenter_id):
         """Get vcenter details.
@@ -931,12 +937,11 @@ class Configuration:
         """
         LOG.info("Getting vcenter details by ID: '%s'" % vcenter_id)
         querystring = constants.VCENTER_DETAILS_QUERY
-        if helpers.is_foot_hill_or_higher():
-            querystring = {
-                'select': 'id,instance_uuid,address,username,'
-                          'vendor_provider_status,'
-                          'vendor_provider_status_l10n'
-            }
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = constants.FHP_VCENTER_QUERY
+        elif helpers.is_foot_hill_or_higher():
+            querystring = constants.FHC_MALKA_VCENTER_QUERY
+
         return self.config_client.request(
             constants.GET,
             constants.GET_VCENTER_DETAILS_URL.format(self.server_ip,
@@ -945,20 +950,66 @@ class Configuration:
         )
 
     def modify_vcenter(self, vcenter_id, modify_param_dict):
-        """Register VASA provider.
+        """Modify vcenter attributes.
         :param vcenter_id: ID of the vcenter
         :type vcenter_id: str
-        :param modify_param_dict: Dict containing VASA provider credentials
+        :param modify_param_dict: Dict containing parameters for modification
         :type modify_param_dict: dict
         :return: Details of vcenter
         :rtype: dict
         """
-        LOG.info("Registering VASA provider: '%s'" % vcenter_id)
+        LOG.info("Modifying vCenter attributes: '%s'" % vcenter_id)
         self.config_client.request(constants.PATCH,
                                    constants.MODIFY_VCENTER_URL.format(
                                        self.server_ip, vcenter_id),
                                    payload=modify_param_dict)
         return self.get_vcenter_details(vcenter_id)
+
+    def add_vcenter(self, add_params):
+        """
+        Add a vcenter to the unified PowerStore model.
+        vcenter can not be added to unified+ deployment
+        :param add_params: the parameters to add vcenter
+        :type add_params:dict
+        :return: ID of the vcenter if addition is successful
+        :rtype: dict
+        """
+        LOG.info("Adding a vcenter.")
+
+        payload = dict()
+        if add_params:
+            for key, values in add_params.items():
+                payload[key] = values
+
+        return self.config_client.\
+            request(constants.POST,
+                    constants.ADD_VCENTER_URL.format(self.server_ip),
+                    payload=payload)
+
+    def remove_vcenter(self, vcenter_id, delete_vasa_provider=None):
+        """
+        Remove vcenter from Unified PowerStore model.
+        vcenter can not be removed from unified+ deployment
+        :param vcenter_id: ID of the vcenter
+        :type vcenter_id: str
+        :param delete_vasa_provider: whether to remove a VASA provider.
+                                     Removal will only happen if the provider
+                                     is not connected to any other PowerStore
+                                     system
+        :type delete_vasa_provider: bool
+        :return: None if success
+        :rtype: None
+        """
+        LOG.info("Removing vcenter: {0}.".format(vcenter_id))
+        payload = dict()
+        if delete_vasa_provider is not None:
+            payload['delete_vendor_provider'] = delete_vasa_provider
+
+        return self.config_client.\
+            request(constants.DELETE,
+                    constants.REMOVE_VCENTER_URL.format(self.server_ip,
+                                                        vcenter_id),
+                    payload=payload)
     # vCenter operations end
 
     # Appliance operations start
@@ -2044,7 +2095,38 @@ class Configuration:
                 self.server_ip, ldap_account_id))
 
 
-    # LDAP Account operations end    
+    # LDAP Account operations end
+
+    # Virtual volume operations begin
+
+    def get_virtual_volume_list(self, filter_dict=None, all_pages=None):
+        """Get all virtual volumes available on array.
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all
+                          virtual volumes or not
+        :type all_pages: bool
+        :return: List of virtual volumes on array
+        :rtype: list[dict]
+        """
+        LOG.info("Getting volumes with filter: '%s' and all_pages: %s"
+                 % (filter_dict, all_pages))
+        querystring = helpers.prepare_querystring(
+            constants.VIRTUAL_VOLUME_DETAILS_QUERY,
+            filter_dict)
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = helpers.prepare_querystring(
+            constants.VIRTUAL_VOLUME_FHP_DETAILS_QUERY,
+            filter_dict)
+        LOG.info("Querystring: '%s'" % querystring)
+        return self.config_client.request(constants.GET,
+                                   constants.GET_VIRTUAL_VOLUME_LIST_URL.format
+                                   (self.server_ip), payload=None,
+                                   querystring=querystring,
+                                   all_pages=all_pages)
+
+    # Virtual volume operations end
+
 
     @staticmethod
     def _prepare_local_user_payload(**kwargs):

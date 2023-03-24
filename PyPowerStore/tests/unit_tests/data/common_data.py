@@ -11,6 +11,10 @@ class CommonData(object):
     vol_id2 = "00c2c300-cf6e-4cf0-9bf4-037173496913"
     vol_name2 = "my_vol2"
 
+    app_type1 = "Big_Data_Analytics_Spark"
+    app_type2 = "Healthcare_Other"
+    app_type_other = "Research Data"
+
     volume_list = [{"id": vol_id1, "name": vol_name1},
                    {"id": vol_id2, "name": vol_name2}]
 
@@ -799,25 +803,6 @@ class CommonData(object):
                   'severity': 'Error'}]}
     }
     # job end
-
-    # vcenter start
-
-    vcenter_id1 = '42d08c86-f958-4fbb-82f0-3ce1a5d99d1e'
-    vcenter_list = [{"id": '42d08c86-f958-4fbb-82f0-3ce1a5d99d1e'}]
-    vasa_provider_credentials = {
-        "username": "sample_vasa_user",
-        "password": "sample_vasa_password"
-    }
-    vcenter_details = {
-        "id": "42d08c86-f958-4fbb-82f0-3ce1a5d99d1e",
-        "instance_uuid": "3b33039f-908f-4d1a-a0ca-1d2fd050a09b",
-        "address": "vpi2197.pie.lab.emc.com",
-        "username": "administrator@vsphere.local",
-        "vendor_provider_status": "Online",
-        "vendor_provider_status_l10n": "Online"
-    }
-
-    # vcenter end
 
     # IP pool address start
 
