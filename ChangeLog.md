@@ -1,6 +1,13 @@
 # PyPowerStore Change Log
 
-## Version 1.9.0 - released on 20/12/22
+## Version 1.10.0 - released on 31/03/23
+- Added configuration operations for vCenter.
+- Added support for app_type and app_type_other to volume.
+- Added support for config_type, is_async_MTime_enabled,
+  file_events_publishing_mode, flr_attributes and host_io_size
+  while creating and modifying a filesystem.
+
+## Version 1.9.0 - released on 21/12/22
 - Added support for clone, restore, and refresh a volume.
 - Added support for metro sync to volume, host, host group and replication session.
 

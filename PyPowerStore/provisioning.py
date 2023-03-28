@@ -64,7 +64,8 @@ class Provisioning:
 
     def create_volume(self, name, size, description=None,
                       volume_group_id=None, protection_policy_id=None,
-                      performance_policy_id=None):
+                      performance_policy_id=None, app_type=None,
+                      app_type_other=None):
         """Create a volume.
 
         :param name: The name of the volume
@@ -73,13 +74,22 @@ class Provisioning:
         :param volume_group_id: (optional) The volume group ID
         :param protection_policy_id: (optional) The protection policy ID
         :param performance_policy_id: (optional) The performance policy ID
+        :param app_type: (optional) The application type
+        :param app_type_other: (optional) Describes application type when
+            app_type is set to other
         """
+        if app_type is not None and not helpers.is_malka_or_higher():
+            raise Exception("'app_type' parameter is supported only from "
+                            "Powerstore version 2.1.0.0 onwards")
+
         LOG.info("Creating volume: '%s'" % name)
         payload = self._prepare_create_volume_payload(name, size,
                                                       description,
                                                       volume_group_id,
                                                       protection_policy_id,
-                                                      performance_policy_id)
+                                                      performance_policy_id,
+                                                      app_type,
+                                                      app_type_other)
         self.client.request(constants.POST,
                             constants.VOLUME_CREATE_URL.format(
                                 self.server_ip), payload)
@@ -88,7 +98,9 @@ class Provisioning:
                                        description,
                                        volume_group_id,
                                        protection_policy_id,
-                                       performance_policy_id):
+                                       performance_policy_id,
+                                       app_type,
+                                       app_type_other):
 
         create_volume_dict = dict()
         if name is not None:
@@ -104,6 +116,10 @@ class Provisioning:
         if performance_policy_id is not None:
             create_volume_dict['performance_policy_id'] = \
                 performance_policy_id
+        if app_type is not None:
+            create_volume_dict['app_type'] = app_type
+        if app_type_other is not None:
+            create_volume_dict['app_type_other'] = app_type_other
 
         return create_volume_dict
 
@@ -122,8 +138,8 @@ class Provisioning:
             payload=None)
 
     def modify_volume(self, volume_id, name=None, description=None, size=None,
-                      protection_policy_id=None,
-                      performance_policy_id=None):
+                      protection_policy_id=None, performance_policy_id=None,
+                      app_type=None, app_type_other=None):
         """Modify a volume.
 
         :param volume_id: The volume ID
@@ -138,16 +154,26 @@ class Provisioning:
         :type protection_policy_id: str
         :param performance_policy_id: The performance policy ID
         :type performance_policy_id: str
+        :param app_type: The application type
+        :type app_type: str
+        :param app_type_other: Describes application type when
+            app_type is set to other
         :return: None if success else raise exception
         :rtype: None
         """
+        if app_type is not None and not helpers.is_malka_or_higher():
+            raise Exception("'app_type' parameter is supported only from "
+                            "Powerstore version 2.1.0.0 onwards")
+
         LOG.info("Modifying volume: '%s'" % volume_id)
         payload = self.\
             _prepare_modify_volume_payload(name,
                                            description,
                                            size,
                                            protection_policy_id,
-                                           performance_policy_id)
+                                           performance_policy_id,
+                                           app_type,
+                                           app_type_other)
         return self.client.request(
             constants.PATCH, constants.MODIFY_VOLUME_URL.format(
                 self.server_ip, volume_id),
@@ -156,7 +182,9 @@ class Provisioning:
     def _prepare_modify_volume_payload(self, name=None, description=None,
                                        size=None,
                                        protection_policy_id=None,
-                                       performance_policy_id=None):
+                                       performance_policy_id=None,
+                                       app_type=None,
+                                       app_type_other=None):
 
         modify_volume_dict = dict()
         if name is not None:
@@ -170,6 +198,10 @@ class Provisioning:
         if performance_policy_id is not None:
             modify_volume_dict['performance_policy_id'] = \
                 performance_policy_id
+        if app_type is not None:
+            modify_volume_dict['app_type'] = app_type
+        if app_type_other is not None:
+            modify_volume_dict['app_type_other'] = app_type_other
 
         return modify_volume_dict
 
@@ -238,7 +270,7 @@ class Provisioning:
                 performance_policy_id
 
         return clone_volume_dict
-    
+
     def refresh_volume(self, volume_id, volume_id_to_refresh_from=None,
                        create_backup_snap=None,
                        backup_snap_name=None,
@@ -303,7 +335,7 @@ class Provisioning:
                 backup_snap_performance_policy_id
 
         return refresh_volume_dict
-    
+
     def restore_volume(self, volume_id, snap_id_to_restore_from=None,
                        create_backup_snap=None,
                        backup_snap_name=None,
@@ -1163,7 +1195,7 @@ class Provisioning:
         :type name: str
         :param description: (optional) Description for the clone volume group.
         :type description: str
-        :param protection_policy_id: (optional) Unique identifier of the protection 
+        :param protection_policy_id: (optional) Unique identifier of the protection
                                      policy to assign to the clone volume group
         :type protection_policy_id: str
         :return: Unique identifier of the new instance created if success else raise exception
@@ -1493,7 +1525,7 @@ class Provisioning:
         )
 
     # NAS Server methods
- 
+
     def get_nas_servers(self, filter_dict=None, all_pages=False):
         """Get a list of nas servers.
 
@@ -1620,12 +1652,15 @@ class Provisioning:
         :rtype: dict
         """
         LOG.info("Getting filesystem details by ID: '%s'" % filesystem_id)
+        querystring=constants.SELECT_ALL_FILESYSTEM
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring=constants.SELECT_ALL_FILESYSTEM_PRIME
         return self.client.request(
             constants.GET,
             constants.GET_FILESYSTEM_DETAILS_URL.format(self.server_ip,
                                                         filesystem_id),
             payload=None,
-            querystring=constants.SELECT_ALL_FILESYSTEM)
+            querystring=querystring)
 
     def get_filesystem_by_name(self, filesystem_name, nas_server_id):
         """Get details of a filesystem by name.
@@ -1637,12 +1672,15 @@ class Provisioning:
         """
         LOG.info("Getting filesystem details by name: '%s' and NAS Server: "
                  "'%s'" % (filesystem_name, nas_server_id))
+        querystring=constants.SELECT_ALL_FILESYSTEM
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring=constants.SELECT_ALL_FILESYSTEM_PRIME
         return self.client.request(
             constants.GET,
             constants.GET_FILESYSTEM_DETAILS_BY_NAME_URL.format(
                 self.server_ip),
             payload=None, querystring=helpers.prepare_querystring(
-                constants.SELECT_ALL_FILESYSTEM,
+                querystring,
                 nas_server_id=constants.EQUALS + nas_server_id,
                 name=constants.EQUALS + filesystem_name
             )
@@ -1671,6 +1709,10 @@ class Provisioning:
 
         if advance_parameters:
             for key, value in advance_parameters.items():
+                if key in constants.FILESYSTEM_PRIME and \
+                        not helpers.is_foot_hill_prime_or_higher():
+                    raise Exception( key + " is supported for PowerStore" \
+                        " version 3.0.0.0 and above.")
                 payload[key] = value
         return self.client.request(constants.POST,
                                    constants.CREATE_FILESYSTEM_URL.format(
@@ -1722,6 +1764,10 @@ class Provisioning:
         if modify_parameters:
             payload = dict()
             for key, value in modify_parameters.items():
+                if key in constants.FILESYSTEM_PRIME and \
+                        not helpers.is_foot_hill_prime_or_higher():
+                    raise Exception( key + " is supported for PowerStore" \
+                        " version 3.0.0.0 and above.")
                 if value is not None:
                     payload[key] = value
 

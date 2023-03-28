@@ -15,6 +15,9 @@ from PyPowerStore.tests.unit_tests.data.ntp_data import NtpData
 from PyPowerStore.tests.unit_tests.data.remote_support_data import RemoteSupportData
 from PyPowerStore.tests.unit_tests.data.remote_support_contact_data import RemoteSupportContactData
 from PyPowerStore.tests.unit_tests.data.ldap_account_data import LdapAccountData
+from PyPowerStore.tests.unit_tests.data.vcenter_data import VcenterData
+from PyPowerStore.tests.unit_tests.data.virtual_volume_data import VirtualVolumeData
+from PyPowerStore.tests.unit_tests.data.file_system_data import FileSystemData
 from unittest import mock
 
 class TestBase(TestCase):
@@ -33,6 +36,9 @@ class TestBase(TestCase):
         self.remote_support_data = RemoteSupportData()
         self.remote_support_contact_data = RemoteSupportContactData()
         self.ldap_account_data = LdapAccountData()
+        self.vcenter_data = VcenterData()
+        self.virtual_volume_data = VirtualVolumeData()
+        self.file_system_data = FileSystemData()
         self.conf = PowerStoreConfig()
         self.mock_client = mock.patch('PyPowerStore.provisioning.Client',
                                       new=MockClient)

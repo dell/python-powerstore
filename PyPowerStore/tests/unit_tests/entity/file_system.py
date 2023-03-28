@@ -1,6 +1,6 @@
 from PyPowerStore.utils import constants
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
-from PyPowerStore.tests.unit_tests.data.common_data import CommonData
+from PyPowerStore.tests.unit_tests.data.file_system_data import FileSystemData
 
 
 class FileSystemResponse(Entity):
@@ -9,7 +9,7 @@ class FileSystemResponse(Entity):
         self.method = method
         self.url = url
         self.kwargs = kwargs
-        self.data = CommonData()
+        self.data = FileSystemData()
         self.status_code = 200
 
     def get_api_name(self):
