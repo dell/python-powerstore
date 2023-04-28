@@ -18,6 +18,8 @@ setup(name='PyPowerStore',
         'urllib3>=1.26.7',
         'requests>=2.23.0'
       ],
+      license_files = ('LICENSE',),
+      classifiers=['License :: OSI Approved :: Apache Software License'],
       url='https://github.com/dell/python-powerstore',
       packages=['PyPowerStore', 'PyPowerStore.utils'],
       )
