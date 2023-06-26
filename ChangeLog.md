@@ -1,5 +1,10 @@
 # PyPowerStore Change Log
 
+## Version 2.0.0.0 - released on 30/06/23
+- Added configuration operations for storage containers.
+- Added support for manual appliance selection to volume.
+- Added support for replication group in replication session module to perform async vVOL replication.
+
 ## Version 1.10.0 - released on 31/03/23
 - Added configuration operations for vCenter.
 - Added support for app_type and app_type_other to volume.
