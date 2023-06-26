@@ -40,6 +40,9 @@ from PyPowerStore.tests.unit_tests.entity.remote_support import RemoteSupportRes
 from PyPowerStore.tests.unit_tests.entity.remote_support_contact import RemoteSupportContactResponse
 from PyPowerStore.tests.unit_tests.entity.ldap_domain import LDAPDomainResponse
 from PyPowerStore.tests.unit_tests.entity.ldap_account import LDAPAccountResponse
+from PyPowerStore.tests.unit_tests.entity.storage_container import StorageContainerResponse
+from PyPowerStore.tests.unit_tests.entity.storage_container_destination import StorageContainerDestinationResponse
+from PyPowerStore.tests.unit_tests.entity.replication_group import ReplicationGroupResponse
 import json
 
 # map the entity class name with the url resource name
@@ -85,7 +88,10 @@ ENTITY_CLASS_MAPPING = {
     'remote_support': RemoteSupportResponse,
     'remote_support_contact': RemoteSupportContactResponse,
     'ldap_domain': LDAPDomainResponse,
-    'ldap_account': LDAPAccountResponse
+    'ldap_account': LDAPAccountResponse,
+    'storage_container': StorageContainerResponse,
+    'storage_container_destination': StorageContainerDestinationResponse,
+    'replication_group': ReplicationGroupResponse
 }
 
 

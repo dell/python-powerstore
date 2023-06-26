@@ -367,7 +367,9 @@ REMOTE_SYSTEM_FHP_DETAILS_QUERY = {
               'state_l10n,data_connection_type_l10n,file_connection_state_l10n,'
               'data_connection_state_l10n,discovery_chap_mode_l10n,'
               'session_chap_mode_l10n,data_network_latency_l10n,'
-              'capabilities_l10n,storage_container_destinations'
+              'capabilities_l10n,storage_container_destinations(id,'
+              'storage_container_id,remote_system_id,remote_storage_container_id,'
+              'storage_container(id,name))'
 }
 
 # Certificate details
@@ -438,6 +440,27 @@ VIRTUAL_VOLUME_DETAILS_QUERY = {
               'location_history,type_l10n,usage_type_l10n,io_priority_l10n,creator_type_l10n,'
               'host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)'
 }
+
+STORAGE_CONTAINER_DETAILS_QUERY = {
+    'select': 'id,name,quota,storage_protocol,storage_protocol_l10n,'
+              'virtual_volumes(id,name),replication_groups(id,name),datastores(id,name),'
+              'destinations(id,remote_system_id,remote_storage_container_id)'
+}
+
+STORAGE_CONTAINER_DETAILS_DESTINATION_QUERY = {
+    'select': 'id,remote_system_id,storage_container_id,'
+              'storage_container(id,name),remote_storage_container_id,'
+              'remote_system(id,name,management_address)'
+}
+
+REPLICATION_GROUP_QUERY = {
+    'select': 'id,name,storage_container_id,description,creator_type,'
+              'creation_timestamp,is_replication_destination,creator_type_l10n'
+              ',virtual_volumes,storage_container,parent,source,'
+              'child_replication_groups,target_replication_groups,'
+              'virtual_machines'
+}
+
 # LDAP Account details
 LDAP_ACCOUNT_DETAILS_QUERY = {
     'select': 'id,role_id,domain_id,name,type,type_l10n,dn'
@@ -529,6 +552,10 @@ REPLICATION_SESSION_RESUME_URL = 'https://{0}/api/rest/replication_session/{1}/r
 REPLICATION_SESSION_FAILOVER_URL = 'https://{0}/api/rest/replication_session/{1}/failover'
 REPLICATION_SESSION_REPROTECT_URL = 'https://{0}/api/rest/replication_session/{1}/reprotect'
 MODIFY_REPLICATION_SESSION_URL = REPLICATION_SESSION_OBJECT_URL
+
+# Replication Group endpoints
+REPLICATION_GROUP_DETAILS_LIST_URL = 'https://{0}/api/rest/replication_group'
+REPLICATION_GROUP_DETAILS_URL = 'https://{0}/api/rest/replication_group/{1}'
 
 # Remote system endpoints
 GET_REMOTE_SYSTEM_LIST_URL = 'https://{0}/api/rest/remote_system'
@@ -733,3 +760,16 @@ DELETE_LDAP_ACCOUNT_URL = GET_LDAP_ACCOUNT_DETAILS_URL
 # virtual volume endpoints
 GET_VIRTUAL_VOLUME_LIST_URL = 'https://{0}/api/rest/virtual_volume'
 GET_VIRTUAL_VOLUME_DETAILS_URL = 'https://{0}/api/rest/virtual_volume/{1}'
+
+# Storage container endpoints
+GET_STORAGE_CONTAINER_LIST_URL = 'https://{0}/api/rest/storage_container'
+GET_STORAGE_CONTAINER_DETAILS_URL = 'https://{0}/api/rest/storage_container/{1}'
+CREATE_STORAGE_CONTAINER_URL = GET_STORAGE_CONTAINER_LIST_URL
+MODIFY_STORAGE_CONTAINER_URL = GET_STORAGE_CONTAINER_DETAILS_URL
+DELETE_STORAGE_CONTAINER_URL = GET_STORAGE_CONTAINER_DETAILS_URL
+
+# Storage container Destination endpoints
+GET_STORAGE_CONTAINER_DESTINATION_LIST_URL = "https://{0}/api/rest/storage_container_destination"
+GET_STORAGE_CONTAINER_DESTINATION_DETAILS_URL = "https://{0}/api/rest/storage_container_destination/{1}"
+CREATE_STORAGE_CONTAINER_DESTINATION_URL = GET_STORAGE_CONTAINER_DESTINATION_LIST_URL
+DELETE_STORAGE_CONTAINER_DESTINATION_URL = GET_STORAGE_CONTAINER_DESTINATION_DETAILS_URL

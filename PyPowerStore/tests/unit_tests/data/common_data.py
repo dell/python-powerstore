@@ -15,6 +15,8 @@ class CommonData(object):
     app_type2 = "Healthcare_Other"
     app_type_other = "Research Data"
 
+    appliance_id = 'A1'
+
     volume_list = [{"id": vol_id1, "name": vol_name1},
                    {"id": vol_id2, "name": vol_name2}]
 
