@@ -18,6 +18,9 @@ from PyPowerStore.tests.unit_tests.data.ldap_account_data import LdapAccountData
 from PyPowerStore.tests.unit_tests.data.vcenter_data import VcenterData
 from PyPowerStore.tests.unit_tests.data.virtual_volume_data import VirtualVolumeData
 from PyPowerStore.tests.unit_tests.data.file_system_data import FileSystemData
+from PyPowerStore.tests.unit_tests.data.storage_container_data import StorageContainerData
+from PyPowerStore.tests.unit_tests.data.storage_container_destination_data import StorageContainerDestinationData
+from PyPowerStore.tests.unit_tests.data.replication_group_data import ReplicationGroupData
 from unittest import mock
 
 class TestBase(TestCase):
@@ -36,6 +39,9 @@ class TestBase(TestCase):
         self.remote_support_data = RemoteSupportData()
         self.remote_support_contact_data = RemoteSupportContactData()
         self.ldap_account_data = LdapAccountData()
+        self.storage_container_data = StorageContainerData()
+        self.storage_container_destination_data = StorageContainerDestinationData()
+        self.replication_group_data = ReplicationGroupData()
         self.vcenter_data = VcenterData()
         self.virtual_volume_data = VirtualVolumeData()
         self.file_system_data = FileSystemData()

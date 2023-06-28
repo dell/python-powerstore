@@ -33,6 +33,12 @@ class TestVolume(TestBase):
                                               app_type_other)
         self.assertIsNone(vol)
 
+    def test_create_vol_with_appliance_id(self):
+        vol = self.provisioning.create_volume(self.data.vol_name1,
+                                              self.data.size,
+                                              appliance_id=self.data.appliance_id)
+        self.assertIsNone(vol)
+
     def test_modify_volume(self):
         vol = self.provisioning.modify_volume(self.data.vol_id1,
                                               self.data.vol_name1)

@@ -247,7 +247,10 @@ class Client():
                 if self.is_valid_response(response):
                     response_json = None
                     if response.status_code != 204:
-                        response_json = response.json()
+                        if response.status_code == 201 and response.content == b'':
+                            pass
+                        else:
+                            response_json = response.json()
                     # check 'all_pages' required, response received is
                     # partial(code 206) and contains info about total size of
                     # the collection

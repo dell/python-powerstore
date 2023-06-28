@@ -1142,6 +1142,61 @@ class ProtectionFunctions:
 
     # Replication Session end
 
+    # Replication group start
+    def get_replication_groups(self, filter_dict=None, all_pages=False):
+        """Get all the replication groups
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all elements
+                          or not
+        :type all_pages: bool
+        :return: replication groups.
+        :rtype: list[dict]
+        """
+        LOG.info("Getting replication groups with filter: '%s' and "
+                 "all_pages: %s" % (filter_dict, all_pages))
+        querystring = helpers.prepare_querystring(
+            constants.REPLICATION_GROUP_QUERY, filter_dict)
+        LOG.info("Querystring: '%s'" % querystring)
+        return self.rest_client.request(
+            constants.GET, constants.REPLICATION_GROUP_DETAILS_LIST_URL.format(
+                self.server_ip), payload=None, querystring=querystring,
+            all_pages=all_pages)
+
+    def get_replication_group_details(self, replication_group_id):
+        """Getting the details of a replication group using ID
+        :param replication_group_id: ID of the replication group
+        :type replication_group_id: str
+        :return: replication session details
+        :rtype: dict
+        """
+        LOG.info("Getting replication session details by ID:"
+                 " '%s'" % replication_group_id)
+
+        return self.rest_client.request(
+            constants.GET,
+            constants.REPLICATION_GROUP_DETAILS_URL.format(
+                self.server_ip, replication_group_id),
+            querystring=constants.REPLICATION_GROUP_QUERY)
+
+    def get_replication_group_details_by_name(self, replication_group_name):
+        """Get details of the replication group details using name
+        :param replication_group_name: Name of the replication group
+        :type replication_group_name: str
+        :return: replication session details
+        :rtype: list of dict
+        """
+        LOG.info("Getting replication group details by name:"
+                 " '%s'" % replication_group_name)
+        return self.rest_client.request(
+            constants.GET,
+            constants.REPLICATION_GROUP_DETAILS_LIST_URL.format(
+                self.server_ip),
+            querystring=helpers.prepare_querystring(
+                constants.REPLICATION_GROUP_QUERY,
+                name=constants.EQUALS + replication_group_name))
+    # Replication group end
+
     # Remote System start
     def get_remote_systems(self, filter_dict=None, all_pages=False):
         """Get all remote systems.

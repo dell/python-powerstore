@@ -65,7 +65,7 @@ class Provisioning:
     def create_volume(self, name, size, description=None,
                       volume_group_id=None, protection_policy_id=None,
                       performance_policy_id=None, app_type=None,
-                      app_type_other=None):
+                      app_type_other=None, appliance_id=None):
         """Create a volume.
 
         :param name: The name of the volume
@@ -77,6 +77,7 @@ class Provisioning:
         :param app_type: (optional) The application type
         :param app_type_other: (optional) Describes application type when
             app_type is set to other
+        :param appliance_id: (optional) The appliance ID
         """
         if app_type is not None and not helpers.is_malka_or_higher():
             raise Exception("'app_type' parameter is supported only from "
@@ -89,7 +90,8 @@ class Provisioning:
                                                       protection_policy_id,
                                                       performance_policy_id,
                                                       app_type,
-                                                      app_type_other)
+                                                      app_type_other,
+                                                      appliance_id)
         self.client.request(constants.POST,
                             constants.VOLUME_CREATE_URL.format(
                                 self.server_ip), payload)
@@ -100,7 +102,8 @@ class Provisioning:
                                        protection_policy_id,
                                        performance_policy_id,
                                        app_type,
-                                       app_type_other):
+                                       app_type_other,
+                                       appliance_id):
 
         create_volume_dict = dict()
         if name is not None:
@@ -120,6 +123,8 @@ class Provisioning:
             create_volume_dict['app_type'] = app_type
         if app_type_other is not None:
             create_volume_dict['app_type_other'] = app_type_other
+        if appliance_id is not None:
+            create_volume_dict['appliance_id'] = appliance_id
 
         return create_volume_dict
 

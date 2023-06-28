@@ -1812,7 +1812,6 @@ class Configuration:
         """
         LOG.info("Modifying remote support contact : '%s' with params '%s'" % (
             remote_support_contact_id, modify_parameters))
-        print(remote_support_contact_id)
         if helpers.is_foot_hill_or_higher():
             remote_support_contact_url = constants.MODIFY_REMOTE_SUPPORT_CONTACT_URL
             return self.config_client.request(
@@ -1894,10 +1893,10 @@ class Configuration:
         resp = self.config_client.request(
             constants.GET,
             constants.GET_LDAP_DOMAIN_LIST_URL.format(
-                self.server_ip, ldap_domain_name),
+                self.server_ip),
             querystring=helpers.prepare_querystring(
                 constants.LDAP_DOMAIN_DETAILS_QUERY,
-                name=constants.EQUALS + ldap_domain_name)
+                domain_name=constants.EQUALS + ldap_domain_name)
         )
 
         filterable_keys = ['domain_name', 'id', 'protocol', 'ldap_server_type']
@@ -2127,6 +2126,177 @@ class Configuration:
 
     # Virtual volume operations end
 
+    # Storage container operations begin
+
+    def get_storage_container_list(self, filter_dict=None, all_pages=None):
+        """Get all storage container available on array.
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all
+                          Storage containers or not
+        :type all_pages: bool
+        :return: List of storage containers on array
+        :rtype: list[dict]
+        """
+        LOG.info("Getting storage containers with filter: '%s' and all_pages: %s"
+                 % (filter_dict, all_pages))
+        querystring = helpers.prepare_querystring(
+            constants.STORAGE_CONTAINER_DETAILS_QUERY,
+            filter_dict)
+        LOG.info("Querystring: '%s'" % querystring)
+        return self.config_client.request(constants.GET,
+                                   constants.GET_STORAGE_CONTAINER_LIST_URL.format
+                                   (self.server_ip), payload=None,
+                                   querystring=querystring,
+                                   all_pages=all_pages)
+
+    def get_storage_container_details(self, storage_container_id):
+        """ Get details of a storage container instance.
+
+        :param storage_container_id: Unique identifier of the storage_container
+        :type storage_container_id: str
+        :return: storage container details
+        :rtype: dict
+        """
+        LOG.info("Getting storage container details by ID: '%s'" % storage_container_id)
+
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_STORAGE_CONTAINER_DETAILS_URL.format(
+                self.server_ip, storage_container_id),
+            querystring=constants.STORAGE_CONTAINER_DETAILS_QUERY)
+
+    def get_storage_container_details_by_name(self, storage_container_name):
+        """ Get details of a storage container instance.
+
+        :param storage_container_name: storage container name
+        :type storage_container_name: str
+        :return: storage container details
+        :rtype: dict
+        """
+        LOG.info("Getting storage container details by name: '%s'" % storage_container_name)
+        resp = self.get_storage_container_list()
+
+        for container in resp:
+            if container['name'] == storage_container_name:
+                return self.get_storage_container_details(container['id'])
+
+    def create_storage_container(self, create_parameters):
+        """ Create a storage_container.
+
+        :param create_parameters: Parameters for creating a storage_container
+        :type create_parameters: dict
+        :return: Unique identifier of the new storage container instance created
+        :rtype: dict
+        """
+        LOG.info("creating storage container")
+
+        return self.config_client.request(
+            constants.POST,
+            constants.CREATE_STORAGE_CONTAINER_URL.format(
+                self.server_ip), payload=create_parameters)
+
+    def modify_storage_container_details(self, storage_container_id, modify_parameters):
+        """ Modifying storage container configuration.
+
+        :param storage_container_id: Unique ID of the storage container instance
+        :type storage_container_id: str
+        :param modify_parameters: Parameters for modifying storage container
+        :type modify_parameters: dict
+        :return: None
+        :rtype: None
+        """
+        LOG.info("Modifying storage containert id: '%s'" % storage_container_id)
+
+        return self.config_client.request(
+            constants.PATCH,
+            constants.MODIFY_STORAGE_CONTAINER_URL.format(
+                self.server_ip, storage_container_id), payload=modify_parameters)
+
+    def delete_storage_container(self, storage_container_id, delete_parameters):
+        """ Delete a storage container.
+
+        :param storage_container_id: Unique ID of the storage container instance
+        :type storage_container_id: str
+        :return: None
+        :rtype: None
+        """
+        LOG.info("Deleting storage container with id: '%s'" % storage_container_id)
+
+        return self.config_client.request(
+            constants.DELETE,
+            constants.DELETE_STORAGE_CONTAINER_URL.format(
+                self.server_ip, storage_container_id), payload=delete_parameters)
+    # Storage container operations end
+
+    # Storage container destination operations start
+    def get_storage_container_destination_list(self, filter_dict=None, all_pages=None):
+        """Get all storage container destination.
+        :param filter_dict: (optional) Filter details
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all
+                          Storage containers destination or not
+        :type all_pages: bool
+        :return: List of storage containers destination
+        :rtype: list[dict]
+        """
+        LOG.info("Getting storage containers destination with filter: '%s' "
+                 "and all_pages: %s" % (filter_dict, all_pages))
+        querystring = helpers.prepare_querystring(
+            constants.STORAGE_CONTAINER_DETAILS_DESTINATION_QUERY, filter_dict)
+        LOG.info("Querystring: '%s'" % querystring)
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_STORAGE_CONTAINER_DESTINATION_LIST_URL.format(
+                self.server_ip),
+            payload=None, querystring=querystring, all_pages=all_pages)
+
+    def get_storage_container_destination_details(self, storage_container_destination_id):
+        """ Get details of a storage container destination instance.
+
+        :param storage_container_destination_id: Unique identifier of the
+                                                 storage container destination
+        :type storage_container_destination_id: str
+        :return: storage container destination details
+        :rtype: dict
+        """
+        LOG.info("Getting storage container destination details by "
+                 "ID: '%s'" % storage_container_destination_id)
+
+        return self.config_client.request(
+            constants.GET,
+            constants.GET_STORAGE_CONTAINER_DESTINATION_DETAILS_URL.format(
+                self.server_ip, storage_container_destination_id),
+            querystring=constants.STORAGE_CONTAINER_DETAILS_DESTINATION_QUERY)
+
+    def create_storage_container_destination(self, create_destination_params):
+        """Create a Storage Container Destination
+        :param create_destination_params: parameter to create storage container
+                                          destination
+        :type create_destination_params: dict
+        :return: Unique identifier of newly created storage container destination
+        :rtype: dict
+        """
+        LOG.info("Creating storage container destination.")
+        return self.config_client.request(
+            constants.POST,
+            constants.CREATE_STORAGE_CONTAINER_DESTINATION_URL.format(
+                self.server_ip), payload=create_destination_params)
+
+    def delete_storage_container_destination(self, storage_container_destination_id):
+        """Delete a storage container destination
+        :param storage_container_destination_id: ID of storage container destination
+        :type storage_container_destination_id: str
+        :rtype: None
+        """
+        LOG.info("Deleting storage container destination with "
+                 "id: '%s'" % storage_container_destination_id)
+        return self.config_client.request(
+            constants.DELETE,
+            constants.DELETE_STORAGE_CONTAINER_DESTINATION_URL.format(
+                self.server_ip, storage_container_destination_id))
+
+    # Storage container destination operations end
 
     @staticmethod
     def _prepare_local_user_payload(**kwargs):
