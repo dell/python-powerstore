@@ -43,6 +43,7 @@ from PyPowerStore.tests.unit_tests.entity.ldap_account import LDAPAccountRespons
 from PyPowerStore.tests.unit_tests.entity.storage_container import StorageContainerResponse
 from PyPowerStore.tests.unit_tests.entity.storage_container_destination import StorageContainerDestinationResponse
 from PyPowerStore.tests.unit_tests.entity.replication_group import ReplicationGroupResponse
+from PyPowerStore.tests.unit_tests.entity.discovered_appliances import DiscoveredApplianceResponse
 import json
 
 # map the entity class name with the url resource name
@@ -91,7 +92,8 @@ ENTITY_CLASS_MAPPING = {
     'ldap_account': LDAPAccountResponse,
     'storage_container': StorageContainerResponse,
     'storage_container_destination': StorageContainerDestinationResponse,
-    'replication_group': ReplicationGroupResponse
+    'replication_group': ReplicationGroupResponse,
+    'discovered_appliance': DiscoveredApplianceResponse
 }
 
 

@@ -113,6 +113,20 @@ class TestFileSystem(TestBase):
         resp = self.provisioning.delete_filesystem(self.file_system_data.fs_id1)
         self.assertIsNone(resp)
 
+    def test_clone_filesystem(self):
+        resp = \
+            self.provisioning.clone_filesystem(self.file_system_data.fs_id1,
+                advance_parameters={'name': self.file_system_data.fs_name2})
+        self.assertEqual(resp, self.file_system_data.create_filesystem)
+
+    def test_restore_filesystem(self):
+        resp = self.provisioning.restore_filesystem(self.file_system_data.fs_snap_id)
+        self.assertIsNone(resp)
+
+    def test_refresh_filesystem(self):
+        resp = self.provisioning.refresh_filesystem(self.file_system_data.fs_snap_id)
+        self.assertIsNone(resp)
+
     def test_delete_invalid_filesystem(self):
         self.assertRaisesRegex(
             PowerStoreException,

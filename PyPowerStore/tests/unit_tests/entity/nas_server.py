@@ -24,6 +24,10 @@ class NASServerResponse(Entity):
                 return self.get_nasserver_detail
         elif self.method == 'PATCH':
             return self.modify_nas
+        elif self.method == 'POST':
+            return self.create_nasserver
+        elif self.method == 'DELETE':
+            return self.delete_nasserver
 
     def execute_api(self, api_name):
         status_code, response = api_name()
@@ -47,4 +51,10 @@ class NASServerResponse(Entity):
         elif self.url.endswith('/nas_server/{0}'.format(
              self.data.nas_id_not_exist)):
             return 404, self.data.nas_error[404]
+        return 204, None
+
+    def create_nasserver(self):
+       return 201, self.data.nas_id1
+
+    def delete_nasserver(self):
         return 204, None

@@ -1028,7 +1028,10 @@ class Configuration:
             "Getting all appliances with filter: '%s' and all_pages: '%s'"
             % (filter_dict, all_pages))
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_NAME_AND_MODEL, filter_dict)
+            constants.APPLIANCE_DETAILS_QUERY, filter_dict)
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = helpers.prepare_querystring(
+                constants.APPLIANCE_DETAILS_FHP_QUERY, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
         return self.config_client.request(
             constants.GET,
@@ -1046,13 +1049,18 @@ class Configuration:
 
         LOG.info("Getting appliance details by ID: '%s'" % appliance_id)
         querystring = constants.APPLIANCE_DETAILS_QUERY
-        if helpers.is_foot_hill_or_higher():
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = constants.APPLIANCE_DETAILS_FHP_QUERY
+        elif helpers.is_foot_hill_or_higher():
             querystring = {
                 'select': 'id,name,service_tag,express_service_code,model,'
                           'drive_failure_tolerance_level,nodes,'
-                          'ip_pool_addresses,veth_ports,maintenance_windows,'
-                          'fc_ports,sas_ports,eth_ports,software_installed,'
-                          'virtual_volumes,hardware,volumes'
+                          'ip_pool_addresses(id,name),veth_ports(id,name),'
+                          'maintenance_windows,fc_ports(id,name),'
+                          'sas_ports(id,name),eth_ports(id,name),'
+                          'software_installed(id,release_version),'
+                          'virtual_volumes(id,name),hardware(id,name),'
+                          'volumes(id,name)'
             }
         return self.config_client.request(
             constants.GET,
@@ -1071,13 +1079,18 @@ class Configuration:
         """
         LOG.info("Getting appliance details by name: '%s'" % appliance_name)
         querystring = constants.APPLIANCE_DETAILS_QUERY
-        if helpers.is_foot_hill_or_higher():
+        if helpers.is_foot_hill_prime_or_higher():
+            querystring = constants.APPLIANCE_DETAILS_FHP_QUERY
+        elif helpers.is_foot_hill_or_higher():
             querystring = {
                 'select': 'id,name,service_tag,express_service_code,model,'
                           'drive_failure_tolerance_level,nodes,'
-                          'ip_pool_addresses,veth_ports,maintenance_windows,'
-                          'fc_ports,sas_ports,eth_ports,software_installed,'
-                          'virtual_volumes,hardware,volumes'
+                          'ip_pool_addresses(id,name),veth_ports(id,name),'
+                          'maintenance_windows,fc_ports(id,name),'
+                          'sas_ports(id,name),eth_ports(id,name),'
+                          'software_installed(id,release_version),'
+                          'virtual_volumes(id,name),hardware(id,name),'
+                          'volumes(id,name)'
             }
 
         return self.config_client.request(
@@ -1086,6 +1099,48 @@ class Configuration:
             querystring=helpers.prepare_querystring(
                 querystring,
                 name=constants.EQUALS + appliance_name))
+
+    # Discovered Appliances methods
+    def get_discovered_appliances(self, filter_dict=None, all_pages=False):
+        """
+        Get discovered appliances.
+        Parameters:
+        - filter_dict (dict): (optional) Filter details
+        - all_pages (bool): (optional) Indicates whether to return all
+                            appliances or not
+
+        Returns:
+        - List of discovered appliances (list)[dict]
+        """
+        LOG.info("Getting discovered appliances with filter: '%s' and "
+                 "all_pages: '%s'",filter_dict, all_pages)
+
+        if all_pages:
+            raise ValueError("Pagination is not supported for discovered "
+                             "appliances.")
+
+        querystring = constants.DISCOVERED_APPLIANCE_DETAILS_QUERY.copy()
+
+        if not filter_dict:
+            querystring = helpers.prepare_querystring(querystring)
+
+            LOG.info("Querystring without filters dict: '%s'", querystring)
+            return self.config_client.request(
+                constants.GET,
+                constants.GET_DISCOVERED_APPLIANCE_LIST_URL.format(self.server_ip),
+                querystring=querystring,
+                all_pages=False
+            )
+        resp = self.config_client.request(
+            constants.GET,
+            constants.GET_DISCOVERED_APPLIANCE_LIST_URL.format(self.server_ip),
+            querystring=querystring, all_pages=False)
+        filterable_keys = ['id', 'link_local_address', 'service_name', 'state',
+                           'is_unified_capable', 'mode', 'is_local',
+                           'management_service_ready', 'build_version',
+                           'node_count', 'express_service_code']
+        return helpers.filtered_details(filterable_keys, filter_dict,
+                                        resp, 'discovered_appliances')
     # Appliance operations end
 
     # Certificate operations start

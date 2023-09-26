@@ -82,3 +82,12 @@ class TestNASServer(TestBase):
         self.assertRaises(
             ValueError, self.provisioning.modify_nasserver,
             self.data.nas_id1, {})
+
+    def test_create_nas_server(self):
+        payload = {"name": "nas1", "default_unix_user": "user1", "default_windows_user": "user2"}
+        nas_id = self.provisioning.create_nasserver(payload)
+        self.assertEqual(nas_id, self.data.nas_id1)
+
+    def test_delete_nas_server(self):
+        resp = self.provisioning.delete_nasserver(self.data.nas_name1)
+        self.assertIsNone(resp)

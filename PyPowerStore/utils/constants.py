@@ -20,6 +20,9 @@ OFFSET = 100
 # max number of items limit in a response
 MAX_LIMIT = 2000
 
+# Foot Hill Prime Plus Version
+FOOTHILL_PRIME_PLUS_VERSION = '3.2.0.0'
+
 # Query params
 
 # Volume Query
@@ -341,9 +344,29 @@ FHP_VCENTER_QUERY = {
 # Appliance details
 APPLIANCE_DETAILS_QUERY = {
     'select': 'id,name,service_tag,express_service_code,model,nodes,'
-              'veth_ports,maintenance_windows,fc_ports,sas_ports,eth_ports,'
-              'software_installed,virtual_volumes,hardware,volumes,'
-              'ip_pool_addresses'
+              'veth_ports(id,name),maintenance_windows,fc_ports(id,name),'
+              'sas_ports(id,name),eth_ports(id,name),'
+              'software_installed(id,release_version),'
+              'virtual_volumes(id,name),hardware(id,name),volumes(id,name),'
+              'ip_pool_addresses(id,name)'
+}
+APPLIANCE_DETAILS_FHP_QUERY = {
+    'select': 'id,name,service_tag,express_service_code,model,nodes,'
+              'veth_ports(id,name),maintenance_windows,fc_ports(id,name),'
+              'sas_ports(id,name),eth_ports(id,name),eth_be_ports(id,name),'
+              'software_installed(id,release_version),virtual_volumes(id,name)'
+              ',hardware(id,name),volumes(id,name),ip_pool_addresses(id,name),'
+              'node_count,drive_failure_tolerance_level,'
+              'drive_failure_tolerance_level_l10n'
+}
+
+# Discovered appliance details
+DISCOVERED_APPLIANCE_DETAILS_QUERY = {
+    'select': 'id,link_local_address,service_name,service_tag,state,mode,'
+              'model,express_service_code,is_local,management_service_ready,'
+              'software_version_compatibility,build_version,build_id,'
+              'power_score,node_count,is_unified_capable,'
+              'drive_failure_tolerance_level_and_availability(level,availability)'
 }
 
 # Remote System
@@ -578,6 +601,8 @@ GET_NAS_SERVER_LIST_URL = 'https://{0}/api/rest/nas_server'
 GET_NAS_SERVER_DETAILS_URL = 'https://{0}/api/rest/nas_server/{1}'
 GET_NAS_SERVER_DETAILS_BY_NAME_URL = GET_NAS_SERVER_LIST_URL
 MODIFY_NAS_SERVER_URL = GET_NAS_SERVER_DETAILS_URL
+CREATE_NAS_SERVER_URL = GET_NAS_SERVER_LIST_URL
+DELETE_NAS_SERVER_URL = GET_NAS_SERVER_DETAILS_URL
 
 # NFS Export endpoints
 GET_NFS_EXPORT_LIST_URL = 'https://{0}/api/rest/nfs_export'
@@ -613,6 +638,10 @@ GET_FILESYSTEM_DETAILS_URL = 'https://{0}/api/rest/file_system/{1}'
 GET_FILESYSTEM_DETAILS_BY_NAME_URL = GET_FILE_SYSTEM_LIST_URL
 CREATE_FILESYSTEM_URL = GET_FILESYSTEM_DETAILS_BY_NAME_URL
 DELETE_FILESYSTEM_URL = GET_FILESYSTEM_DETAILS_URL
+
+CLONE_FILESYSTEM_URL = 'https://{0}/api/rest/file_system/{1}/clone'
+REFRESH_FILESYSTEM_URL = 'https://{0}/api/rest/file_system/{1}/refresh'
+RESTORE_FILESYSTEM_URL = 'https://{0}/api/rest/file_system/{1}/restore'
 
 MODIFY_FILESYSTEM_URL = GET_FILESYSTEM_DETAILS_URL
 CREATE_FILESYSTEM_SNAPSHOT_URL = 'https://{0}/api/rest/file_system/{1}/' \
@@ -686,6 +715,9 @@ REMOVE_VCENTER_URL = GET_VCENTER_DETAILS_URL
 # Appliance endpoints
 GET_APPLIANCE_LIST_URL = 'https://{0}/api/rest/appliance'
 GET_APPLIANCE_DETAILS_URL = 'https://{0}/api/rest/appliance/{1}'
+
+# Discovered Appliance endpoints
+GET_DISCOVERED_APPLIANCE_LIST_URL = 'https://{0}/api/rest/discovered_appliance'
 
 # Certificate endpoints
 GET_CERTIFICATE_LIST_URL = 'https://{0}/api/rest/x509_certificate'

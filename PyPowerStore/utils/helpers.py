@@ -46,7 +46,6 @@ def get_logger(module_name, enable_log=False):
         LOG.disabled = True
     return LOG
 
-
 def is_foot_hill_or_higher():
     """Returns true if the array version is foot hill or higher.
 
@@ -120,8 +119,12 @@ def filtered_details(filterable_keys, filter_dict, resource_list,
                 temp_dict['id'] = resource['id']
                 # check if resource has 'name' parameter or not.
                 if resource_name not in ["CHAP config", "service config",
-                                         "security config", "remote_support_contact", "ldap_domain"]:
+                                         "security config",
+                                         "remote_support_contact",
+                                         "ldap_domain", "discovered_appliances"]:
                     temp_dict['name'] = resource['name']
+                elif resource_name == "discovered_appliances":
+                    temp_dict.update(resource)
                 response.append(temp_dict)
     return response
 

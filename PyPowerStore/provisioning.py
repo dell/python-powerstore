@@ -406,6 +406,64 @@ class Provisioning:
 
         return refresh_volume_dict
 
+    def clone_filesystem(self, filesystem_id, advance_parameters):
+        """Clone a filesystem.
+
+        :param filesystem_id: The filesystem ID
+        :type filesystem_id: str
+        :param advance_parameters: Advance attributes
+        :type advance_parameters: str
+        :return: Unique identifier of the new instance created if success else raise exception
+        :rtype: dict
+        """
+        LOG.info("Cloning the filesystem: '%s'" % filesystem_id)
+        payload = dict()
+
+        if advance_parameters:
+            for key, value in advance_parameters.items():
+                if key in constants.FILESYSTEM_PRIME and \
+                        not helpers.is_foot_hill_prime_or_higher():
+                    raise Exception( key + " is supported for PowerStore" \
+                        " version 3.0.0.0 and above.")
+                payload[key] = value
+        return self.client.request(
+            constants.POST, constants.CLONE_FILESYSTEM_URL.format(
+                self.server_ip, filesystem_id),
+            payload)
+
+    def restore_filesystem(self, snapshot_id, backup_snap_name=None):
+        """Restore a filesystem.
+
+        :param snapshot_id: Unique identifier of the file system snapshot.
+        :type snapshot_id: str
+        :param backup_snap_name: Name of the backup snap to be created before the restore operation occurs. If no name is specified, no backup copy will be made.
+        :type backup_snap_name: str
+        :return: Unique identifier of the backup snapshot set or None if backup_snap_name is None
+                 if success else raise exception
+        :rtype: dict
+        """
+        LOG.info("Restoring the filesystem from snapshot: '%s'" % snapshot_id)
+        payload = {}
+        if backup_snap_name is not None:
+            payload['copy_name'] = backup_snap_name
+        return self.client.request(
+            constants.POST, constants.RESTORE_FILESYSTEM_URL.format(
+                self.server_ip, snapshot_id),
+            payload)
+
+    def refresh_filesystem(self, snapshot_id):
+        """Refresh a filesystem.
+
+        :param snapshot_id: Unique identifier of the file system snapshot.
+        :type snapshot_id: str
+        :return: None if success else raise exception.
+        :rtype: None
+        """
+        LOG.info("Refreshing the filesystem from snapshot: '%s'" % snapshot_id)
+        return self.client.request(
+            constants.POST, constants.REFRESH_FILESYSTEM_URL.format(
+                self.server_ip, snapshot_id))
+
     def add_protection_policy_for_volume(self, volume_id,
                                          protection_policy_id):
         """Add protection policy for volume.
@@ -1508,7 +1566,7 @@ class Provisioning:
                                    constants.GET_CLUSTER.format
                                    (self.server_ip), payload=None,
                                    querystring=constants.
-                                   SELECT_ID_AND_NAME)
+                                   CLUSTER_DETAILS_QUERY)
 
     def get_host_volume_mapping(self, volume_id):
         """Get Host volume mapping details.
@@ -1596,6 +1654,25 @@ class Provisioning:
             )
         )
 
+    def create_nasserver(self, payload):
+        """Create a NAS Server.
+
+        :param payload: The payload to create the NAS Server
+        :type payload: dict
+        :return: NAS server ID on success else raise exception
+        :rtype: dict
+        """
+        LOG.info("Creating NAS server: '%s'" % payload.get('name'))
+        if 'protection-policy' in payload and \
+                not helpers.is_foot_hill_prime_or_higher():
+            raise Exception("Protection policy is supported for PowerStore" \
+                            " version 3.0.0.0 and above.")
+        return self.client.request(
+            constants.POST,
+            constants.CREATE_NAS_SERVER_URL.format(self.server_ip),
+            payload=payload)
+
+
     def modify_nasserver(self, nasserver_id, modify_parameters):
         """Modify NAS Server attributes.
 
@@ -1621,6 +1698,19 @@ class Provisioning:
                     payload=payload)
 
         raise ValueError("Nothing to modify")
+
+    def delete_nasserver(self, nasserver_id):
+        """Delete a NAS Server.
+
+        :param nasserver_id: The ID of the NAS Server to delete
+        :type nasserver_id: str
+        :return: None on success else raise exception
+        :rtype: None
+        """
+        LOG.info("Deleting NAS server: '%s'" % nasserver_id)
+        return self.client.request(
+            constants.DELETE,
+            constants.DELETE_NAS_SERVER_URL.format(self.server_ip, nasserver_id))
 
     # NAS Server methods end
 

@@ -21,6 +21,7 @@ from PyPowerStore.tests.unit_tests.data.file_system_data import FileSystemData
 from PyPowerStore.tests.unit_tests.data.storage_container_data import StorageContainerData
 from PyPowerStore.tests.unit_tests.data.storage_container_destination_data import StorageContainerDestinationData
 from PyPowerStore.tests.unit_tests.data.replication_group_data import ReplicationGroupData
+from PyPowerStore.tests.unit_tests.data.discovered_appliances import DiscoveredApplianceData
 from unittest import mock
 
 class TestBase(TestCase):
@@ -45,6 +46,7 @@ class TestBase(TestCase):
         self.vcenter_data = VcenterData()
         self.virtual_volume_data = VirtualVolumeData()
         self.file_system_data = FileSystemData()
+        self.discovered_appliance_data = DiscoveredApplianceData()
         self.conf = PowerStoreConfig()
         self.mock_client = mock.patch('PyPowerStore.provisioning.Client',
                                       new=MockClient)
