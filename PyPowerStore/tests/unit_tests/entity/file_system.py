@@ -29,6 +29,10 @@ class FileSystemResponse(Entity):
         elif self.method == 'POST':
             if self.url.endswith('/snapshot'):
                 return self.create_filesystem_snapshot
+            elif self.url.endswith('/refresh'):
+                return self.refresh_filesystem
+            elif self.url.endswith('/restore'):
+                return self.restore_filesystem
             return self.create_filesystem
         elif self.method == 'PATCH':
             return self.modify_fs
@@ -55,6 +59,12 @@ class FileSystemResponse(Entity):
         return 200, self.data.fs_snap_list
 
     def modify_fs(self):
+        return 204, None
+
+    def restore_filesystem(self):
+        return 204, None
+
+    def refresh_filesystem(self):
         return 204, None
 
     def delete_fs(self):

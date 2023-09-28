@@ -1,5 +1,10 @@
 # PyPowerStore Change Log
 
+## Version 2.1.0.0 - released on 29/09/23
+- Added support for cloning, refreshing, and restoring filesystem.
+- Added support for creating and deleting NAS server.
+- Added support for discovered appliances.
+
 ## Version 2.0.0.0 - released on 30/06/23
 - Added configuration operations for storage containers.
 - Added support for manual appliance selection to volume.
