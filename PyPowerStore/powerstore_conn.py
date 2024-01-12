@@ -6,7 +6,11 @@
 from PyPowerStore.protection import ProtectionFunctions
 from PyPowerStore.provisioning import Provisioning
 from PyPowerStore.configuration import Configuration
-
+from PyPowerStore.objects.file_interface import FileInterface
+from PyPowerStore.objects.smb_server import SMBServer
+from PyPowerStore.objects.nfs_server import NFSServer
+from PyPowerStore.objects.file_dns import FileDNS
+from PyPowerStore.objects.file_nis import FileNIS
 
 class PowerStoreConn():
     """Class for establishing connection with PowerStore"""
@@ -41,3 +45,13 @@ class PowerStoreConn():
                                               enable_log=enable_log)
         self.config_mgmt = Configuration(self.provisioning,
                                          enable_log=enable_log)
+        self.file_interface = FileInterface(self.provisioning,
+                                            enable_log=enable_log)
+        self.smb_server = SMBServer(self.provisioning,
+                                    enable_log=enable_log)
+        self.nfs_server = NFSServer(self.provisioning,
+                                    enable_log=enable_log)
+        self.file_dns = FileDNS(self.provisioning,
+                                enable_log=enable_log)
+        self.file_nis = FileNIS(self.provisioning,
+                                enable_log=enable_log)
