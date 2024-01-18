@@ -42,7 +42,7 @@ class TestFileInterface(TestBase):
 
     def test_get_file_interface_by_nas(self):
         file_interface_detail = self.file_interface.get_file_interface_by_nas_server_id(
-            self.file_interface_data.nas_server_id)
+            self.file_interface_data.nas_server_id, self.file_interface_data.ip_address)
         self.assertEqual(file_interface_detail, self.file_interface_data.file_interface_list)
 
     def test_modify_file_interface(self):

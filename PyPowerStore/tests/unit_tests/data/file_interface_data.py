@@ -19,6 +19,7 @@ class FileInterfaceData():
 
     nas_server_id = "651067dc-5a14-a3c2-d031-0e1089268650"
     nas_server_name = "my_nas1"
+    ip_address = "10.10.10.10"
 
     file_interface_detail = {"id":"651067ea-dff5-099d-6aea-0e1089268650",
                              "nas_server_id":"651067dc-5a14-a3c2-d031-0e1089268650",

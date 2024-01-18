@@ -80,7 +80,7 @@ class FileInterface:
             payload=None,
             querystring=querystring)
 
-    def get_file_interface_by_nas_server_id(self, nas_server_id):
+    def get_file_interface_by_nas_server_id(self, nas_server_id, ip_address):
         """Get details of a file interface by NAS server ID.
 
         :param nas_server_id: The unique identifier of the NAS Server
@@ -98,6 +98,7 @@ class FileInterface:
             payload=None, querystring=helpers.prepare_querystring(
                 querystring,
                 nas_server_id=constants.EQUALS + nas_server_id,
+                ip_address=constants.EQUALS + ip_address
             )
         )
 
