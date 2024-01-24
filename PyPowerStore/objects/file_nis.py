@@ -10,7 +10,7 @@ from PyPowerStore.utils import constants, helpers
 LOG = helpers.get_logger(__name__)
 
 SELECT_ALL_FILE_NIS = {"select": "id, nas_server_id, domain, ip_addresses,"
-                       "is_destination_override_enabled"
+                       "is_destination_override_enabled, nas_server(id,name)"
                       }
 
 # File NIS endpoints

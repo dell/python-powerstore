@@ -11,7 +11,7 @@ LOG = helpers.get_logger(__name__)
 
 SELECT_ALL_SMB_SERVER = {"select": "id, nas_server_id, computer_name, domain,"
                          "netbios_name, workgroup, description, is_standalone,"
-                         "is_joined"
+                         "is_joined, nas_server(id,name)"
                         }
 
 # SMB server endpoints

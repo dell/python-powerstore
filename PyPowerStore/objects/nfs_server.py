@@ -12,7 +12,7 @@ LOG = helpers.get_logger(__name__)
 SELECT_ALL_NFS_SERVER = {"select": "id, nas_server_id, host_name, is_nfsv3_enabled,"
                          "is_nfsv4_enabled, is_secure_enabled, is_use_smb_config_enabled,"
                          "service_principal_name, is_joined, is_extended_credentials_enabled,"
-                         "credentials_cache_TTL"
+                         "credentials_cache_TTL, nas_server(id,name)"
                         }
 
 # NFS server endpoints

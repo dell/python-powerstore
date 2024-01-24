@@ -12,7 +12,7 @@ LOG = helpers.get_logger(__name__)
 SELECT_ALL_FILE_INTERFACE = {"select": "id, nas_server_id, ip_address, prefix_length,"
                              "gateway, vlan_id, name, role, is_disabled,"
                              "is_destination_override_enabled, ip_port_id,"
-                             "source_parameters, is_dr_test"
+                             "source_parameters, is_dr_test, nas_server(id,name)"
                             }
 
 # File Interface endpoints
