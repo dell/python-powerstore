@@ -9,7 +9,7 @@ from PyPowerStore.utils import constants, helpers
 # TODO: kept LOG as global for now will improve it to avoid overriding
 LOG = helpers.get_logger(__name__)
 
-SELECT_ALL_FILE_DNS = {"select": "id, nas_server_id, domain, ip_addresses, transport, nas_server(id,name)"}
+SELECT_ALL_FILE_DNS = {"select": "id, nas_server_id, domain, ip_addresses, transport, nas_server(id,name)", "is_destination_override_enabled"}
 
 # File DNS endpoints
 GET_FILE_DNS_LIST_URL = 'https://{0}/api/rest/file_dns'
