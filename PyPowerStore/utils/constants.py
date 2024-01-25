@@ -194,7 +194,7 @@ FHP_NAS_QUERYSTRING = {"select": "id,name, description, operational_status,"
                        "is_production_mode_enabled,"
                        "current_unix_directory_service_l10n,"
                        "file_events_publishing_mode_l10n"}
-                       
+
 SELECT_ALL_NAS_SERVER = {"select": "id,name, description, operational_status,"
                          "current_node_id,preferred_node_id,"
                          "default_unix_user,default_windows_user,"

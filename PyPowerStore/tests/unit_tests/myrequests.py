@@ -44,6 +44,11 @@ from PyPowerStore.tests.unit_tests.entity.storage_container import StorageContai
 from PyPowerStore.tests.unit_tests.entity.storage_container_destination import StorageContainerDestinationResponse
 from PyPowerStore.tests.unit_tests.entity.replication_group import ReplicationGroupResponse
 from PyPowerStore.tests.unit_tests.entity.discovered_appliances import DiscoveredApplianceResponse
+from PyPowerStore.tests.unit_tests.entity.file_interface import FileInterfaceResponse
+from PyPowerStore.tests.unit_tests.entity.smb_server import SMBServerResponse
+from PyPowerStore.tests.unit_tests.entity.nfs_server import NFSServerResponse
+from PyPowerStore.tests.unit_tests.entity.file_dns import FileDNSResponse
+from PyPowerStore.tests.unit_tests.entity.file_nis import FileNISResponse
 import json
 
 # map the entity class name with the url resource name
@@ -93,7 +98,12 @@ ENTITY_CLASS_MAPPING = {
     'storage_container': StorageContainerResponse,
     'storage_container_destination': StorageContainerDestinationResponse,
     'replication_group': ReplicationGroupResponse,
-    'discovered_appliance': DiscoveredApplianceResponse
+    'discovered_appliance': DiscoveredApplianceResponse,
+    'file_interface': FileInterfaceResponse,
+    'smb_server': SMBServerResponse,
+    'nfs_server': NFSServerResponse,
+    'file_dns': FileDNSResponse,
+    'file_nis': FileNISResponse
 }
 
 

@@ -1,5 +1,18 @@
 # PyPowerStore Change Log
 
+## Version 3.0.0.0 - released on 31/01/24
+- Added support for creating, getting details, modifying and deleting
+  a file interface.
+- Added support for enabling, getting details, modifying and disabling
+  the file DNS.
+- Added support for enabling, getting details, modifying and disabling
+  the file NIS.
+- Added support for enabling, getting details, modifying and disabling
+  the SMB server.
+- Added support for enabling, getting details, modifying and disabling
+  the NFS server.
+- Added support for getting details and modifying a service configuration.
+
 ## Version 2.1.0.0 - released on 29/09/23
 - Added support for cloning, refreshing, and restoring filesystem.
 - Added support for creating and deleting NAS server.

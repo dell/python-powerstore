@@ -22,6 +22,11 @@ from PyPowerStore.tests.unit_tests.data.storage_container_data import StorageCon
 from PyPowerStore.tests.unit_tests.data.storage_container_destination_data import StorageContainerDestinationData
 from PyPowerStore.tests.unit_tests.data.replication_group_data import ReplicationGroupData
 from PyPowerStore.tests.unit_tests.data.discovered_appliances import DiscoveredApplianceData
+from PyPowerStore.tests.unit_tests.data.file_interface_data import FileInterfaceData
+from PyPowerStore.tests.unit_tests.data.smb_server_data import SMBServerData
+from PyPowerStore.tests.unit_tests.data.nfs_server_data import NFSServerData
+from PyPowerStore.tests.unit_tests.data.file_dns_data import FileDNSData
+from PyPowerStore.tests.unit_tests.data.file_nis_data import FileNISData
 from unittest import mock
 
 class TestBase(TestCase):
@@ -47,6 +52,11 @@ class TestBase(TestCase):
         self.virtual_volume_data = VirtualVolumeData()
         self.file_system_data = FileSystemData()
         self.discovered_appliance_data = DiscoveredApplianceData()
+        self.file_interface_data = FileInterfaceData()
+        self.smb_server_data = SMBServerData()
+        self.nfs_server_data = NFSServerData()
+        self.file_dns_data = FileDNSData()
+        self.file_nis_data = FileNISData()
         self.conf = PowerStoreConfig()
         self.mock_client = mock.patch('PyPowerStore.provisioning.Client',
                                       new=MockClient)
@@ -59,3 +69,8 @@ class TestBase(TestCase):
         self.provisioning = self.conn.provisioning
         self.protection = self.conn.protection
         self.configuration = self.conn.config_mgmt
+        self.file_interface = self.conn.file_interface
+        self.file_dns = self.conn.file_dns
+        self.file_nis = self.conn.file_nis
+        self.smb_server = self.conn.smb_server
+        self.nfs_server = self.conn.nfs_server
