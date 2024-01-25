@@ -703,7 +703,7 @@ class Configuration:
                             " for service configuration.")
         if not filter_dict:
             querystring = helpers.prepare_querystring(
-                constants.SELECT_ID)
+                constants.SERVICE_CONFIG_DETAILS_QUERY)
             return self.config_client.request(
                 constants.GET,
                 constants.GET_SERVICE_CONFIG_LIST_URL.format(self.server_ip),
@@ -718,8 +718,17 @@ class Configuration:
             querystring=querystring, all_pages=False)
 
         filterable_keys = ['id', 'appliance_id', 'is_ssh_enabled']
-        return helpers.filtered_details(filterable_keys, filter_dict,
-                                        resp, 'service config')
+
+        service_config_resp = helpers.filtered_details(
+            filterable_keys, filter_dict, resp, 'service config')
+
+        if service_config_resp:
+            src_cfg_list = []
+            for resp in service_config_resp:
+                config_details = self.get_service_config_details(resp['id'])
+                src_cfg_list.append(config_details)
+            return src_cfg_list
+        return service_config_resp
 
     def get_service_config_by_appliance_id(self, appliance_id):
         """Get service configuration for appliance.
