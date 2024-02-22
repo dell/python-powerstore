@@ -1,5 +1,8 @@
 # PyPowerStore Change Log
 
+## Version 3.1.0.0 - released on 29/02/24
+- Added support for session management using cookie.
+
 ## Version 3.0.0.0 - released on 31/01/24
 - Added support for creating, getting details, modifying and deleting
   a file interface.

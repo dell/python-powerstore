@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019, Dell Technologies
+# Copyright: (c) 2024, Dell Technologies
 
 """Client module for PowerStore"""
 
@@ -7,6 +7,7 @@ import json
 import base64
 import socket
 import requests
+import time
 from requests.exceptions import SSLError
 from requests.exceptions import ConnectionError
 from requests.exceptions import TooManyRedirects
@@ -23,6 +24,106 @@ LOG = helpers.get_logger(__name__)
 VALID_CODES = [200, 201, 202, 204, 206, 207]
 ENGVIS_LIST = ["remote_support", "node", "volume_group", "remote_system"]
 
+
+class AuthenticationManager:
+    """Manage the powerstore authentication"""
+
+    def __init__(self, username, password, verify, application_type,
+                 timeout, host=None):
+        """ 
+        Initializes AuthenticationManager
+
+        :param username: array username
+        :type username: str
+        :param password: array password
+        :type password: str
+        :param verify: Whether the SSL cert will be verified
+        :type verify: bool
+        :param application_type: Application Type
+        :type application_type: str
+        :param timeout: How long to wait for the server to send data
+                        before giving up
+        :type timeout: float
+        :param host: (optional) IP of the Endpoint
+        :type host: str
+        """
+        self.username = username
+        self.password = password
+        self.verify = verify
+        self.application_type = application_type
+        self.timeout = timeout
+        self.host = host
+        self.dell_emc_token = None
+        self.cookie = None
+        self.idle_timeout = 0
+        self.creation_time = None
+        self.headers = {
+            'Accept': constants.APP_JSON,
+            'Accept-Language': constants.EN_US,
+            'content-type': constants.APP_JSON,
+            'Application-Type': self.application_type
+        }
+
+    def set_host(self, host):
+        """Set the host"""
+        self.host = host
+
+    def get_authorization(self):
+        """Get the authorization header"""
+        credentials = base64.b64encode(
+            "{username}:{password}".format(
+                username=self.username, password=self.password).encode())
+        return {'authorization': "Basic " + credentials.decode()}
+
+    def set_session_timeout_and_creation_time(self, login_response):
+        """Set the session timeout from login response object"""
+        if login_response.status_code == 200:
+            self.creation_time = time.time()
+            json_response = login_response.json()
+            login_data = login_response.json()[0] if isinstance(json_response, list) else {}
+            self.idle_timeout = login_data['idle_timeout'] if 'idle_timeout' in login_data else self.idle_timeout
+
+    def is_session_alive(self):
+        """Check if the session is alive or not"""
+        if self.creation_time and self.idle_timeout and \
+            ((time.time() - self.creation_time) < self.idle_timeout):
+                return True
+        return False
+
+    def login(self):
+        """Login to powerstore and set the token and cookie"""
+        login_url = constants.LOGIN_SESSION.format(self.host)
+        login_headers = dict(self.headers)
+        login_headers.update(self.get_authorization())
+        response = requests.request(
+            constants.GET, login_url, headers=login_headers, verify=self.verify,
+            timeout=self.timeout, params=constants.LOGIN_SESSION_DETAILS_QUERY)
+        self.set_session_timeout_and_creation_time(response)
+        self.dell_emc_token = response.headers.get('DELL-EMC-TOKEN')
+        self.cookie = response.cookies.get('auth_cookie')
+
+    def get_token_and_cookie(self):
+        """Get the DELL-EMC-TOKEN and set-cookie"""
+        auth_tokens = {}
+        if not self.dell_emc_token or not self.cookie or not self.is_session_alive():
+            self.login()
+
+        auth_tokens.update({'DELL-EMC-TOKEN': self.dell_emc_token})
+        auth_tokens.update({'Cookie': f'auth_cookie={self.cookie}'})
+        return auth_tokens
+
+    def logout_session(self):
+        """ Logout the current session """
+        login_url = constants.LOGOUT_URL.format(self.host)
+        logout_headers = {}
+        logout_headers.update(self.headers)
+        logout_headers.update({'DELL-EMC-TOKEN': self.dell_emc_token})
+        logout_headers.update({'Cookie': f'auth_cookie={self.cookie}'})
+        requests.request(
+            constants.POST, login_url, headers=logout_headers, verify=self.verify,
+            data=None, timeout=self.timeout)
+        self.dell_emc_token = None
+        self.cookie = None
 
 class Client():
     """Client class for PowerStore"""
@@ -51,6 +152,11 @@ class Client():
         self.application_type = application_type
         """Setting default timeout"""
         self.timeout = timeout if timeout else constants.TIMEOUT
+        self.auth_manager = AuthenticationManager(self.username,
+                                                  self.password,
+                                                  self.verify,
+                                                  self.application_type,
+                                                  self.timeout)
         LOG = helpers.get_logger(__name__, enable_log=enable_log)
 
     def fetch_response(self, http_method, url, payload=None, querystring=None,
@@ -78,8 +184,8 @@ class Client():
             'Application-Type': self.application_type
         }
         split_host = url.split('/')
-        auth_headers = {}
-        auth_headers = self.get_auth_token(split_host[2], headers)
+        self.auth_manager.set_host(split_host[2])
+        auth_headers = self.auth_manager.get_token_and_cookie()
 
         if split_host[5] in ENGVIS_LIST:
             headers['DELL-VISIBILITY'] = 'internal'
@@ -105,47 +211,7 @@ class Client():
             response = requests.request(
                 http_method, url, headers=headers, verify=self.verify,
                 timeout=self.timeout)
-        self.logout_session(split_host[2], headers)
         return response
-
-    def logout_session(self, host, headers):
-        """ Logout the current session.
-
-        :param host: IP of the host
-        :type: str
-        :param headers: The header for the https request
-        :type: dict
-        """
-
-        login_url = constants.LOGOUT_URL.format(host)
-        requests.request(
-            constants.POST, login_url, headers=headers, verify=self.verify,
-            data=None, timeout=self.timeout)
-
-    def get_auth_token(self, host, headers):
-        """ Logout the current session.
-
-        :param host: IP of the host
-        :type: str
-        :param headers: The header for the https request
-        :type: dict
-        :return: Dict containing authentication attributes
-        :rtype: dict
-        """
-        auth_tokens = {}
-        credentials = base64.b64encode(
-            "{username}:{password}".format(
-                username=self.username, password=self.password).encode())
-        headers.update({'authorization': "Basic " + credentials.decode()})
-        login_url = constants.LOGIN_SESSION.format(host)
-
-        response = requests.request(
-            constants.GET, login_url, headers=headers, verify=self.verify,
-            timeout=self.timeout)
-        if response:
-            auth_tokens.update({'DELL-EMC-TOKEN': response.headers.get('DELL-EMC-TOKEN')})
-            auth_tokens.update({'set-cookie': response.headers.get('set-cookie')})
-        return auth_tokens
 
     def is_valid_response(self, response):
         """ Check whether response is valid or not
