@@ -9,6 +9,8 @@ POST = 'POST'
 PUT = 'PUT'
 DELETE = 'DELETE'
 PATCH = 'PATCH'
+APP_JSON = 'application/json'
+EN_US = "en-US"
 
 # Default Connection Timeout in seconds
 TIMEOUT = 120.0
@@ -482,6 +484,11 @@ REPLICATION_GROUP_QUERY = {
               ',virtual_volumes,storage_container,parent,source,'
               'child_replication_groups,target_replication_groups,'
               'virtual_machines'
+}
+
+# LOGIN_SESSION details
+LOGIN_SESSION_DETAILS_QUERY = {
+    'select': 'id,user_id,user,role_ids,is_password_change_required,is_built_in_user,user_type,idle_timeout'
 }
 
 # LDAP Account details
