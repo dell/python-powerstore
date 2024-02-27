@@ -5,4 +5,4 @@
 __title__ = 'PyPowerStore'
 __version__ = '3.1.0.0'
 __author__ = 'Dell Technologies or its subsidiaries'
-__copyright__ = 'Copyright 2019 Dell Technologies'
+__copyright__ = 'Copyright 2024 Dell Technologies'
