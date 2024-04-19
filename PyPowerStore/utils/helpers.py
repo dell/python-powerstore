@@ -85,6 +85,18 @@ def is_foot_hill_prime_or_higher():
         return True
     return False
 
+def is_victory_or_higher():
+    """Returns true if the array version is victory or higher.
+
+    :return: True if victory or higher
+    :rtype: bool
+    """
+    victory_version = '4.0.0.0'
+    array_version = provisioning_obj.get_array_version()
+    if array_version and (
+            parse_version(array_version[0:7]) >= parse_version(victory_version)):
+        return True
+    return False
 
 def filtered_details(filterable_keys, filter_dict, resource_list,
                      resource_name):

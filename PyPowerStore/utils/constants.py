@@ -64,6 +64,16 @@ FHP_VOLUME_DETAILS_QUERY = {
               "migration_session_id"
 }
 
+VICTORY_VOLUME_DETAILS_QUERY = {
+    "select": "id,name,description,type,wwn,appliance_id,state,size,"
+              "creation_timestamp,protection_policy_id,performance_policy_id,"
+              "protection_policy(name,id),is_replication_destination,logical_used,"
+              "protection_data,location_history,type_l10n,state_l10n, volume_groups(name,id),"
+              "mapped_volumes(id,logical_unit_number),nsid,nguid,"
+              "node_affinity,node_affinity_l10n,metro_replication_session_id,"
+              "is_host_access_available,app_type,app_type_other,app_type_l10n,"
+              "migration_session_id"
+}
 # Host Query
 SELECT_ALL_HOST = {
     "select": "id,name,description,os_type,"
