@@ -670,7 +670,9 @@ class Provisioning:
         """
         LOG.info("Getting volume details by name: '%s'" % volume_name)
         querystring = constants.SELECT_ALL_VOLUME
-        if helpers.is_foot_hill_prime_or_higher():
+        if helpers.is_victory_or_higher():
+            querystring = constants.VICTORY_VOLUME_DETAILS_QUERY
+        elif helpers.is_foot_hill_prime_or_higher():
             querystring = constants.FHP_VOLUME_DETAILS_QUERY
         elif helpers.is_foot_hill_or_higher():
             querystring = constants.FHC_VOLUME_DETAILS_QUERY

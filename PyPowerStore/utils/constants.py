@@ -71,7 +71,7 @@ VICTORY_VOLUME_DETAILS_QUERY = {
               "is_replication_destination,migration_session_id,metro_replication_session_id,"
               "is_host_access_available,protection_data,location_history,"
               "app_type,app_type_other,type_l10n,state_l10n,node_affinity_l10n,app_type_l10n,"
-              "volume_groups"
+              "volume_groups(name,id), protection_policy(name,id)"
 }
 
 # Host Query

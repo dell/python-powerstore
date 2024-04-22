@@ -98,6 +98,7 @@ def is_victory_or_higher():
         return True
     return False
 
+
 def filtered_details(filterable_keys, filter_dict, resource_list,
                      resource_name):
     """
