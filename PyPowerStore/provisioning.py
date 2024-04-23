@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019, Dell Technologies
+# Copyright: (c) 2024, Dell Technologies
 
 """Collection of provisioning related functions for PowerStore"""
 
@@ -642,7 +642,9 @@ class Provisioning:
         """
         LOG.info("Getting volume details by ID: '%s'" % volume_id)
         querystring = constants.SELECT_ALL_VOLUME
-        if helpers.is_foot_hill_prime_or_higher():
+        if helpers.is_victory_or_higher():
+            querystring = constants.VICTORY_VOLUME_DETAILS_QUERY
+        elif helpers.is_foot_hill_prime_or_higher():
             querystring = constants.FHP_VOLUME_DETAILS_QUERY
         elif helpers.is_foot_hill_or_higher():
             querystring = constants.FHC_VOLUME_DETAILS_QUERY
@@ -668,7 +670,9 @@ class Provisioning:
         """
         LOG.info("Getting volume details by name: '%s'" % volume_name)
         querystring = constants.SELECT_ALL_VOLUME
-        if helpers.is_foot_hill_prime_or_higher():
+        if helpers.is_victory_or_higher():
+            querystring = constants.VICTORY_VOLUME_DETAILS_QUERY
+        elif helpers.is_foot_hill_prime_or_higher():
             querystring = constants.FHP_VOLUME_DETAILS_QUERY
         elif helpers.is_foot_hill_or_higher():
             querystring = constants.FHC_VOLUME_DETAILS_QUERY

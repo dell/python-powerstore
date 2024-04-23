@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019, Dell Technologies
+# Copyright: (c) 2024, Dell Technologies
 
 """Helper module for PowerStore"""
 import logging
 from pkg_resources import parse_version
+from PyPowerStore.utils import constants
 
 provisioning_obj = None
 
@@ -52,10 +53,9 @@ def is_foot_hill_or_higher():
     :return: True if foot hill or higher
     :rtype: bool
     """
-    foot_hill_version = '2.0.0.0'
     array_version = provisioning_obj.get_array_version()
     if array_version and (
-            parse_version(array_version[0:7]) >= parse_version(foot_hill_version)):
+            parse_version(array_version[0:7]) >= parse_version(constants.FOOTHILL_VERSION)):
         return True
     return False
 
@@ -65,10 +65,9 @@ def is_malka_or_higher():
     :return: True if array version is Malka or higher
     :rtype: bool
     """
-    malka_version = '2.1.0.0'
     array_version = provisioning_obj.get_array_version()
     if array_version and (
-            parse_version(array_version[0:7]) >= parse_version(malka_version)):
+            parse_version(array_version[0:7]) >= parse_version(constants.MALKA_VERSION)):
         return True
     return False
 
@@ -78,10 +77,21 @@ def is_foot_hill_prime_or_higher():
     :return: True if foothill prime or higher
     :rtype: bool
     """
-    foot_hill_prime_version = '3.0.0.0'
     array_version = provisioning_obj.get_array_version()
     if array_version and (
-            parse_version(array_version[0:7]) >= parse_version(foot_hill_prime_version)):
+            parse_version(array_version[0:7]) >= parse_version(constants.FOOTHILL_PRIME_VERSION)):
+        return True
+    return False
+
+def is_victory_or_higher():
+    """Returns true if the array version is victory or higher.
+
+    :return: True if victory or higher
+    :rtype: bool
+    """
+    array_version = provisioning_obj.get_array_version()
+    if array_version and (
+            parse_version(array_version[0:7]) >= parse_version(constants.VICTORY_VERSION)):
         return True
     return False
 

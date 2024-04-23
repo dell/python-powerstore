@@ -22,8 +22,12 @@ OFFSET = 100
 # max number of items limit in a response
 MAX_LIMIT = 2000
 
-# Foot Hill Prime Plus Version
+# Platform Versions
+FOOTHILL_VERSION = '2.0.0.0'
+MALKA_VERSION = '2.1.0.0'
+FOOTHILL_PRIME_VERSION = '3.0.0.0'
 FOOTHILL_PRIME_PLUS_VERSION = '3.2.0.0'
+VICTORY_VERSION = '4.0.0.0'
 
 # Query params
 
@@ -62,6 +66,16 @@ FHP_VOLUME_DETAILS_QUERY = {
               "node_affinity,node_affinity_l10n,metro_replication_session_id,"
               "is_host_access_available,app_type,app_type_other,app_type_l10n,"
               "migration_session_id"
+}
+
+VICTORY_VOLUME_DETAILS_QUERY = {
+    "select": "id,name,description,type,wwn,nsid,nguid,appliance_id,state,"
+              "size,logical_used,node_affinity,creation_timestamp,"
+              "protection_policy_id,performance_policy_id,qos_performance_policy_id,"
+              "is_replication_destination,migration_session_id,metro_replication_session_id,"
+              "is_host_access_available,protection_data,location_history,"
+              "app_type,app_type_other,type_l10n,state_l10n,node_affinity_l10n,app_type_l10n,"
+              "volume_groups(name,id), protection_policy(name,id)"
 }
 
 # Host Query
