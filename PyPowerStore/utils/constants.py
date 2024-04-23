@@ -22,8 +22,12 @@ OFFSET = 100
 # max number of items limit in a response
 MAX_LIMIT = 2000
 
-# Foot Hill Prime Plus Version
+# Platform Versions
+FOOTHILL_VERSION = '2.0.0.0'
+MALKA_VERSION = '2.1.0.0'
+FOOTHILL_PRIME_VERSION = '3.0.0.0'
 FOOTHILL_PRIME_PLUS_VERSION = '3.2.0.0'
+VICTORY_VERSION = '4.0.0.0'
 
 # Query params
 

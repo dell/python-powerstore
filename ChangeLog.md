@@ -1,5 +1,8 @@
 # PyPowerStore Change Log
 
+## Version 3.2.0.0 - released on 30/04/24
+- Added support for PowerStore 4.0.0.0 version(Victory release).
+
 ## Version 3.1.0.0 - released on 29/02/24
 - Added support for session management using cookie.
 
