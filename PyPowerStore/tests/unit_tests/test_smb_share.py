@@ -56,3 +56,25 @@ class TestSMBShare(TestBase):
             "HTTP code: 404, Not Found",
             self.provisioning.delete_smb_share,
             self.data.invalid_smb_id)
+
+    def test_get_acl(self):
+        with mock.patch.object(self.provisioning.client, 'request') as mock_request:
+            mock_request.return_value = self.data.acl_data
+            response = self.provisioning.get_acl(self.data.smb_id1)
+            self.assertEqual(response, self.data.acl_data)
+
+            mock_request.assert_called_once_with(
+                constants.POST,
+                constants.GET_ACL_DETAILS.format(self.provisioning.server_ip, self.data.smb_id1)
+            )
+
+    def test_set_acl(self):
+        with mock.patch.object(self.provisioning.client, 'request') as mock_request:
+            mock_request.return_value = self.data.acl_data
+            response = self.provisioning.set_acl(self.data.smb_id1, self.data.acl_data)
+            self.assertEqual(response, self.data.acl_data)
+            payload = {"add_aces": self.data.acl_data}
+            mock_request.assert_called_once_with(
+                constants.POST,
+                constants.SET_ACL_DETAILS.format(self.provisioning.server_ip, self.data.smb_id1),
+                payload=payload)

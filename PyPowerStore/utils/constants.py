@@ -640,6 +640,10 @@ GET_SMB_SHARE_DETAILS_URL = 'https://{0}/api/rest/smb_share/{1}'
 MODIFY_SMB_SHARE_URL = GET_SMB_SHARE_DETAILS_URL
 DELETE_SMB_SHARE_URL = GET_SMB_SHARE_DETAILS_URL
 
+# SMB Share ACL endpoints
+GET_ACL_DETAILS = 'https://{0}/api/rest/smb_share/{1}/get_acl'
+SET_ACL_DETAILS = 'https://{0}/api/rest/smb_share/{1}/set_acl'
+
 # File Tree Quota endpoints
 GET_TREE_QUOTA_LIST_URL = 'https://{0}/api/rest/file_tree_quota'
 CREATE_TREE_QUOTA_URL = GET_TREE_QUOTA_LIST_URL
