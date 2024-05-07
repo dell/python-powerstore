@@ -2010,7 +2010,7 @@ class Provisioning:
         LOG.info("Getting smbshares with filter: '%s' and all_pages: %s"
                  % (filter_dict, all_pages))
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_AND_NAME, filter_dict)
+            constants.SELECT_ALL_SMB_SHARE, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
         return self.client.request(constants.GET,
                                    constants.GET_SMB_SHARE_LIST_URL.format

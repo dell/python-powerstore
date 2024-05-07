@@ -9,7 +9,7 @@ class TestSMBShare(TestBase):
 
     def test_get_smbshares(self):
         smb_list = self.provisioning.get_smb_shares()
-        self.assertListEqual(smb_list, self.data.smb_list)
+        self.assertEqual(smb_list, self.data.smb_detail)
 
     def test_get_smbshare_with_filter(self):
         querystring = {'name': 'eq.my_smb1'}
