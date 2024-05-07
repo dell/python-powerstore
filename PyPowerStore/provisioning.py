@@ -2140,9 +2140,9 @@ class Provisioning:
             dict: The response from the server after setting the ACL.
         """
         payload = dict()
-        if add_aces is not None:
+        if add_aces:
             payload["add_aces"] = add_aces
-        if remove_aces is not None:
+        if remove_aces:
             payload["remove_aces"] = remove_aces
         return self.client.request(
             constants.POST, constants.SET_ACL_DETAILS.format(
