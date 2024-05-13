@@ -2120,7 +2120,7 @@ class Provisioning:
         :return: The response from the client's request to retrieve the ACL details.
         :rtype: dict
         """
-        LOG.info("Getting ACL details: '%s'" % share_id)
+        LOG.info(f"Getting ACL details: '{share_id}'")
         return self.client.request(
             constants.POST,
             constants.GET_ACL_DETAILS.format(self.server_ip, share_id),
