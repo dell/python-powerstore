@@ -456,6 +456,9 @@ class CommonData(object):
                             'severity': 'Error'}]}
     }
 
+    acl_data = [{"trustee_type": "User", "trustee_name": "admin",
+                 "access_level": "Full", "access_type": "Allow"}]
+
     # SMBShare End
 
     # FileSystem

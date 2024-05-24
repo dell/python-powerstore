@@ -1,0 +1,5 @@
+testtools
+requests
+pytest
+pytest-coverage
+urllib3

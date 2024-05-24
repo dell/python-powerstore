@@ -2010,7 +2010,7 @@ class Provisioning:
         LOG.info("Getting smbshares with filter: '%s' and all_pages: %s"
                  % (filter_dict, all_pages))
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_AND_NAME, filter_dict)
+            constants.SELECT_ALL_SMB_SHARE, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
         return self.client.request(constants.GET,
                                    constants.GET_SMB_SHARE_LIST_URL.format
@@ -2108,6 +2108,47 @@ class Provisioning:
                                    .format(
                                        self.server_ip, share_id))
     # SMB Share Methods End
+
+    # ACL Methods
+
+    def get_acl(self, share_id):
+        """
+        Retrieves the Access Control List (ACL) details for a given share ID.
+
+        :param share_id: The ID of the share for which to retrieve the ACL details.
+        :type share_id: str
+        :return: The response from the client's request to retrieve the ACL details.
+        :rtype: dict
+        """
+        LOG.info(f"Getting ACL details: '{share_id}'")
+        return self.client.request(
+            constants.POST,
+            constants.GET_ACL_DETAILS.format(self.server_ip, share_id),
+        )
+
+    def set_acl(self, share_id, add_aces=None, remove_aces=None):
+        """
+        Sets the access control list (ACL) for a given share.
+        Args:
+            share_id (str): The ID of the share.
+            add_aces (list, optional): A list of access control entries
+              (ACEs) to add to the ACL. Defaults to None.
+            remove_aces (list, optional): A list of access control entries
+              (ACEs) to remove from the ACL. Defaults to None.
+
+        Returns:
+            dict: The response from the server after setting the ACL.
+        """
+        payload = dict()
+        if add_aces:
+            payload["add_aces"] = add_aces
+        if remove_aces:
+            payload["remove_aces"] = remove_aces
+        return self.client.request(
+            constants.POST, constants.SET_ACL_DETAILS.format(
+                self.server_ip, share_id), payload=payload)
+
+    # ACL Methods End
 
     # FS Quota Methods
     def get_file_tree_quotas(self, filter_dict=None, all_pages=False):
