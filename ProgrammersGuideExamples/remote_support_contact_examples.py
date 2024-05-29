@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2022, Dell Technologies
+# Copyright: (c) 2024, Dell Technologies
 
 """ Remote Support Contact operations"""
 
