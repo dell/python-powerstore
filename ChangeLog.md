@@ -1,5 +1,8 @@
 # PyPowerStore Change Log
 
+## Version 3.3.0.0 - released on 31/05/24
+- Added the Support for ACL in SMB Share object.
+
 ## Version 3.2.0.0 - released on 30/04/24
 - Added support for PowerStore 4.0.0.0 version(Victory release).
 

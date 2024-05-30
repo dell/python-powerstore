@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019-2021, Dell Technologies
+# Copyright: (c) 2024, Dell Technologies
 
 """ Info Module Operations"""
 
