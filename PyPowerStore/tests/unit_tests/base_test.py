@@ -27,6 +27,7 @@ from PyPowerStore.tests.unit_tests.data.smb_server_data import SMBServerData
 from PyPowerStore.tests.unit_tests.data.nfs_server_data import NFSServerData
 from PyPowerStore.tests.unit_tests.data.file_dns_data import FileDNSData
 from PyPowerStore.tests.unit_tests.data.file_nis_data import FileNISData
+from PyPowerStore.tests.unit_tests.data.snmp_server_data import SNMPServerData
 from unittest import mock
 
 class TestBase(TestCase):
@@ -57,6 +58,7 @@ class TestBase(TestCase):
         self.nfs_server_data = NFSServerData()
         self.file_dns_data = FileDNSData()
         self.file_nis_data = FileNISData()
+        self.snmp_server_data = SNMPServerData()
         self.conf = PowerStoreConfig()
         self.mock_client = mock.patch('PyPowerStore.provisioning.Client',
                                       new=MockClient)
@@ -74,3 +76,4 @@ class TestBase(TestCase):
         self.file_nis = self.conn.file_nis
         self.smb_server = self.conn.smb_server
         self.nfs_server = self.conn.nfs_server
+        self.snmp_server = self.conn.snmp_server
