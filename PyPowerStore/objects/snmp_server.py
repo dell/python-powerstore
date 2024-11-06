@@ -76,27 +76,6 @@ class SNMPServer:
             payload=None,
             querystring=querystring)
 
-    # def get_snmp_server_by_nas_server_id(self, nas_server_id):
-    #     """Get details of a SNMP server by NAS server ID.
-
-    #     :param nas_server_id: The unique identifier of the NAS Server
-    #     :type nas_server_id: str
-    #     :return: SNMP server details
-    #     :rtype: dict
-    #     """
-    #     querystring = SELECT_ALL_SNMP
-
-    #     LOG.info("Getting SNMP server details by nas server id: '%s'" % nas_server_id)
-    #     return self.snmp_server_client.request(
-    #         constants.GET,
-    #         GET_SNMP_DETAILS_BY_NAS_SERVER_URL.format(
-    #             self.server_ip),
-    #         payload=None, querystring=helpers.prepare_querystring(
-    #             querystring,
-    #             nas_server_id=constants.EQUALS + nas_server_id,
-    #         )
-    #     )
-
     def create_snmp_server(self, payload):
         """Create an SNMP server.
 

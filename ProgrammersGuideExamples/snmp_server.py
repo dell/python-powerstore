@@ -38,13 +38,9 @@ print(SNMP_SERVERS)
 SNMP_SERVER = CONN.snmp_server.get_snmp_server_details(SNMP_SERVER['id'])
 print(SNMP_SERVER)
 
-# # get SNMP server details by NAS server
-# snmp_server = CONN.snmp_server.get_snmp_server_by_nas_server_id(CREATE_PARAMS['nas_server_id'])
-# print(snmp_server)
-
 # modify SNMP server
 MODIFY_SNMP_SERVER = CONN.snmp_server.modify_snmp_server(SNMP_SERVERS[0]['id'],
-                                                           MODIFY_PARAMS)
+                                                         MODIFY_PARAMS)
 print(MODIFY_SNMP_SERVER)
 
 # delete SNMP server
