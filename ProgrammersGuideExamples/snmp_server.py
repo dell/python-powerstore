@@ -4,22 +4,24 @@
 """ SNMP server Operations"""
 from PyPowerStore import powerstore_conn
 
-CONN = powerstore_conn.PowerStoreConn(username="admin",
-                                      password="Pinkballoon082$",
-                                      server_ip="10.230.24.67",
+CONN = powerstore_conn.PowerStoreConn(username="<username>",
+                                      password="<password>",
+                                      server_ip="<IP>",
                                       verify=False,
+                                      application_type="<Application>",
                                       timeout=180.0)
+
 print(CONN)
 
 MODIFY_PARAMS = {
-	"ip_address": "127.0.0.10",
+	"ip_address": "10.**.**.**",
 	"port": 162,
 	"trap_community": "community",
 	"alert_severity": "Info"
 }
 
 CREATE_PARAMS = {
-	"ip_address": "127.0.0.8",
+	"ip_address": "10.**.**.**",
 	"port": 162,
 	"version": "V2c",
 	"alert_severity": "Info",
