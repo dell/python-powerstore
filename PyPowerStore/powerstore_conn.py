@@ -11,6 +11,7 @@ from PyPowerStore.objects.smb_server import SMBServer
 from PyPowerStore.objects.nfs_server import NFSServer
 from PyPowerStore.objects.file_dns import FileDNS
 from PyPowerStore.objects.file_nis import FileNIS
+from PyPowerStore.objects.snmp_server import SNMPServer
 
 class PowerStoreConn():
     """Class for establishing connection with PowerStore"""
@@ -55,3 +56,5 @@ class PowerStoreConn():
                                 enable_log=enable_log)
         self.file_nis = FileNIS(self.provisioning,
                                 enable_log=enable_log)
+        self.snmp_server = SNMPServer(self.provisioning,
+                                      enable_log=enable_log)

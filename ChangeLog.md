@@ -1,5 +1,8 @@
 # PyPowerStore Change Log
 
+## Version 3.4.0.0 - released on 29/11/24
+- Added the Support for SNMP server object.
+
 ## Version 3.3.0.0 - released on 31/05/24
 - Added the Support for ACL in SMB Share object.
 

@@ -49,6 +49,7 @@ from PyPowerStore.tests.unit_tests.entity.smb_server import SMBServerResponse
 from PyPowerStore.tests.unit_tests.entity.nfs_server import NFSServerResponse
 from PyPowerStore.tests.unit_tests.entity.file_dns import FileDNSResponse
 from PyPowerStore.tests.unit_tests.entity.file_nis import FileNISResponse
+from PyPowerStore.tests.unit_tests.entity.snmp_server import SNMPServerResponse
 import json
 
 # map the entity class name with the url resource name
@@ -103,7 +104,8 @@ ENTITY_CLASS_MAPPING = {
     'smb_server': SMBServerResponse,
     'nfs_server': NFSServerResponse,
     'file_dns': FileDNSResponse,
-    'file_nis': FileNISResponse
+    'file_nis': FileNISResponse,
+    'snmp_server': SNMPServerResponse
 }
 
 
