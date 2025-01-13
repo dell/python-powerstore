@@ -40,8 +40,10 @@ network_other_params = {
 }
 
 # Modify cluster management address and replace the existing IP address
-JOB_DETAILS = CONN.config_mgmt.modify_network(network_id=NETWORK['id'], network_other_params=network_other_params,
-                                              is_async=True)
+JOB_DETAILS = CONN.config_mgmt.modify_network(
+    network_id=NETWORK['id'],
+    network_other_params=network_other_params,
+    is_async=True)
 print(JOB_DETAILS)
 
 # Rename storage network

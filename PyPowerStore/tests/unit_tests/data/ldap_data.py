@@ -1,7 +1,7 @@
 class LdapData():
     ldap_list = [
-        "37b76535-612b-456a-a694-1389f17632c7", "37b76535-612b-456a-a694-1389f17632c"
-    ]
+        "37b76535-612b-456a-a694-1389f17632c7",
+        "37b76535-612b-456a-a694-1389f17632c"]
 
     ldap_domain_list = [{
         'protocol_l10n': 'LDAP',

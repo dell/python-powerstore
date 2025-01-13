@@ -35,7 +35,7 @@ class TestAuthenticationManager:
         auth_manager.creation_time = 1
         auth_manager.idle_timeout = 10
         with patch.object(time, 'time', return_value=5):
-            assert auth_manager.is_session_alive() == True
+            assert auth_manager.is_session_alive()
 
     def test_login(self, auth_manager):
         with patch.object(requests, 'request'):

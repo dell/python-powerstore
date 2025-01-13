@@ -109,7 +109,11 @@ def is_victory_or_higher():
     return False
 
 
-def filtered_details(filterable_keys, filter_dict, resource_list, resource_name):
+def filtered_details(
+        filterable_keys,
+        filter_dict,
+        resource_list,
+        resource_name):
     """
     Get the filtered output.
     :filterable_keys: Keys on which filters are supported.
@@ -206,9 +210,13 @@ def apply_operators(filter_dict, key, resource, count):
                 " parameters only. Please enter a valid operator"
                 " and parameter combination"
             )
-        if isinstance(resource[key], int) and int(split_list[1]) < resource[key]:
+        if isinstance(
+                resource[key], int) and int(
+                split_list[1]) < resource[key]:
             count += 1
-        if isinstance(resource[key], float) and float(split_list[1]) < resource[key]:
+        if isinstance(
+                resource[key], float) and float(
+                split_list[1]) < resource[key]:
             count += 1
     elif split_list[0] == "lt":
         if not isinstance(resource[key], (int, float)):
@@ -217,8 +225,12 @@ def apply_operators(filter_dict, key, resource, count):
                 " parameters only. Please enter a valid operator"
                 " and parameter combination"
             )
-        if isinstance(resource[key], int) and int(split_list[1]) > resource[key]:
+        if isinstance(
+                resource[key], int) and int(
+                split_list[1]) > resource[key]:
             count += 1
-        if isinstance(resource[key], float) and float(split_list[1]) > resource[key]:
+        if isinstance(
+                resource[key], float) and float(
+                split_list[1]) > resource[key]:
             count += 1
     return count

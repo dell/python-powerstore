@@ -59,7 +59,9 @@ resp = CONN.protection.get_replication_rule_by_name(name="test-rule")
 
 # Modify replication rule
 resp = CONN.protection.modify_replication_rule(
-    replication_rule_id=rule_id['id'], name="test-rule-modified", rpo="One_Hour")
+    replication_rule_id=rule_id['id'],
+    name="test-rule-modified",
+    rpo="One_Hour")
 
 # Delete replication rule
 resp = CONN.protection.delete_replication_rule(

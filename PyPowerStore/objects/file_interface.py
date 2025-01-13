@@ -100,8 +100,8 @@ class FileInterface:
         querystring = SELECT_ALL_FILE_INTERFACE
 
         LOG.info(
-            "Getting file interface details by nas server id: '%s'" % nas_server_id
-        )
+            "Getting file interface details by nas server id: '%s'" %
+            nas_server_id)
         return self.file_interface_client.request(
             constants.GET,
             GET_FILE_INTERFACE_DETAILS_BY_NAS_SERVER_URL.format(

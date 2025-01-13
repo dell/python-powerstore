@@ -40,7 +40,8 @@ verify_dict = {
 }
 
 resp_verify = CONN.config_mgmt.verify_remote_support_config(
-    remote_support_id=remote_support_list[0]['id'], verify_parameters=verify_dict)
+    remote_support_id=remote_support_list[0]['id'],
+    verify_parameters=verify_dict)
 print(resp_verify)
 
 # Sending test mail for Remote Support

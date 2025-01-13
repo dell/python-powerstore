@@ -32,7 +32,8 @@ class RemoteSupportContactResponse(Entity):
     def modify_remote_support_contact_details(self):
         data = self.kwargs.get('data', {})
         param = list(data.keys())
-        if set(param) - set(self.remote_support_contact_data.remote_support_contact_valid_param_list):
+        if set(
+                param) - set(self.remote_support_contact_data.remote_support_contact_valid_param_list):
             # invalid param given
             return 400, self.remote_support_contact_data.remote_support_contact_error[400]
         return 204, None

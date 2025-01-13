@@ -29,5 +29,6 @@ modify_dict = {
 }
 
 resp_modify = CONN.config_mgmt.modify_remote_support_contact_details(
-    remote_support_contact_id=remote_support_contact_list[0]['id'], modify_parameters=modify_dict)
+    remote_support_contact_id=remote_support_contact_list[0]['id'],
+    modify_parameters=modify_dict)
 print(resp_modify)

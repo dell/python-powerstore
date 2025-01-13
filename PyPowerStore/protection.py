@@ -157,8 +157,11 @@ class ProtectionFunctions:
         return response
 
     def modify_volume_snapshot(
-        self, snapshot_id, name=None, description=None, expiration_timestamp=None
-    ):
+            self,
+            snapshot_id,
+            name=None,
+            description=None,
+            expiration_timestamp=None):
         """Modify a snapshot of a volume.
 
         :param snapshot_id: Volume snapshot unique identifier.
@@ -234,11 +237,15 @@ class ProtectionFunctions:
         :return: Volume Group snapshot details.
         :rtype: dict
         """
-        return self.provisioning.get_volume_group_details(volume_group_id=snapshot_id)
+        return self.provisioning.get_volume_group_details(
+            volume_group_id=snapshot_id)
 
     def create_volume_group_snapshot(
-        self, volume_group_id, name=None, description=None, expiration_timestamp=None
-    ):
+            self,
+            volume_group_id,
+            name=None,
+            description=None,
+            expiration_timestamp=None):
         """Create a snapshot of a volume group.
 
         :param volume_group_id: Volume Group unique identifier.
@@ -279,8 +286,11 @@ class ProtectionFunctions:
         return response
 
     def modify_volume_group_snapshot(
-        self, snapshot_id, name=None, description=None, expiration_timestamp=None
-    ):
+            self,
+            snapshot_id,
+            name=None,
+            description=None,
+            expiration_timestamp=None):
         """Modify a snapshot of a volume group.
 
         :param snapshot_id: Volume Group snapshot unique identifier.
@@ -612,8 +622,11 @@ class ProtectionFunctions:
         )
 
     def create_protection_policy(
-        self, name, description=None, snapshot_rule_ids=None, replication_rule_ids=None
-    ):
+            self,
+            name,
+            description=None,
+            snapshot_rule_ids=None,
+            replication_rule_ids=None):
         """Create a new protection policy. Protection policies can be assigned
         to volumes or application groups. When a protection policy is assigned
         to a volume or application group:
@@ -658,7 +671,8 @@ class ProtectionFunctions:
             return self.get_protection_policy_details(response["id"])
         return response
 
-    def add_snapshot_rules_to_protection_policy(self, policy_id, add_snapshot_rule_ids):
+    def add_snapshot_rules_to_protection_policy(
+            self, policy_id, add_snapshot_rule_ids):
         """
         Add snapshot rules to protection policy.
 
@@ -696,8 +710,8 @@ class ProtectionFunctions:
             % (remove_snapshot_rule_ids, policy_id)
         )
         return self.modify_protection_policy(
-            policy_id=policy_id, remove_snapshot_rule_ids=remove_snapshot_rule_ids
-        )
+            policy_id=policy_id,
+            remove_snapshot_rule_ids=remove_snapshot_rule_ids)
 
     def add_replication_rules_to_protection_policy(
         self, policy_id, add_replication_rule_ids
@@ -718,8 +732,8 @@ class ProtectionFunctions:
             % (add_replication_rule_ids, policy_id)
         )
         return self.modify_protection_policy(
-            policy_id=policy_id, add_replication_rule_ids=add_replication_rule_ids
-        )
+            policy_id=policy_id,
+            add_replication_rule_ids=add_replication_rule_ids)
 
     def remove_replication_rules_from_protection_policy(
         self, policy_id, remove_replication_rule_ids
@@ -740,8 +754,8 @@ class ProtectionFunctions:
             % (remove_replication_rule_ids, policy_id)
         )
         return self.modify_protection_policy(
-            policy_id=policy_id, remove_replication_rule_ids=remove_replication_rule_ids
-        )
+            policy_id=policy_id,
+            remove_replication_rule_ids=remove_replication_rule_ids)
 
     def modify_protection_policy(
         self,
@@ -880,7 +894,8 @@ class ProtectionFunctions:
         :return: Filesystem snapshot details
         :rtype: dict
         """
-        return self.provisioning.get_filesystem_details(filesystem_id=snapshot_id)
+        return self.provisioning.get_filesystem_details(
+            filesystem_id=snapshot_id)
 
     def create_filesystem_snapshot(self, filesystem_id, **kwargs):
         """Create a snapshot of a file system.
@@ -1112,7 +1127,9 @@ class ProtectionFunctions:
         :return: Replication session details.
         :rtype: dict
         """
-        LOG.info("Getting replication session details by ID: '%s'" % session_id)
+        LOG.info(
+            "Getting replication session details by ID: '%s'" %
+            session_id)
         querystring = REPLICATION_SESSION_DETAILS_QUERY
         if helpers.is_foot_hill_prime_or_higher():
             querystring = REPLICATION_SESSION_DETAILS_FHP_QUERY
@@ -1164,7 +1181,11 @@ class ProtectionFunctions:
                 self.server_ip, session_id),
         )
 
-    def failover_replication_session(self, session_id, is_planned=None, reverse=None):
+    def failover_replication_session(
+            self,
+            session_id,
+            is_planned=None,
+            reverse=None):
         """
         Fail over the replication session
         :param session_id: Replication session id
@@ -1176,7 +1197,9 @@ class ProtectionFunctions:
          Auto-reprotect is combination of failover and reprotect.
         :type reverse: bool
         """
-        LOG.info("Fail over the replication session with ID: '%s'" % session_id)
+        LOG.info(
+            "Fail over the replication session with ID: '%s'" %
+            session_id)
         payload = self._prepare_failover_replication_session_payload(
             is_planned=is_planned, reverse=reverse
         )
@@ -1192,7 +1215,9 @@ class ProtectionFunctions:
         """
         Reprotect over the replication session
         """
-        LOG.info("Reprotect the replication session with ID: '%s'" % session_id)
+        LOG.info(
+            "Reprotect the replication session with ID: '%s'" %
+            session_id)
         return self.rest_client.request(
             constants.POST,
             constants.REPLICATION_SESSION_REPROTECT_URL.format(
@@ -1260,8 +1285,8 @@ class ProtectionFunctions:
         :rtype: dict
         """
         LOG.info(
-            "Getting replication session details by ID: '%s'" % replication_group_id
-        )
+            "Getting replication session details by ID: '%s'" %
+            replication_group_id)
 
         return self.rest_client.request(
             constants.GET,
@@ -1279,8 +1304,8 @@ class ProtectionFunctions:
         :rtype: list of dict
         """
         LOG.info(
-            "Getting replication group details by name: '%s'" % replication_group_name
-        )
+            "Getting replication group details by name: '%s'" %
+            replication_group_name)
         return self.rest_client.request(
             constants.GET,
             constants.REPLICATION_GROUP_DETAILS_LIST_URL.format(

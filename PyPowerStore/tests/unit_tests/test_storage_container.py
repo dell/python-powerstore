@@ -4,8 +4,9 @@ from PyPowerStore.tests.unit_tests.base_test import TestBase
 class TestStorageContainer(TestBase):
     def test_get_storage_containers(self):
         storage_container_list = self.configuration.get_storage_container_list()
-        self.assertListEqual(storage_container_list,
-                             self.storage_container_data.storage_container_list)
+        self.assertListEqual(
+            storage_container_list,
+            self.storage_container_data.storage_container_list)
 
     def test_get_storage_container_details(self):
         resp = self.configuration.get_storage_container_details(
@@ -27,7 +28,8 @@ class TestStorageContainer(TestBase):
 
     def test_modify_storage_container_details(self):
         resp = self.configuration.modify_storage_container_details(
-            self.storage_container_data.storage_container_list[0]['id'], self.storage_container_data.modify_storage_container_dict)
+            self.storage_container_data.storage_container_list[0]['id'],
+            self.storage_container_data.modify_storage_container_dict)
         self.assertIsNone(resp)
 
     def test_delete_storage_container(self):

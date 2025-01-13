@@ -25,7 +25,8 @@ class TestLDAPAccount(TestBase):
 
     def test_modify_ldap_account_details(self):
         resp = self.configuration.modify_ldap_account_details(
-            self.ldap_account_data.ldap_account_list[0]['id'], self.ldap_account_data.modify_ldap_account_dict)
+            self.ldap_account_data.ldap_account_list[0]['id'],
+            self.ldap_account_data.modify_ldap_account_dict)
         self.assertIsNone(resp)
 
     def test_delete_ldap_account(self):

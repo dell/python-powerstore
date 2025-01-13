@@ -13,9 +13,16 @@ class RemoteSupportData():
     }
 
     remote_support_valid_param_list = [
-        'id', 'type', 'remote_support_server', 'proxy_address', 'proxy_port', 'proxy_username', 'proxy_password',
-        'is_cloudiq_enabled', 'is_rc_enabled', 'is_icw_configured'
-    ]
+        'id',
+        'type',
+        'remote_support_server',
+        'proxy_address',
+        'proxy_port',
+        'proxy_username',
+        'proxy_password',
+        'is_cloudiq_enabled',
+        'is_rc_enabled',
+        'is_icw_configured']
 
     remote_support_error = {
         400: {

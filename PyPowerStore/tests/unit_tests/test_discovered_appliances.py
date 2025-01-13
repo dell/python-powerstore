@@ -4,8 +4,9 @@ from PyPowerStore.tests.unit_tests.base_test import TestBase
 class TestDiscoveredAppliances(TestBase):
     def test_get_discovered_appliances(self):
         discovered_appliance_list = self.configuration.get_discovered_appliances()
-        self.assertListEqual(discovered_appliance_list,
-                             self.discovered_appliance_data.discovered_appliance_list)
+        self.assertListEqual(
+            discovered_appliance_list,
+            self.discovered_appliance_data.discovered_appliance_list)
 
     def test_get_discovered_appliances_all_pages(self):
         all_pages = True

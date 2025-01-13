@@ -34,9 +34,10 @@ class TestVolume(TestBase):
         self.assertIsNone(vol)
 
     def test_create_vol_with_appliance_id(self):
-        vol = self.provisioning.create_volume(self.data.vol_name1,
-                                              self.data.size,
-                                              appliance_id=self.data.appliance_id)
+        vol = self.provisioning.create_volume(
+            self.data.vol_name1,
+            self.data.size,
+            appliance_id=self.data.appliance_id)
         self.assertIsNone(vol)
 
     def test_modify_volume(self):
@@ -45,31 +46,37 @@ class TestVolume(TestBase):
         self.assertIsNone(vol)
 
     def test_clone_volume(self):
-        vol_clone_id = self.provisioning.clone_volume(self.data.vol_id1, self.data.vol_name2, None, self.data.host_id1,
-                                                      self.data.hg_id1,
-                                                      1,
-                                                      self.data.pol_id,
-                                                      'default_low')
+        vol_clone_id = self.provisioning.clone_volume(
+            self.data.vol_id1,
+            self.data.vol_name2,
+            None,
+            self.data.host_id1,
+            self.data.hg_id1,
+            1,
+            self.data.pol_id,
+            'default_low')
         self.assertEqual(vol_clone_id, self.data.vol_id2)
 
     def test_refresh_volume(self):
-        vol_snap_id = self.provisioning.refresh_volume(self.data.vol_id1,
-                                                       self.data.vol_id2,
-                                                       self.data.create_snapshot,
-                                                       self.data.backup_snapshot_profile['name'],
-                                                       self.data.backup_snapshot_profile['description'],
-                                                       self.data.backup_snapshot_profile['expiration_timestamp'],
-                                                       'default_low')
+        vol_snap_id = self.provisioning.refresh_volume(
+            self.data.vol_id1,
+            self.data.vol_id2,
+            self.data.create_snapshot,
+            self.data.backup_snapshot_profile['name'],
+            self.data.backup_snapshot_profile['description'],
+            self.data.backup_snapshot_profile['expiration_timestamp'],
+            'default_low')
         self.assertEqual(vol_snap_id, self.data.snapshot_id)
 
     def test_restore_volume(self):
-        vol_snap_id = self.provisioning.restore_volume(self.data.vol_id1,
-                                                       self.data.vol_snap_id,
-                                                       self.data.create_snapshot,
-                                                       self.data.backup_snapshot_profile['name'],
-                                                       self.data.backup_snapshot_profile['description'],
-                                                       self.data.backup_snapshot_profile['expiration_timestamp'],
-                                                       'default_low')
+        vol_snap_id = self.provisioning.restore_volume(
+            self.data.vol_id1,
+            self.data.vol_snap_id,
+            self.data.create_snapshot,
+            self.data.backup_snapshot_profile['name'],
+            self.data.backup_snapshot_profile['description'],
+            self.data.backup_snapshot_profile['expiration_timestamp'],
+            'default_low')
         self.assertEqual(vol_snap_id, self.data.snapshot_id)
 
     def test_delete_volume(self):

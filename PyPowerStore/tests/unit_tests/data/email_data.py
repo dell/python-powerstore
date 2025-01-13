@@ -16,8 +16,12 @@ class EmailData():
     }
 
     email_valid_param_list = [
-        'id', 'email_address', 'notify_critical', 'notify_major', 'notify_minor', 'notify_info'
-    ]
+        'id',
+        'email_address',
+        'notify_critical',
+        'notify_major',
+        'notify_minor',
+        'notify_info']
 
     email_error = {
         400: {

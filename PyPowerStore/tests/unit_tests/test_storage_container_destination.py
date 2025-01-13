@@ -13,7 +13,8 @@ class TestStorageContainerDestination(TestBase):
         resp = self.configuration.get_storage_container_destination_details(
             self.storage_container_destination_data.storage_container_destination_details['id'])
         self.assertEqual(
-            resp, self.storage_container_destination_data.storage_container_destination_details)
+            resp,
+            self.storage_container_destination_data.storage_container_destination_details)
 
     def test_create_storage_container_destination(self):
         resp = self.configuration.create_storage_container_destination(

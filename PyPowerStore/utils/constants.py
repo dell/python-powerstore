@@ -70,45 +70,42 @@ FHP_VOLUME_DETAILS_QUERY = {
 
 VICTORY_VOLUME_DETAILS_QUERY = {
     "select": "id,name,description,type,wwn,nsid,nguid,appliance_id,state,"
-              "size,logical_used,node_affinity,creation_timestamp,"
-              "protection_policy_id,performance_policy_id,qos_performance_policy_id,"
-              "is_replication_destination,migration_session_id,metro_replication_session_id,"
-              "is_host_access_available,protection_data,location_history,"
-              "app_type,app_type_other,type_l10n,state_l10n,node_affinity_l10n,app_type_l10n,"
-              "volume_groups(name,id), protection_policy(name,id)"
-}
+    "size,logical_used,node_affinity,creation_timestamp,"
+    "protection_policy_id,performance_policy_id,qos_performance_policy_id,"
+    "is_replication_destination,migration_session_id,metro_replication_session_id,"
+    "is_host_access_available,protection_data,location_history,"
+    "app_type,app_type_other,type_l10n,state_l10n,node_affinity_l10n,app_type_l10n,"
+    "volume_groups(name,id), protection_policy(name,id)"}
 
 # Host Query
 SELECT_ALL_HOST = {
     "select": "id,name,description,os_type,"
-              "host_group_id,"
-              "host_initiators,os_type_l10n,"
-              "mapped_hosts(id,logical_unit_number,"
-              "host_group(id,name),volume(id,name)),"
-              "host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)"
-}
+    "host_group_id,"
+    "host_initiators,os_type_l10n,"
+    "mapped_hosts(id,logical_unit_number,"
+    "host_group(id,name),volume(id,name)),"
+    "host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)"}
 FHC_HOST_DETAILS_QUERY = {
     "select": "id,name,description,os_type,host_group_id,host_initiators,"
-              "os_type_l10n,mapped_hosts(id,logical_unit_number,"
-              "host_group(id,name),volume(id,name)),type,type_l10n,"
-              "host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)"
-}
+    "os_type_l10n,mapped_hosts(id,logical_unit_number,"
+    "host_group(id,name),volume(id,name)),type,type_l10n,"
+    "host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)"}
 FHP_HOST_DETAILS_QUERY = {
     "select": "id,name,description,type,os_type,host_group_id,"
-              "host_connectivity,os_type_l10n,"
-              "mapped_hosts(id,logical_unit_number,host_group(id,name),"
-              "volume(id,name)),type_l10n,host_connectivity_l10n,"
-              "initiators(id,port_name,port_type,chap_single_username,"
-              "chap_mutual_username,active_sessions),host_initiators,"
-              "host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)"
-}
+    "host_connectivity,os_type_l10n,"
+    "mapped_hosts(id,logical_unit_number,host_group(id,name),"
+    "volume(id,name)),type_l10n,host_connectivity_l10n,"
+    "initiators(id,port_name,port_type,chap_single_username,"
+    "chap_mutual_username,active_sessions),host_initiators,"
+    "host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)"}
 
 SELECT_ALL_HOST_GROUP = {"select": "name,id,description,hosts(id,name)"}
-FHP_HOST_GROUP_QUERY = {"select": "name,id,description,hosts(id,name,host_virtual_volume_mappings(id,"
-                                  "host_id,host_group_id,virtual_volume_id)),"
-                                  "host_connectivity,host_connectivity_l10n,"
-                                  "mapped_host_groups(id,volume_id,"
-                                  "logical_unit_number)"}
+FHP_HOST_GROUP_QUERY = {
+    "select": "name,id,description,hosts(id,name,host_virtual_volume_mappings(id,"
+    "host_id,host_group_id,virtual_volume_id)),"
+    "host_connectivity,host_connectivity_l10n,"
+    "mapped_host_groups(id,volume_id,"
+    "logical_unit_number)"}
 
 SELECT_ALL_VG = {"select": "id,name,description,creation_"
                            "timestamp, member_type,"
@@ -160,28 +157,29 @@ SELECT_ALL_FILESYSTEM = {"select": "id,name, description,"
                          "creator_type_l10n,nas_server(name,id),"
                          "protection_policy(name,id)"}
 
-SELECT_ALL_FILESYSTEM_PRIME = {"select": "id,name, description,"
-                               "parent_id, filesystem_type, size_total,size_used,"
-                               "access_policy,locking_policy,"
-                               "folder_rename_policy, is_smb_sync_writes_enabled,"
-                               "is_smb_op_locks_enabled, is_smb_no_notify_enabled,"
-                               "is_smb_notify_on_access_enabled,"
-                               "is_smb_notify_on_write_enabled,"
-                               "smb_notify_on_change_dir_depth,"
-                               "is_async_MTime_enabled, is_quota_enabled,"
-                               "grace_period, default_hard_limit,"
-                               "default_soft_limit, creation_timestamp,"
-                               "expiration_timestamp, last_refresh_timestamp,"
-                               "last_writable_timestamp, is_modified,access_type,"
-                               "creator_type, filesystem_type_l10n,"
-                               "access_policy_l10n, locking_policy_l10n,"
-                               "folder_rename_policy_l10n, access_type_l10n,"
-                               "creator_type_l10n,nas_server(name,id),"
-                               "protection_policy(name,id),"
-                               "file_events_publishing_mode,"
-                               "file_events_publishing_mode_l10n,"
-                               "config_type, config_type_l10n,flr_attributes,"
-                               "host_io_size,host_io_size_l10n"}
+SELECT_ALL_FILESYSTEM_PRIME = {
+    "select": "id,name, description,"
+    "parent_id, filesystem_type, size_total,size_used,"
+    "access_policy,locking_policy,"
+    "folder_rename_policy, is_smb_sync_writes_enabled,"
+    "is_smb_op_locks_enabled, is_smb_no_notify_enabled,"
+    "is_smb_notify_on_access_enabled,"
+    "is_smb_notify_on_write_enabled,"
+    "smb_notify_on_change_dir_depth,"
+    "is_async_MTime_enabled, is_quota_enabled,"
+    "grace_period, default_hard_limit,"
+    "default_soft_limit, creation_timestamp,"
+    "expiration_timestamp, last_refresh_timestamp,"
+    "last_writable_timestamp, is_modified,access_type,"
+    "creator_type, filesystem_type_l10n,"
+    "access_policy_l10n, locking_policy_l10n,"
+    "folder_rename_policy_l10n, access_type_l10n,"
+    "creator_type_l10n,nas_server(name,id),"
+    "protection_policy(name,id),"
+    "file_events_publishing_mode,"
+    "file_events_publishing_mode_l10n,"
+    "config_type, config_type_l10n,flr_attributes,"
+    "host_io_size,host_io_size_l10n"}
 
 FILESYSTEM_PRIME = ['config_type', 'is_async_MTime_enabled',
                     'file_events_publishing_mode', 'flr_attributes',
@@ -379,11 +377,10 @@ APPLIANCE_DETAILS_FHP_QUERY = {
 # Discovered appliance details
 DISCOVERED_APPLIANCE_DETAILS_QUERY = {
     'select': 'id,link_local_address,service_name,service_tag,state,mode,'
-              'model,express_service_code,is_local,management_service_ready,'
-              'software_version_compatibility,build_version,build_id,'
-              'power_score,node_count,is_unified_capable,'
-              'drive_failure_tolerance_level_and_availability(level,availability)'
-}
+    'model,express_service_code,is_local,management_service_ready,'
+    'software_version_compatibility,build_version,build_id,'
+    'power_score,node_count,is_unified_capable,'
+    'drive_failure_tolerance_level_and_availability(level,availability)'}
 
 # Remote System
 REMOTE_SYSTEM_DETAILS_QUERY = {
@@ -397,19 +394,18 @@ REMOTE_SYSTEM_DETAILS_QUERY = {
 }
 REMOTE_SYSTEM_FHP_DETAILS_QUERY = {
     'select': 'id,name,description,serial_number,version,management_address,'
-              'management_port,type,user_name,state,data_connection_type,'
-              'data_connection_state,iscsi_addresses,fc_target_wwns,'
-              'discovery_chap_mode,session_chap_mode,data_network_latency,'
-              'data_connections,capabilities,file_connection_address,'
-              'file_connection_state,vnx_file_username,import_sessions,'
-              'appliance_details,type_l10n,replication_sessions,'
-              'state_l10n,data_connection_type_l10n,file_connection_state_l10n,'
-              'data_connection_state_l10n,discovery_chap_mode_l10n,'
-              'session_chap_mode_l10n,data_network_latency_l10n,'
-              'capabilities_l10n,storage_container_destinations(id,'
-              'storage_container_id,remote_system_id,remote_storage_container_id,'
-              'storage_container(id,name))'
-}
+    'management_port,type,user_name,state,data_connection_type,'
+    'data_connection_state,iscsi_addresses,fc_target_wwns,'
+    'discovery_chap_mode,session_chap_mode,data_network_latency,'
+    'data_connections,capabilities,file_connection_address,'
+    'file_connection_state,vnx_file_username,import_sessions,'
+    'appliance_details,type_l10n,replication_sessions,'
+    'state_l10n,data_connection_type_l10n,file_connection_state_l10n,'
+    'data_connection_state_l10n,discovery_chap_mode_l10n,'
+    'session_chap_mode_l10n,data_network_latency_l10n,'
+    'capabilities_l10n,storage_container_destinations(id,'
+    'storage_container_id,remote_system_id,remote_storage_container_id,'
+    'storage_container(id,name))'}
 
 # Certificate details
 CERTIFICATE_DETAILS_QUERY = {
@@ -447,10 +443,9 @@ NTP_DETAILS_QUERY = {
 # Remote Support details
 REMOTE_SUPPORT_DETAILS_QUERY = {
     'select': 'id,type,is_cloudiq_enabled,is_support_assist_license_accepted,'
-              'is_rsc_enabled,connectivity_status,last_update,remote_support_servers,'
-              'proxy_address,proxy_port,proxy_username,policy_manager_address,'
-              'policy_manager_port,type_l10n,connectivity_status_l10n'
-}
+    'is_rsc_enabled,connectivity_status,last_update,remote_support_servers,'
+    'proxy_address,proxy_port,proxy_username,policy_manager_address,'
+    'policy_manager_port,type_l10n,connectivity_status_l10n'}
 
 # Remote Support Contact details
 REMOTE_SUPPORT_CONTACT_DETAILS_QUERY = {
@@ -460,31 +455,27 @@ REMOTE_SUPPORT_CONTACT_DETAILS_QUERY = {
 # LDAP Domain details
 LDAP_DOMAIN_DETAILS_QUERY = {
     'select': 'id,domain_name,ldap_servers,port,ldap_server_type,protocol,bind_user,ldap_timeout,'
-              'is_global_catalog,user_id_attribute,user_object_class,user_search_path,'
-              'group_name_attribute,group_member_attribute,group_object_class,'
-              'group_search_path,group_search_level,ldap_server_type_l10n,protocol_l10n'
-}
+    'is_global_catalog,user_id_attribute,user_object_class,user_search_path,'
+    'group_name_attribute,group_member_attribute,group_object_class,'
+    'group_search_path,group_search_level,ldap_server_type_l10n,protocol_l10n'}
 VIRTUAL_VOLUME_FHP_DETAILS_QUERY = {
     'select': 'id,name,size,type,usage_type,appliance_id,storage_container_id,io_priority,profile_id,'
-              'replication_group_id,creator_type,is_readonly,migration_session_id,virtual_machine_uuid,'
-              'family_id,parent_id,source_id,source_timestamp,creation_timestamp,naa_name,'
-              'is_replication_destination,location_history,protection_policy_id,nsid,nguid,type_l10n,'
-              'usage_type_l10n,io_priority_l10n,creator_type_l10n,'
-              'host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)'
-}
+    'replication_group_id,creator_type,is_readonly,migration_session_id,virtual_machine_uuid,'
+    'family_id,parent_id,source_id,source_timestamp,creation_timestamp,naa_name,'
+    'is_replication_destination,location_history,protection_policy_id,nsid,nguid,type_l10n,'
+    'usage_type_l10n,io_priority_l10n,creator_type_l10n,'
+    'host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)'}
 VIRTUAL_VOLUME_DETAILS_QUERY = {
     'select': 'id,name,size,type,usage_type,appliance_id,storage_container_id,io_priority,profile_id,'
-              'creator_type,is_readonly,migration_session_id,virtual_machine_uuid,'
-              'family_id,parent_id,source_id,source_timestamp,creation_timestamp,'
-              'location_history,type_l10n,usage_type_l10n,io_priority_l10n,creator_type_l10n,'
-              'host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)'
-}
+    'creator_type,is_readonly,migration_session_id,virtual_machine_uuid,'
+    'family_id,parent_id,source_id,source_timestamp,creation_timestamp,'
+    'location_history,type_l10n,usage_type_l10n,io_priority_l10n,creator_type_l10n,'
+    'host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)'}
 
 STORAGE_CONTAINER_DETAILS_QUERY = {
     'select': 'id,name,quota,storage_protocol,storage_protocol_l10n,'
-              'virtual_volumes(id,name),replication_groups(id,name),datastores(id,name),'
-              'destinations(id,remote_system_id,remote_storage_container_id)'
-}
+    'virtual_volumes(id,name),replication_groups(id,name),datastores(id,name),'
+    'destinations(id,remote_system_id,remote_storage_container_id)'}
 
 STORAGE_CONTAINER_DETAILS_DESTINATION_QUERY = {
     'select': 'id,remote_system_id,storage_container_id,'

@@ -17,7 +17,8 @@ class TestRemoteSupport(TestBase):
 
     def test_modify_remote_support_details(self):
         resp = self.configuration.modify_remote_support_details(
-            self.remote_support_data.remote_support_id, self.remote_support_data.modify_remote_support_dict)
+            self.remote_support_data.remote_support_id,
+            self.remote_support_data.modify_remote_support_dict)
         self.assertIsNone(resp)
 
     def test_modify_remote_support_details_with_invalid_param(self):
@@ -30,7 +31,8 @@ class TestRemoteSupport(TestBase):
 
     def test_verify_remote_support_config(self):
         resp = self.configuration.verify_remote_support_config(
-            self.remote_support_data.remote_support_id, self.remote_support_data.verify_remote_support_dict)
+            self.remote_support_data.remote_support_id,
+            self.remote_support_data.verify_remote_support_dict)
         self.assertIsNone(resp)
 
     def test_send_test_alert_remote_support(self):

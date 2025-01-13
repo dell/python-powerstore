@@ -97,8 +97,12 @@ class AuthenticationManager:
         login_headers = dict(self.headers)
         login_headers.update(self.get_authorization())
         response = requests.request(
-            constants.GET, login_url, headers=login_headers, verify=self.verify,
-            timeout=self.timeout, params=constants.LOGIN_SESSION_DETAILS_QUERY)
+            constants.GET,
+            login_url,
+            headers=login_headers,
+            verify=self.verify,
+            timeout=self.timeout,
+            params=constants.LOGIN_SESSION_DETAILS_QUERY)
         self.set_session_timeout_and_creation_time(response)
         self.dell_emc_token = response.headers.get('DELL-EMC-TOKEN')
         self.cookie = response.cookies.get('auth_cookie')
@@ -121,8 +125,12 @@ class AuthenticationManager:
         logout_headers.update({'DELL-EMC-TOKEN': self.dell_emc_token})
         logout_headers.update({'Cookie': f'auth_cookie={self.cookie}'})
         requests.request(
-            constants.POST, login_url, headers=logout_headers, verify=self.verify,
-            data=None, timeout=self.timeout)
+            constants.POST,
+            login_url,
+            headers=logout_headers,
+            verify=self.verify,
+            data=None,
+            timeout=self.timeout)
         self.dell_emc_token = None
         self.cookie = None
 

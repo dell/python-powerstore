@@ -49,8 +49,12 @@ class Provisioning:
             port_no = 443
         self.server_ip = server_ip + ":" + str(port_no)
         self.client = Client(
-            username, password, verify, application_type, timeout, enable_log=enable_log
-        )
+            username,
+            password,
+            verify,
+            application_type,
+            timeout,
+            enable_log=enable_log)
         LOG = helpers.get_logger(__name__, enable_log=enable_log)
         helpers.set_provisioning_obj(self)
 
@@ -397,12 +401,10 @@ class Provisioning:
             )
         if backup_snap_expiration_timestamp is not None:
             refresh_volume_dict["backup_snap_profile"]["expiration_timestamp"] = (
-                backup_snap_expiration_timestamp
-            )
+                backup_snap_expiration_timestamp)
         if backup_snap_performance_policy_id is not None:
             refresh_volume_dict["backup_snap_profile"]["performance_policy_id"] = (
-                backup_snap_performance_policy_id
-            )
+                backup_snap_performance_policy_id)
 
         return refresh_volume_dict
 
@@ -474,12 +476,10 @@ class Provisioning:
             )
         if backup_snap_expiration_timestamp is not None:
             refresh_volume_dict["backup_snap_profile"]["expiration_timestamp"] = (
-                backup_snap_expiration_timestamp
-            )
+                backup_snap_expiration_timestamp)
         if backup_snap_performance_policy_id is not None:
             refresh_volume_dict["backup_snap_profile"]["performance_policy_id"] = (
-                backup_snap_performance_policy_id
-            )
+                backup_snap_performance_policy_id)
 
         return refresh_volume_dict
 
@@ -503,8 +503,7 @@ class Provisioning:
                     and not helpers.is_foot_hill_prime_or_higher()
                 ):
                     raise Exception(
-                        key + " is supported for PowerStore version 3.0.0.0 and above."
-                    )
+                        key + " is supported for PowerStore version 3.0.0.0 and above.")
                 payload[key] = value
         return self.client.request(
             constants.POST,
@@ -550,7 +549,8 @@ class Provisioning:
                 self.server_ip, snapshot_id),
         )
 
-    def add_protection_policy_for_volume(self, volume_id, protection_policy_id):
+    def add_protection_policy_for_volume(
+            self, volume_id, protection_policy_id):
         """Add protection policy for volume.
 
         :param volume_id: The volume ID
@@ -590,7 +590,11 @@ class Provisioning:
             payload,
         )
 
-    def map_volume_to_host(self, volume_id, host_id=None, logical_unit_number=None):
+    def map_volume_to_host(
+            self,
+            volume_id,
+            host_id=None,
+            logical_unit_number=None):
         """Map a volume to a Host.
 
         :param volume_id: The volume ID
@@ -640,7 +644,8 @@ class Provisioning:
             payload,
         )
 
-    def _prepare_map_vol_to_host_grp_payload(self, host_grp_id, logical_unit_number):
+    def _prepare_map_vol_to_host_grp_payload(
+            self, host_grp_id, logical_unit_number):
         map_volume_to_host_dict = {}
         if host_grp_id is not None:
             map_volume_to_host_dict["host_group_id"] = host_grp_id
@@ -882,8 +887,12 @@ class Provisioning:
         )
 
     def create_host(
-        self, name, os_type, initiators, description=None, host_connectivity=None
-    ):
+            self,
+            name,
+            os_type,
+            initiators,
+            description=None,
+            host_connectivity=None):
         """Register a host on the array.
 
         :param name: The name of the host
@@ -1216,11 +1225,13 @@ class Provisioning:
         return self.client.request(
             constants.GET,
             constants.GET_HOSTS_BY_HOST_GROUP.format(
-                self.server_ip, host_group_name),
+                self.server_ip,
+                host_group_name),
             payload=None,
             querystring=helpers.prepare_querystring(
-                name=constants.EQUALS + host_group_name, select="hosts(name,id)"
-            ),
+                name=constants.EQUALS +
+                host_group_name,
+                select="hosts(name,id)"),
         )
 
     def modify_host_group(
@@ -1305,7 +1316,8 @@ class Provisioning:
             payload,
         )
 
-    def remove_hosts_from_host_group(self, host_group_id, remove_host_ids=None):
+    def remove_hosts_from_host_group(
+            self, host_group_id, remove_host_ids=None):
         """Remove Hosts from Host Group.
 
         :param host_group_id: The ID of the host group to be modified
@@ -1431,8 +1443,11 @@ class Provisioning:
         )
 
     def clone_volume_group(
-        self, volume_group_id, name, description=None, protection_policy_id=None
-    ):
+            self,
+            volume_group_id,
+            name,
+            description=None,
+            protection_policy_id=None):
         """Clone a volume group.
 
         :param volume_group_id: ID of the volume group to clone
@@ -1524,7 +1539,11 @@ class Provisioning:
             payload=payload,
         )
 
-    def _prepare_clone_vg_payload(self, name, description, protection_policy_id):
+    def _prepare_clone_vg_payload(
+            self,
+            name,
+            description,
+            protection_policy_id):
         vol_group_clone = {}
         if name is not None:
             vol_group_clone["name"] = name
@@ -1651,8 +1670,11 @@ class Provisioning:
         )
 
     def _prepare_modify_vg_payload(
-        self, name, description, is_write_order_consistent, protection_policy_id
-    ):
+            self,
+            name,
+            description,
+            is_write_order_consistent,
+            protection_policy_id):
         modify_vg_dict = {}
         if name is not None:
             modify_vg_dict["name"] = name
@@ -1708,7 +1730,8 @@ class Provisioning:
             payload=payload,
         )
 
-    def _prepare_add_members_to_volume_group_payload(self, volume_ids, force_internal):
+    def _prepare_add_members_to_volume_group_payload(
+            self, volume_ids, force_internal):
         add_members_to_vg_dict = {}
         if volume_ids is not None:
             add_members_to_vg_dict["volume_ids"] = volume_ids
@@ -2033,7 +2056,12 @@ class Provisioning:
             ),
         )
 
-    def create_filesystem(self, name, nas_server_id, size_total, advance_parameters):
+    def create_filesystem(
+            self,
+            name,
+            nas_server_id,
+            size_total,
+            advance_parameters):
         """Create a filesystem.
 
         :param name: The name of the File System
@@ -2060,8 +2088,7 @@ class Provisioning:
                     and not helpers.is_foot_hill_prime_or_higher()
                 ):
                     raise Exception(
-                        key + " is supported for PowerStore version 3.0.0.0 and above."
-                    )
+                        key + " is supported for PowerStore version 3.0.0.0 and above.")
                 payload[key] = value
         return self.client.request(
             constants.POST,
@@ -2120,8 +2147,7 @@ class Provisioning:
                     and not helpers.is_foot_hill_prime_or_higher()
                 ):
                     raise Exception(
-                        key + " is supported for PowerStore version 3.0.0.0 and above."
-                    )
+                        key + " is supported for PowerStore version 3.0.0.0 and above.")
                 if value is not None:
                     payload[key] = value
 
@@ -2330,7 +2356,12 @@ class Provisioning:
             querystring=constants.SELECT_ALL_SMB_SHARE,
         )
 
-    def create_smb_share(self, file_system_id, path, name, **kw_smb_other_params):
+    def create_smb_share(
+            self,
+            file_system_id,
+            path,
+            name,
+            **kw_smb_other_params):
         """Create SMB share
 
         :param file_system_id: The ID of the File System.

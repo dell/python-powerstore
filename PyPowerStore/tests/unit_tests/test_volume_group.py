@@ -65,11 +65,17 @@ class TestVolumeGroup(TestBase):
         self.assertEqual(vg_clone_id, self.data.vg_id2)
 
     def test_refresh_volume_group(self):
-        snapshot_id = self.provisioning.refresh_volume_group(self.data.vg_id1, self.data.vg_name2,
-                                                             self.data.create_snapshot, self.data.backup_snapshot_profile)
+        snapshot_id = self.provisioning.refresh_volume_group(
+            self.data.vg_id1,
+            self.data.vg_name2,
+            self.data.create_snapshot,
+            self.data.backup_snapshot_profile)
         self.assertEqual(snapshot_id, self.data.snapshot_id)
 
     def test_restore_volume_group(self):
-        snapshot_id = self.provisioning.restore_volume_group(self.data.vg_id1, self.data.vg_name2,
-                                                             self.data.create_snapshot, self.data.backup_snapshot_profile)
+        snapshot_id = self.provisioning.restore_volume_group(
+            self.data.vg_id1,
+            self.data.vg_name2,
+            self.data.create_snapshot,
+            self.data.backup_snapshot_profile)
         self.assertEqual(snapshot_id, self.data.snapshot_id)

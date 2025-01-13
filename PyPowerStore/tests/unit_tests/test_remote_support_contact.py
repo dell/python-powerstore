@@ -6,8 +6,9 @@ class TestRemoteSupportContact(TestBase):
 
     def test_get_remote_support_contact_configs(self):
         remote_support_contact_list = self.configuration.get_remote_support_contact_list()
-        self.assertListEqual(remote_support_contact_list,
-                             self.remote_support_contact_data.remote_support_contact_list)
+        self.assertListEqual(
+            remote_support_contact_list,
+            self.remote_support_contact_data.remote_support_contact_list)
 
     def test_get_remote_support_contact_details(self):
         resp = self.configuration.get_remote_support_contact_details(
@@ -17,7 +18,8 @@ class TestRemoteSupportContact(TestBase):
 
     def test_modify_remote_support_contact_details(self):
         resp = self.configuration.modify_remote_support_contact_details(
-            self.remote_support_contact_data.remote_support_contact_id, self.remote_support_contact_data.modify_remote_support_contact_dict)
+            self.remote_support_contact_data.remote_support_contact_id,
+            self.remote_support_contact_data.modify_remote_support_contact_dict)
         self.assertIsNone(resp)
 
     def test_modify_remote_support_contact_details_with_invalid_param(self):
@@ -26,4 +28,5 @@ class TestRemoteSupportContact(TestBase):
             PowerStoreException,
             "HTTP code: 400, Bad Request",
             self.configuration.modify_remote_support_contact_details,
-            self.remote_support_contact_data.remote_support_contact_id, invalid_param)
+            self.remote_support_contact_data.remote_support_contact_id,
+            invalid_param)

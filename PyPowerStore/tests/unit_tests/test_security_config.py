@@ -25,7 +25,8 @@ class TestSecurityConfig(TestBase):
 
     def test_modify_security_config(self):
         resp = self.configuration.modify_security_config(
-            self.security_config_data.security_config_id_1, {"protocol_mode": "TLSv1_2"})
+            self.security_config_data.security_config_id_1, {
+                "protocol_mode": "TLSv1_2"})
         self.assertIsNone(resp)
 
     def test_modify_security_config_with_invalid_param(self):

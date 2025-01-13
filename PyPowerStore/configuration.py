@@ -137,7 +137,11 @@ class Configuration:
             payload=network_other_params,
         )
 
-    def add_remove_ports(self, network_id, add_port_ids=None, remove_port_ids=None):
+    def add_remove_ports(
+            self,
+            network_id,
+            add_port_ids=None,
+            remove_port_ids=None):
         """Add/remove IP ports from storage network.
 
         :param network_id: ID of the network
@@ -195,7 +199,8 @@ class Configuration:
         )
 
         filterable_keys = ["name", "id", "is_built_in"]
-        return helpers.filtered_details(filterable_keys, filter_dict, resp, "roles")
+        return helpers.filtered_details(
+            filterable_keys, filter_dict, resp, "roles")
 
     def get_role_details(self, role_id):
         """Get details of a particular role.
@@ -478,7 +483,8 @@ class Configuration:
         )
 
         filterable_keys = ["name", "id", "physical_mtu"]
-        return helpers.filtered_details(filterable_keys, filter_dict, resp, "cluster")
+        return helpers.filtered_details(
+            filterable_keys, filter_dict, resp, "cluster")
 
     def get_cluster_details(self, cluster_id):
         """Get details of a particular cluster.
@@ -529,7 +535,8 @@ class Configuration:
         )
         filterable_keys = ["name", "id", "physical_mtu"]
         filter_dict = {"name": "eq.{0}".format(name)}
-        return helpers.filtered_details(filterable_keys, filter_dict, resp, "cluster")
+        return helpers.filtered_details(
+            filterable_keys, filter_dict, resp, "cluster")
 
     def modify_cluster(self, cluster_id, physical_mtu=None, name=None):
         """Modify cluster properties.
@@ -602,8 +609,8 @@ class Configuration:
             vcenters=vcenters,
         )
         return self.config_client.request(
-            constants.POST, cluster_url.format(self.server_ip), payload=cluster_payload
-        )
+            constants.POST, cluster_url.format(
+                self.server_ip), payload=cluster_payload)
 
     def cluster_create(
         self,
@@ -655,8 +662,8 @@ class Configuration:
             vcenters=vcenters,
         )
         return self.config_client.request(
-            constants.POST, cluster_url.format(self.server_ip), payload=cluster_payload
-        )
+            constants.POST, cluster_url.format(
+                self.server_ip), payload=cluster_payload)
 
     # Cluster operations end
 
@@ -807,8 +814,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            "Getting service config details for appliance with id: '%s'" % appliance_id
-        )
+            "Getting service config details for appliance with id: '%s'" %
+            appliance_id)
         resp = self.config_client.request(
             constants.GET,
             constants.GET_SERVICE_CONFIG_LIST_URL.format(self.server_ip),
@@ -1939,7 +1946,8 @@ class Configuration:
         raise Exception(
             "Not supported for PowerStore versions less than 2.0.0.0")
 
-    def verify_remote_support_config(self, remote_support_id, verify_parameters):
+    def verify_remote_support_config(
+            self, remote_support_id, verify_parameters):
         """Verify remote support configuration .
 
         :param remote_support_id: Unique identifier of the remote support configuration
@@ -1990,7 +1998,8 @@ class Configuration:
 
     # Remote Support contact operations start
 
-    def get_remote_support_contact_list(self, filter_dict=None, all_pages=None):
+    def get_remote_support_contact_list(
+            self, filter_dict=None, all_pages=None):
         """Get all remote support contacts available on array.
 
         :param filter_dict: (optional) Filter details
@@ -2002,9 +2011,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            "Getting all remote support contact with filter: '%s' and all_pages: '%s'"
-            % (filter_dict, all_pages)
-        )
+            "Getting all remote support contact with filter: '%s' and all_pages: '%s'" %
+            (filter_dict, all_pages))
         if helpers.is_foot_hill_or_higher():
             querystring = helpers.prepare_querystring(
                 constants.SELECT_ID, filter_dict)
@@ -2023,8 +2031,7 @@ class Configuration:
                 filterable_keys = ["id", "email",
                                    "first_name", "last_name", "phone"]
                 return helpers.filtered_details(
-                    filterable_keys, filter_dict, resp, "remote_support_contact"
-                )
+                    filterable_keys, filter_dict, resp, "remote_support_contact")
             return self.config_client.request(
                 constants.GET,
                 constants.GET_REMOTE_SUPPORT_CONTACT_LIST_URL.format(
@@ -2094,7 +2101,8 @@ class Configuration:
 
     # LDAP Domain operations start
 
-    def get_ldap_domain_configuration_list(self, filter_dict=None, all_pages=None):
+    def get_ldap_domain_configuration_list(
+            self, filter_dict=None, all_pages=None):
         """Get all LDAP domain configurations available on array.
 
         :param filter_dict: (optional) Filter details
@@ -2205,7 +2213,8 @@ class Configuration:
             payload=create_parameters,
         )
 
-    def modify_ldap_domain_configuration(self, ldap_domain_id, modify_parameters):
+    def modify_ldap_domain_configuration(
+            self, ldap_domain_id, modify_parameters):
         """Modify LDAP domain configuration.
 
         :param ldap_domain_id: Unique ID of the LDAP domain instance
@@ -2491,8 +2500,8 @@ class Configuration:
         :rtype: dict
         """
         LOG.info(
-            "Getting storage container details by name: '%s'" % storage_container_name
-        )
+            "Getting storage container details by name: '%s'" %
+            storage_container_name)
         resp = self.get_storage_container_list()
 
         for container in resp:
@@ -2515,7 +2524,8 @@ class Configuration:
             payload=create_parameters,
         )
 
-    def modify_storage_container_details(self, storage_container_id, modify_parameters):
+    def modify_storage_container_details(
+            self, storage_container_id, modify_parameters):
         """Modifying storage container configuration.
 
         :param storage_container_id: Unique ID of the storage container instance
@@ -2536,7 +2546,10 @@ class Configuration:
             payload=modify_parameters,
         )
 
-    def delete_storage_container(self, storage_container_id, delete_parameters):
+    def delete_storage_container(
+            self,
+            storage_container_id,
+            delete_parameters):
         """Delete a storage container.
 
         :param storage_container_id: Unique ID of the storage container instance
@@ -2558,7 +2571,8 @@ class Configuration:
     # Storage container operations end
 
     # Storage container destination operations start
-    def get_storage_container_destination_list(self, filter_dict=None, all_pages=None):
+    def get_storage_container_destination_list(
+            self, filter_dict=None, all_pages=None):
         """Get all storage container destination.
         :param filter_dict: (optional) Filter details
         :type filter_dict: dict
@@ -2625,7 +2639,8 @@ class Configuration:
             payload=create_destination_params,
         )
 
-    def delete_storage_container_destination(self, storage_container_destination_id):
+    def delete_storage_container_destination(
+            self, storage_container_destination_id):
         """Delete a storage container destination
         :param storage_container_destination_id: ID of storage container destination
         :type storage_container_destination_id: str
@@ -2652,7 +2667,12 @@ class Configuration:
         :rtype: dict
         """
         payload = {}
-        for argname in ("name", "role_id", "is_locked", "current_password", "password"):
+        for argname in (
+            "name",
+            "role_id",
+            "is_locked",
+            "current_password",
+                "password"):
             if kwargs.get(argname) is not None:
                 payload[argname] = kwargs[argname]
         return payload

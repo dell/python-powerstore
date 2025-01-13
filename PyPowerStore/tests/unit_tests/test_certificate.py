@@ -39,7 +39,8 @@ class TestCertificate(TestBase):
 
     def test_modify_certificate(self):
         resp = self.configuration.modify_certificate(
-            self.certificate_data.certificate_id2, self.certificate_data.certificate_modify_params)
+            self.certificate_data.certificate_id2,
+            self.certificate_data.certificate_modify_params)
         self.assertIsNone(resp)
 
     def test_create_without_service(self):

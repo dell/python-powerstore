@@ -24,26 +24,40 @@ class CommonData(object):
 
     hlu_details = []
 
-    volume1 = {'appliance_id': 'A1', 'creation_timestamp': '2020-08-10T13:'
-                                                           '20:57.899845+00:00',
-               'description': '', 'hlu_details':
-                   hlu_details, 'host': [], 'host_group': [], 'id': vol_id1,
-               'is_replication_destination': False, 'location_history': None,
-               'migration_session_id': None, 'name': vol_name1,
-               'performance_policy_id': 'default_medium',
-               'protection_data': {
-                   'copy_signature': '1a482103-0476-4530-b209-7e0bf483ad0a',
-                   'created_by_rule_id': None, 'created_by_rule_name': None,
-                   'creator_type': 'System', 'creator_type_l10n': 'System',
-                   'expiration_timestamp': None, 'is_app_consistent': None,
-                   'family_id': '60b27a31-4121-42b7-97c6-fb24c4074864',
-                   'parent_id': '60b27a31-4121-42b7-97c6-fb24c4074864',
-                   'source_id': '60b27a31-4121-42b7-97c6-fb24c4074864',
-                   'source_timestamp': '2020-08-10T13:20:57.899845+00:00'},
-               'protection_policy_id': None, 'size': 1073741824,
-               'type': 'Snapshot', 'state_l10n': 'Ready',
-               'type_l10n': 'Snapshot', 'volume_groups': [], 'wwn': None,
-               'state': 'Ready'}
+    volume1 = {
+        'appliance_id': 'A1',
+        'creation_timestamp': '2020-08-10T13:'
+        '20:57.899845+00:00',
+        'description': '',
+        'hlu_details': hlu_details,
+        'host': [],
+        'host_group': [],
+        'id': vol_id1,
+        'is_replication_destination': False,
+        'location_history': None,
+        'migration_session_id': None,
+        'name': vol_name1,
+        'performance_policy_id': 'default_medium',
+        'protection_data': {
+            'copy_signature': '1a482103-0476-4530-b209-7e0bf483ad0a',
+            'created_by_rule_id': None,
+            'created_by_rule_name': None,
+            'creator_type': 'System',
+            'creator_type_l10n': 'System',
+            'expiration_timestamp': None,
+            'is_app_consistent': None,
+            'family_id': '60b27a31-4121-42b7-97c6-fb24c4074864',
+            'parent_id': '60b27a31-4121-42b7-97c6-fb24c4074864',
+            'source_id': '60b27a31-4121-42b7-97c6-fb24c4074864',
+            'source_timestamp': '2020-08-10T13:20:57.899845+00:00'},
+        'protection_policy_id': None,
+        'size': 1073741824,
+        'type': 'Snapshot',
+        'state_l10n': 'Ready',
+        'type_l10n': 'Snapshot',
+        'volume_groups': [],
+        'wwn': None,
+        'state': 'Ready'}
 
     vol_snap_id = uuid
 
@@ -66,8 +80,10 @@ class CommonData(object):
 
     create_snapshot = True
     snapshot_id = "008a5fad-7520-4f2a-a364-6c243d8d4ecf"
-    backup_snapshot_profile = {'name': 'backup_snapshot_name', 'description': '',
-                               'expiration_timestamp': '2023-01-01 00:00:00'}
+    backup_snapshot_profile = {
+        'name': 'backup_snapshot_name',
+        'description': '',
+        'expiration_timestamp': '2023-01-01 00:00:00'}
 
     volumegroup_list = [{"id": vg_id1, "name": vg_name1},
                         {"id": vg_id2, "name": vg_name2}]
@@ -682,16 +698,18 @@ class CommonData(object):
     rpo = "One_Hour"
 
     rep_rule_error = {
-        400: {"messages": [{"code": "0xE04040030001",
-                            "severity": "Error",
-                            "message_l10n":
-                                "Validation failed: [Path '/alert_threshold'] "
-                                "Instance type (string) does not match any "
-                                "allowed primitive type (allowed: [integer]).", "arguments":
-                                ["[Path '/alert_threshold'] Instance type "
-                                 "(string) does not match any allowed "
-                                 "primitive type (allowed: [integer])"]}]}
-    }
+        400: {
+            "messages": [
+                {
+                    "code": "0xE04040030001",
+                    "severity": "Error",
+                    "message_l10n": "Validation failed: [Path '/alert_threshold'] "
+                    "Instance type (string) does not match any "
+                    "allowed primitive type (allowed: [integer]).",
+                    "arguments": [
+                        "[Path '/alert_threshold'] Instance type "
+                        "(string) does not match any allowed "
+                        "primitive type (allowed: [integer])"]}]}}
 
     rep_rule_details_1 = {
         "id": "55d14477-de22-4d39-b24d-07cf08ba329f",
@@ -842,18 +860,13 @@ class CommonData(object):
         "id": "IP_PORT1",
         "partner_id": "IP_PORT14",
         "target_iqn": "iqn.2015-10.com.dell:dellemc-powerstore-fnm00194601320-a-2fa9868f",
-        "available_usages": [
-            "ISCSI"
-        ],
+        "available_usages": ["ISCSI"],
         "current_usages": [],
         "bond_id": None,
         "eth_port_id": "c16f9febf1704297a0a3c721e71864d0",
         "veth_port_id": None,
-        "available_usages_l10n": [
-            "iSCSI"
-        ],
-        "current_usages_l10n": None
-    }
+        "available_usages_l10n": ["iSCSI"],
+        "current_usages_l10n": None}
 
     # IP port end
 

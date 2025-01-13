@@ -115,8 +115,8 @@ class FileDNS:
         """
         LOG.info("Creating file DNS")
         return self.file_dns_client.request(
-            constants.POST, CREATE_FILE_DNS_URL.format(self.server_ip), payload=payload
-        )
+            constants.POST, CREATE_FILE_DNS_URL.format(
+                self.server_ip), payload=payload)
 
     def modify_file_dns(self, file_dns_id, modify_parameters):
         """Modify file DNS attributes.

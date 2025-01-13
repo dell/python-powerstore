@@ -94,13 +94,13 @@ CLONE_VOLUME = CONN.provisioning.clone_volume(volume_id=VOL[0]['id'],
 print(CLONE_VOLUME)
 
 # Refresh Volume
-REFRESH_VOLUME_SNAPSHOT = CONN.provisioning.refresh_volume(volume_id=VOL[0]['id'],
-                                                           volume_id_to_refresh_from=CLONE_VOLUME['id'])
+REFRESH_VOLUME_SNAPSHOT = CONN.provisioning.refresh_volume(
+    volume_id=VOL[0]['id'], volume_id_to_refresh_from=CLONE_VOLUME['id'])
 print(REFRESH_VOLUME_SNAPSHOT)
 
 # Restore Volume
-RESTORE_VOLUME_SNAPSHOT = CONN.provisioning.restore_volume(volume_id=VOL[0]['id'],
-                                                           snap_id_to_restore_from=REFRESH_VOLUME_SNAPSHOT['id'])
+RESTORE_VOLUME_SNAPSHOT = CONN.provisioning.restore_volume(
+    volume_id=VOL[0]['id'], snap_id_to_restore_from=REFRESH_VOLUME_SNAPSHOT['id'])
 print(RESTORE_VOLUME_SNAPSHOT)
 
 # Configure a metro volume

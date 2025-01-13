@@ -28,7 +28,10 @@ class TestFileSystem(TestBase):
     def test_create_filesystem(self):
         param = {'is_smb_sync_writes_enabled': True, 'config_type': "General"}
         fs = self.provisioning.create_filesystem(
-            self.file_system_data.fs_name1, self.file_system_data.nas_id1, self.file_system_data.size, param)
+            self.file_system_data.fs_name1,
+            self.file_system_data.nas_id1,
+            self.file_system_data.size,
+            param)
         self.assertEqual(fs, self.file_system_data.create_filesystem)
 
     def test_get_filesystem_details(self):
@@ -52,9 +55,8 @@ class TestFileSystem(TestBase):
         self.assertEqual(fs_snap_detail, self.file_system_data.fs_snap_detail)
 
     def test_get_filesystem_snapshot_details_by_name_and_nas(self):
-        fs_snap_detail = self.protection.\
-            get_filesystem_snapshot_details_by_name(
-                self.file_system_data.fs_snap_name, nas_server_id=self.file_system_data.nas_id1)
+        fs_snap_detail = self.protection. get_filesystem_snapshot_details_by_name(
+            self.file_system_data.fs_snap_name, nas_server_id=self.file_system_data.nas_id1)
         self.assertEqual(fs_snap_detail, self.file_system_data.fs_snap_detail)
 
     def test_get_filesystem_snapshot_details_by_name_and_fs(self):
@@ -83,7 +85,8 @@ class TestFileSystem(TestBase):
             ValueError,
             self.protection.get_filesystem_snapshot_details_by_name,
             self.file_system_data.fs_snap_name,
-            filesystem_id=self.file_system_data.fs_id1, nas_server_id=self.file_system_data.nas_id1)
+            filesystem_id=self.file_system_data.fs_id1,
+            nas_server_id=self.file_system_data.nas_id1)
 
     def test_get_snapshots_filesystem(self):
         fs_snap_list = self.provisioning.get_snapshots_filesystem(
@@ -117,9 +120,9 @@ class TestFileSystem(TestBase):
         self.assertIsNone(resp)
 
     def test_clone_filesystem(self):
-        resp = \
-            self.provisioning.clone_filesystem(self.file_system_data.fs_id1,
-                                               advance_parameters={'name': self.file_system_data.fs_name2})
+        resp = self.provisioning.clone_filesystem(
+            self.file_system_data.fs_id1, advance_parameters={
+                'name': self.file_system_data.fs_name2})
         self.assertEqual(resp, self.file_system_data.create_filesystem)
 
     def test_restore_filesystem(self):

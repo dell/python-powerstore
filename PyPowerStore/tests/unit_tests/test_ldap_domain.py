@@ -23,7 +23,8 @@ class TestLDAPDomain(TestBase):
 
     def test_modify_ldap_domain_configuration(self):
         resp = self.configuration.modify_ldap_domain_configuration(
-            self.ldap_data.ldap_domain_list[0]['id'], self.ldap_data.modify_ldap_domain_dict)
+            self.ldap_data.ldap_domain_list[0]['id'],
+            self.ldap_data.modify_ldap_domain_dict)
         self.assertIsNone(resp)
 
     def test_verify_ldap_domain_configuration(self):

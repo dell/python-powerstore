@@ -46,31 +46,19 @@ class CertificateData():
                     "code": "0xE0901001001D",
                     "severity": "Error",
                     "message_l10n": "Failed to find specific certificate id 37b76535-612b-456a-a694-1389f17632c from credential store.",
-                    "arguments": [
-                        "37b76535-612b-456a-a694-1389f17632c"
-                    ]
-                }
-            ]
-        },
-        400:  {
+                    "arguments": ["37b76535-612b-456a-a694-1389f17632c"]}]},
+        400: {
             "messages": [
                 {
                     "code": "0xE04040010005",
-                    "severity": "Error",
-                    "message_l10n": "Invalid REST request."
-                }
-            ]
-        },
-        422:  {
+                            "severity": "Error",
+                            "message_l10n": "Invalid REST request."}]},
+        422: {
             "messages": [
                 {
                     "code": "0xE09010010013",
                     "severity": "Error",
-                    "message_l10n": "Failed to update certificate in credential store."
-                }
-            ]
-        }
-    }
+                    "message_l10n": "Failed to update certificate in credential store."}]}}
     certificate_create_response = {
         "id": certificate_id1
     }

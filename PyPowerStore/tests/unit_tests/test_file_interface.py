@@ -19,8 +19,8 @@ class TestFileInterface(TestBase):
         querystring.update(file_interface.SELECT_ALL_FILE_INTERFACE)
         with mock.patch.object(self.file_interface.file_interface_client,
                                'request') as mock_request:
-            self.file_interface.get_file_interface_list(filter_dict=querystring,
-                                                        all_pages=True)
+            self.file_interface.get_file_interface_list(
+                filter_dict=querystring, all_pages=True)
             mock_request.assert_called_with(
                 constants.GET,
                 file_interface.GET_FILE_INTERFACE_LIST_URL.format(

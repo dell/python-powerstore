@@ -93,8 +93,8 @@ class SNMPServer:
         """
         LOG.info("Creating SNMP server")
         return self.snmp_server_client.request(
-            constants.POST, CREATE_SNMP_URL.format(self.server_ip), payload=payload
-        )
+            constants.POST, CREATE_SNMP_URL.format(
+                self.server_ip), payload=payload)
 
     def modify_snmp_server(self, snmp_server_id, modify_parameters):
         """Modify SNMP server attributes.

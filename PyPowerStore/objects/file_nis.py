@@ -116,8 +116,8 @@ class FileNIS:
         """
         LOG.info("Creating file NIS")
         return self.file_nis_client.request(
-            constants.POST, CREATE_FILE_NIS_URL.format(self.server_ip), payload=payload
-        )
+            constants.POST, CREATE_FILE_NIS_URL.format(
+                self.server_ip), payload=payload)
 
     def modify_file_nis(self, file_nis_id, modify_parameters):
         """Modify file NIS attributes.

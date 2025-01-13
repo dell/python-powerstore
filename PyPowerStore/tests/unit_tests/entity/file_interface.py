@@ -39,7 +39,8 @@ class FileInterfaceResponse(Entity):
     def modify_file_interface(self):
         data = self.kwargs.get('data', {})
         param = list(data.keys())
-        if set(param) - set(self.file_interface_data.file_interface_valid_param_list):
+        if set(param) - \
+                set(self.file_interface_data.file_interface_valid_param_list):
             # invalid param given
             return 400, self.file_interface_data.file_interface_error[400]
         return 204, None

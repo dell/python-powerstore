@@ -30,7 +30,14 @@ class SMBServerData():
     }
 
     smb_server_valid_param_list = [
-        "nas_server_id", "is_standalone", "computer_name", "domain", "netbios_name", "workgroup", "description", "local_admin_password"]
+        "nas_server_id",
+        "is_standalone",
+        "computer_name",
+        "domain",
+        "netbios_name",
+        "workgroup",
+        "description",
+        "local_admin_password"]
 
     smb_server_id_not_exist = "5f4a3017-0bad-899e-e1eb-c6f547282e66"
     smb_server_error = {
