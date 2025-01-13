@@ -15,11 +15,10 @@ class UserQuotaResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/file_user_quota'):
                 return self.get_user_quotas
-            else:
-                return self.get_user_quota
-        elif self.method == 'POST':
+            return self.get_user_quota
+        if self.method == 'POST':
             return self.create_user_quota
-        elif self.method == 'PATCH':
+        if self.method == 'PATCH':
             return self.modify_user_quota
 
     def execute_api(self, api_name):

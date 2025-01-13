@@ -1,7 +1,5 @@
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.file_dns_data import FileDNSData
-from PyPowerStore.utils import constants
-from PyPowerStore.objects import file_dns
 
 class FileDNSResponse(Entity):
 
@@ -16,13 +14,12 @@ class FileDNSResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/file_dns'):
                 return self.get_file_dns_list
-            else:
-                return self.get_file_dns_details
-        elif self.method == 'PATCH':
+            return self.get_file_dns_details
+        if self.method == 'PATCH':
             return self.modify_file_dns
-        elif self.method == 'POST':
+        if self.method == 'POST':
             return self.create_file_dns
-        elif self.method == 'DELETE':
+        if self.method == 'DELETE':
             return self.delete_file_dns
 
     def execute_api(self, api_name):

@@ -16,15 +16,13 @@ class LocalUserResponse(Entity):
             if self.url.endswith('/local_user'):
                 if self.kwargs.get('params', {}).get('name'):
                     return self.get_local_user_by_name
-                else:
-                    return self.get_local_users
-            else:
-                return self.get_local_user_details
-        elif self.method == 'PATCH':
+                return self.get_local_users
+            return self.get_local_user_details
+        if self.method == 'PATCH':
             return self.modify_local_user
-        elif self.method == 'POST':
+        if self.method == 'POST':
             return self.create_local_user
-        elif self.method == 'DELETE':
+        if self.method == 'DELETE':
             return self.delete_local_user
 
     def execute_api(self, api_name):

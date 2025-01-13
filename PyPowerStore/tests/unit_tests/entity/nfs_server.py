@@ -1,7 +1,5 @@
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.nfs_server_data import NFSServerData
-from PyPowerStore.utils import constants
-from PyPowerStore.objects import nfs_server
 
 class NFSServerResponse(Entity):
 
@@ -16,13 +14,12 @@ class NFSServerResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/nfs_server'):
                 return self.get_nfs_server_list
-            else:
-                return self.get_nfs_server_details
-        elif self.method == 'PATCH':
+            return self.get_nfs_server_details
+        if self.method == 'PATCH':
             return self.modify_nfs_server
-        elif self.method == 'POST':
+        if self.method == 'POST':
             return self.create_nfs_server
-        elif self.method == 'DELETE':
+        if self.method == 'DELETE':
             return self.delete_nfs_server
 
     def execute_api(self, api_name):

@@ -30,7 +30,7 @@ class AuthenticationManager:
 
     def __init__(self, username, password, verify, application_type,
                  timeout, host=None):
-        """ 
+        """
         Initializes AuthenticationManager
 
         :param username: array username
@@ -340,8 +340,7 @@ class Client():
                                 self.raise_http_exception(response)
 
                     return response_json
-                else:
-                    self.raise_http_exception(response)
+                self.raise_http_exception(response)
 
             except ValueError as ex:
                 # its low-level or response level error caused by

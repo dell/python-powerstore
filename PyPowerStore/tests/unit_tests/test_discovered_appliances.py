@@ -1,5 +1,4 @@
 from PyPowerStore.tests.unit_tests.base_test import TestBase
-from PyPowerStore.utils.exception import PowerStoreException
 
 
 class TestDiscoveredAppliances(TestBase):

@@ -16,11 +16,9 @@ class ServiceUserResponse(Entity):
             if self.url.endswith('/service_user'):
                 if self.kwargs.get('params', {}).get('name'):
                     return self.get_service_user_by_name
-                else:
-                    return self.get_service_users
-            else:
-                return self.get_service_user_details
-        elif self.method == 'PATCH':
+                return self.get_service_users
+            return self.get_service_user_details
+        if self.method == 'PATCH':
             return self.modify_service_user
 
     def execute_api(self, api_name):

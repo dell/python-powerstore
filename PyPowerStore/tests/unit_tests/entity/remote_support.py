@@ -15,14 +15,12 @@ class RemoteSupportResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/remote_support'):
                 return self.get_remote_support_configs
-            else:
-                return self.get_remote_support_details
-        elif self.method == 'POST':
+            return self.get_remote_support_details
+        if self.method == 'POST':
             if self.url.endswith('/verify'):
                 return self.verify_remote_support_config
-            else:
-                return self.send_test_remote_support_config
-        elif self.method == "PATCH":
+            return self.send_test_remote_support_config
+        if self.method == "PATCH":
             return self.modify_remote_support_details
 
     def execute_api(self, api_name):

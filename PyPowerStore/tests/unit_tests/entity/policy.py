@@ -16,15 +16,13 @@ class PolicyResponse(Entity):
             if self.url.endswith('/policy'):
                 if self.kwargs.get('params', {}).get('name'):
                     return self.get_protection_policy_by_name
-                else:
-                    return self.get_policies
-            else:
-                return self.get_protection_policy_details
-        elif self.method == "POST":
+                return self.get_policies
+            return self.get_protection_policy_details
+        if self.method == "POST":
             return self.create_protection_policy
-        elif self.method == "PATCH":
+        if self.method == "PATCH":
             return self.modify_protection_policy
-        elif self.method == "DELETE":
+        if self.method == "DELETE":
             return self.delete_protection_policy
 
     def execute_api(self, api_name):
@@ -48,7 +46,7 @@ class PolicyResponse(Entity):
                 self.kwargs['data']['add_snapshot_rule_ids'][0] == \
                 self.data.invalid_sr_id:
             return 404, self.data.add_invalid_sr_error[404]
-        elif 'remove_snapshot_rule_ids' in self.kwargs['data'] and\
+        if 'remove_snapshot_rule_ids' in self.kwargs['data'] and\
                 self.kwargs['data']['remove_snapshot_rule_ids'][0] == \
                 self.data.invalid_sr_id:
             return 404, self.data.remove_invalid_sr_error[404]

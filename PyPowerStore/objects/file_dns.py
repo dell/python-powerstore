@@ -3,26 +3,29 @@
 
 """Collection of file DNS related functions for PowerStore"""
 
-from PyPowerStore.client import Client
 from PyPowerStore.utils import constants, helpers
 
 # TODO: kept LOG as global for now will improve it to avoid overriding
 LOG = helpers.get_logger(__name__)
 
-SELECT_ALL_FILE_DNS = {"select": "id, nas_server_id, domain, ip_addresses, transport, nas_server(id,name), is_destination_override_enabled"}
+SELECT_ALL_FILE_DNS = {
+    "select": "id, nas_server_id, domain, ip_addresses, transport, nas_server(id,name), is_destination_override_enabled"
+}
 
 # File DNS endpoints
-GET_FILE_DNS_LIST_URL = 'https://{0}/api/rest/file_dns'
-GET_FILE_DNS_DETAILS_URL = 'https://{0}/api/rest/file_dns/{1}'
+GET_FILE_DNS_LIST_URL = "https://{0}/api/rest/file_dns"
+GET_FILE_DNS_DETAILS_URL = "https://{0}/api/rest/file_dns/{1}"
 GET_FILE_DNS_DETAILS_BY_NAS_SERVER_URL = GET_FILE_DNS_LIST_URL
 MODIFY_FILE_DNS_URL = GET_FILE_DNS_DETAILS_URL
 CREATE_FILE_DNS_URL = GET_FILE_DNS_LIST_URL
 DELETE_FILE_DNS_URL = GET_FILE_DNS_DETAILS_URL
 
+
 class FileDNS:
     """Provisioning related functionality for PowerStore."""
+
     def __init__(self, provisioning, enable_log=False):
-        """ Initializes ProtectionFunctions Class.
+        """Initializes ProtectionFunctions Class.
 
         :param provisioning: Provisioning class object
         :type provisioning: Provisioning
@@ -47,15 +50,19 @@ class FileDNS:
         :returns: file DNSs
         :rtype: list of dict
         """
-        LOG.info("Getting file DNSs with filter: '%s' and all_pages: %s"
-                 % (filter_dict, all_pages))
+        LOG.info(
+            "Getting file DNSs with filter: '%s' and all_pages: %s"
+            % (filter_dict, all_pages)
+        )
         querystring = helpers.prepare_querystring(SELECT_ALL_FILE_DNS, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
-        return self.file_dns_client.request(constants.GET,
-                                   GET_FILE_DNS_LIST_URL.format
-                                   (self.server_ip), payload=None,
-                                   querystring=querystring,
-                                   all_pages=all_pages)
+        return self.file_dns_client.request(
+            constants.GET,
+            GET_FILE_DNS_LIST_URL.format(self.server_ip),
+            payload=None,
+            querystring=querystring,
+            all_pages=all_pages,
+        )
 
     def get_file_dns_details(self, file_dns_id):
         """Details of a file DNS.
@@ -70,10 +77,10 @@ class FileDNS:
         LOG.info("Getting file DNS details by ID: '%s'" % file_dns_id)
         return self.file_dns_client.request(
             constants.GET,
-            GET_FILE_DNS_DETAILS_URL.format(self.server_ip,
-                                            file_dns_id),
+            GET_FILE_DNS_DETAILS_URL.format(self.server_ip, file_dns_id),
             payload=None,
-            querystring=querystring)
+            querystring=querystring,
+        )
 
     def get_file_dns_by_nas_server_id(self, nas_server_id):
         """Get details of a file DNS by NAS server ID.
@@ -88,12 +95,12 @@ class FileDNS:
         LOG.info("Getting file DNS details by nas server id: '%s'" % nas_server_id)
         return self.file_dns_client.request(
             constants.GET,
-            GET_FILE_DNS_DETAILS_BY_NAS_SERVER_URL.format(
-                self.server_ip),
-            payload=None, querystring=helpers.prepare_querystring(
+            GET_FILE_DNS_DETAILS_BY_NAS_SERVER_URL.format(self.server_ip),
+            payload=None,
+            querystring=helpers.prepare_querystring(
                 querystring,
                 nas_server_id=constants.EQUALS + nas_server_id,
-            )
+            ),
         )
 
     def create_file_dns(self, payload):
@@ -106,9 +113,8 @@ class FileDNS:
         """
         LOG.info("Creating file DNS")
         return self.file_dns_client.request(
-            constants.POST,
-            CREATE_FILE_DNS_URL.format(self.server_ip),
-            payload=payload)
+            constants.POST, CREATE_FILE_DNS_URL.format(self.server_ip), payload=payload
+        )
 
     def modify_file_dns(self, file_dns_id, modify_parameters):
         """Modify file DNS attributes.
@@ -122,7 +128,7 @@ class FileDNS:
         """
         LOG.info("Modifying file DNS: '%s'" % file_dns_id)
         if modify_parameters:
-            payload = dict()
+            payload = {}
             for key, value in modify_parameters.items():
                 if value is not None:
                     payload[key] = value
@@ -130,9 +136,9 @@ class FileDNS:
             if payload:
                 return self.file_dns_client.request(
                     constants.PATCH,
-                    MODIFY_FILE_DNS_URL.format(
-                        self.server_ip, file_dns_id),
-                    payload=payload)
+                    MODIFY_FILE_DNS_URL.format(self.server_ip, file_dns_id),
+                    payload=payload,
+                )
 
         raise ValueError("Nothing to modify")
 
@@ -146,7 +152,7 @@ class FileDNS:
         """
         LOG.info("Deleting file DNS: '%s'" % file_dns_id)
         return self.file_dns_client.request(
-            constants.DELETE,
-            DELETE_FILE_DNS_URL.format(self.server_ip, file_dns_id))
+            constants.DELETE, DELETE_FILE_DNS_URL.format(self.server_ip, file_dns_id)
+        )
 
     # File DNS methods end

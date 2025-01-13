@@ -15,9 +15,8 @@ class NtpResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/ntp'):
                 return self.get_ntp_list
-            else:
-                return self.get_ntp_details
-        elif self.method == "PATCH":
+            return self.get_ntp_details
+        if self.method == "PATCH":
             return self.modify_ntp_details
 
     def execute_api(self, api_name):

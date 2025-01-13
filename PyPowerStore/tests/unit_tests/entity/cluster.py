@@ -16,17 +16,14 @@ class ClusterResponse(Entity):
             if self.url.endswith('/cluster'):
                 if self.kwargs.get('params', {}).get('name'):
                     return self.get_cluster_by_name
-                else:
-                    return self.get_clusters
-            else:
-                return self.get_cluster_details
-        elif self.method == 'PATCH':
+                return self.get_clusters
+            return self.get_cluster_details
+        if self.method == 'PATCH':
             return self.modify_cluster
-        elif self.method == 'POST':
+        if self.method == 'POST':
             if self.url.endswith('/validate_create'):
                 return self.cluster_create_validate
-            else:
-                return self.cluster_create
+            return self.cluster_create
 
     def execute_api(self, api_name):
         status_code, response = api_name()

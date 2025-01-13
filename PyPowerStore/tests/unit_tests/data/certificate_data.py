@@ -2,7 +2,7 @@ class CertificateData():
 
 
     certificate_id1 = "37b76535-612b-456a-a694-1389f17632c7"
-    certificate_id2 = "37b76535-612b-456a-a694-1389f17632c3" 
+    certificate_id2 = "37b76535-612b-456a-a694-1389f17632c3"
     invalid_certificate_id = "37b76535-612b-456a-a694-1389f17632c"
     certificate_list = [
         {"id": certificate_id1}

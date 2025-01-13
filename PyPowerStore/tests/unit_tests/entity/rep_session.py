@@ -1,6 +1,5 @@
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.common_data import CommonData
-from PyPowerStore.utils import constants
 
 
 class RepSessionResponse(Entity):
@@ -16,18 +15,17 @@ class RepSessionResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/replication_session'):
                 return self.get_replication_sessions
-            else:
-                return self.get_replication_session_details
-        elif self.method == 'POST':
+            return self.get_replication_session_details
+        if self.method == 'POST':
             if self.url.endswith('/sync'):
                 return self.sync_replication_session
-            elif self.url.endswith('/pause'):
+            if self.url.endswith('/pause'):
                 return self.pause_replication_session
-            elif self.url.endswith('/resume'):
+            if self.url.endswith('/resume'):
                 return self.resume_replication_session
-            elif self.url.endswith('/failover'):
+            if self.url.endswith('/failover'):
                 return self.failover_replication_session
-            elif self.url.endswith('/reprotect'):
+            if self.url.endswith('/reprotect'):
                 return self.reprotect_replication_session
         elif self.method == 'PATCH':
             return self.modify_replication_session
@@ -60,7 +58,7 @@ class RepSessionResponse(Entity):
         if set(param) - set(self.data.rep_session_valid_param):
             # invalid param given
             return 400, self.data.rep_session_error[400]
-        elif self.url.endswith('/replication_session/{0}'.format(
+        if self.url.endswith('/replication_session/{0}'.format(
                 self.data.rep_session_id_not_exist)):
             return 404, self.data.rep_session_error[404]
         return 204, None

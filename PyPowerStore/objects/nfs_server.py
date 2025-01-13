@@ -3,30 +3,32 @@
 
 """Collection of NFS server related functions for PowerStore"""
 
-from PyPowerStore.client import Client
 from PyPowerStore.utils import constants, helpers
 
 # TODO: kept LOG as global for now will improve it to avoid overriding
 LOG = helpers.get_logger(__name__)
 
-SELECT_ALL_NFS_SERVER = {"select": "id, nas_server_id, host_name, is_nfsv3_enabled,"
-                         "is_nfsv4_enabled, is_secure_enabled, is_use_smb_config_enabled,"
-                         "service_principal_name, is_joined, is_extended_credentials_enabled,"
-                         "credentials_cache_TTL, nas_server(id,name)"
-                        }
+SELECT_ALL_NFS_SERVER = {
+    "select": "id, nas_server_id, host_name, is_nfsv3_enabled,"
+    "is_nfsv4_enabled, is_secure_enabled, is_use_smb_config_enabled,"
+    "service_principal_name, is_joined, is_extended_credentials_enabled,"
+    "credentials_cache_TTL, nas_server(id,name)"
+}
 
 # NFS server endpoints
-GET_NFS_SERVER_LIST_URL = 'https://{0}/api/rest/nfs_server'
-GET_NFS_SERVER_DETAILS_URL = 'https://{0}/api/rest/nfs_server/{1}'
+GET_NFS_SERVER_LIST_URL = "https://{0}/api/rest/nfs_server"
+GET_NFS_SERVER_DETAILS_URL = "https://{0}/api/rest/nfs_server/{1}"
 GET_NFS_SERVER_DETAILS_BY_NAS_SERVER_URL = GET_NFS_SERVER_LIST_URL
 MODIFY_NFS_SERVER_URL = GET_NFS_SERVER_DETAILS_URL
 CREATE_NFS_SERVER_URL = GET_NFS_SERVER_LIST_URL
 DELETE_NFS_SERVER_URL = GET_NFS_SERVER_DETAILS_URL
 
+
 class NFSServer:
     """Provisioning related functionality for PowerStore."""
+
     def __init__(self, provisioning, enable_log=False):
-        """ Initializes ProtectionFunctions Class.
+        """Initializes ProtectionFunctions Class.
 
         :param provisioning: Provisioning class object
         :type provisioning: Provisioning
@@ -51,15 +53,19 @@ class NFSServer:
         :returns: NFS servers
         :rtype: list of dict
         """
-        LOG.info("Getting NFS servers with filter: '%s' and all_pages: %s"
-                 % (filter_dict, all_pages))
+        LOG.info(
+            "Getting NFS servers with filter: '%s' and all_pages: %s"
+            % (filter_dict, all_pages)
+        )
         querystring = helpers.prepare_querystring(SELECT_ALL_NFS_SERVER, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
-        return self.nfs_server_client.request(constants.GET,
-                                   GET_NFS_SERVER_LIST_URL.format
-                                   (self.server_ip), payload=None,
-                                   querystring=querystring,
-                                   all_pages=all_pages)
+        return self.nfs_server_client.request(
+            constants.GET,
+            GET_NFS_SERVER_LIST_URL.format(self.server_ip),
+            payload=None,
+            querystring=querystring,
+            all_pages=all_pages,
+        )
 
     def get_nfs_server_details(self, nfs_server_id):
         """Details of a NFS server.
@@ -74,10 +80,10 @@ class NFSServer:
         LOG.info("Getting NFS server details by ID: '%s'" % nfs_server_id)
         return self.nfs_server_client.request(
             constants.GET,
-            GET_NFS_SERVER_DETAILS_URL.format(self.server_ip,
-                                              nfs_server_id),
+            GET_NFS_SERVER_DETAILS_URL.format(self.server_ip, nfs_server_id),
             payload=None,
-            querystring=querystring)
+            querystring=querystring,
+        )
 
     def get_nfs_server_by_nas_server_id(self, nas_server_id):
         """Get details of a NFS server by NAS server ID.
@@ -92,12 +98,12 @@ class NFSServer:
         LOG.info("Getting NFS server details by nas server id: '%s'" % nas_server_id)
         return self.nfs_server_client.request(
             constants.GET,
-            GET_NFS_SERVER_DETAILS_BY_NAS_SERVER_URL.format(
-                self.server_ip),
-            payload=None, querystring=helpers.prepare_querystring(
+            GET_NFS_SERVER_DETAILS_BY_NAS_SERVER_URL.format(self.server_ip),
+            payload=None,
+            querystring=helpers.prepare_querystring(
                 querystring,
                 nas_server_id=constants.EQUALS + nas_server_id,
-            )
+            ),
         )
 
     def create_nfs_server(self, payload):
@@ -112,7 +118,8 @@ class NFSServer:
         return self.nfs_server_client.request(
             constants.POST,
             CREATE_NFS_SERVER_URL.format(self.server_ip),
-            payload=payload)
+            payload=payload,
+        )
 
     def modify_nfs_server(self, nfs_server_id, modify_parameters):
         """Modify NFS server attributes.
@@ -126,7 +133,7 @@ class NFSServer:
         """
         LOG.info("Modifying NFS server: '%s'" % nfs_server_id)
         if modify_parameters:
-            payload = dict()
+            payload = {}
             for key, value in modify_parameters.items():
                 if value is not None:
                     payload[key] = value
@@ -134,9 +141,9 @@ class NFSServer:
             if payload:
                 return self.nfs_server_client.request(
                     constants.PATCH,
-                    MODIFY_NFS_SERVER_URL.format(
-                        self.server_ip, nfs_server_id),
-                    payload=payload)
+                    MODIFY_NFS_SERVER_URL.format(self.server_ip, nfs_server_id),
+                    payload=payload,
+                )
 
         raise ValueError("Nothing to modify")
 
@@ -151,6 +158,7 @@ class NFSServer:
         LOG.info("Deleting NFS server: '%s'" % nfs_server_id)
         return self.nfs_server_client.request(
             constants.DELETE,
-            DELETE_NFS_SERVER_URL.format(self.server_ip, nfs_server_id))
+            DELETE_NFS_SERVER_URL.format(self.server_ip, nfs_server_id),
+        )
 
     # NFS server methods end

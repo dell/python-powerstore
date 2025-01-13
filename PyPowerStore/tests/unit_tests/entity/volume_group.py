@@ -16,23 +16,21 @@ class VolumeGroupResponse(Entity):
             if self.url.endswith('/volume_group'):
                 if self.kwargs.get('params', {}).get('name'):
                     return self.get_volume_group_by_name
-                else:
-                    return self.get_volume_group_list
-            else:
-                return self.get_volume_group_details
-        elif self.method == 'POST':
+                return self.get_volume_group_list
+            return self.get_volume_group_details
+        if self.method == 'POST':
             if self.url.endswith('/add_members'):
                 return self.add_members_to_volume_group
-            elif self.url.endswith('/clone'):
+            if self.url.endswith('/clone'):
                 return self.clone_volume_group
-            elif self.url.endswith('/restore'):
+            if self.url.endswith('/restore'):
                 return self.restore_volume_group
-            elif self.url.endswith('/refresh'):
+            if self.url.endswith('/refresh'):
                 return self.refresh_volume_group
             return self.create_volume_group
-        elif self.method == 'PATCH':
+        if self.method == 'PATCH':
             return self.modify_volume_group
-        elif self.method == 'DELETE':
+        if self.method == 'DELETE':
             return self.delete_volume_group
 
     def execute_api(self, api_name):

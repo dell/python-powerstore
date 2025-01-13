@@ -15,14 +15,13 @@ class CertificateResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/x509_certificate'):
                 return self.get_certificates
-            else:
-                return self.get_certificate_details
-        elif self.method == 'POST':
+            return self.get_certificate_details
+        if self.method == 'POST':
             if self.url.endswith('/exchange'):
                 return self.exchange_certificates
-            elif self.url.endswith('/reset_certificates'):
+            if self.url.endswith('/reset_certificates'):
                 return self.reset_certificates
-            elif self.url.endswith('/x509_certificate'):
+            if self.url.endswith('/x509_certificate'):
                 return self.create_certificate
         elif self.method == 'PATCH':
             return self.modify_certificate

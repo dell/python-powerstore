@@ -89,7 +89,7 @@ print(HG_DELETE)
 # Clone Volume
 CLONE_VOLUME = CONN.provisioning.clone_volume(volume_id=VOL[0]['id'],
                                               name='test_clone_volume',
-                                              description='Testing', 
+                                              description='Testing',
                                               host_group_id=HG['id'])
 print(CLONE_VOLUME)
 

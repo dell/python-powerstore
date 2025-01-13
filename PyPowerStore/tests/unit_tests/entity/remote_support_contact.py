@@ -15,9 +15,8 @@ class RemoteSupportContactResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/remote_support_contact'):
                 return self.get_remote_support_contact_configs
-            else:
-                return self.get_remote_support_contact_details
-        elif self.method == "PATCH":
+            return self.get_remote_support_contact_details
+        if self.method == "PATCH":
             return self.modify_remote_support_contact_details
 
     def execute_api(self, api_name):

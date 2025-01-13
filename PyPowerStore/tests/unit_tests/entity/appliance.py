@@ -16,10 +16,8 @@ class ApplianceResponse(Entity):
             if self.url.endswith('/appliance'):
                 if self.kwargs.get('params', {}).get('name'):
                     return self.get_appliance_by_name
-                else:
-                    return self.get_appliances
-            else:
-                return self.get_appliance_details
+                return self.get_appliances
+            return self.get_appliance_details
 
     def execute_api(self, api_name):
         status_code, response = api_name()

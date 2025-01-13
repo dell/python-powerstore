@@ -15,9 +15,8 @@ class SecurityConfigResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/security_config'):
                 return self.get_security_configs
-            else:
-                return self.get_security_config_details
-        elif self.method == 'PATCH':
+            return self.get_security_config_details
+        if self.method == 'PATCH':
             return self.modify_security_config
 
     def execute_api(self, api_name):

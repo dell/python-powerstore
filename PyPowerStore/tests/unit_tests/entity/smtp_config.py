@@ -15,11 +15,10 @@ class SmtpConfigResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/smtp_config'):
                 return self.get_smtp_configs
-            else:
-                return self.get_smtp_config_details
-        elif self.method == 'POST':
+            return self.get_smtp_config_details
+        if self.method == 'POST':
             return self.test_smtp_config
-        elif self.method == "PATCH":
+        if self.method == "PATCH":
             return self.modify_smtp_config_details
 
     def execute_api(self, api_name):

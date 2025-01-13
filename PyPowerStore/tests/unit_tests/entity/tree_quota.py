@@ -15,13 +15,12 @@ class TreeQuotaResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/file_tree_quota'):
                 return self.get_tree_quotas
-            else:
-                return self.get_tree_quota_detail
-        elif self.method == 'POST':
+            return self.get_tree_quota_detail
+        if self.method == 'POST':
             return self.create_tree_quota
-        elif self.method == 'PATCH':
+        if self.method == 'PATCH':
             return self.modify_tree_quota
-        elif self.method == 'DELETE':
+        if self.method == 'DELETE':
             return self.delete_tree_quota
 
     def execute_api(self, api_name):

@@ -15,9 +15,8 @@ class ChapConfigResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/chap_config'):
                 return self.get_chap_configs
-            else:
-                return self.get_chap_config_details
-        elif self.method == 'PATCH':
+            return self.get_chap_config_details
+        if self.method == 'PATCH':
             return self.modify_chap_config
 
     def execute_api(self, api_name):

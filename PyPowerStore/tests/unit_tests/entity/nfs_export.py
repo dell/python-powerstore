@@ -18,15 +18,13 @@ class NFSExportResponse(Entity):
                 sel = self.kwargs.get('params', {}).get('select')
                 if sel == constants.SELECT_ALL_NFS_EXPORT['select']:
                     return self.get_nfs_detail
-                else:
-                    return self.get_nfsexports
-            else:
-                return self.get_nfs_detail
-        elif self.method == 'POST':
+                return self.get_nfsexports
+            return self.get_nfs_detail
+        if self.method == 'POST':
             return self.create_nfs
-        elif self.method == 'PATCH':
+        if self.method == 'PATCH':
             return self.modify_nfs
-        elif self.method == 'DELETE':
+        if self.method == 'DELETE':
             return self.delete_nfs
 
     def execute_api(self, api_name):

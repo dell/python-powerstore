@@ -15,13 +15,12 @@ class StorageContainerResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/storage_container'):
                 return self.get_storage_container_list
-            else:
-                return self.get_storage_container_details
-        elif self.method == 'POST':
+            return self.get_storage_container_details
+        if self.method == 'POST':
             return self.create_storage_container
-        elif self.method == "PATCH":
+        if self.method == "PATCH":
             return self.modify_storage_container_details
-        elif self.method == "DELETE":
+        if self.method == "DELETE":
             return self.delete_storage_container
 
     def execute_api(self, api_name):

@@ -16,18 +16,15 @@ class EmailResponse(Entity):
             if self.url.endswith('/email_notify_destination'):
                 if self.kwargs.get('params', {}).get('email_address'):
                     return self.get_destination_email_by_address
-                else:
-                    return self.get_destination_emails
-            else:
-                return self.get_destination_email_details
-        elif self.method == 'POST':
+                return self.get_destination_emails
+            return self.get_destination_email_details
+        if self.method == 'POST':
             if self.url.endswith('/test'):
                 return self.test_destination_email
-            else:
-                return self.create_destination_email
-        elif self.method == "PATCH":
+            return self.create_destination_email
+        if self.method == "PATCH":
             return self.modify_destination_email
-        elif self.method == "DELETE":
+        if self.method == "DELETE":
             return self.delete_destination_email
 
     def execute_api(self, api_name):

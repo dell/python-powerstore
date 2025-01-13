@@ -20,23 +20,21 @@ class FileSystemResponse(Entity):
                 const_sel = constants.SELECT_ID_AND_NAME['select']
                 if params.get('name') and params.get('nas_server_id'):
                     return self.get_filesystem_details
-                elif params.get('parent_id') and select == const_sel:
+                if params.get('parent_id') and select == const_sel:
                     return self.get_snapshots_filesystem
-                else:
-                    return self.get_filesystems
-            else:
-                return self.get_filesystem_details
-        elif self.method == 'POST':
+                return self.get_filesystems
+            return self.get_filesystem_details
+        if self.method == 'POST':
             if self.url.endswith('/snapshot'):
                 return self.create_filesystem_snapshot
-            elif self.url.endswith('/refresh'):
+            if self.url.endswith('/refresh'):
                 return self.refresh_filesystem
-            elif self.url.endswith('/restore'):
+            if self.url.endswith('/restore'):
                 return self.restore_filesystem
             return self.create_filesystem
-        elif self.method == 'PATCH':
+        if self.method == 'PATCH':
             return self.modify_fs
-        elif self.method == 'DELETE':
+        if self.method == 'DELETE':
             return self.delete_fs
 
     def execute_api(self, api_name):
@@ -71,7 +69,7 @@ class FileSystemResponse(Entity):
         if self.url.endswith('/file_system/{0}'.format(
            self.data.invalid_fs_id)):
             return 404, self.data.fs_error[404]
-        elif self.url.endswith('/file_system/{0}'.format(
+        if self.url.endswith('/file_system/{0}'.format(
            self.data.fs_id_with_snap)):
             return 422, self.data.fs_error[422]
         return 204, None

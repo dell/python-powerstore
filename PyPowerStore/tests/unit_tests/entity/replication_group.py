@@ -15,8 +15,7 @@ class ReplicationGroupResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/replication_group'):
                 return self.get_replication_group_list
-            else:
-                return self.get_replication_group_details
+            return self.get_replication_group_details
 
     def execute_api(self, api_name):
         status_code, response = api_name()

@@ -16,13 +16,11 @@ class NetworkResponse(Entity):
             if self.url.endswith('/network'):
                 if self.kwargs.get('params', {}).get('name'):
                     return self.get_network_by_name
-                else:
-                    return self.get_networks
-            else:
-                return self.get_network_details
-        elif self.method == 'PATCH':
+                return self.get_networks
+            return self.get_network_details
+        if self.method == 'PATCH':
             return self.modify_network
-        elif self.method == 'POST':
+        if self.method == 'POST':
             return self.add_remove_ports
 
     def execute_api(self, api_name):

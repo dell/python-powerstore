@@ -16,11 +16,9 @@ class ServiceConfigResponse(Entity):
             if self.url.endswith('/service_config'):
                 if self.kwargs.get('params', {}).get('appliance_id'):
                     return self.get_service_config_by_appliance_id
-                else:
-                    return self.get_service_configs
-            else:
-                return self.get_service_config_details
-        elif self.method == 'PATCH':
+                return self.get_service_configs
+            return self.get_service_config_details
+        if self.method == 'PATCH':
             return self.modify_service_config
 
     def execute_api(self, api_name):

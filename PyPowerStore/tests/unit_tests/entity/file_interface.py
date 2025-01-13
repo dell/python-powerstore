@@ -1,7 +1,5 @@
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.file_interface_data import FileInterfaceData
-from PyPowerStore.utils import constants
-from PyPowerStore.objects import file_interface
 
 
 class FileInterfaceResponse(Entity):
@@ -17,13 +15,12 @@ class FileInterfaceResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/file_interface'):
                 return self.get_file_interface_list
-            else:
-                return self.get_file_interface_details
-        elif self.method == 'PATCH':
+            return self.get_file_interface_details
+        if self.method == 'PATCH':
             return self.modify_file_interface
-        elif self.method == 'POST':
+        if self.method == 'POST':
             return self.create_file_interface
-        elif self.method == 'DELETE':
+        if self.method == 'DELETE':
             return self.delete_file_interface
 
     def execute_api(self, api_name):

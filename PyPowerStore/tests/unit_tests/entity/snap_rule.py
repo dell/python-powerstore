@@ -16,15 +16,13 @@ class SnapRuleResponse(Entity):
             if self.url.endswith('/snapshot_rule'):
                 if self.kwargs.get('params', {}).get('name'):
                     return self.get_snapshot_rule_by_name
-                else:
-                    return self.get_snap_rules
-            else:
-                return self.get_snapshot_rule_details
-        elif self.method == 'POST':
+                return self.get_snap_rules
+            return self.get_snapshot_rule_details
+        if self.method == 'POST':
             return self.create_snapshot_rule
-        elif self.method == "PATCH":
+        if self.method == "PATCH":
             return self.modify_snapshot_rule
-        elif self.method == "DELETE":
+        if self.method == "DELETE":
             return self.delete_snapshot_rule
 
     def execute_api(self, api_name):

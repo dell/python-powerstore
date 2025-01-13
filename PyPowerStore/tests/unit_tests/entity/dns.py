@@ -15,9 +15,8 @@ class DnsResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/dns'):
                 return self.get_dns_list
-            else:
-                return self.get_dns_details
-        elif self.method == "PATCH":
+            return self.get_dns_details
+        if self.method == "PATCH":
             return self.modify_dns_details
 
     def execute_api(self, api_name):

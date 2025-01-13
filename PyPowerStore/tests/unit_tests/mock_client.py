@@ -1,6 +1,5 @@
 import json
 import base64
-import socket
 import PyPowerStore.tests.unit_tests.myrequests as myrequests
 # from myrequests.exceptions import SSLError
 # from myrequests.exceptions import ConnectionError
@@ -173,8 +172,7 @@ class MockClient(object):
                                 self.raise_http_exception(response)
 
                     return response_json
-                else:
-                    self.raise_http_exception(response)
+                self.raise_http_exception(response)
             except ValueError as ex:
                 # its low-level or response level error caused by
                 # response.json() and not in requests.exceptions

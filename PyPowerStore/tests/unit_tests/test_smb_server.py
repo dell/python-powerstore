@@ -2,7 +2,6 @@ from PyPowerStore.utils import constants
 from PyPowerStore.tests.unit_tests.base_test import TestBase
 from PyPowerStore.utils.exception import PowerStoreException
 from PyPowerStore.objects import smb_server
-import copy
 from unittest import mock
 
 

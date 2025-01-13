@@ -1,7 +1,5 @@
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.file_nis_data import FileNISData
-from PyPowerStore.utils import constants
-from PyPowerStore.objects import file_nis
 
 class FileNISResponse(Entity):
 
@@ -16,13 +14,12 @@ class FileNISResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/file_nis'):
                 return self.get_file_nis_list
-            else:
-                return self.get_file_nis_details
-        elif self.method == 'PATCH':
+            return self.get_file_nis_details
+        if self.method == 'PATCH':
             return self.modify_file_nis
-        elif self.method == 'POST':
+        if self.method == 'POST':
             return self.create_file_nis
-        elif self.method == 'DELETE':
+        if self.method == 'DELETE':
             return self.delete_file_nis
 
     def execute_api(self, api_name):

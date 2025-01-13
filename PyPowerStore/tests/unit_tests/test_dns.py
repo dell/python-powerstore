@@ -1,7 +1,5 @@
-from PyPowerStore.utils import constants
 from PyPowerStore.tests.unit_tests.base_test import TestBase
 from PyPowerStore.utils.exception import PowerStoreException
-from unittest import mock
 
 class TestDns(TestBase):
 

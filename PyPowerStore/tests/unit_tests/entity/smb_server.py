@@ -1,7 +1,5 @@
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.smb_server_data import SMBServerData
-from PyPowerStore.utils import constants
-from PyPowerStore.objects import smb_server
 
 class SMBServerResponse(Entity):
 
@@ -16,13 +14,12 @@ class SMBServerResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/smb_server'):
                 return self.get_smb_server_list
-            else:
-                return self.get_smb_server_details
-        elif self.method == 'PATCH':
+            return self.get_smb_server_details
+        if self.method == 'PATCH':
             return self.modify_smb_server
-        elif self.method == 'POST':
+        if self.method == 'POST':
             return self.create_smb_server
-        elif self.method == 'DELETE':
+        if self.method == 'DELETE':
             return self.delete_smb_server
 
     def execute_api(self, api_name):

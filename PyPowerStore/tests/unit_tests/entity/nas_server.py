@@ -18,15 +18,13 @@ class NASServerResponse(Entity):
                 sel = self.kwargs.get('params', {}).get('select', {})
                 if sel and sel == constants.FHP_NAS_QUERYSTRING['select']:
                     return self.get_nasserver_detail
-                else:
-                    return self.get_nasservers
-            else:
-                return self.get_nasserver_detail
-        elif self.method == 'PATCH':
+                return self.get_nasservers
+            return self.get_nasserver_detail
+        if self.method == 'PATCH':
             return self.modify_nas
-        elif self.method == 'POST':
+        if self.method == 'POST':
             return self.create_nasserver
-        elif self.method == 'DELETE':
+        if self.method == 'DELETE':
             return self.delete_nasserver
 
     def execute_api(self, api_name):
@@ -48,7 +46,7 @@ class NASServerResponse(Entity):
         if set(param) - set(self.data.nas_valid_param_list):
             # invalid param given
             return 400, self.data.nas_error[400]
-        elif self.url.endswith('/nas_server/{0}'.format(
+        if self.url.endswith('/nas_server/{0}'.format(
              self.data.nas_id_not_exist)):
             return 404, self.data.nas_error[404]
         return 204, None

@@ -15,8 +15,7 @@ class SoftwareResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/software_installed'):
                 return self.get_softwares
-            else:
-                return self.get_software_details
+            return self.get_software_details
 
     def execute_api(self, api_name):
         status_code, response = api_name()

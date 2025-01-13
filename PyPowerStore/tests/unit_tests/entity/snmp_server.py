@@ -1,7 +1,5 @@
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.snmp_server_data import SNMPServerData
-from PyPowerStore.utils import constants
-from PyPowerStore.objects import snmp_server
 
 class SNMPServerResponse(Entity):
 
@@ -16,13 +14,12 @@ class SNMPServerResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/snmp_server'):
                 return self.get_snmp_server_list
-            else:
-                return self.get_snmp_server_details
-        elif self.method == 'PATCH':
+            return self.get_snmp_server_details
+        if self.method == 'PATCH':
             return self.modify_snmp_server
-        elif self.method == 'POST':
+        if self.method == 'POST':
             return self.create_snmp_server
-        elif self.method == 'DELETE':
+        if self.method == 'DELETE':
             return self.delete_snmp_server
 
     def execute_api(self, api_name):

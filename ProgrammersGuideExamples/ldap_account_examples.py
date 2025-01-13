@@ -12,7 +12,7 @@ CONN = powerstore_conn.PowerStoreConn(username="<username>",
                                       timeout=180.0)
 print(CONN)
 
-# Create LDAP account 
+# Create LDAP account
 create_dict = {
 
   "domain_id": "2",

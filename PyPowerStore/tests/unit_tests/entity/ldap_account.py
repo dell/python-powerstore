@@ -15,13 +15,12 @@ class LDAPAccountResponse(Entity):
         if self.method == 'GET':
             if self.url.endswith('/ldap_account'):
                 return self.get_ldap_account_list
-            else:
-                return self.get_ldap_account_details
-        elif self.method == 'POST':
+            return self.get_ldap_account_details
+        if self.method == 'POST':
             return self.create_ldap_account
-        elif self.method == "PATCH":
+        if self.method == "PATCH":
             return self.modify_ldap_account_details
-        elif self.method == "DELETE":
+        if self.method == "DELETE":
             return self.delete_ldap_account
 
     def execute_api(self, api_name):
