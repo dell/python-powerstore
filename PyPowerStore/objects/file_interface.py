@@ -79,10 +79,12 @@ class FileInterface:
         """
         querystring = SELECT_ALL_FILE_INTERFACE
 
-        LOG.info("Getting file interface details by ID: '%s'" % file_interface_id)
+        LOG.info("Getting file interface details by ID: '%s'" %
+                 file_interface_id)
         return self.file_interface_client.request(
             constants.GET,
-            GET_FILE_INTERFACE_DETAILS_URL.format(self.server_ip, file_interface_id),
+            GET_FILE_INTERFACE_DETAILS_URL.format(
+                self.server_ip, file_interface_id),
             payload=None,
             querystring=querystring,
         )
@@ -102,7 +104,8 @@ class FileInterface:
         )
         return self.file_interface_client.request(
             constants.GET,
-            GET_FILE_INTERFACE_DETAILS_BY_NAS_SERVER_URL.format(self.server_ip),
+            GET_FILE_INTERFACE_DETAILS_BY_NAS_SERVER_URL.format(
+                self.server_ip),
             payload=None,
             querystring=helpers.prepare_querystring(
                 querystring,
@@ -146,7 +149,8 @@ class FileInterface:
             if payload:
                 return self.file_interface_client.request(
                     constants.PATCH,
-                    MODIFY_FILE_INTERFACE_URL.format(self.server_ip, file_interface_id),
+                    MODIFY_FILE_INTERFACE_URL.format(
+                        self.server_ip, file_interface_id),
                     payload=payload,
                 )
 
@@ -163,7 +167,8 @@ class FileInterface:
         LOG.info("Deleting file interface: '%s'" % file_interface_id)
         return self.file_interface_client.request(
             constants.DELETE,
-            DELETE_FILE_INTERFACE_URL.format(self.server_ip, file_interface_id),
+            DELETE_FILE_INTERFACE_URL.format(
+                self.server_ip, file_interface_id),
         )
 
     # File interface methods end

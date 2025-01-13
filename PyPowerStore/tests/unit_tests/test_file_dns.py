@@ -12,12 +12,13 @@ class TestFileDNS(TestBase):
         self.assertListEqual(file_dns_list, self.file_dns_data.file_dns_list)
 
     def test_get_file_dns_with_filter(self):
-        querystring = {'nas_server_id': 'eq.6581683c-61a3-76ab-f107-62b767ad9845'}
+        querystring = {
+            'nas_server_id': 'eq.6581683c-61a3-76ab-f107-62b767ad9845'}
         querystring.update(file_dns.SELECT_ALL_FILE_DNS)
         with mock.patch.object(self.file_dns.file_dns_client,
                                'request') as mock_request:
             self.file_dns.get_file_dns_list(filter_dict=querystring,
-                                                      all_pages=True)
+                                            all_pages=True)
             mock_request.assert_called_with(
                 constants.GET,
                 file_dns.GET_FILE_DNS_LIST_URL.format(
@@ -45,12 +46,13 @@ class TestFileDNS(TestBase):
 
     def test_modify_file_dns(self):
         param = {
-                 "domain": "DNS_domain",
-                 "add_ip_addresses": ["10.10.10.11"],
-                 "remove_ip_addresses": ["10.10.10.10"],
-                 "transport": "UDP",
-                 "is_destination_override_enabled": False}
-        resp = self.file_dns.modify_file_dns(self.file_dns_data.file_dns_id, param)
+            "domain": "DNS_domain",
+            "add_ip_addresses": ["10.10.10.11"],
+            "remove_ip_addresses": ["10.10.10.10"],
+            "transport": "UDP",
+            "is_destination_override_enabled": False}
+        resp = self.file_dns.modify_file_dns(
+            self.file_dns_data.file_dns_id, param)
         self.assertIsNone(resp)
 
     def test_modify_file_dns_with_invalid_param(self):

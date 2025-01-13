@@ -13,8 +13,10 @@ from PyPowerStore.objects.file_dns import FileDNS
 from PyPowerStore.objects.file_nis import FileNIS
 from PyPowerStore.objects.snmp_server import SNMPServer
 
+
 class PowerStoreConn():
     """Class for establishing connection with PowerStore"""
+
     def __init__(self, username, password, server_ip, verify=False,
                  application_type=None, timeout=None, enable_log=False,
                  port_no=None):

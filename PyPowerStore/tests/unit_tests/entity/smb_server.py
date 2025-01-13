@@ -1,6 +1,7 @@
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.smb_server_data import SMBServerData
 
+
 class SMBServerResponse(Entity):
 
     def __init__(self, method, url, **kwargs):
@@ -44,7 +45,7 @@ class SMBServerResponse(Entity):
         return 204, None
 
     def create_smb_server(self):
-       return 201, self.smb_server_data.smb_server_id
+        return 201, self.smb_server_data.smb_server_id
 
     def delete_smb_server(self):
         return 204, None

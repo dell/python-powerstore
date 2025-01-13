@@ -9,7 +9,8 @@ class TestSNMPServer(TestBase):
 
     def test_get_snmp_servers(self):
         snmp_server_list = self.snmp_server.get_snmp_server_list()
-        self.assertListEqual(snmp_server_list, self.snmp_server_data.snmp_server_list)
+        self.assertListEqual(
+            snmp_server_list, self.snmp_server_data.snmp_server_list)
 
     def test_get_snmp_server_with_filter(self):
         querystring = {"version": "V2c"}
@@ -17,7 +18,7 @@ class TestSNMPServer(TestBase):
         with mock.patch.object(self.snmp_server.snmp_server_client,
                                'request') as mock_request:
             self.snmp_server.get_snmp_server_list(filter_dict=querystring,
-                                                      all_pages=True)
+                                                  all_pages=True)
             mock_request.assert_called_with(
                 constants.GET,
                 snmp_server.GET_SNMP_LIST_URL.format(
@@ -29,7 +30,8 @@ class TestSNMPServer(TestBase):
     def test_get_snmp_server_details(self):
         snmp_server_detail = self.snmp_server.get_snmp_server_details(
             self.snmp_server_data.snmp_server_id)
-        self.assertEqual(snmp_server_detail, self.snmp_server_data.snmp_server_detail)
+        self.assertEqual(snmp_server_detail,
+                         self.snmp_server_data.snmp_server_detail)
 
     def test_get_invalid_snmp_server_details(self):
         self.assertRaisesRegex(
@@ -40,13 +42,14 @@ class TestSNMPServer(TestBase):
 
     def test_modify_snmp_server(self):
         param = {
-                    "ip_address": "127.0.0.8",
-                    "port": 162,
-                    "version": "V2c",
-                    "alert_severity": "Info",
-                    "trap_community": "public"
-                    }
-        resp = self.snmp_server.modify_snmp_server(self.snmp_server_data.snmp_server_id, param)
+            "ip_address": "127.0.0.8",
+            "port": 162,
+            "version": "V2c",
+            "alert_severity": "Info",
+            "trap_community": "public"
+        }
+        resp = self.snmp_server.modify_snmp_server(
+            self.snmp_server_data.snmp_server_id, param)
         self.assertIsNone(resp)
 
     def test_modify_snmp_server_with_invalid_param(self):
@@ -65,15 +68,16 @@ class TestSNMPServer(TestBase):
 
     def test_create_snmp_server(self):
         payload = {
-                    "ip_address": "127.0.0.8",
-                    "port": 162,
-                    "version": "V2c",
-                    "alert_severity": "Info",
-                    "trap_community": "public"
-                    }
+            "ip_address": "127.0.0.8",
+            "port": 162,
+            "version": "V2c",
+            "alert_severity": "Info",
+            "trap_community": "public"
+        }
         snmp_server_id = self.snmp_server.create_snmp_server(payload)
         self.assertEqual(snmp_server_id, self.snmp_server_data.snmp_server_id)
 
     def test_delete_snmp_server(self):
-        resp = self.snmp_server.delete_snmp_server(self.snmp_server_data.snmp_server_id)
+        resp = self.snmp_server.delete_snmp_server(
+            self.snmp_server_data.snmp_server_id)
         self.assertIsNone(resp)

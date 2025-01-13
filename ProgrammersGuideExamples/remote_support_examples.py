@@ -16,7 +16,8 @@ remote_support_list = CONN.config_mgmt.get_remote_support_list()
 print(remote_support_list)
 
 # Getting Remote Support configuration instance details
-remote_support_details = CONN.config_mgmt.get_remote_support_details(remote_support_id=remote_support_list[0]['id'])
+remote_support_details = CONN.config_mgmt.get_remote_support_details(
+    remote_support_id=remote_support_list[0]['id'])
 print(remote_support_details)
 
 # Modifying the Remote Support configuration details
@@ -28,7 +29,8 @@ modify_dict = {
     "proxy_password": "pass123"
 }
 
-resp_modify = CONN.config_mgmt.modify_remote_support_details(remote_support_id=remote_support_list[0]['id'], modify_parameters=modify_dict)
+resp_modify = CONN.config_mgmt.modify_remote_support_details(
+    remote_support_id=remote_support_list[0]['id'], modify_parameters=modify_dict)
 print(resp_modify)
 
 verify_dict = {
@@ -37,9 +39,11 @@ verify_dict = {
     "port": 9443
 }
 
-resp_verify = CONN.config_mgmt.verify_remote_support_config(remote_support_id=remote_support_list[0]['id'], verify_parameters=verify_dict)
+resp_verify = CONN.config_mgmt.verify_remote_support_config(
+    remote_support_id=remote_support_list[0]['id'], verify_parameters=verify_dict)
 print(resp_verify)
 
 # Sending test mail for Remote Support
-resp_test = CONN.config_mgmt.test_remote_support_config(remote_support_id=remote_support_list[0]['id'])
+resp_test = CONN.config_mgmt.test_remote_support_config(
+    remote_support_id=remote_support_list[0]['id'])
 print(resp_test)

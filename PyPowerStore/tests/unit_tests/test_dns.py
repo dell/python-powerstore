@@ -1,6 +1,7 @@
 from PyPowerStore.tests.unit_tests.base_test import TestBase
 from PyPowerStore.utils.exception import PowerStoreException
 
+
 class TestDns(TestBase):
 
     def test_get_dns_list(self):

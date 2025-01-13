@@ -3,39 +3,39 @@ class SNMPServerData():
     snmp_server_id = "snmp_server_id_1"
 
     snmp_server_list = [
-    {
-        "id": "2bf5709d-0466-437a-a28f-9d31f2fdfcc5",
-        "ip_address": "127.0.0.1",
-        "port": 162,
-        "version": "V2c",
-        "trap_community": "commnity",
-        "alert_severity": "Info",
-        "user_name": None,
-        "auth_protocol": None,
-        "privacy_protocol": None
-    },
-    {
-        "id": "54261519-c5c2-446a-ad76-5f4ca63581df",
-        "ip_address": "100.96.32.85",
-        "port": 162,
-        "version": "V2c",
-        "trap_community": "public",
-        "alert_severity": "Info",
-        "user_name": None,
-        "auth_protocol": None,
-        "privacy_protocol": None
-    },
-    {
-        "id": "789f4c09-9e15-4b44-a9f3-baf716172140",
-        "ip_address": "10.250.230.45",
-        "port": 162,
-        "version": "V3",
-        "trap_community": None,
-        "alert_severity": "Info",
-        "user_name": "test",
-        "auth_protocol": "None",
-        "privacy_protocol": "None"
-    }]
+        {
+            "id": "2bf5709d-0466-437a-a28f-9d31f2fdfcc5",
+            "ip_address": "127.0.0.1",
+            "port": 162,
+            "version": "V2c",
+            "trap_community": "commnity",
+            "alert_severity": "Info",
+            "user_name": None,
+            "auth_protocol": None,
+            "privacy_protocol": None
+        },
+        {
+            "id": "54261519-c5c2-446a-ad76-5f4ca63581df",
+            "ip_address": "100.96.32.85",
+            "port": 162,
+            "version": "V2c",
+            "trap_community": "public",
+            "alert_severity": "Info",
+            "user_name": None,
+            "auth_protocol": None,
+            "privacy_protocol": None
+        },
+        {
+            "id": "789f4c09-9e15-4b44-a9f3-baf716172140",
+            "ip_address": "10.250.230.45",
+            "port": 162,
+            "version": "V3",
+            "trap_community": None,
+            "alert_severity": "Info",
+            "user_name": "test",
+            "auth_protocol": "None",
+            "privacy_protocol": "None"
+        }]
 
     snmp_server_detail = {
         "id": "789f4c09-9e15-4b44-a9f3-baf716172140",
@@ -70,6 +70,6 @@ class SNMPServerData():
                 "c5fdeb93-42ed-4ec9-988e-daec2974f2fk"
             ]
         }
-    ]
-}
+        ]
+        }
     }

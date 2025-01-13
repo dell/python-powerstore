@@ -55,7 +55,8 @@ class FileNIS:
             "Getting file NISs with filter: '%s' and all_pages: %s"
             % (filter_dict, all_pages)
         )
-        querystring = helpers.prepare_querystring(SELECT_ALL_FILE_NIS, filter_dict)
+        querystring = helpers.prepare_querystring(
+            SELECT_ALL_FILE_NIS, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
         return self.file_nis_client.request(
             constants.GET,
@@ -93,7 +94,8 @@ class FileNIS:
         """
         querystring = SELECT_ALL_FILE_NIS
 
-        LOG.info("Getting file NIS details by nas server id: '%s'" % nas_server_id)
+        LOG.info("Getting file NIS details by nas server id: '%s'" %
+                 nas_server_id)
         return self.file_nis_client.request(
             constants.GET,
             GET_FILE_NIS_DETAILS_BY_NAS_SERVER_URL.format(self.server_ip),
@@ -153,7 +155,8 @@ class FileNIS:
         """
         LOG.info("Deleting file NIS: '%s'" % file_nis_id)
         return self.file_nis_client.request(
-            constants.DELETE, DELETE_FILE_NIS_URL.format(self.server_ip, file_nis_id)
+            constants.DELETE, DELETE_FILE_NIS_URL.format(
+                self.server_ip, file_nis_id)
         )
 
     # File NIS methods end

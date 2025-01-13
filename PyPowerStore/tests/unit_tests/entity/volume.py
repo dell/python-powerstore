@@ -68,7 +68,7 @@ class VolumeResponse(Entity):
     def modify_volume(self):
         if 'protection_policy_id' in self.kwargs['data'] and \
            self.kwargs['data']['protection_policy_id'] == \
-               self.data.invalid_pol_id:
+                self.data.invalid_pol_id:
             return 404, self.data.policy_error[404]
         return 204, None
 

@@ -32,7 +32,8 @@ class TestFileSystem(TestBase):
         self.assertEqual(fs, self.file_system_data.create_filesystem)
 
     def test_get_filesystem_details(self):
-        fs = self.provisioning.get_filesystem_details(self.file_system_data.fs_id1)
+        fs = self.provisioning.get_filesystem_details(
+            self.file_system_data.fs_id1)
         self.assertEqual(fs, self.file_system_data.fs_detail)
 
     def test_get_filesystem_by_name(self):
@@ -101,7 +102,8 @@ class TestFileSystem(TestBase):
 
     def test_modify_filesystem(self):
         param = {'folder_rename_policy': 'All_Allowed'}
-        resp = self.provisioning.modify_filesystem(self.file_system_data.fs_id1, param)
+        resp = self.provisioning.modify_filesystem(
+            self.file_system_data.fs_id1, param)
         self.assertIsNone(resp)
 
     def test_delete_filesystem_snapshot(self):
@@ -110,21 +112,24 @@ class TestFileSystem(TestBase):
         self.assertIsNone(resp)
 
     def test_delete_filesystem(self):
-        resp = self.provisioning.delete_filesystem(self.file_system_data.fs_id1)
+        resp = self.provisioning.delete_filesystem(
+            self.file_system_data.fs_id1)
         self.assertIsNone(resp)
 
     def test_clone_filesystem(self):
         resp = \
             self.provisioning.clone_filesystem(self.file_system_data.fs_id1,
-                advance_parameters={'name': self.file_system_data.fs_name2})
+                                               advance_parameters={'name': self.file_system_data.fs_name2})
         self.assertEqual(resp, self.file_system_data.create_filesystem)
 
     def test_restore_filesystem(self):
-        resp = self.provisioning.restore_filesystem(self.file_system_data.fs_snap_id)
+        resp = self.provisioning.restore_filesystem(
+            self.file_system_data.fs_snap_id)
         self.assertIsNone(resp)
 
     def test_refresh_filesystem(self):
-        resp = self.provisioning.refresh_filesystem(self.file_system_data.fs_snap_id)
+        resp = self.provisioning.refresh_filesystem(
+            self.file_system_data.fs_snap_id)
         self.assertIsNone(resp)
 
     def test_delete_invalid_filesystem(self):

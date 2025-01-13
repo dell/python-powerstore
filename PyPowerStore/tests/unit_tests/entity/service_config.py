@@ -10,7 +10,7 @@ class ServiceConfigResponse(Entity):
         self.kwargs = kwargs
         self.data = CommonData()
         self.status_code = 200
-    
+
     def get_api_name(self):
         if self.method == 'GET':
             if self.url.endswith('/service_config'):

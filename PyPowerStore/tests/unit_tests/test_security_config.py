@@ -11,7 +11,8 @@ class TestSecurityConfig(TestBase):
 
     def test_get_security_config_details(self):
         security_config_details = self.configuration. \
-            get_security_config_details(self.security_config_data.security_config_id_1)
+            get_security_config_details(
+                self.security_config_data.security_config_id_1)
         self.assertEqual(security_config_details,
                          self.security_config_data.security_config_details_1)
 

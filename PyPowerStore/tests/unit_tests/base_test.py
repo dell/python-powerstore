@@ -30,6 +30,7 @@ from PyPowerStore.tests.unit_tests.data.file_nis_data import FileNISData
 from PyPowerStore.tests.unit_tests.data.snmp_server_data import SNMPServerData
 from unittest import mock
 
+
 class TestBase(TestCase):
     def setUp(self):
         super(TestBase, self).setUp()

@@ -4,7 +4,7 @@ class RemoteSupportContactData():
 
     remote_support_contact_list = [{"id": remote_support_contact_id}]
 
-    modify_remote_support_contact_dict={
+    modify_remote_support_contact_dict = {
         "first_name": "abc"
     }
 
@@ -14,7 +14,7 @@ class RemoteSupportContactData():
 
     remote_support_contact_error = {
         400: {
-               "messages": [
+            "messages": [
                 {
                     "code": "0xE04040030001",
                     "severity": "Error",
@@ -23,7 +23,7 @@ class RemoteSupportContactData():
                         "Object instance has properties which are not allowed by the schema: [\"invalid_param\"]"
                     ]
                 }
-                ]
+            ]
         }
     }
 
@@ -35,4 +35,3 @@ class RemoteSupportContactData():
         "phone": "111-222-333-444",
         "system_location": ""
     }
-

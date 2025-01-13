@@ -157,7 +157,7 @@ class MockClient(object):
                        content_range:
                         # 'content-range': '0-99/789'
                         total_size = self.get_total_size_from_content_range(
-                                         content_range)
+                            content_range)
                         myranges = [
                             "{0}-{1}".format(i, i + constants.MAX_LIMIT)
                             for i in range(constants.OFFSET, total_size,

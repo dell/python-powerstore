@@ -14,18 +14,18 @@ CONN = powerstore_conn.PowerStoreConn(username="<username>",
 print(CONN)
 
 MODIFY_PARAMS = {
-	"ip_address": "10.**.**.**",
-	"port": 162,
-	"trap_community": "community",
-	"alert_severity": "Info"
+    "ip_address": "10.**.**.**",
+    "port": 162,
+    "trap_community": "community",
+    "alert_severity": "Info"
 }
 
 CREATE_PARAMS = {
-	"ip_address": "10.**.**.**",
-	"port": 162,
-	"version": "V2c",
-	"alert_severity": "Info",
-	"trap_community": "public"
+    "ip_address": "10.**.**.**",
+    "port": 162,
+    "version": "V2c",
+    "alert_severity": "Info",
+    "trap_community": "public"
 }
 
 # create SNMP server

@@ -45,7 +45,8 @@ class TestNASServer(TestBase):
         self.assertEqual(nas_detail, self.data.nas_detail)
 
     def test_modify_nasserver(self):
-        param = {'default_unix_user': '1', 'default_windows_user': '10', 'protection_policy_id': 'samplepolicyid'}
+        param = {'default_unix_user': '1', 'default_windows_user': '10',
+                 'protection_policy_id': 'samplepolicyid'}
         resp = self.provisioning.modify_nasserver(self.data.nas_id1, param)
         self.assertIsNone(resp)
         # name will be skipped and will not be passed to request()
@@ -84,7 +85,8 @@ class TestNASServer(TestBase):
             self.data.nas_id1, {})
 
     def test_create_nas_server(self):
-        payload = {"name": "nas1", "default_unix_user": "user1", "default_windows_user": "user2"}
+        payload = {"name": "nas1", "default_unix_user": "user1",
+                   "default_windows_user": "user2"}
         nas_id = self.provisioning.create_nasserver(payload)
         self.assertEqual(nas_id, self.data.nas_id1)
 

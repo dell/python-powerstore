@@ -16,7 +16,8 @@ remote_support_contact_list = CONN.config_mgmt.get_remote_support_contact_list()
 print(remote_support_contact_list)
 
 # Getting Remote Support Contact instance details
-remote_support_contact_details = CONN.config_mgmt.get_remote_support_contact_details(remote_support_contact_id=remote_support_contact_list[0]['id'])
+remote_support_contact_details = CONN.config_mgmt.get_remote_support_contact_details(
+    remote_support_contact_id=remote_support_contact_list[0]['id'])
 print(remote_support_contact_details)
 
 # Modifying the Remote Support Contact details
@@ -27,5 +28,6 @@ modify_dict = {
     "phone": "111-222-333-444"
 }
 
-resp_modify = CONN.config_mgmt.modify_remote_support_contact_details(remote_support_contact_id=remote_support_contact_list[0]['id'], modify_parameters=modify_dict)
+resp_modify = CONN.config_mgmt.modify_remote_support_contact_details(
+    remote_support_contact_id=remote_support_contact_list[0]['id'], modify_parameters=modify_dict)
 print(resp_modify)

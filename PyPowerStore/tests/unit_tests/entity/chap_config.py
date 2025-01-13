@@ -34,4 +34,3 @@ class ChapConfigResponse(Entity):
 
     def modify_chap_config(self):
         return 204, self.data.chap_config_details_1
-

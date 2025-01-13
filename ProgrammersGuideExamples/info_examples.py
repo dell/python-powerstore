@@ -140,4 +140,3 @@ print(RESP)
 # Get virtual volume list
 RESP = CONN.config_mgmt.get_virtual_volume_list()
 print(RESP)
-

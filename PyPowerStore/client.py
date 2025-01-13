@@ -80,14 +80,15 @@ class AuthenticationManager:
         if login_response.status_code == 200:
             self.creation_time = time.time()
             json_response = login_response.json()
-            login_data = login_response.json()[0] if isinstance(json_response, list) else {}
+            login_data = login_response.json()[0] if isinstance(
+                json_response, list) else {}
             self.idle_timeout = login_data['idle_timeout'] if 'idle_timeout' in login_data else self.idle_timeout
 
     def is_session_alive(self):
         """Check if the session is alive or not"""
         if self.creation_time and self.idle_timeout and \
-            ((time.time() - self.creation_time) < self.idle_timeout):
-                return True
+                ((time.time() - self.creation_time) < self.idle_timeout):
+            return True
         return False
 
     def login(self):
@@ -125,8 +126,10 @@ class AuthenticationManager:
         self.dell_emc_token = None
         self.cookie = None
 
+
 class Client():
     """Client class for PowerStore"""
+
     def __init__(self, username, password, verify, application_type,
                  timeout=None, enable_log=False):
         """ Initializes Client Class
@@ -325,7 +328,7 @@ class Client():
                        content_range:
                         # 'content-range': '0-99/789'
                         total_size = self.get_total_size_from_content_range(
-                                         content_range)
+                            content_range)
                         myranges = [
                             "{0}-{1}".format(i, i + constants.MAX_LIMIT)
                             for i in range(constants.OFFSET, total_size,

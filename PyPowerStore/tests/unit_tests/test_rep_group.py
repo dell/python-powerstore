@@ -12,7 +12,8 @@ class TestStorageContainerDestination(TestBase):
     def test_get_replication_group_details(self):
         resp = self.protection.get_replication_group_details(
             self.replication_group_data.replication_group_id)
-        self.assertEqual(resp, self.replication_group_data.replication_group_details)
+        self.assertEqual(
+            resp, self.replication_group_data.replication_group_details)
 
     def test_get_replication_group_details_by_name(self):
         resp = self.protection.get_replication_group_details_by_name(

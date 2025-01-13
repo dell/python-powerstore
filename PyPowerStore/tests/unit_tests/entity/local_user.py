@@ -54,4 +54,3 @@ class LocalUserResponse(Entity):
 
     def delete_local_user(self):
         return 204, None
-

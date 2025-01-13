@@ -1,6 +1,7 @@
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.snmp_server_data import SNMPServerData
 
+
 class SNMPServerResponse(Entity):
 
     def __init__(self, method, url, **kwargs):
@@ -44,7 +45,7 @@ class SNMPServerResponse(Entity):
         return 204, None
 
     def create_snmp_server(self):
-       return 201, self.snmp_server_data.snmp_server_id
+        return 201, self.snmp_server_data.snmp_server_id
 
     def delete_snmp_server(self):
         return 204, None

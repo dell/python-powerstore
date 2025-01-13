@@ -1,5 +1,5 @@
 class SecurityConfigData():
-    
+
     security_config_id_1 = 1
     security_config_list = [
         {"id": security_config_id_1}

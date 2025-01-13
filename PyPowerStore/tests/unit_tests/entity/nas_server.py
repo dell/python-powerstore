@@ -47,12 +47,12 @@ class NASServerResponse(Entity):
             # invalid param given
             return 400, self.data.nas_error[400]
         if self.url.endswith('/nas_server/{0}'.format(
-             self.data.nas_id_not_exist)):
+                self.data.nas_id_not_exist)):
             return 404, self.data.nas_error[404]
         return 204, None
 
     def create_nasserver(self):
-       return 201, self.data.nas_id1
+        return 201, self.data.nas_id1
 
     def delete_nasserver(self):
         return 204, None

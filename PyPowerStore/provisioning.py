@@ -118,7 +118,8 @@ class Provisioning:
             appliance_id,
         )
         self.client.request(
-            constants.POST, constants.VOLUME_CREATE_URL.format(self.server_ip), payload
+            constants.POST, constants.VOLUME_CREATE_URL.format(
+                self.server_ip), payload
         )
 
     def _prepare_create_volume_payload(
@@ -507,7 +508,8 @@ class Provisioning:
                 payload[key] = value
         return self.client.request(
             constants.POST,
-            constants.CLONE_FILESYSTEM_URL.format(self.server_ip, filesystem_id),
+            constants.CLONE_FILESYSTEM_URL.format(
+                self.server_ip, filesystem_id),
             payload,
         )
 
@@ -528,7 +530,8 @@ class Provisioning:
             payload["copy_name"] = backup_snap_name
         return self.client.request(
             constants.POST,
-            constants.RESTORE_FILESYSTEM_URL.format(self.server_ip, snapshot_id),
+            constants.RESTORE_FILESYSTEM_URL.format(
+                self.server_ip, snapshot_id),
             payload,
         )
 
@@ -543,7 +546,8 @@ class Provisioning:
         LOG.info("Refreshing the filesystem from snapshot: '%s'" % snapshot_id)
         return self.client.request(
             constants.POST,
-            constants.REFRESH_FILESYSTEM_URL.format(self.server_ip, snapshot_id),
+            constants.REFRESH_FILESYSTEM_URL.format(
+                self.server_ip, snapshot_id),
         )
 
     def add_protection_policy_for_volume(self, volume_id, protection_policy_id):
@@ -597,7 +601,8 @@ class Provisioning:
         :type logical_unit_number: str
         """
         LOG.info("Mapping volume: '%s' to host" % volume_id)
-        payload = self._prepare_map_vol_to_host_payload(host_id, logical_unit_number)
+        payload = self._prepare_map_vol_to_host_payload(
+            host_id, logical_unit_number)
         self.client.request(
             constants.POST,
             constants.MAP_VOLUME_TO_HOST_URL.format(self.server_ip, volume_id),
@@ -652,11 +657,13 @@ class Provisioning:
         :param host_id: The host ID
         :type host_id: str
         """
-        LOG.info("Unmapping volume: '%s' from host: '%s'" % (volume_id, host_id))
+        LOG.info("Unmapping volume: '%s' from host: '%s'" %
+                 (volume_id, host_id))
         payload = self._prepare_unmap_vol_from_host_payload(host_id)
         self.client.request(
             constants.POST,
-            constants.UNMAP_VOLUME_FROM_HOST_URL.format(self.server_ip, volume_id),
+            constants.UNMAP_VOLUME_FROM_HOST_URL.format(
+                self.server_ip, volume_id),
             payload,
         )
 
@@ -676,12 +683,14 @@ class Provisioning:
         :type host_group_id: str
         """
         LOG.info(
-            "Unmapping volume: '%s' from host group: '%s'" % (volume_id, host_group_id)
+            "Unmapping volume: '%s' from host group: '%s'" % (
+                volume_id, host_group_id)
         )
         payload = self._prepare_unmap_vol_from_host_grp_payload(host_group_id)
         self.client.request(
             constants.POST,
-            constants.UNMAP_VOLUME_FROM_HOST_URL.format(self.server_ip, volume_id),
+            constants.UNMAP_VOLUME_FROM_HOST_URL.format(
+                self.server_ip, volume_id),
             payload,
         )
 
@@ -776,7 +785,8 @@ class Provisioning:
         )
 
         if resp:
-            LOG.info("Getting host volume mapping from vol ID: '%s'" % resp[0]["id"])
+            LOG.info("Getting host volume mapping from vol ID: '%s'" %
+                     resp[0]["id"])
             hlu_details = self.get_host_volume_mapping(volume_id=resp[0]["id"])
             resp[0]["hlu_details"] = hlu_details
 
@@ -813,7 +823,8 @@ class Provisioning:
                 metro_url.format(self.server_ip, volume_id),
                 payload=payload,
             )
-        raise Exception("Not supported for PowerStore version less than 3.0.0.0")
+        raise Exception(
+            "Not supported for PowerStore version less than 3.0.0.0")
 
     def end_volume_metro_config(self, volume_id, delete_remote_volume=None):
         """
@@ -840,7 +851,8 @@ class Provisioning:
                 end_metro_url.format(self.server_ip, volume_id),
                 payload=payload,
             )
-        raise Exception("Not supported for PowerStore version less than 3.0.0.0")
+        raise Exception(
+            "Not supported for PowerStore version less than 3.0.0.0")
 
     def get_hosts(self, filter_dict=None, all_pages=False):
         """Get a list of all the registered hosts.
@@ -895,7 +907,8 @@ class Provisioning:
             name, description, os_type, initiators, host_connectivity
         )
         return self.client.request(
-            constants.POST, constants.CREATE_HOST_URL.format(self.server_ip), payload
+            constants.POST, constants.CREATE_HOST_URL.format(
+                self.server_ip), payload
         )
 
     def _prepare_create_host_payload(
@@ -1017,7 +1030,8 @@ class Provisioning:
         :rtype: None
         """
         LOG.info("Adding initiators to host: '%s'" % host_id)
-        payload = self._prepare_modify_host_payload(add_initiators=add_initiators)
+        payload = self._prepare_modify_host_payload(
+            add_initiators=add_initiators)
         return self.client.request(
             constants.PATCH,
             constants.MODIFY_HOST_URL.format(self.server_ip, host_id),
@@ -1035,7 +1049,8 @@ class Provisioning:
         :rtype: None
         """
         LOG.info("Removing initiators to host: '%s'" % host_id)
-        payload = self._prepare_modify_host_payload(remove_initiators=remove_initiators)
+        payload = self._prepare_modify_host_payload(
+            remove_initiators=remove_initiators)
         return self.client.request(
             constants.PATCH,
             constants.MODIFY_HOST_URL.format(self.server_ip, host_id),
@@ -1125,8 +1140,10 @@ class Provisioning:
         :return: Host group ID if success else raise exception
         :rtype: dict
         """
-        LOG.info("Creating hostgroup: '%s' with host_ids: '%s'" % (name, host_ids))
-        payload = self._prepare_create_host_group_payload(name, host_ids, description)
+        LOG.info("Creating hostgroup: '%s' with host_ids: '%s'" %
+                 (name, host_ids))
+        payload = self._prepare_create_host_group_payload(
+            name, host_ids, description)
         return self.client.request(
             constants.POST,
             constants.CREATE_HOST_GROUP_URL.format(self.server_ip),
@@ -1159,7 +1176,8 @@ class Provisioning:
 
         return self.client.request(
             constants.GET,
-            constants.GET_HOST_GROUP_DETAILS_URL.format(self.server_ip, host_group_id),
+            constants.GET_HOST_GROUP_DETAILS_URL.format(
+                self.server_ip, host_group_id),
             payload=None,
             querystring=querystring,
         )
@@ -1197,7 +1215,8 @@ class Provisioning:
         LOG.info("Getting hosts from host_group: '%s'" % host_group_name)
         return self.client.request(
             constants.GET,
-            constants.GET_HOSTS_BY_HOST_GROUP.format(self.server_ip, host_group_name),
+            constants.GET_HOSTS_BY_HOST_GROUP.format(
+                self.server_ip, host_group_name),
             payload=None,
             querystring=helpers.prepare_querystring(
                 name=constants.EQUALS + host_group_name, select="hosts(name,id)"
@@ -1238,7 +1257,8 @@ class Provisioning:
         )
         return self.client.request(
             constants.PATCH,
-            constants.MODIFY_HOST_GROUP_URL.format(self.server_ip, host_group_id),
+            constants.MODIFY_HOST_GROUP_URL.format(
+                self.server_ip, host_group_id),
             payload,
         )
 
@@ -1276,10 +1296,12 @@ class Provisioning:
         :rtype: None
         """
         LOG.info("Adding hosts to host_group: '%s'" % host_group_id)
-        payload = self._prepare_modify_host_group_payload(add_host_ids=add_host_ids)
+        payload = self._prepare_modify_host_group_payload(
+            add_host_ids=add_host_ids)
         return self.client.request(
             constants.PATCH,
-            constants.MODIFY_HOST_GROUP_URL.format(self.server_ip, host_group_id),
+            constants.MODIFY_HOST_GROUP_URL.format(
+                self.server_ip, host_group_id),
             payload,
         )
 
@@ -1299,7 +1321,8 @@ class Provisioning:
         )
         return self.client.request(
             constants.PATCH,
-            constants.MODIFY_HOST_GROUP_URL.format(self.server_ip, host_group_id),
+            constants.MODIFY_HOST_GROUP_URL.format(
+                self.server_ip, host_group_id),
             payload,
         )
 
@@ -1314,7 +1337,8 @@ class Provisioning:
         LOG.info("Deleting hostgroup: '%s'" % host_group_id)
         return self.client.request(
             constants.DELETE,
-            constants.DELETE_HOST_GROUP_URL.format(self.server_ip, host_group_id),
+            constants.DELETE_HOST_GROUP_URL.format(
+                self.server_ip, host_group_id),
             payload=None,
         )
 
@@ -1429,7 +1453,8 @@ class Provisioning:
         )
         return self.client.request(
             constants.POST,
-            constants.CLONE_VOLUME_GROUP_URL.format(self.server_ip, volume_group_id),
+            constants.CLONE_VOLUME_GROUP_URL.format(
+                self.server_ip, volume_group_id),
             payload=payload,
         )
 
@@ -1461,7 +1486,8 @@ class Provisioning:
         )
         return self.client.request(
             constants.POST,
-            constants.REFRESH_VOLUME_GROUP_URL.format(self.server_ip, volume_group_id),
+            constants.REFRESH_VOLUME_GROUP_URL.format(
+                self.server_ip, volume_group_id),
             payload=payload,
         )
 
@@ -1493,7 +1519,8 @@ class Provisioning:
         )
         return self.client.request(
             constants.POST,
-            constants.RESTORE_VOLUME_GROUP_URL.format(self.server_ip, volume_group_id),
+            constants.RESTORE_VOLUME_GROUP_URL.format(
+                self.server_ip, volume_group_id),
             payload=payload,
         )
 
@@ -1561,7 +1588,8 @@ class Provisioning:
                 self.server_ip, volume_group_id
             ),
             payload=None,
-            querystring=helpers.prepare_querystring(constants.SELECT_ALL_VOL_GROUP),
+            querystring=helpers.prepare_querystring(
+                constants.SELECT_ALL_VOL_GROUP),
         )
 
     def get_volume_group_by_name(self, volume_group_name):
@@ -1572,7 +1600,8 @@ class Provisioning:
         :return: Details of the volume group
         :rtype: dict
         """
-        LOG.info("Getting volumegroup details by name: '%s'" % volume_group_name)
+        LOG.info("Getting volumegroup details by name: '%s'" %
+                 volume_group_name)
         return self.client.request(
             constants.GET,
             constants.GET_VOLUME_GROUP_BY_NAME_URL.format(self.server_ip),
@@ -1616,7 +1645,8 @@ class Provisioning:
         )
         self.client.request(
             constants.PATCH,
-            constants.MODIFY_VOLUME_GROUP_URL.format(self.server_ip, volume_group_id),
+            constants.MODIFY_VOLUME_GROUP_URL.format(
+                self.server_ip, volume_group_id),
             payload,
         )
 
@@ -1646,7 +1676,8 @@ class Provisioning:
         LOG.info("Deleting volumegroup: '%s'" % volume_group_id)
         return self.client.request(
             constants.DELETE,
-            constants.DELETE_VOLUME_GROUP_URL.format(self.server_ip, volume_group_id),
+            constants.DELETE_VOLUME_GROUP_URL.format(
+                self.server_ip, volume_group_id),
             payload=None,
         )
 
@@ -1663,7 +1694,8 @@ class Provisioning:
         :rtype: None
         """
         LOG.info(
-            "Adding volumes: '%s' to volumegroup: '%s'" % (volume_ids, volume_group_id)
+            "Adding volumes: '%s' to volumegroup: '%s'" % (
+                volume_ids, volume_group_id)
         )
         payload = self._prepare_add_members_to_volume_group_payload(
             volume_ids, force_internal
@@ -1828,7 +1860,8 @@ class Provisioning:
         LOG.info("Getting nasserver details by ID: '%s'" % nas_server_id)
         return self.client.request(
             constants.GET,
-            constants.GET_NAS_SERVER_DETAILS_URL.format(self.server_ip, nas_server_id),
+            constants.GET_NAS_SERVER_DETAILS_URL.format(
+                self.server_ip, nas_server_id),
             payload=None,
             querystring=querystring,
         )
@@ -1848,7 +1881,8 @@ class Provisioning:
         LOG.info("Getting nasserver details by name: '%s'" % nas_server_name)
         return self.client.request(
             constants.GET,
-            constants.GET_NAS_SERVER_DETAILS_BY_NAME_URL.format(self.server_ip),
+            constants.GET_NAS_SERVER_DETAILS_BY_NAME_URL.format(
+                self.server_ip),
             payload=None,
             querystring=helpers.prepare_querystring(
                 querystring, name=constants.EQUALS + nas_server_name
@@ -1917,7 +1951,8 @@ class Provisioning:
         LOG.info("Deleting NAS server: '%s'" % nasserver_id)
         return self.client.request(
             constants.DELETE,
-            constants.DELETE_NAS_SERVER_URL.format(self.server_ip, nasserver_id),
+            constants.DELETE_NAS_SERVER_URL.format(
+                self.server_ip, nasserver_id),
         )
 
     # NAS Server methods end
@@ -1965,7 +2000,8 @@ class Provisioning:
             querystring = constants.SELECT_ALL_FILESYSTEM_PRIME
         return self.client.request(
             constants.GET,
-            constants.GET_FILESYSTEM_DETAILS_URL.format(self.server_ip, filesystem_id),
+            constants.GET_FILESYSTEM_DETAILS_URL.format(
+                self.server_ip, filesystem_id),
             payload=None,
             querystring=querystring,
         )
@@ -1987,7 +2023,8 @@ class Provisioning:
             querystring = constants.SELECT_ALL_FILESYSTEM_PRIME
         return self.client.request(
             constants.GET,
-            constants.GET_FILESYSTEM_DETAILS_BY_NAME_URL.format(self.server_ip),
+            constants.GET_FILESYSTEM_DETAILS_BY_NAME_URL.format(
+                self.server_ip),
             payload=None,
             querystring=helpers.prepare_querystring(
                 querystring,
@@ -2043,7 +2080,8 @@ class Provisioning:
         LOG.info("Deleting filesystem: '%s'" % filesystem_id)
         return self.client.request(
             constants.DELETE,
-            constants.DELETE_FILESYSTEM_URL.format(self.server_ip, filesystem_id),
+            constants.DELETE_FILESYSTEM_URL.format(
+                self.server_ip, filesystem_id),
             payload=None,
         )
 
@@ -2139,7 +2177,8 @@ class Provisioning:
         LOG.info("Getting nfsexport details by ID: '%s'" % nfs_export_id)
         return self.client.request(
             constants.GET,
-            constants.GET_NFS_EXPORT_DETAILS_URL.format(self.server_ip, nfs_export_id),
+            constants.GET_NFS_EXPORT_DETAILS_URL.format(
+                self.server_ip, nfs_export_id),
             querystring=constants.SELECT_ALL_NFS_EXPORT,
         )
 
@@ -2154,7 +2193,8 @@ class Provisioning:
         LOG.info("Getting nfsexport details by name: '%s'" % nfs_export_name)
         return self.client.request(
             constants.GET,
-            constants.GET_NFS_EXPORT_DETAILS_BY_NAME_URL.format(self.server_ip),
+            constants.GET_NFS_EXPORT_DETAILS_BY_NAME_URL.format(
+                self.server_ip),
             querystring=helpers.prepare_querystring(
                 constants.SELECT_ALL_NFS_EXPORT, name=constants.EQUALS + nfs_export_name
             ),
@@ -2206,7 +2246,8 @@ class Provisioning:
         )
         return self.client.request(
             constants.PATCH,
-            constants.MODIFY_NFS_EXPORT_URL.format(self.server_ip, nfs_export_id),
+            constants.MODIFY_NFS_EXPORT_URL.format(
+                self.server_ip, nfs_export_id),
             payload=nfs_other_params,
         )
 
@@ -2221,7 +2262,8 @@ class Provisioning:
         LOG.info("Deleting nfsexport: '%s'" % nfs_export_id)
         return self.client.request(
             constants.DELETE,
-            constants.DELETE_NFS_EXPORT_URL.format(self.server_ip, nfs_export_id),
+            constants.DELETE_NFS_EXPORT_URL.format(
+                self.server_ip, nfs_export_id),
         )
 
     # NFS Export Method ENDs
@@ -2283,7 +2325,8 @@ class Provisioning:
         LOG.info("Getting smbshare details by ID: '%s'" % share_id)
         return self.client.request(
             constants.GET,
-            constants.GET_SMB_SHARE_DETAILS_URL.format(self.server_ip, share_id),
+            constants.GET_SMB_SHARE_DETAILS_URL.format(
+                self.server_ip, share_id),
             querystring=constants.SELECT_ALL_SMB_SHARE,
         )
 
@@ -2325,7 +2368,8 @@ class Provisioning:
         :rtype: None
         """
         LOG.info(
-            "Modifying smbshare: '%s' with params: '%s'" % (id, kw_smb_other_params)
+            "Modifying smbshare: '%s' with params: '%s'" % (
+                id, kw_smb_other_params)
         )
         return self.client.request(
             constants.PATCH,
@@ -2576,7 +2620,8 @@ class Provisioning:
         )
         return self.client.request(
             constants.PATCH,
-            constants.MODIFY_TREE_QUOTA_URL.format(self.server_ip, tree_quota_id),
+            constants.MODIFY_TREE_QUOTA_URL.format(
+                self.server_ip, tree_quota_id),
             payload=tree_quota_params,
         )
 
@@ -2596,7 +2641,8 @@ class Provisioning:
         )
         return self.client.request(
             constants.PATCH,
-            constants.MODIFY_USER_QUOTA_URL.format(self.server_ip, user_quota_id),
+            constants.MODIFY_USER_QUOTA_URL.format(
+                self.server_ip, user_quota_id),
             payload=user_quota_params,
         )
 
@@ -2610,7 +2656,8 @@ class Provisioning:
         LOG.info("Deleting tree quota: '%s'" % tree_quota_id)
         return self.client.request(
             constants.DELETE,
-            constants.DELETE_TREE_QUOTA_URL.format(self.server_ip, tree_quota_id),
+            constants.DELETE_TREE_QUOTA_URL.format(
+                self.server_ip, tree_quota_id),
         )
 
     # FS Quota Methods end

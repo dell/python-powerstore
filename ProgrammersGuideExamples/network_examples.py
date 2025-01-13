@@ -17,7 +17,8 @@ NETWORKS = CONN.config_mgmt.get_networks()
 print(NETWORKS)
 
 # Get network details by name
-NETWORK = CONN.config_mgmt.get_network_by_name(name="Default Management Network")
+NETWORK = CONN.config_mgmt.get_network_by_name(
+    name="Default Management Network")
 print(NETWORK)
 
 # Get network details by ID
@@ -45,13 +46,16 @@ print(JOB_DETAILS)
 
 # Rename storage network
 rename_dict = {"name": "iSCSI Network"}
-NETWORK = CONN.config_mgmt.modify_network(network_id="NW2", network_other_params=rename_dict)
+NETWORK = CONN.config_mgmt.modify_network(
+    network_id="NW2", network_other_params=rename_dict)
 print(NETWORK)
 
 # Map storage network to IP port
-NETWORK = CONN.config_mgmt.add_remove_ports(network_id="NW2", add_port_ids=["IP_PORT9"])
+NETWORK = CONN.config_mgmt.add_remove_ports(
+    network_id="NW2", add_port_ids=["IP_PORT9"])
 print(NETWORK)
 
 # Unmap storage network from IP port
-NETWORK = CONN.config_mgmt.add_remove_ports(network_id="NW2", remove_port_ids=["IP_PORT9"])
+NETWORK = CONN.config_mgmt.add_remove_ports(
+    network_id="NW2", remove_port_ids=["IP_PORT9"])
 print(NETWORK)

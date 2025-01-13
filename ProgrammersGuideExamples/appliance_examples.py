@@ -18,9 +18,11 @@ appliances_list = CONN.config_mgmt.get_appliances()
 print(appliances_list)
 
 # Get appliance details
-appliance_details = CONN.config_mgmt.get_appliance_details(appliance_id=appliances_list[0]['id'])
+appliance_details = CONN.config_mgmt.get_appliance_details(
+    appliance_id=appliances_list[0]['id'])
 print(appliance_details)
 
 # Get appliance by name
-appliance_details_by_name = CONN.config_mgmt.get_appliance_by_name(appliance_name=appliances_list[0]['name'])
+appliance_details_by_name = CONN.config_mgmt.get_appliance_by_name(
+    appliance_name=appliances_list[0]['name'])
 print(appliance_details_by_name)

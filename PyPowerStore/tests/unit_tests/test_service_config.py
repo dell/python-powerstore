@@ -6,7 +6,8 @@ class TestServiceConfig(TestBase):
 
     def test_get_service_configs(self):
         service_config_list = self.configuration.get_service_configs()
-        self.assertListEqual(service_config_list, self.data.service_config_list)
+        self.assertListEqual(service_config_list,
+                             self.data.service_config_list)
 
     def test_get_service_config_details(self):
         service_config_details = self.configuration.get_service_config_details(

@@ -22,11 +22,13 @@ cluster = CONN.config_mgmt.get_cluster_by_name(name=clusters_list[0]['name'])
 print(cluster[0]['id'])
 
 # Get cluster details by cluster_id
-cluster_details = CONN.config_mgmt.get_cluster_details(cluster_id=cluster[0]['id'])
+cluster_details = CONN.config_mgmt.get_cluster_details(
+    cluster_id=cluster[0]['id'])
 print(cluster_details)
 
 # Modify MTU and name of the cluster
-updated_cluster_details = CONN.config_mgmt.modify_cluster(cluster_id=cluster[0]['id'], physical_mtu=1500, name="AB-C1234")
+updated_cluster_details = CONN.config_mgmt.modify_cluster(
+    cluster_id=cluster[0]['id'], physical_mtu=1500, name="AB-C1234")
 print(updated_cluster_details)
 
 # Validate create cluster

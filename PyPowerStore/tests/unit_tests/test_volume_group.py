@@ -20,7 +20,7 @@ class TestVolumeGroup(TestBase):
             mock_request.assert_called_with(
                 constants.GET,
                 constants.GET_VOLUME_GROUP_LIST_URL.format(
-                   self.provisioning.server_ip),
+                    self.provisioning.server_ip),
                 all_pages=True,
                 payload=None,
                 querystring=querystring)
@@ -60,7 +60,8 @@ class TestVolumeGroup(TestBase):
         self.assertIsNone(vg)
 
     def test_clone_volume_group(self):
-        vg_clone_id = self.provisioning.clone_volume_group(self.data.vg_id1, self.data.vg_name2, None, self.data.pol_id)
+        vg_clone_id = self.provisioning.clone_volume_group(
+            self.data.vg_id1, self.data.vg_name2, None, self.data.pol_id)
         self.assertEqual(vg_clone_id, self.data.vg_id2)
 
     def test_refresh_volume_group(self):

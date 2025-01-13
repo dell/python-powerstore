@@ -42,14 +42,14 @@ print(VOL)
 ADD_VOL_TO_AG = CONN.provisioning.add_members_to_volume_group(
     volume_group_id=AG['id'],
     volume_ids=[VOL[0]['id']]
-    )
+)
 print(ADD_VOL_TO_AG)
 
 # Remove volumes from Volume Group
 REMOVE_VOL_FROM_AG = CONN.provisioning.remove_members_from_volume_group(
     volume_group_id=AG['id'],
     volume_ids=[VOL[0]['id']]
-    )
+)
 print(REMOVE_VOL_FROM_AG)
 
 # Modify Volume Group

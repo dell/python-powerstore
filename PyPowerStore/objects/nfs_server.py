@@ -57,7 +57,8 @@ class NFSServer:
             "Getting NFS servers with filter: '%s' and all_pages: %s"
             % (filter_dict, all_pages)
         )
-        querystring = helpers.prepare_querystring(SELECT_ALL_NFS_SERVER, filter_dict)
+        querystring = helpers.prepare_querystring(
+            SELECT_ALL_NFS_SERVER, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
         return self.nfs_server_client.request(
             constants.GET,
@@ -95,7 +96,8 @@ class NFSServer:
         """
         querystring = SELECT_ALL_NFS_SERVER
 
-        LOG.info("Getting NFS server details by nas server id: '%s'" % nas_server_id)
+        LOG.info("Getting NFS server details by nas server id: '%s'" %
+                 nas_server_id)
         return self.nfs_server_client.request(
             constants.GET,
             GET_NFS_SERVER_DETAILS_BY_NAS_SERVER_URL.format(self.server_ip),
@@ -141,7 +143,8 @@ class NFSServer:
             if payload:
                 return self.nfs_server_client.request(
                     constants.PATCH,
-                    MODIFY_NFS_SERVER_URL.format(self.server_ip, nfs_server_id),
+                    MODIFY_NFS_SERVER_URL.format(
+                        self.server_ip, nfs_server_id),
                     payload=payload,
                 )
 

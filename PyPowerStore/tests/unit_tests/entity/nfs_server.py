@@ -1,6 +1,7 @@
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.nfs_server_data import NFSServerData
 
+
 class NFSServerResponse(Entity):
 
     def __init__(self, method, url, **kwargs):
@@ -44,7 +45,7 @@ class NFSServerResponse(Entity):
         return 204, None
 
     def create_nfs_server(self):
-       return 201, self.nfs_server_data.nfs_server_id
+        return 201, self.nfs_server_data.nfs_server_id
 
     def delete_nfs_server(self):
         return 204, None

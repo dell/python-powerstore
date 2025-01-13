@@ -4,13 +4,13 @@ class SmtpConfigData():
 
     smtp_list = [{"id": smtp_id}]
 
-    modify_smtp_dict={
+    modify_smtp_dict = {
         "address": "sample.smtp.com",
         "port": 587,
         "source_email": "def@dell.com",
     }
 
-    test_smtp_dict={
+    test_smtp_dict = {
         "email_address": "xyz@dell.com"
     }
 
@@ -20,7 +20,7 @@ class SmtpConfigData():
 
     smtp_error = {
         400: {
-               "messages": [
+            "messages": [
                 {
                     "code": "0xE04040030001",
                     "severity": "Error",
@@ -29,7 +29,7 @@ class SmtpConfigData():
                         "Object instance has properties which are not allowed by the schema: [\"invalid_param\"]"
                     ]
                 }
-                ]
+            ]
         }
     }
 
@@ -39,4 +39,3 @@ class SmtpConfigData():
         "port": 25,
         "source_email": "abc@dell.com"
     }
-

@@ -66,7 +66,7 @@ class CommonData(object):
 
     create_snapshot = True
     snapshot_id = "008a5fad-7520-4f2a-a364-6c243d8d4ecf"
-    backup_snapshot_profile = {'name' : 'backup_snapshot_name', 'description': '',
+    backup_snapshot_profile = {'name': 'backup_snapshot_name', 'description': '',
                                'expiration_timestamp': '2023-01-01 00:00:00'}
 
     volumegroup_list = [{"id": vg_id1, "name": vg_name1},
@@ -254,8 +254,8 @@ class CommonData(object):
                             'code': '0xE0203001000B',
                             'message_l10n': 'The specified snapshot '
                                             'rule {0} is not found'.format(
-                                invalid_sr_id),
-                            'severity': 'Error'}]}
+            invalid_sr_id),
+            'severity': 'Error'}]}
     }
 
     remove_invalid_sr_error = {
@@ -687,8 +687,7 @@ class CommonData(object):
                             "message_l10n":
                                 "Validation failed: [Path '/alert_threshold'] "
                                 "Instance type (string) does not match any "
-                                "allowed primitive type (allowed: [integer])."
-                               , "arguments":
+                                "allowed primitive type (allowed: [integer]).", "arguments":
                                 ["[Path '/alert_threshold'] Instance type "
                                  "(string) does not match any allowed "
                                  "primitive type (allowed: [integer])"]}]}
@@ -1173,4 +1172,3 @@ class CommonData(object):
     }
 
     # chap config end
-

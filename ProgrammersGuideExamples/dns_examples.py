@@ -20,7 +20,8 @@ dns_details = CONN.config_mgmt.get_dns_details(dns_id=dns_list[0]['id'])
 print(dns_details)
 
 # Modifying the DNS addresses
-modify_dict = { "addresses": ["XX.XX.XX.XX","XX.XX.XX.YY"] }
+modify_dict = {"addresses": ["XX.XX.XX.XX", "XX.XX.XX.YY"]}
 
-resp_modify = CONN.config_mgmt.modify_dns_details(dns_id=dns_list[0]['id'], modify_parameters=modify_dict)
+resp_modify = CONN.config_mgmt.modify_dns_details(
+    dns_id=dns_list[0]['id'], modify_parameters=modify_dict)
 print(resp_modify)

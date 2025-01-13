@@ -34,8 +34,8 @@ class NFSServerData():
     }
 
     nfs_server_valid_param_list = [
-        "nas_server_id","host_name","is_nfsv3_enabled","is_nfsv4_enabled",
-        "is_secure_enabled","is_use_smb_config_enabled","is_extended_credentials_enabled",
+        "nas_server_id", "host_name", "is_nfsv3_enabled", "is_nfsv4_enabled",
+        "is_secure_enabled", "is_use_smb_config_enabled", "is_extended_credentials_enabled",
         "is_skip_unjoin", "credentials_cache_TTL"]
 
     nfs_server_id_not_exist = "5f4a3017-0bad-899e-e1eb-c6f547282e66"

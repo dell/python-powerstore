@@ -10,7 +10,7 @@ class ClusterResponse(Entity):
         self.kwargs = kwargs
         self.data = CommonData()
         self.status_code = 200
-    
+
     def get_api_name(self):
         if self.method == 'GET':
             if self.url.endswith('/cluster'):
@@ -49,4 +49,3 @@ class ClusterResponse(Entity):
 
     def cluster_create_validate(self):
         return 204, None
-

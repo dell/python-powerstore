@@ -86,7 +86,7 @@ SELECT_ALL_HOST = {
               "mapped_hosts(id,logical_unit_number,"
               "host_group(id,name),volume(id,name)),"
               "host_virtual_volume_mappings(id,host_id,host_group_id,virtual_volume_id)"
-                   }
+}
 FHC_HOST_DETAILS_QUERY = {
     "select": "id,name,description,os_type,host_group_id,host_initiators,"
               "os_type_l10n,mapped_hosts(id,logical_unit_number,"
@@ -427,17 +427,17 @@ SECURITY_CONFIG_DETAILS_QUERY = {
 
 # Email details
 EMAIL_DETAILS_QUERY = {
-     'select': 'id,email_address,notify_critical,notify_major,notify_minor,notify_info'
+    'select': 'id,email_address,notify_critical,notify_major,notify_minor,notify_info'
 }
 
 # SMTP details
 SMTP_DETAILS_QUERY = {
-      'select': 'id,address,port,source_email'
+    'select': 'id,address,port,source_email'
 }
 
 # DNS details
 DNS_DETAILS_QUERY = {
-      'select': 'id,addresses'
+    'select': 'id,addresses'
 }
 # NTP details
 NTP_DETAILS_QUERY = {

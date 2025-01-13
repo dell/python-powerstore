@@ -20,5 +20,6 @@ class TestRole(TestBase):
             self.data.role_does_not_exist)
 
     def test_get_role_by_name(self):
-        role_details_1 = self.configuration.get_role_by_name(self.data.role_name1)
+        role_details_1 = self.configuration.get_role_by_name(
+            self.data.role_name1)
         self.assertListEqual([role_details_1], [self.data.role_details_1])

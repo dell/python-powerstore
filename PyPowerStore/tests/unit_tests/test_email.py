@@ -1,6 +1,7 @@
 from PyPowerStore.tests.unit_tests.base_test import TestBase
 from PyPowerStore.utils.exception import PowerStoreException
 
+
 class TestEmail(TestBase):
 
     def test_get_destination_emails(self):
@@ -9,7 +10,8 @@ class TestEmail(TestBase):
         self.assertListEqual(emails_list, self.email_data.email_list)
 
     def test_create_destination_email(self):
-        resp = self.configuration.create_destination_email(self.email_data.create_email_dict)
+        resp = self.configuration.create_destination_email(
+            self.email_data.create_email_dict)
         self.assertEqual(resp, self.email_data.email_details_1)
 
     def test_get_destination_email_by_address(self):
@@ -36,9 +38,11 @@ class TestEmail(TestBase):
             self.email_data.email_id_1, invalid_param)
 
     def test_delete_destination_email(self):
-        resp = self.configuration.delete_destination_email(self.email_data.email_id_1)
+        resp = self.configuration.delete_destination_email(
+            self.email_data.email_id_1)
         self.assertIsNone(resp)
 
     def test_send_test_mail_destination_email(self):
-        resp = self.configuration.test_destination_email(self.email_data.email_id_1)
+        resp = self.configuration.test_destination_email(
+            self.email_data.email_id_1)
         self.assertIsNone(resp)

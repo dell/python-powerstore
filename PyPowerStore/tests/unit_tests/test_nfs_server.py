@@ -10,15 +10,17 @@ class TestNFSServer(TestBase):
 
     def test_get_nfs_servers(self):
         nfs_server_list = self.nfs_server.get_nfs_server_list()
-        self.assertListEqual(nfs_server_list, self.nfs_server_data.nfs_server_list)
+        self.assertListEqual(
+            nfs_server_list, self.nfs_server_data.nfs_server_list)
 
     def test_get_nfs_server_with_filter(self):
-        querystring = {'nas_server_id': 'eq.6581683c-61a3-76ab-f107-62b767ad9845'}
+        querystring = {
+            'nas_server_id': 'eq.6581683c-61a3-76ab-f107-62b767ad9845'}
         querystring.update(nfs_server.SELECT_ALL_NFS_SERVER)
         with mock.patch.object(self.nfs_server.nfs_server_client,
                                'request') as mock_request:
             self.nfs_server.get_nfs_server_list(filter_dict=querystring,
-                                                      all_pages=True)
+                                                all_pages=True)
             mock_request.assert_called_with(
                 constants.GET,
                 nfs_server.GET_NFS_SERVER_LIST_URL.format(
@@ -30,7 +32,8 @@ class TestNFSServer(TestBase):
     def test_get_nfs_server_details(self):
         nfs_server_detail = self.nfs_server.get_nfs_server_details(
             self.nfs_server_data.nfs_server_id)
-        self.assertEqual(nfs_server_detail, self.nfs_server_data.nfs_server_detail)
+        self.assertEqual(nfs_server_detail,
+                         self.nfs_server_data.nfs_server_detail)
 
     def test_get_invalid_nfs_server_details(self):
         self.assertRaisesRegex(
@@ -42,7 +45,8 @@ class TestNFSServer(TestBase):
     def test_get_nfs_server_by_nas(self):
         nfs_server_detail = self.nfs_server.get_nfs_server_by_nas_server_id(
             self.nfs_server_data.nas_server_id)
-        self.assertEqual(nfs_server_detail, self.nfs_server_data.nfs_server_list)
+        self.assertEqual(nfs_server_detail,
+                         self.nfs_server_data.nfs_server_list)
 
     def test_modify_nfs_server(self):
         param = {"host_name": "stringa",
@@ -53,7 +57,8 @@ class TestNFSServer(TestBase):
                  "is_use_smb_config_enabled": True,
                  "is_extended_credentials_enabled": True,
                  "credentials_cache_TTL": 20}
-        resp = self.nfs_server.modify_nfs_server(self.nfs_server_data.nfs_server_id, param)
+        resp = self.nfs_server.modify_nfs_server(
+            self.nfs_server_data.nfs_server_id, param)
         self.assertIsNone(resp)
 
     def test_modify_nfs_server_with_invalid_param(self):
@@ -83,5 +88,6 @@ class TestNFSServer(TestBase):
         self.assertEqual(nfs_server_id, self.nfs_server_data.nfs_server_id)
 
     def test_delete_nfs_server(self):
-        resp = self.nfs_server.delete_nfs_server(self.nfs_server_data.nfs_server_id)
+        resp = self.nfs_server.delete_nfs_server(
+            self.nfs_server_data.nfs_server_id)
         self.assertIsNone(resp)

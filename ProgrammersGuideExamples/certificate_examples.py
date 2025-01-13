@@ -16,7 +16,8 @@ print(CONN)
 certificate_list = CONN.config_mgmt.get_certificates()
 print(certificate_list)
 
-certificate_details = CONN.config_mgmt.get_certificate_details(certificate_list[0]['id'])
+certificate_details = CONN.config_mgmt.get_certificate_details(
+    certificate_list[0]['id'])
 print(certificate_details)
 
 create_dict = {
@@ -24,7 +25,7 @@ create_dict = {
     "service": "VASA_HTTP",
     "scope": "",
     "certificate": "<certificate string>",
-    "private_key" : "",
+    "private_key": "",
     "passphrase": "<passphrase>",
     "is_current": True
 }
@@ -38,9 +39,10 @@ resp = CONN.config_mgmt.reset_certificates(reset_cert_dict=reset_dict)
 print(resp)
 
 modify_dict = {
-  "certificate": "<passphrase>",
-  "is_current": True
+    "certificate": "<passphrase>",
+    "is_current": True
 }
 
-resp = CONN.config_mgmt.modify_certificate(certificate_id=resp['id'], modify_cert_dict=modify_dict)
+resp = CONN.config_mgmt.modify_certificate(
+    certificate_id=resp['id'], modify_cert_dict=modify_dict)
 print(resp)

@@ -5,7 +5,8 @@ from PyPowerStore.utils.exception import PowerStoreException
 class TestLocalUser(TestBase):
 
     def test_create_local_user(self):
-        resp = self.configuration.create_local_user(self.data.local_user_create_params)
+        resp = self.configuration.create_local_user(
+            self.data.local_user_create_params)
         self.assertEqual(resp, self.data.local_user_create_response)
 
     def test_get_local_user_by_name(self):

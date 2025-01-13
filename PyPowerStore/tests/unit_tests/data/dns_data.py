@@ -4,8 +4,8 @@ class DnsData():
 
     dns_list = [{"id": dns_id}]
 
-    modify_dns_dict={
-        "addresses": ["XX.XX.XX.XX","XX.XX.XX.YY"]
+    modify_dns_dict = {
+        "addresses": ["XX.XX.XX.XX", "XX.XX.XX.YY"]
     }
 
     dns_valid_param_list = [
@@ -14,7 +14,7 @@ class DnsData():
 
     dns_error = {
         400: {
-               "messages": [
+            "messages": [
                 {
                     "code": "0xE04040030001",
                     "severity": "Error",
@@ -23,7 +23,7 @@ class DnsData():
                         "Object instance has properties which are not allowed by the schema: [\"invalid_param\"]"
                     ]
                 }
-                ]
+            ]
         }
     }
 
@@ -32,4 +32,3 @@ class DnsData():
         "addresses": ["XX.XX.XX.XX",
                       "XX.XX.XX.YY"]
     }
-

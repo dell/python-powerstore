@@ -1,6 +1,7 @@
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.file_nis_data import FileNISData
 
+
 class FileNISResponse(Entity):
 
     def __init__(self, method, url, **kwargs):
@@ -44,7 +45,7 @@ class FileNISResponse(Entity):
         return 204, None
 
     def create_file_nis(self):
-       return 201, self.file_nis_data.file_nis_id
+        return 201, self.file_nis_data.file_nis_id
 
     def delete_file_nis(self):
         return 204, None

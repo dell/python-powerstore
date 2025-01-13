@@ -23,4 +23,3 @@ class JobResponse(Entity):
            self.data.job_does_not_exist)):
             return 404, self.data.job_error[404]
         return self.status_code, self.data.job_details
-    

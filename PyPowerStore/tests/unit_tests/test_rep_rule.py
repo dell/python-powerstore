@@ -3,6 +3,7 @@ from PyPowerStore.tests.unit_tests.base_test import TestBase
 from PyPowerStore.utils.exception import PowerStoreException
 from unittest import mock
 
+
 class TestPolicy(TestBase):
 
     def test_get_replication_rules(self):
@@ -35,15 +36,13 @@ class TestPolicy(TestBase):
 
     def test_create_replication_rule(self):
         rep_rule = self.protection.create_replication_rule(
-            name=self.data.rep_rule_name_1, alert_threshold=
-            self.data.alert_threshold,
+            name=self.data.rep_rule_name_1, alert_threshold=self.data.alert_threshold,
             remote_system_id=self.data.remote_system_id, rpo=self.data.rpo)
         self.assertEqual(rep_rule, self.data.rep_rule_details_1)
 
     def test_modify_replication_rule(self):
         rep_rule = self.protection.modify_replication_rule(
-            self.data.rep_rule_id_1, alert_threshold=
-            self.data.new_alert_threshold)
+            self.data.rep_rule_id_1, alert_threshold=self.data.new_alert_threshold)
         self.assertIsNotNone(rep_rule)
 
     def test_modify_invalid_alert_threshold_replication_rule(self):
@@ -56,4 +55,3 @@ class TestPolicy(TestBase):
         rep_rule = self.protection.delete_replication_rule(
             self.data.rep_rule_id_1)
         self.assertIsNone(rep_rule)
-

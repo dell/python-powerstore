@@ -1,6 +1,7 @@
 from PyPowerStore.tests.unit_tests.base_test import TestBase
 from PyPowerStore.utils.exception import PowerStoreException
 
+
 class TestSmtp_Config(TestBase):
 
     def test_get_smtp_configs(self):
@@ -27,5 +28,6 @@ class TestSmtp_Config(TestBase):
             self.smtp_config_data.smtp_id, invalid_param)
 
     def test_send_test_mail_smtp_config(self):
-        resp = self.configuration.test_smtp_config(self.smtp_config_data.smtp_id, self.smtp_config_data.test_smtp_dict)
+        resp = self.configuration.test_smtp_config(
+            self.smtp_config_data.smtp_id, self.smtp_config_data.test_smtp_dict)
         self.assertIsNone(resp)

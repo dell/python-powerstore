@@ -6,9 +6,10 @@ class EmailData():
     email_id_2 = "20242441-4d8b-424f-b6b3-058ad02f5f9d"
     email_address_2 = "def_xyz@dell.com"
 
-    email_list = [{"id": email_id_1, "email_address": email_address_1}, {"id": email_id_2, "email_address": email_address_2}]
+    email_list = [{"id": email_id_1, "email_address": email_address_1}, {
+        "id": email_id_2, "email_address": email_address_2}]
 
-    create_email_dict={
+    create_email_dict = {
         "email_address": "abc_xyz@dell.com",
         "notify_critical": False,
         "notify_major": False,
@@ -20,7 +21,7 @@ class EmailData():
 
     email_error = {
         400: {
-               "messages": [
+            "messages": [
                 {
                     "code": "0xE04040030001",
                     "severity": "Error",
@@ -29,7 +30,7 @@ class EmailData():
                         "Object instance has properties which are not allowed by the schema: [\"invalid_param\"]"
                     ]
                 }
-                ]
+            ]
         }
     }
 
@@ -42,8 +43,7 @@ class EmailData():
         "notify_info": False
     }
 
-    modify_email_dict={
+    modify_email_dict = {
         "notify_critical": True,
         "notify_major": True,
     }
-

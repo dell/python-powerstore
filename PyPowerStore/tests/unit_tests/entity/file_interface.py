@@ -45,7 +45,7 @@ class FileInterfaceResponse(Entity):
         return 204, None
 
     def create_file_interface(self):
-       return 201, self.file_interface_data.file_interface_id
+        return 201, self.file_interface_data.file_interface_id
 
     def delete_file_interface(self):
         return 204, None

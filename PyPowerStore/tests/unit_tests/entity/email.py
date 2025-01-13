@@ -50,7 +50,9 @@ class EmailResponse(Entity):
             # invalid param given
             return 400, self.email_data.email_error[400]
         return 204, None
+
     def delete_destination_email(self):
         return 204, None
+
     def test_destination_email(self):
         return 204, None

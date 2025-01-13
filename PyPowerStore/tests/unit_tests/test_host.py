@@ -56,7 +56,7 @@ class TestHost(TestBase):
                           self.provisioning.remove_initiators_from_host,
                           self.data.host_id1,
                           remove_initiators=[self.data.invalid_initiator[
-                                                 'name']])
+                              'name']])
 
     def test_delete_host(self):
         host = self.provisioning.delete_host(self.data.host_id1)

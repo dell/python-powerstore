@@ -57,7 +57,8 @@ def is_foot_hill_or_higher():
     """
     array_version = provisioning_obj.get_array_version()
     if array_version and (
-        parse_version(array_version[0:7]) >= parse_version(constants.FOOTHILL_VERSION)
+        parse_version(array_version[0:7]) >= parse_version(
+            constants.FOOTHILL_VERSION)
     ):
         return True
     return False
@@ -71,7 +72,8 @@ def is_malka_or_higher():
     """
     array_version = provisioning_obj.get_array_version()
     if array_version and (
-        parse_version(array_version[0:7]) >= parse_version(constants.MALKA_VERSION)
+        parse_version(array_version[0:7]) >= parse_version(
+            constants.MALKA_VERSION)
     ):
         return True
     return False
@@ -100,7 +102,8 @@ def is_victory_or_higher():
     """
     array_version = provisioning_obj.get_array_version()
     if array_version and (
-        parse_version(array_version[0:7]) >= parse_version(constants.VICTORY_VERSION)
+        parse_version(array_version[0:7]) >= parse_version(
+            constants.VICTORY_VERSION)
     ):
         return True
     return False

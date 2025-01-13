@@ -12,12 +12,13 @@ class TestFileNIS(TestBase):
         self.assertListEqual(file_nis_list, self.file_nis_data.file_nis_list)
 
     def test_get_file_nis_with_filter(self):
-        querystring = {'nas_server_id': 'eq.6581683c-61a3-76ab-f107-62b767ad9845'}
+        querystring = {
+            'nas_server_id': 'eq.6581683c-61a3-76ab-f107-62b767ad9845'}
         querystring.update(file_nis.SELECT_ALL_FILE_NIS)
         with mock.patch.object(self.file_nis.file_nis_client,
                                'request') as mock_request:
             self.file_nis.get_file_nis_list(filter_dict=querystring,
-                                                      all_pages=True)
+                                            all_pages=True)
             mock_request.assert_called_with(
                 constants.GET,
                 file_nis.GET_FILE_NIS_LIST_URL.format(
@@ -46,12 +47,13 @@ class TestFileNIS(TestBase):
     def test_modify_file_nis(self):
         param = {"domain": "stringa",
                  "add_ip_addresses": [
-                   "10.10.10.11"
-                  ],
+                     "10.10.10.11"
+                 ],
                  "remove_ip_addresses": [
-                   "10.10.10.10"
-                  ]}
-        resp = self.file_nis.modify_file_nis(self.file_nis_data.file_nis_id, param)
+                     "10.10.10.10"
+                 ]}
+        resp = self.file_nis.modify_file_nis(
+            self.file_nis_data.file_nis_id, param)
         self.assertIsNone(resp)
 
     def test_modify_file_nis_with_invalid_param(self):
@@ -72,8 +74,8 @@ class TestFileNIS(TestBase):
         payload = {"nas_server_id": "6581683c-61a3-76ab-f107-62b767ad9845",
                    "domain": "string",
                    "ip_addresses": [
-                                   "10.10.10.10"
-                                   ]}
+                       "10.10.10.10"
+                   ]}
         file_nis_id = self.file_nis.create_file_nis(payload)
         self.assertEqual(file_nis_id, self.file_nis_data.file_nis_id)
 

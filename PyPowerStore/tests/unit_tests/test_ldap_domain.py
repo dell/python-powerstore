@@ -17,7 +17,8 @@ class TestLDAPDomain(TestBase):
         self.assertEqual(resp, self.ldap_data.ldap_domain_details1)
 
     def test_create_ldap_domain_configuration(self):
-        resp = self.configuration.create_ldap_domain_configuration(self.ldap_data.create_ldap_domain_dict)
+        resp = self.configuration.create_ldap_domain_configuration(
+            self.ldap_data.create_ldap_domain_dict)
         self.assertEqual(resp, self.ldap_data.create_ldap_domain_response)
 
     def test_modify_ldap_domain_configuration(self):
@@ -26,10 +27,11 @@ class TestLDAPDomain(TestBase):
         self.assertIsNone(resp)
 
     def test_verify_ldap_domain_configuration(self):
-        resp = self.configuration.verify_ldap_domain_configuration(self.ldap_data.ldap_domain_list[0]['id'])
+        resp = self.configuration.verify_ldap_domain_configuration(
+            self.ldap_data.ldap_domain_list[0]['id'])
         self.assertIsNone(resp)
 
     def test_delete_ldap_domain_configuration(self):
-        resp = self.configuration.delete_ldap_domain_configuration(self.ldap_data.ldap_domain_list[0]['id'])
+        resp = self.configuration.delete_ldap_domain_configuration(
+            self.ldap_data.ldap_domain_list[0]['id'])
         self.assertIsNone(resp)
-

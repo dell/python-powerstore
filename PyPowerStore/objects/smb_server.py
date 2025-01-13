@@ -56,7 +56,8 @@ class SMBServer:
             "Getting SMB servers with filter: '%s' and all_pages: %s"
             % (filter_dict, all_pages)
         )
-        querystring = helpers.prepare_querystring(SELECT_ALL_SMB_SERVER, filter_dict)
+        querystring = helpers.prepare_querystring(
+            SELECT_ALL_SMB_SERVER, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
         return self.smb_server_client.request(
             constants.GET,
@@ -94,7 +95,8 @@ class SMBServer:
         """
         querystring = SELECT_ALL_SMB_SERVER
 
-        LOG.info("Getting SMB server details by nas server id: '%s'" % nas_server_id)
+        LOG.info("Getting SMB server details by nas server id: '%s'" %
+                 nas_server_id)
         return self.smb_server_client.request(
             constants.GET,
             GET_SMB_SERVER_DETAILS_BY_NAS_SERVER_URL.format(self.server_ip),
@@ -140,7 +142,8 @@ class SMBServer:
             if payload:
                 return self.smb_server_client.request(
                     constants.PATCH,
-                    MODIFY_SMB_SERVER_URL.format(self.server_ip, smb_server_id),
+                    MODIFY_SMB_SERVER_URL.format(
+                        self.server_ip, smb_server_id),
                     payload=payload,
                 )
 

@@ -132,7 +132,8 @@ class SNMPServer:
         """
         LOG.info("Deleting SNMP server: '%s'" % snmp_server_id)
         return self.snmp_server_client.request(
-            constants.DELETE, DELETE_SNMP_URL.format(self.server_ip, snmp_server_id)
+            constants.DELETE, DELETE_SNMP_URL.format(
+                self.server_ip, snmp_server_id)
         )
 
     # SNMP server methods end

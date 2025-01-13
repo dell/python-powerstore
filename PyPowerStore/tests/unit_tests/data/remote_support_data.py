@@ -4,11 +4,11 @@ class RemoteSupportData():
 
     remote_support_list = [{"id": remote_support_id}]
 
-    modify_remote_support_dict={
+    modify_remote_support_dict = {
         "type": "SRS_Integrated_Tier3"
     }
 
-    verify_remote_support_dict={
+    verify_remote_support_dict = {
         "type": "SRS_Integrated_Tier2"
     }
 
@@ -19,7 +19,7 @@ class RemoteSupportData():
 
     remote_support_error = {
         400: {
-               "messages": [
+            "messages": [
                 {
                     "code": "0xE04040030001",
                     "severity": "Error",
@@ -28,7 +28,7 @@ class RemoteSupportData():
                         "Object instance has properties which are not allowed by the schema: [\"invalid_param\"]"
                     ]
                 }
-                ]
+            ]
         }
     }
 
@@ -54,9 +54,9 @@ class RemoteSupportData():
                         "connectivity_qos_value": 1.00,
                         "connectivity_qos": "Good",
                         "connectivity_qos_priority": 8
-                     }
-                 ]
-             },
+                    }
+                ]
+            },
             {
                 "id": "1",
                 "remote_support_id": "0",
@@ -64,7 +64,7 @@ class RemoteSupportData():
                 "port": None,
                 "is_primary": False,
                 "connectivity_qos": None
-             }
+            }
         ],
         "proxy_address": "10.10.10.10",
         "proxy_port": 3128,
@@ -72,4 +72,3 @@ class RemoteSupportData():
         "policy_manager_address": None,
         "policy_manager_port": None
     }
-

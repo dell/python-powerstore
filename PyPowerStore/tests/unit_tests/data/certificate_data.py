@@ -1,6 +1,5 @@
 class CertificateData():
 
-
     certificate_id1 = "37b76535-612b-456a-a694-1389f17632c7"
     certificate_id2 = "37b76535-612b-456a-a694-1389f17632c3"
     invalid_certificate_id = "37b76535-612b-456a-a694-1389f17632c"
@@ -42,35 +41,35 @@ class CertificateData():
     }
     certificate_error = {
         404: {
-               "messages": [
+            "messages": [
                 {
-                     "code": "0xE0901001001D",
-                     "severity": "Error",
-                     "message_l10n": "Failed to find specific certificate id 37b76535-612b-456a-a694-1389f17632c from credential store.",
-                     "arguments": [
-                                   "37b76535-612b-456a-a694-1389f17632c"
-                                  ]
+                    "code": "0xE0901001001D",
+                    "severity": "Error",
+                    "message_l10n": "Failed to find specific certificate id 37b76535-612b-456a-a694-1389f17632c from credential store.",
+                    "arguments": [
+                        "37b76535-612b-456a-a694-1389f17632c"
+                    ]
                 }
-                            ]
-              },
+            ]
+        },
         400:  {
-                "messages": [
+            "messages": [
                 {
-                     "code": "0xE04040010005",
-                     "severity": "Error",
-                     "message_l10n": "Invalid REST request."
+                    "code": "0xE04040010005",
+                    "severity": "Error",
+                    "message_l10n": "Invalid REST request."
                 }
-                            ]
-              },
+            ]
+        },
         422:  {
-                "messages": [
+            "messages": [
                 {
                     "code": "0xE09010010013",
                     "severity": "Error",
                     "message_l10n": "Failed to update certificate in credential store."
                 }
-                            ]
-              }
+            ]
+        }
     }
     certificate_create_response = {
         "id": certificate_id1
@@ -80,7 +79,7 @@ class CertificateData():
         "service": "VASA_HTTP",
         "scope": "",
         "certificate": "-----BEGIN CERTIFICATE-----\nMIIFEjCCAvoCCQCPPyeIag8eITANBgkqhkiG9w0BAQsFADAqMREwDwYDVQQKDAhEZWxsLUVNQzEVMBMGA1UEAwwMd3d3LmRlbGwuY29tMB4XDTIxMDkzMDEwMTIyOVoXDTIyMDkzMDEwMTIyOVowbDFqMAkGA1UEBhMCVVMwDwYDVQQKEwhEZWxsLUVNQzAPBgNVBAsTCFNlY3VyaXR5MBAGA1UEBxMJSG9wa2ludG9uMBMGA1UEAxMMd3d3LmRlbGwuY29tMBQGA1UECBMNTWFzc2FjaHVzZXR0czCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALbe7wpfr43LF99LwSNSpPBC8uV5xC86lNNXNeE7sVDbvb1rKHuiG7jHvs2HoX5bEmRqpwSPe38co1yUQHD4IFbIa0K4LMMh58H3ELf0Valkg2CD+05ZCe0RZgcQqoq6NC135qc0WacIuoP5v87fQNFR2nju06/NyKmUXHblWVRIh5UY0GOXa22OYK8zMxqwasJiYa1xJEjP6QzIRUVxxO6Ia4h9Dvo1LaVoI1cUHI9I3oRMAssqbnbpgPafEnToVWrWtd6dvQeVv3cuUU5n+NpQ9Xv1ITFKH7bRfxUG4hs2cwNsRPa5yzod9vAWzmUcPWYEyfdWU6y39hyFPv7GpQZRRpEdw4DN3wHOnjzAqibaIxIPga/hTQzm0eaJJBh65TnolXKQLiveDScnmB/resiIwBqZpGrPKsAtMpQ/GGYekC8+7yvRZvpfX4dVKB9Z+TdG3JKnXmbH9AkPqqWkFvIhO+jwrIU1gS8bHkzC2ERQ5yY7RohZBNEIQsxTqoQLTNiUiIXRXGpdUDeawW0pub671eqhVyw6h2MrPTE9dKucOPJeiCrd6ctB9VXfXZTM2nb7AvbAF0QicPzV/N5KEJcr+7PFzY2/+KNegPqyLJ776Mqfyc6ri+R8vWPj4iGqsjwmf4rnS4Qq1D5jyGvspNuwVQ8pLRzhOsCW0lUGSTUJAgMBAAEwDQYJKoZIhvcNAQELBQADggIBAGIQdhVVkMNZPf1NSQJZhGpaW4m7dcjNaRamuUOh7LO8yQkkDr+hF38xrlKN5gMtzNEnFTxeqD58rBRAe1MNvvF8pI3ioqNYEQXYu5P9TtZdQW6UPbtFejdBLB2WahWrTJKSGXH/DHl7TU/tesOpN1JirjHv3OtZ1cT0FCxHKBdmCssLhB1DGNQK2aEwXWgrJAMkAQtrjhKHZFLBC6wz8ox5rhvM6Sbqxw5xOLyQu7LnZo3Yhq1rwiobtkhRJoVy/fcwesLfxqsN9oCT4Op4ZndU1CZqHf0tjhJGwFGxmzQNGXZ1Lt29wnSA/ux0/2lTvbFBFRxrCSoZaQf4VRY8pSYB56vz6ODYaalmmj+DQzr9poZzCSJ7Wb6SW/zMJ2kL3TO08hrbZ9MZ4K2zz7QzvVuoVSPT6fGQS2IfmISBTehQgDPjW7w66YzLxxKiRHJxPxPd46CoaFk29AgkQyepr7LsDuvrNyOO/KlVUuQKbiHfLsZVgSDp7Fs5uYC6/3YyXPm1yhYYOwAWFM4Dqytfa1/A2ggrFO9uuhfCLe9MGP3UwE+fX2ZrQS1CCvc1GKuIDQO+Ng0mUC4qXCF9scR+oXp+HeVBX94fiSn6of8BWi4SCXM1qPVzgcJiM7Axcvvuw1pocjF/1NqBn8CEQomAGxW5EQhGE1MOtNK/jfrFSl+2\n-----END CERTIFICATE-----\n",
-        "private_key" : "",
+        "private_key": "",
         "passphrase": "sample_password",
         "is_current": True
     }
@@ -102,7 +101,7 @@ class CertificateData():
         "type": "CA_Client_Validation",
         "scope": "",
         "certificate": "-----BEGIN CERTIFICATE-----\nMIIFEjCCAvoCCQCPPyeIag8eITANBgkqhkiG9w0BAQsFADAqMREwDwYDVQQKDAhEZWxsLUVNQzEVMBMGA1UEAwwMd3d3LmRlbGwuY29tMB4XDTIxMDkzMDEwMTIyOVoXDTIyMDkzMDEwMTIyOVowbDFqMAkGA1UEBhMCVVMwDwYDVQQKEwhEZWxsLUVNQzAPBgNVBAsTCFNlY3VyaXR5MBAGA1UEBxMJSG9wa2ludG9uMBMGA1UEAxMMd3d3LmRlbGwuY29tMBQGA1UECBMNTWFzc2FjaHVzZXR0czCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALbe7wpfr43LF99LwSNSpPBC8uV5xC86lNNXNeE7sVDbvb1rKHuiG7jHvs2HoX5bEmRqpwSPe38co1yUQHD4IFbIa0K4LMMh58H3ELf0Valkg2CD+05ZCe0RZgcQqoq6NC135qc0WacIuoP5v87fQNFR2nju06/NyKmUXHblWVRIh5UY0GOXa22OYK8zMxqwasJiYa1xJEjP6QzIRUVxxO6Ia4h9Dvo1LaVoI1cUHI9I3oRMAssqbnbpgPafEnToVWrWtd6dvQeVv3cuUU5n+NpQ9Xv1ITFKH7bRfxUG4hs2cwNsRPa5yzod9vAWzmUcPWYEyfdWU6y39hyFPv7GpQZRRpEdw4DN3wHOnjzAqibaIxIPga/hTQzm0eaJJBh65TnolXKQLiveDScnmB/resiIwBqZpGrPKsAtMpQ/GGYekC8+7yvRZvpfX4dVKB9Z+TdG3JKnXmbH9AkPqqWkFvIhO+jwrIU1gS8bHkzC2ERQ5yY7RohZBNEIQsxTqoQLTNiUiIXRXGpdUDeawW0pub671eqhVyw6h2MrPTE9dKucOPJeiCrd6ctB9VXfXZTM2nb7AvbAF0QicPzV/N5KEJcr+7PFzY2/+KNegPqyLJ776Mqfyc6ri+R8vWPj4iGqsjwmf4rnS4Qq1D5jyGvspNuwVQ8pLRzhOsCW0lUGSTUJAgMBAAEwDQYJKoZIhvcNAQELBQADggIBAGIQdhVVkMNZPf1NSQJZhGpaW4m7dcjNaRamuUOh7LO8yQkkDr+hF38xrlKN5gMtzNEnFTxeqD58rBRAe1MNvvF8pI3ioqNYEQXYu5P9TtZdQW6UPbtFejdBLB2WahWrTJKSGXH/DHl7TU/tesOpN1JirjHv3OtZ1cT0FCxHKBdmCssLhB1DGNQK2aEwXWgrJAMkAQtrjhKHZFLBC6wz8ox5rhvM6Sbqxw5xOLyQu7LnZo3Yhq1rwiobtkhRJoVy/fcwesLfxqsN9oCT4Op4ZndU1CZqHf0tjhJGwFGxmzQNGXZ1Lt29wnSA/ux0/2lTvbFBFRxrCSoZaQf4VRY8pSYB56vz6ODYaalmmj+DQzr9poZzCSJ7Wb6SW/zMJ2kL3TO08hrbZ9MZ4K2zz7QzvVuoVSPT6fGQS2IfmISBTehQgDPjW7w66YzLxxKiRHJxPxPd46CoaFk29AgkQyepr7LsDuvrNyOO/KlVUuQKbiHfLsZVgSDp7Fs5uYC6/3YyXPm1yhYYOwAWFM4Dqytfa1/A2ggrFO9uuhfCLe9MGP3UwE+fX2ZrQS1CCvc1GKuIDQO+Ng0mUC4qXCF9scR+oXp+HeVBX94fiSn6of8BWi4SCXM1qPVzgcJiM7Axcvvuw1pocjF/1NqBn8CEQomAGxW5EQhGE1MOtNK/jfrFSl+2\n-----END CERTIFICATE-----\n",
-        "private_key" : "",
+        "private_key": "",
         "passphrase": "sample_password",
         "is_current": True
     }

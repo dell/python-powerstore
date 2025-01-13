@@ -1,6 +1,7 @@
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.file_dns_data import FileDNSData
 
+
 class FileDNSResponse(Entity):
 
     def __init__(self, method, url, **kwargs):
@@ -44,7 +45,7 @@ class FileDNSResponse(Entity):
         return 204, None
 
     def create_file_dns(self):
-       return 201, self.file_dns_data.file_dns_id
+        return 201, self.file_dns_data.file_dns_id
 
     def delete_file_dns(self):
         return 204, None

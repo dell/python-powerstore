@@ -25,7 +25,7 @@ class CertificateResponse(Entity):
                 return self.create_certificate
         elif self.method == 'PATCH':
             return self.modify_certificate
-    
+
     def get_certificates(self):
         return self.status_code, self.certificate_data.certificate_list
 

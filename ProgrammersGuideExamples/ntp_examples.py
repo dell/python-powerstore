@@ -20,7 +20,8 @@ ntp_details = CONN.config_mgmt.get_ntp_details(ntp_id=ntp_list[0]['id'])
 print(ntp_details)
 
 # Modifying the NTP addresses
-modify_dict = {"addresses": ["XX.XX.XX.XX","XX.XX.XX.YY"]}
+modify_dict = {"addresses": ["XX.XX.XX.XX", "XX.XX.XX.YY"]}
 
-resp_modify = CONN.config_mgmt.modify_ntp_details(ntp_id=ntp_list[0]['id'], modify_parameters=modify_dict)
+resp_modify = CONN.config_mgmt.modify_ntp_details(
+    ntp_id=ntp_list[0]['id'], modify_parameters=modify_dict)
 print(resp_modify)

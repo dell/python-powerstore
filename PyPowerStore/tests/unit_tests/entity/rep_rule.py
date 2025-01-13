@@ -1,6 +1,7 @@
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.common_data import CommonData
 
+
 class RepRuleResponse(Entity):
 
     def __init__(self, method, url, **kwargs):

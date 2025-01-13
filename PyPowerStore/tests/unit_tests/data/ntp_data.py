@@ -5,7 +5,7 @@ class NtpData():
     ntp_list = [{"id": ntp_id}]
 
     modify_ntp_dict = {
-        "addresses": ["XX.XX.XX.XX","XX.XX.XX.YY"]
+        "addresses": ["XX.XX.XX.XX", "XX.XX.XX.YY"]
     }
 
     ntp_valid_param_list = [

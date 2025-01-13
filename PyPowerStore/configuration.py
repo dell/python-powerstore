@@ -44,7 +44,8 @@ class Configuration:
             % (filter_dict, all_pages)
         )
 
-        querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID, filter_dict)
 
         if helpers.is_foot_hill_or_higher():
             querystring = helpers.prepare_querystring(
@@ -80,7 +81,8 @@ class Configuration:
 
         return self.config_client.request(
             constants.GET,
-            constants.GET_NETWORK_DETAILS_URL.format(self.server_ip, network_id),
+            constants.GET_NETWORK_DETAILS_URL.format(
+                self.server_ip, network_id),
             querystring=querystring,
         )
 
@@ -176,7 +178,8 @@ class Configuration:
         if all_pages:
             raise Exception("Pagination is not supported for roles.")
         if not filter_dict:
-            querystring = helpers.prepare_querystring(constants.SELECT_ID_AND_NAME)
+            querystring = helpers.prepare_querystring(
+                constants.SELECT_ID_AND_NAME)
             return self.config_client.request(
                 constants.GET,
                 constants.GET_ROLE_LIST_URL.format(self.server_ip),
@@ -243,7 +246,8 @@ class Configuration:
         if all_pages:
             raise Exception("Pagination is not supported for local users.")
         if not filter_dict:
-            querystring = helpers.prepare_querystring(constants.SELECT_ID_AND_NAME)
+            querystring = helpers.prepare_querystring(
+                constants.SELECT_ID_AND_NAME)
             return self.config_client.request(
                 constants.GET,
                 constants.GET_LOCAL_USER_LIST_URL.format(self.server_ip),
@@ -277,7 +281,8 @@ class Configuration:
         LOG.info("Getting local user details by user ID: '%s'" % user_id)
         return self.config_client.request(
             constants.GET,
-            constants.GET_LOCAL_USER_DETAILS_URL.format(self.server_ip, user_id),
+            constants.GET_LOCAL_USER_DETAILS_URL.format(
+                self.server_ip, user_id),
             querystring=constants.LOCAL_USER_DETAILS_QUERY,
         )
 
@@ -440,7 +445,8 @@ class Configuration:
         if all_pages:
             raise Exception("Pagination is not supported for clusters.")
         if not filter_dict:
-            querystring = helpers.prepare_querystring(constants.SELECT_ID_AND_NAME)
+            querystring = helpers.prepare_querystring(
+                constants.SELECT_ID_AND_NAME)
             LOG.info("Querystring: '%s'" % querystring)
             return self.config_client.request(
                 constants.GET,
@@ -461,7 +467,8 @@ class Configuration:
                 "is_encryption_enabled,system_time,"
                 "compatibility_level,state,state_l10n"
             }
-            querystring = helpers.prepare_querystring(details_query_string, filter_dict)
+            querystring = helpers.prepare_querystring(
+                details_query_string, filter_dict)
 
         resp = self.config_client.request(
             constants.GET,
@@ -493,7 +500,8 @@ class Configuration:
             }
         return self.config_client.request(
             constants.GET,
-            constants.GET_CLUSTER_DETAILS_URL.format(self.server_ip, cluster_id),
+            constants.GET_CLUSTER_DETAILS_URL.format(
+                self.server_ip, cluster_id),
             querystring=querystring,
         )
 
@@ -666,7 +674,8 @@ class Configuration:
         """
         LOG.info("Getting CHAP configurations with filter: '%s'" % filter_dict)
         if all_pages:
-            raise Exception("Pagination is not supported for CHAP configuration.")
+            raise Exception(
+                "Pagination is not supported for CHAP configuration.")
         if not filter_dict:
             querystring = helpers.prepare_querystring(constants.SELECT_ID)
             return self.config_client.request(
@@ -701,7 +710,8 @@ class Configuration:
         :rtype: dict
         """
 
-        LOG.info("Getting CHAP configuration details by ID: '%s'" % chap_config_id)
+        LOG.info("Getting CHAP configuration details by ID: '%s'" %
+                 chap_config_id)
         return self.config_client.request(
             constants.GET,
             constants.GET_CHAP_CONFIG_DETAILS_URL.format(
@@ -720,13 +730,15 @@ class Configuration:
         :return: CHAP configuration details
         :rtype : dict
         """
-        LOG.info("Modifying CHAP configuration properties: '%s'" % chap_config_id)
+        LOG.info("Modifying CHAP configuration properties: '%s'" %
+                 chap_config_id)
         payload = {}
         if mode is not None:
             payload["mode"] = mode
         self.config_client.request(
             constants.PATCH,
-            constants.MODIFY_CHAP_CONFIG_URL.format(self.server_ip, chap_config_id),
+            constants.MODIFY_CHAP_CONFIG_URL.format(
+                self.server_ip, chap_config_id),
             payload,
         )
         return self.get_chap_config_details(chap_config_id)
@@ -745,9 +757,11 @@ class Configuration:
         :return: List of service configurations
         :rtype: list[dict]
         """
-        LOG.info("Getting service configurations with filter: '%s'" % filter_dict)
+        LOG.info("Getting service configurations with filter: '%s'" %
+                 filter_dict)
         if all_pages:
-            raise Exception("Pagination is not supported for service configuration.")
+            raise Exception(
+                "Pagination is not supported for service configuration.")
         if not filter_dict:
             querystring = helpers.prepare_querystring(
                 constants.SERVICE_CONFIG_DETAILS_QUERY
@@ -815,7 +829,8 @@ class Configuration:
         :rtype: dict
         """
 
-        LOG.info("Getting service config details by ID: '%s'" % service_config_id)
+        LOG.info("Getting service config details by ID: '%s'" %
+                 service_config_id)
         return self.config_client.request(
             constants.GET,
             constants.GET_SERVICE_CONFIG_DETAILS_URL.format(
@@ -834,7 +849,8 @@ class Configuration:
         :return: service config details
         :rtype : dict
         """
-        LOG.info("Modifying service config properties: '%s'" % service_config_id)
+        LOG.info("Modifying service config properties: '%s'" %
+                 service_config_id)
         payload = {}
         if is_ssh_enabled is not None:
             payload["is_ssh_enabled"] = is_ssh_enabled
@@ -946,7 +962,8 @@ class Configuration:
             payload["password"] = password
         self.config_client.request(
             constants.PATCH,
-            constants.MODIFY_SERVICE_USER_URL.format(self.server_ip, service_user_id),
+            constants.MODIFY_SERVICE_USER_URL.format(
+                self.server_ip, service_user_id),
             payload,
         )
         return self.get_service_user_details(service_user_id)
@@ -967,7 +984,8 @@ class Configuration:
         LOG.info("Getting IP port details by ID: '%s'" % ip_port_id)
         return self.config_client.request(
             constants.GET,
-            constants.GET_IP_PORT_DETAILS_URL.format(self.server_ip, ip_port_id),
+            constants.GET_IP_PORT_DETAILS_URL.format(
+                self.server_ip, ip_port_id),
             querystring=constants.IP_PORT_DETAILS_QUERY,
         )
 
@@ -987,7 +1005,8 @@ class Configuration:
             "Getting vcenters with filter: '%s' and all_pages: '%s'"
             % (filter_dict, all_pages)
         )
-        querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
         vcenter_list = self.config_client.request(
             constants.GET,
@@ -1020,7 +1039,8 @@ class Configuration:
 
         return self.config_client.request(
             constants.GET,
-            constants.GET_VCENTER_DETAILS_URL.format(self.server_ip, vcenter_id),
+            constants.GET_VCENTER_DETAILS_URL.format(
+                self.server_ip, vcenter_id),
             querystring=querystring,
         )
 
@@ -1147,7 +1167,8 @@ class Configuration:
             }
         return self.config_client.request(
             constants.GET,
-            constants.GET_APPLIANCE_DETAILS_URL.format(self.server_ip, appliance_id),
+            constants.GET_APPLIANCE_DETAILS_URL.format(
+                self.server_ip, appliance_id),
             querystring=querystring,
         )
 
@@ -1202,7 +1223,8 @@ class Configuration:
         )
 
         if all_pages:
-            raise ValueError("Pagination is not supported for discovered appliances.")
+            raise ValueError(
+                "Pagination is not supported for discovered appliances.")
 
         querystring = constants.DISCOVERED_APPLIANCE_DETAILS_QUERY.copy()
 
@@ -1212,7 +1234,8 @@ class Configuration:
             LOG.info("Querystring without filters dict: '%s'", querystring)
             return self.config_client.request(
                 constants.GET,
-                constants.GET_DISCOVERED_APPLIANCE_LIST_URL.format(self.server_ip),
+                constants.GET_DISCOVERED_APPLIANCE_LIST_URL.format(
+                    self.server_ip),
                 querystring=querystring,
                 all_pages=False,
             )
@@ -1256,7 +1279,8 @@ class Configuration:
             "Getting certificates with filter: '%s' and all_pages: '%s'"
             % (filter_dict, all_pages)
         )
-        querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
         return self.config_client.request(
             constants.GET,
@@ -1339,7 +1363,8 @@ class Configuration:
 
         return self.config_client.request(
             constants.PATCH,
-            constants.MODIFY_CERTIFICATE_URL.format(self.server_ip, certificate_id),
+            constants.MODIFY_CERTIFICATE_URL.format(
+                self.server_ip, certificate_id),
             payload=modify_cert_dict,
         )
 
@@ -1352,7 +1377,8 @@ class Configuration:
         :rtype : NoneType
         """
         LOG.info(
-            "Resetting certificates of the service: '%s'" % (reset_cert_dict["service"])
+            "Resetting certificates of the service: '%s'" % (
+                reset_cert_dict["service"])
         )
         payload = {}
         if reset_cert_dict:
@@ -1419,7 +1445,8 @@ class Configuration:
         :return: security config details
         :rtype: dict
         """
-        LOG.info("Getting security config details by ID: '%s'" % security_config_id)
+        LOG.info("Getting security config details by ID: '%s'" %
+                 security_config_id)
 
         querystring = constants.SECURITY_CONFIG_DETAILS_QUERY
         if not helpers.is_foot_hill_or_higher():
@@ -1512,7 +1539,8 @@ class Configuration:
         :return: Destination email details with corresponding email_address.
         :rtype: list[dict]
         """
-        LOG.info("Getting destination email details by address: '%s'" % email_address)
+        LOG.info("Getting destination email details by address: '%s'" %
+                 email_address)
         return self.config_client.request(
             constants.GET,
             constants.GET_EMAIL_LIST_URL.format(self.server_ip),
@@ -1616,7 +1644,8 @@ class Configuration:
             "Getting SMTP configs with filter: '%s' and all_pages: '%s'"
             % (filter_dict, all_pages)
         )
-        querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
         return self.config_client.request(
             constants.GET,
@@ -1701,7 +1730,8 @@ class Configuration:
             "Getting all DNS servers with filter: '%s' and all_pages: '%s'"
             % (filter_dict, all_pages)
         )
-        querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
         return self.config_client.request(
             constants.GET,
@@ -1738,7 +1768,8 @@ class Configuration:
         :return: None
         :rtype : None
         """
-        LOG.info("Modifying DNS : '%s' with params '%s'" % (dns_id, modify_parameters))
+        LOG.info("Modifying DNS : '%s' with params '%s'" %
+                 (dns_id, modify_parameters))
 
         dns_url = constants.MODIFY_DNS_URL
         return self.config_client.request(
@@ -1765,7 +1796,8 @@ class Configuration:
             "Getting all NTP servers with filter: '%s' and all_pages: '%s'"
             % (filter_dict, all_pages)
         )
-        querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
         return self.config_client.request(
             constants.GET,
@@ -1803,7 +1835,8 @@ class Configuration:
         :return: None
         :rtype : None
         """
-        LOG.info("Modifying NTP : '%s' with params '%s'" % (ntp_id, modify_parameters))
+        LOG.info("Modifying NTP : '%s' with params '%s'" %
+                 (ntp_id, modify_parameters))
 
         ntp_url = constants.MODIFY_NTP_URL
         return self.config_client.request(
@@ -1832,7 +1865,8 @@ class Configuration:
             % (filter_dict, all_pages)
         )
         if helpers.is_foot_hill_or_higher():
-            querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
+            querystring = helpers.prepare_querystring(
+                constants.SELECT_ID, filter_dict)
             LOG.info("Querystring: '%s'" % querystring)
             return self.config_client.request(
                 constants.GET,
@@ -1841,7 +1875,8 @@ class Configuration:
                 all_pages=all_pages,
             )
 
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise Exception(
+            "Not supported for PowerStore versions less than 2.0.0.0")
 
     def get_remote_support_details(
         self, remote_support_id, return_support_license_text=False
@@ -1853,12 +1888,14 @@ class Configuration:
         :return: remote support configuration details
         :rtype: dict
         """
-        LOG.info("Getting remote_support details by ID: '%s'" % remote_support_id)
+        LOG.info("Getting remote_support details by ID: '%s'" %
+                 remote_support_id)
         if helpers.is_foot_hill_or_higher():
             querystring = constants.REMOTE_SUPPORT_DETAILS_QUERY
             if return_support_license_text is True:
                 querystring["select"] = (
-                    querystring["select"] + ",support_assist_license_agreement_text"
+                    querystring["select"] +
+                    ",support_assist_license_agreement_text"
                 )
 
             return self.config_client.request(
@@ -1869,7 +1906,8 @@ class Configuration:
                 querystring=querystring,
             )
 
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise Exception(
+            "Not supported for PowerStore versions less than 2.0.0.0")
 
     def modify_remote_support_details(
         self, remote_support_id, modify_parameters, is_async=False
@@ -1898,7 +1936,8 @@ class Configuration:
                 payload=modify_parameters,
             )
 
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise Exception(
+            "Not supported for PowerStore versions less than 2.0.0.0")
 
     def verify_remote_support_config(self, remote_support_id, verify_parameters):
         """Verify remote support configuration .
@@ -1924,7 +1963,8 @@ class Configuration:
                 payload=verify_parameters,
             )
 
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise Exception(
+            "Not supported for PowerStore versions less than 2.0.0.0")
 
     def test_remote_support_config(self, remote_support_id):
         """Send a test alert for the remote support configuration.
@@ -1934,7 +1974,8 @@ class Configuration:
         :return: None
         :rtype : None
         """
-        LOG.info("Sending a test alert for remote_support : '%s'" % (remote_support_id))
+        LOG.info("Sending a test alert for remote_support : '%s'" %
+                 (remote_support_id))
         if helpers.is_foot_hill_or_higher():
             remote_support_url = constants.SEND_ALERT_REMOTE_SUPPORT_URL
             return self.config_client.request(
@@ -1942,7 +1983,8 @@ class Configuration:
                 remote_support_url.format(self.server_ip, remote_support_id),
             )
 
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise Exception(
+            "Not supported for PowerStore versions less than 2.0.0.0")
 
     # Remote Support operations end
 
@@ -1964,7 +2006,8 @@ class Configuration:
             % (filter_dict, all_pages)
         )
         if helpers.is_foot_hill_or_higher():
-            querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
+            querystring = helpers.prepare_querystring(
+                constants.SELECT_ID, filter_dict)
             LOG.info("Querystring: '%s'" % querystring)
             array_version = self.provisioning.get_array_version()
             if array_version == "2.0.0.0":
@@ -1977,18 +2020,21 @@ class Configuration:
                     all_pages=False,
                 )
 
-                filterable_keys = ["id", "email", "first_name", "last_name", "phone"]
+                filterable_keys = ["id", "email",
+                                   "first_name", "last_name", "phone"]
                 return helpers.filtered_details(
                     filterable_keys, filter_dict, resp, "remote_support_contact"
                 )
             return self.config_client.request(
                 constants.GET,
-                constants.GET_REMOTE_SUPPORT_CONTACT_LIST_URL.format(self.server_ip),
+                constants.GET_REMOTE_SUPPORT_CONTACT_LIST_URL.format(
+                    self.server_ip),
                 querystring=querystring,
                 all_pages=all_pages,
             )
 
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise Exception(
+            "Not supported for PowerStore versions less than 2.0.0.0")
 
     def get_remote_support_contact_details(self, remote_support_contact_id):
         """Get details of a remote support contact instance.
@@ -2012,7 +2058,8 @@ class Configuration:
                 querystring=querystring,
             )
 
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise Exception(
+            "Not supported for PowerStore versions less than 2.0.0.0")
 
     def modify_remote_support_contact_details(
         self, remote_support_contact_id, modify_parameters
@@ -2040,7 +2087,8 @@ class Configuration:
                 ),
                 payload=modify_parameters,
             )
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise Exception(
+            "Not supported for PowerStore versions less than 2.0.0.0")
 
     # Remote Support contact operations end
 
@@ -2167,11 +2215,13 @@ class Configuration:
         :return: None
         :rtype: None
         """
-        LOG.info("Modifying LDAP domain configuration id: '%s'" % ldap_domain_id)
+        LOG.info("Modifying LDAP domain configuration id: '%s'" %
+                 ldap_domain_id)
 
         return self.config_client.request(
             constants.PATCH,
-            constants.MODIFY_LDAP_DOMAIN_URL.format(self.server_ip, ldap_domain_id),
+            constants.MODIFY_LDAP_DOMAIN_URL.format(
+                self.server_ip, ldap_domain_id),
             payload=modify_parameters,
         )
 
@@ -2183,11 +2233,13 @@ class Configuration:
         :return: None
         :rtype: None
         """
-        LOG.info("Deleting LDAP domain configuration id: '%s'" % ldap_domain_id)
+        LOG.info("Deleting LDAP domain configuration id: '%s'" %
+                 ldap_domain_id)
 
         return self.config_client.request(
             constants.DELETE,
-            constants.DELETE_LDAP_DOMAIN_URL.format(self.server_ip, ldap_domain_id),
+            constants.DELETE_LDAP_DOMAIN_URL.format(
+                self.server_ip, ldap_domain_id),
         )
 
     def verify_ldap_domain_configuration(self, ldap_domain_id):
@@ -2198,11 +2250,13 @@ class Configuration:
         :return: None
         :rtype: None
         """
-        LOG.info("Verifying LDAP domain configuration id: '%s'" % ldap_domain_id)
+        LOG.info("Verifying LDAP domain configuration id: '%s'" %
+                 ldap_domain_id)
 
         return self.config_client.request(
             constants.POST,
-            constants.VERIFY_LDAP_DOMAIN_URL.format(self.server_ip, ldap_domain_id),
+            constants.VERIFY_LDAP_DOMAIN_URL.format(
+                self.server_ip, ldap_domain_id),
         )
 
     # LDAP Domain operations end
@@ -2285,7 +2339,8 @@ class Configuration:
         :return: ldap account details
         :rtype: dict
         """
-        LOG.info("Getting LDAP Account details by name: '%s'" % ldap_account_name)
+        LOG.info("Getting LDAP Account details by name: '%s'" %
+                 ldap_account_name)
         resp = self.get_ldap_account_list()
 
         for account in resp:
@@ -2322,7 +2377,8 @@ class Configuration:
 
         return self.config_client.request(
             constants.PATCH,
-            constants.MODIFY_LDAP_ACCOUNT_URL.format(self.server_ip, ldap_account_id),
+            constants.MODIFY_LDAP_ACCOUNT_URL.format(
+                self.server_ip, ldap_account_id),
             payload=modify_parameters,
         )
 
@@ -2334,11 +2390,13 @@ class Configuration:
         :return: None
         :rtype: None
         """
-        LOG.info("Deleting LDAP account configuration id: '%s'" % ldap_account_id)
+        LOG.info("Deleting LDAP account configuration id: '%s'" %
+                 ldap_account_id)
 
         return self.config_client.request(
             constants.DELETE,
-            constants.DELETE_LDAP_ACCOUNT_URL.format(self.server_ip, ldap_account_id),
+            constants.DELETE_LDAP_ACCOUNT_URL.format(
+                self.server_ip, ldap_account_id),
         )
 
     # LDAP Account operations end
@@ -2413,7 +2471,8 @@ class Configuration:
         :return: storage container details
         :rtype: dict
         """
-        LOG.info("Getting storage container details by ID: '%s'" % storage_container_id)
+        LOG.info("Getting storage container details by ID: '%s'" %
+                 storage_container_id)
 
         return self.config_client.request(
             constants.GET,
@@ -2466,7 +2525,8 @@ class Configuration:
         :return: None
         :rtype: None
         """
-        LOG.info("Modifying storage containert id: '%s'" % storage_container_id)
+        LOG.info("Modifying storage containert id: '%s'" %
+                 storage_container_id)
 
         return self.config_client.request(
             constants.PATCH,
@@ -2484,7 +2544,8 @@ class Configuration:
         :return: None
         :rtype: None
         """
-        LOG.info("Deleting storage container with id: '%s'" % storage_container_id)
+        LOG.info("Deleting storage container with id: '%s'" %
+                 storage_container_id)
 
         return self.config_client.request(
             constants.DELETE,
@@ -2517,7 +2578,8 @@ class Configuration:
         LOG.info("Querystring: '%s'" % querystring)
         return self.config_client.request(
             constants.GET,
-            constants.GET_STORAGE_CONTAINER_DESTINATION_LIST_URL.format(self.server_ip),
+            constants.GET_STORAGE_CONTAINER_DESTINATION_LIST_URL.format(
+                self.server_ip),
             payload=None,
             querystring=querystring,
             all_pages=all_pages,
@@ -2558,7 +2620,8 @@ class Configuration:
         LOG.info("Creating storage container destination.")
         return self.config_client.request(
             constants.POST,
-            constants.CREATE_STORAGE_CONTAINER_DESTINATION_URL.format(self.server_ip),
+            constants.CREATE_STORAGE_CONTAINER_DESTINATION_URL.format(
+                self.server_ip),
             payload=create_destination_params,
         )
 

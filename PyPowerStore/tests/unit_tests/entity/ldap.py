@@ -10,10 +10,10 @@ class LdapResponse(Entity):
         self.kwargs = kwargs
         self.ldap_data = LdapData()
         self.status_code = 200
-    
+
     def get_api_name(self):
         if self.method == 'GET':
-                return self.get_file_ldaps
+            return self.get_file_ldaps
 
     def execute_api(self, api_name):
         status_code, response = api_name()

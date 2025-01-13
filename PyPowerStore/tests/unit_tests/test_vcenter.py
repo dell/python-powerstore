@@ -8,7 +8,7 @@ class TestVcenter(TestBase):
             self.vcenter_data.vcenter_id,
             self.vcenter_data.vasa_provider_credentials)
         self.assertEqual(vcenter_details, self.vcenter_data.vcenter_details)
-        
+
     def test_get_vcenters(self):
         vcenter_list = self.configuration.get_vcenters()
         self.assertListEqual(vcenter_list, self.vcenter_data.vcenter_list)

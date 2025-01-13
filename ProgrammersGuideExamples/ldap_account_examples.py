@@ -15,10 +15,10 @@ print(CONN)
 # Create LDAP account
 create_dict = {
 
-  "domain_id": "2",
-  "name": "ldap_test_user_1",
-  "type": "User",
-  "role_id": "1"
+    "domain_id": "2",
+    "name": "ldap_test_user_1",
+    "type": "User",
+    "role_id": "1"
 
 }
 resp = CONN.config_mgmt.create_ldap_account(create_dict)
@@ -36,11 +36,13 @@ ldap_account_list = CONN.config_mgmt.get_ldap_account_list()
 print(ldap_account_list)
 
 # Get LDAP account details
-ldap_account_details = CONN.config_mgmt.get_ldap_account_details(ldap_account_list[0]['id'])
+ldap_account_details = CONN.config_mgmt.get_ldap_account_details(
+    ldap_account_list[0]['id'])
 print(ldap_account_details)
 
 # Get LDAP account details by name
-ldap_account_details = CONN.config_mgmt.get_ldap_account_details_by_name(ldap_account_list[0]['name'])
+ldap_account_details = CONN.config_mgmt.get_ldap_account_details_by_name(
+    ldap_account_list[0]['name'])
 print(ldap_account_details)
 
 # Delete LDAP domain configuration

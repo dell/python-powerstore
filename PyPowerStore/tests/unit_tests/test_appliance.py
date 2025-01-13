@@ -9,7 +9,8 @@ class TestAppliance(TestBase):
         self.assertListEqual(appliance_list, self.data.appliance_list)
 
     def test_get_appliance_details(self):
-        appliance_details = self.configuration.get_appliance_details(self.data.appliance_id1)
+        appliance_details = self.configuration.get_appliance_details(
+            self.data.appliance_id1)
         self.assertEqual(appliance_details, self.data.appliance_details_1)
 
     def test_get_invalid_appliance_details(self):
@@ -20,5 +21,7 @@ class TestAppliance(TestBase):
             self.data.appliance_does_not_exist)
 
     def test_get_appliance_by_name(self):
-        appliance_details_1 = self.configuration.get_appliance_by_name(self.data.appliance_name1)
-        self.assertListEqual(appliance_details_1, [self.data.appliance_details_1])
+        appliance_details_1 = self.configuration.get_appliance_by_name(
+            self.data.appliance_name1)
+        self.assertListEqual(appliance_details_1, [
+                             self.data.appliance_details_1])

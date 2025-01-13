@@ -14,11 +14,12 @@ print(CONN)
 
 # Create storage container destination
 create_dict = {
-  "storage_container_id": "5f4e57d3-2f6e-5fb4-3ac9-c6f547282e76",
-  "remote_system_id": "5f4e57d3-2f6e-5fb4-3ac9-c6f547282e77",
-  "remote_storage_container_id": "5f4e57d3-2f6e-5fb4-3ac9-c6f547282e78"
+    "storage_container_id": "5f4e57d3-2f6e-5fb4-3ac9-c6f547282e76",
+    "remote_system_id": "5f4e57d3-2f6e-5fb4-3ac9-c6f547282e77",
+    "remote_storage_container_id": "5f4e57d3-2f6e-5fb4-3ac9-c6f547282e78"
 }
-create_resp = CONN.config_mgmt.create_storage_container_destination(create_dict)
+create_resp = CONN.config_mgmt.create_storage_container_destination(
+    create_dict)
 print(create_resp)
 
 # Get storage container destination list
