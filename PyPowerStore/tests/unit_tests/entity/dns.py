@@ -12,8 +12,8 @@ class DnsResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/dns'):
+        if self.method == "GET":
+            if self.url.endswith("/dns"):
                 return self.get_dns_list
             return self.get_dns_details
         if self.method == "PATCH":
@@ -30,7 +30,7 @@ class DnsResponse(Entity):
         return self.status_code, self.dns_data.dns_details
 
     def modify_dns_details(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         param = list(data.keys())
         if set(param) - set(self.dns_data.dns_valid_param_list):
             # invalid param given

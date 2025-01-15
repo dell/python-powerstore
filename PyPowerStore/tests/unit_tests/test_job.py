@@ -12,4 +12,5 @@ class TestNetwork(TestBase):
             PowerStoreException,
             "HTTP code: 404, Not Found",
             self.provisioning.get_job_details,
-            self.data.job_does_not_exist)
+            self.data.job_does_not_exist,
+        )

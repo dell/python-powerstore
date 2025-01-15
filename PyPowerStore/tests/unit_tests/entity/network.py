@@ -12,15 +12,15 @@ class NetworkResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/network'):
-                if self.kwargs.get('params', {}).get('name'):
+        if self.method == "GET":
+            if self.url.endswith("/network"):
+                if self.kwargs.get("params", {}).get("name"):
                     return self.get_network_by_name
                 return self.get_networks
             return self.get_network_details
-        if self.method == 'PATCH':
+        if self.method == "PATCH":
             return self.modify_network
-        if self.method == 'POST':
+        if self.method == "POST":
             return self.add_remove_ports
 
     def execute_api(self, api_name):
@@ -31,8 +31,7 @@ class NetworkResponse(Entity):
         return self.status_code, self.data.network_list
 
     def get_network_details(self):
-        if self.url.endswith('/network/{0}'.format(
-           self.data.network_does_not_exist)):
+        if self.url.endswith("/network/{0}".format(self.data.network_does_not_exist)):
             return 404, self.data.network_error[404]
         return self.status_code, self.data.network_details_1
 
@@ -40,7 +39,7 @@ class NetworkResponse(Entity):
         return self.status_code, [self.data.network_details_1]
 
     def modify_network(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         param = list(data.keys())
         if set(param) - set(self.data.network_valid_param_list):
             # invalid param given

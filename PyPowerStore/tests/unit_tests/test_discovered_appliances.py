@@ -6,10 +6,14 @@ class TestDiscoveredAppliances(TestBase):
         discovered_appliance_list = self.configuration.get_discovered_appliances()
         self.assertListEqual(
             discovered_appliance_list,
-            self.discovered_appliance_data.discovered_appliance_list)
+            self.discovered_appliance_data.discovered_appliance_list,
+        )
 
     def test_get_discovered_appliances_all_pages(self):
         all_pages = True
-        def callable_func(): return self.configuration.get_discovered_appliances(None, all_pages)
+
+        def callable_func():
+            return self.configuration.get_discovered_appliances(None, all_pages)
+
         # Check if the correct exception is raised
         self.assertRaises(ValueError, callable_func)

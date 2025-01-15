@@ -12,19 +12,19 @@ class HostResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/host_volume_mapping'):
+        if self.method == "GET":
+            if self.url.endswith("/host_volume_mapping"):
                 return self.get_host_volume_mapping
-            if self.url.endswith('/host'):
-                if self.kwargs.get('params', {}).get('name'):
+            if self.url.endswith("/host"):
+                if self.kwargs.get("params", {}).get("name"):
                     return self.get_host_by_name
                 return self.get_hosts
             return self.get_host_details
-        if self.method == 'POST':
+        if self.method == "POST":
             return self.create_host
-        if self.method == 'PATCH':
+        if self.method == "PATCH":
             return self.modify_host
-        if self.method == 'DELETE':
+        if self.method == "DELETE":
             return self.delete_host
 
     def execute_api(self, api_name):
@@ -47,13 +47,17 @@ class HostResponse(Entity):
         return 201, self.data.create_host
 
     def modify_host(self):
-        if 'add_initiators' in self.kwargs['data'] and\
-                self.kwargs['data']['add_initiators']['name'] == \
-                self.data.invalid_initiator['name']:
+        if (
+            "add_initiators" in self.kwargs["data"]
+            and self.kwargs["data"]["add_initiators"]["name"]
+            == self.data.invalid_initiator["name"]
+        ):
             return 400, self.data.add_invalid_initiator_error[400]
-        if 'remove_initiators' in self.kwargs['data'] and\
-                self.kwargs['data']['remove_initiators'][0] == \
-                self.data.invalid_initiator['name']:
+        if (
+            "remove_initiators" in self.kwargs["data"]
+            and self.kwargs["data"]["remove_initiators"][0]
+            == self.data.invalid_initiator["name"]
+        ):
             return 400, self.data.remove_invalid_initiator_error[400]
         return 204, None
 

@@ -18,10 +18,5 @@ from PyPowerStore.objects.smb_server import SMBServer
 from PyPowerStore.objects.nfs_server import NFSServer
 from PyPowerStore.objects.file_dns import FileDNS
 from PyPowerStore.objects.file_nis import FileNIS
-__all__ = [
-    'FileInterface',
-    'SMBServer',
-    'NFSServer',
-    'FileDNS',
-    'FileNIS'
-]
+
+__all__ = ["FileInterface", "SMBServer", "NFSServer", "FileDNS", "FileNIS"]

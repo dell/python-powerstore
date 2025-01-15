@@ -54,8 +54,7 @@ class FileDNS:
             "Getting file DNSs with filter: '%s' and all_pages: %s"
             % (filter_dict, all_pages)
         )
-        querystring = helpers.prepare_querystring(
-            SELECT_ALL_FILE_DNS, filter_dict)
+        querystring = helpers.prepare_querystring(SELECT_ALL_FILE_DNS, filter_dict)
         LOG.info("Querystring: '%s'" % querystring)
         return self.file_dns_client.request(
             constants.GET,
@@ -93,8 +92,7 @@ class FileDNS:
         """
         querystring = SELECT_ALL_FILE_DNS
 
-        LOG.info("Getting file DNS details by nas server id: '%s'" %
-                 nas_server_id)
+        LOG.info("Getting file DNS details by nas server id: '%s'" % nas_server_id)
         return self.file_dns_client.request(
             constants.GET,
             GET_FILE_DNS_DETAILS_BY_NAS_SERVER_URL.format(self.server_ip),
@@ -115,8 +113,8 @@ class FileDNS:
         """
         LOG.info("Creating file DNS")
         return self.file_dns_client.request(
-            constants.POST, CREATE_FILE_DNS_URL.format(
-                self.server_ip), payload=payload)
+            constants.POST, CREATE_FILE_DNS_URL.format(self.server_ip), payload=payload
+        )
 
     def modify_file_dns(self, file_dns_id, modify_parameters):
         """Modify file DNS attributes.
@@ -154,8 +152,7 @@ class FileDNS:
         """
         LOG.info("Deleting file DNS: '%s'" % file_dns_id)
         return self.file_dns_client.request(
-            constants.DELETE, DELETE_FILE_DNS_URL.format(
-                self.server_ip, file_dns_id)
+            constants.DELETE, DELETE_FILE_DNS_URL.format(self.server_ip, file_dns_id)
         )
 
     # File DNS methods end

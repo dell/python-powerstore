@@ -4,12 +4,14 @@
 """ SMB Server Operations"""
 from PyPowerStore import powerstore_conn
 
-CONN = powerstore_conn.PowerStoreConn(username="<username>",
-                                      password="<password>",
-                                      server_ip="<IP>",
-                                      verify=False,
-                                      application_type="<Application>",
-                                      timeout=180.0)
+CONN = powerstore_conn.PowerStoreConn(
+    username="<username>",
+    password="<password>",
+    server_ip="<IP>",
+    verify=False,
+    application_type="<Application>",
+    timeout=180.0,
+)
 print(CONN)
 
 MODIFY_PARAMS = {
@@ -19,7 +21,7 @@ MODIFY_PARAMS = {
     "netbios_name": "string",
     "workgroup": "string",
     "description": "string",
-    "local_admin_password": "string"
+    "local_admin_password": "string",
 }
 
 CREATE_PARAMS = {
@@ -30,7 +32,7 @@ CREATE_PARAMS = {
     "netbios_name": "string",
     "workgroup": "string",
     "description": "string",
-    "local_admin_password": "string"
+    "local_admin_password": "string",
 }
 
 # create SMB server
@@ -42,19 +44,21 @@ SMB_SERVERS = CONN.smb_server.get_smb_server_list(all_pages=True)
 print(SMB_SERVERS)
 
 # get SMB server details by ID
-SMB_SERVER = CONN.smb_server.get_smb_server_details(SMB_SERVER['id'])
+SMB_SERVER = CONN.smb_server.get_smb_server_details(SMB_SERVER["id"])
 print(SMB_SERVER)
 
 # get SMB server details by NAS server
 SMB_SERVER = CONN.smb_server.get_smb_server_by_nas_server_id(
-    CREATE_PARAMS['nas_server_id'])
+    CREATE_PARAMS["nas_server_id"]
+)
 print(SMB_SERVER)
 
 # modify SMB server
-MODIFY_SMB_SERVER = CONN.smb_server.modify_smb_server(SMB_SERVER[0]['id'],
-                                                      MODIFY_PARAMS)
+MODIFY_SMB_SERVER = CONN.smb_server.modify_smb_server(
+    SMB_SERVER[0]["id"], MODIFY_PARAMS
+)
 print(MODIFY_SMB_SERVER)
 
 # delete SMB server
-DELETE_SMB_SERVER = CONN.smb_server.delete_smb_server(SMB_SERVER[0]['id'])
+DELETE_SMB_SERVER = CONN.smb_server.delete_smb_server(SMB_SERVER[0]["id"])
 print(DELETE_SMB_SERVER)

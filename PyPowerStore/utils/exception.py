@@ -6,6 +6,7 @@
 
 class PowerStoreException(Exception):
     """Class for PowerStore exceptions"""
+
     HTTP_ERR = 1
     SOCKET_ERR = 2
     SSL_ERROR = 3

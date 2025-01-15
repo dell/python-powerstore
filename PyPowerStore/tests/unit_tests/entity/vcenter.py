@@ -12,15 +12,15 @@ class VcenterResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/vcenter'):
+        if self.method == "GET":
+            if self.url.endswith("/vcenter"):
                 return self.get_vcenters
             return self.get_vcenter_details
-        if self.method == 'PATCH':
+        if self.method == "PATCH":
             return self.modify_vcenter
-        if self.method == 'POST':
+        if self.method == "POST":
             return self.add_vcenter
-        if self.method == 'DELETE':
+        if self.method == "DELETE":
             return self.remove_vcenter
 
     def execute_api(self, api_name):

@@ -12,16 +12,16 @@ class RemoteSystemResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/remote_system'):
-                if self.kwargs.get('params', {}).get('name'):
+        if self.method == "GET":
+            if self.url.endswith("/remote_system"):
+                if self.kwargs.get("params", {}).get("name"):
                     return self.get_remote_system_by_name
-                if self.kwargs.get('params', {}).get('management_address'):
+                if self.kwargs.get("params", {}).get("management_address"):
                     return self.get_remote_system_by_mgmt_address
                 return self.get_remote_systems
             return self.get_remote_system_details
-        if self.method == 'POST':
-            if self.url.endswith('/query_appliances'):
+        if self.method == "POST":
+            if self.url.endswith("/query_appliances"):
                 return self.get_remote_system_appliance_details
             return self.create_remote_system
         if self.method == "PATCH":

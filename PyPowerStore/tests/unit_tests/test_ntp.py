@@ -9,19 +9,21 @@ class TestNtp(TestBase):
         self.assertListEqual(ntp_list, self.ntp_data.ntp_list)
 
     def test_get_ntp_details(self):
-        resp = self.configuration.get_ntp_details(
-            self.ntp_data.ntp_id)
+        resp = self.configuration.get_ntp_details(self.ntp_data.ntp_id)
         self.assertEqual(resp, self.ntp_data.ntp_details)
 
     def test_modify_ntp_details(self):
         resp = self.configuration.modify_ntp_details(
-            self.ntp_data.ntp_id, self.ntp_data.modify_ntp_dict)
+            self.ntp_data.ntp_id, self.ntp_data.modify_ntp_dict
+        )
         self.assertIsNone(resp)
 
     def test_modify_ntp_details_with_invalid_param(self):
-        invalid_param = {'invalid_key': 'invalid_value'}
+        invalid_param = {"invalid_key": "invalid_value"}
         self.assertRaisesRegex(
             PowerStoreException,
             "HTTP code: 400, Bad Request",
             self.configuration.modify_ntp_details,
-            self.ntp_data.ntp_id, invalid_param)
+            self.ntp_data.ntp_id,
+            invalid_param,
+        )

@@ -12,12 +12,12 @@ class LDAPDomainResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/ldap_domain'):
+        if self.method == "GET":
+            if self.url.endswith("/ldap_domain"):
                 return self.get_ldap_domain_configuration_list
             return self.get_ldap_domain_configuration_details
-        if self.method == 'POST':
-            if self.url.endswith('/verify'):
+        if self.method == "POST":
+            if self.url.endswith("/verify"):
                 return self.verify_ldap_domain_configuration
             return self.create_ldap_domain_configuration
         if self.method == "PATCH":

@@ -1,4 +1,4 @@
-class SmtpConfigData():
+class SmtpConfigData:
 
     smtp_id = "0"
 
@@ -10,13 +10,9 @@ class SmtpConfigData():
         "source_email": "def@dell.com",
     }
 
-    test_smtp_dict = {
-        "email_address": "xyz@dell.com"
-    }
+    test_smtp_dict = {"email_address": "xyz@dell.com"}
 
-    smtp_valid_param_list = [
-        'id', 'email_address', 'address', 'port', 'source_email'
-    ]
+    smtp_valid_param_list = ["id", "email_address", "address", "port", "source_email"]
 
     smtp_error = {
         400: {
@@ -24,10 +20,10 @@ class SmtpConfigData():
                 {
                     "code": "0xE04040030001",
                     "severity": "Error",
-                    "message_l10n": "Validation failed: Object instance has properties which are not allowed by the schema: [\"invalid_param\"].",
+                    "message_l10n": 'Validation failed: Object instance has properties which are not allowed by the schema: ["invalid_param"].',
                     "arguments": [
-                        "Object instance has properties which are not allowed by the schema: [\"invalid_param\"]"
-                    ]
+                        'Object instance has properties which are not allowed by the schema: ["invalid_param"]'
+                    ],
                 }
             ]
         }
@@ -37,5 +33,5 @@ class SmtpConfigData():
         "id": "0",
         "address": "sample.smtp.com",
         "port": 25,
-        "source_email": "abc@dell.com"
+        "source_email": "abc@dell.com",
     }

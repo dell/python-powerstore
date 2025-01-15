@@ -4,12 +4,14 @@
 """ NFS Server Operations"""
 from PyPowerStore import powerstore_conn
 
-CONN = powerstore_conn.PowerStoreConn(username="<username>",
-                                      password="<password>",
-                                      server_ip="<IP>",
-                                      verify=False,
-                                      application_type="<Application>",
-                                      timeout=180.0)
+CONN = powerstore_conn.PowerStoreConn(
+    username="<username>",
+    password="<password>",
+    server_ip="<IP>",
+    verify=False,
+    application_type="<Application>",
+    timeout=180.0,
+)
 print(CONN)
 
 MODIFY_PARAMS = {
@@ -20,7 +22,7 @@ MODIFY_PARAMS = {
     "is_skip_unjoin": True,
     "is_use_smb_config_enabled": True,
     "is_extended_credentials_enabled": True,
-    "credentials_cache_TTL": 20
+    "credentials_cache_TTL": 20,
 }
 
 CREATE_PARAMS = {
@@ -31,7 +33,7 @@ CREATE_PARAMS = {
     "is_secure_enabled": False,
     "is_use_smb_config_enabled": True,
     "is_extended_credentials_enabled": False,
-    "credentials_cache_TTL": 15
+    "credentials_cache_TTL": 15,
 }
 
 # create NFS server
@@ -43,19 +45,21 @@ NFS_SERVERS = CONN.nfs_server.get_nfs_server_list(all_pages=True)
 print(NFS_SERVERS)
 
 # get NFS server details by ID
-NFS_SERVER = CONN.nfs_server.get_nfs_server_details(NFS_SERVER['id'])
+NFS_SERVER = CONN.nfs_server.get_nfs_server_details(NFS_SERVER["id"])
 print(NFS_SERVER)
 
 # get NFS server details by NAS server
 NFS_SERVER = CONN.nfs_server.get_nfs_server_by_nas_server_id(
-    CREATE_PARAMS['nas_server_id'])
+    CREATE_PARAMS["nas_server_id"]
+)
 print(NFS_SERVER)
 
 # modify NFS server
-MODIFY_NFS_SERVER = CONN.nfs_server.modify_nfs_server(NFS_SERVER[0]['id'],
-                                                      MODIFY_PARAMS)
+MODIFY_NFS_SERVER = CONN.nfs_server.modify_nfs_server(
+    NFS_SERVER[0]["id"], MODIFY_PARAMS
+)
 print(MODIFY_NFS_SERVER)
 
 # delete NFS server
-DELETE_NFS_SERVER = CONN.nfs_server.delete_nfs_server(NFS_SERVER[0]['id'])
+DELETE_NFS_SERVER = CONN.nfs_server.delete_nfs_server(NFS_SERVER[0]["id"])
 print(DELETE_NFS_SERVER)

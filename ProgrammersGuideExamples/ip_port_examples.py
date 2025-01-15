@@ -4,12 +4,14 @@
 """ IP Port Operations"""
 from PyPowerStore import powerstore_conn
 
-CONN = powerstore_conn.PowerStoreConn(username="<username>",
-                                      password="<password>",
-                                      server_ip="<IP>",
-                                      verify=False,
-                                      application_type="<Application>",
-                                      timeout=180.0)
+CONN = powerstore_conn.PowerStoreConn(
+    username="<username>",
+    password="<password>",
+    server_ip="<IP>",
+    verify=False,
+    application_type="<Application>",
+    timeout=180.0,
+)
 print(CONN)
 
 # Get IP port details by ip_port_id

@@ -1,6 +1,5 @@
 from PyPowerStore.tests.unit_tests.entity.volume import VolumeResponse
-from PyPowerStore.tests.unit_tests.entity.volume_group import \
-    VolumeGroupResponse
+from PyPowerStore.tests.unit_tests.entity.volume_group import VolumeGroupResponse
 from PyPowerStore.tests.unit_tests.entity.host import HostResponse
 from PyPowerStore.tests.unit_tests.entity.host_group import HostGroupResponse
 from PyPowerStore.tests.unit_tests.entity.policy import PolicyResponse
@@ -37,13 +36,23 @@ from PyPowerStore.tests.unit_tests.entity.smtp_config import SmtpConfigResponse
 from PyPowerStore.tests.unit_tests.entity.dns import DnsResponse
 from PyPowerStore.tests.unit_tests.entity.ntp import NtpResponse
 from PyPowerStore.tests.unit_tests.entity.remote_support import RemoteSupportResponse
-from PyPowerStore.tests.unit_tests.entity.remote_support_contact import RemoteSupportContactResponse
+from PyPowerStore.tests.unit_tests.entity.remote_support_contact import (
+    RemoteSupportContactResponse,
+)
 from PyPowerStore.tests.unit_tests.entity.ldap_domain import LDAPDomainResponse
 from PyPowerStore.tests.unit_tests.entity.ldap_account import LDAPAccountResponse
-from PyPowerStore.tests.unit_tests.entity.storage_container import StorageContainerResponse
-from PyPowerStore.tests.unit_tests.entity.storage_container_destination import StorageContainerDestinationResponse
-from PyPowerStore.tests.unit_tests.entity.replication_group import ReplicationGroupResponse
-from PyPowerStore.tests.unit_tests.entity.discovered_appliances import DiscoveredApplianceResponse
+from PyPowerStore.tests.unit_tests.entity.storage_container import (
+    StorageContainerResponse,
+)
+from PyPowerStore.tests.unit_tests.entity.storage_container_destination import (
+    StorageContainerDestinationResponse,
+)
+from PyPowerStore.tests.unit_tests.entity.replication_group import (
+    ReplicationGroupResponse,
+)
+from PyPowerStore.tests.unit_tests.entity.discovered_appliances import (
+    DiscoveredApplianceResponse,
+)
 from PyPowerStore.tests.unit_tests.entity.file_interface import FileInterfaceResponse
 from PyPowerStore.tests.unit_tests.entity.smb_server import SMBServerResponse
 from PyPowerStore.tests.unit_tests.entity.nfs_server import NFSServerResponse
@@ -54,58 +63,58 @@ import json
 
 # map the entity class name with the url resource name
 ENTITY_CLASS_MAPPING = {
-    'volume': VolumeResponse,
-    'volume_group': VolumeGroupResponse,
-    'host_volume_mapping': HostResponse,
-    'host': HostResponse,
-    'host_group': HostGroupResponse,
-    'policy': PolicyResponse,
-    'snapshot_rule': SnapRuleResponse,
-    'nas_server': NASServerResponse,
-    'nfs_export': NFSExportResponse,
-    'smb_share': SMBShareResponse,
-    'file_system': FileSystemResponse,
-    'file_tree_quota': TreeQuotaResponse,
-    'file_user_quota': UserQuotaResponse,
-    'replication_rule': RepRuleResponse,
-    'replication_session': RepSessionResponse,
-    'network': NetworkResponse,
-    'software_installed': SoftwareResponse,
-    'job': JobResponse,
-    'vcenter': VcenterResponse,
-    'virtual_volume': VirtualVolumeResponse,
-    'ip_pool_address': IPPoolAddressResponse,
-    'ip_port': IPPortResponse,
-    'local_user': LocalUserResponse,
-    'role': RoleResponse,
-    'appliance': ApplianceResponse,
-    'cluster': ClusterResponse,
-    'service_user': ServiceUserResponse,
-    'service_config': ServiceConfigResponse,
-    'chap_config': ChapConfigResponse,
-    'x509_certificate': CertificateResponse,
-    'security_config': SecurityConfigResponse,
-    'remote_system': RemoteSystemResponse,
-    'file_ftp': AdsResponse,
-    'file_ldap': LdapResponse,
-    'email_notify_destination': EmailResponse,
-    'smtp_config': SmtpConfigResponse,
-    'dns': DnsResponse,
-    'ntp': NtpResponse,
-    'remote_support': RemoteSupportResponse,
-    'remote_support_contact': RemoteSupportContactResponse,
-    'ldap_domain': LDAPDomainResponse,
-    'ldap_account': LDAPAccountResponse,
-    'storage_container': StorageContainerResponse,
-    'storage_container_destination': StorageContainerDestinationResponse,
-    'replication_group': ReplicationGroupResponse,
-    'discovered_appliance': DiscoveredApplianceResponse,
-    'file_interface': FileInterfaceResponse,
-    'smb_server': SMBServerResponse,
-    'nfs_server': NFSServerResponse,
-    'file_dns': FileDNSResponse,
-    'file_nis': FileNISResponse,
-    'snmp_server': SNMPServerResponse
+    "volume": VolumeResponse,
+    "volume_group": VolumeGroupResponse,
+    "host_volume_mapping": HostResponse,
+    "host": HostResponse,
+    "host_group": HostGroupResponse,
+    "policy": PolicyResponse,
+    "snapshot_rule": SnapRuleResponse,
+    "nas_server": NASServerResponse,
+    "nfs_export": NFSExportResponse,
+    "smb_share": SMBShareResponse,
+    "file_system": FileSystemResponse,
+    "file_tree_quota": TreeQuotaResponse,
+    "file_user_quota": UserQuotaResponse,
+    "replication_rule": RepRuleResponse,
+    "replication_session": RepSessionResponse,
+    "network": NetworkResponse,
+    "software_installed": SoftwareResponse,
+    "job": JobResponse,
+    "vcenter": VcenterResponse,
+    "virtual_volume": VirtualVolumeResponse,
+    "ip_pool_address": IPPoolAddressResponse,
+    "ip_port": IPPortResponse,
+    "local_user": LocalUserResponse,
+    "role": RoleResponse,
+    "appliance": ApplianceResponse,
+    "cluster": ClusterResponse,
+    "service_user": ServiceUserResponse,
+    "service_config": ServiceConfigResponse,
+    "chap_config": ChapConfigResponse,
+    "x509_certificate": CertificateResponse,
+    "security_config": SecurityConfigResponse,
+    "remote_system": RemoteSystemResponse,
+    "file_ftp": AdsResponse,
+    "file_ldap": LdapResponse,
+    "email_notify_destination": EmailResponse,
+    "smtp_config": SmtpConfigResponse,
+    "dns": DnsResponse,
+    "ntp": NtpResponse,
+    "remote_support": RemoteSupportResponse,
+    "remote_support_contact": RemoteSupportContactResponse,
+    "ldap_domain": LDAPDomainResponse,
+    "ldap_account": LDAPAccountResponse,
+    "storage_container": StorageContainerResponse,
+    "storage_container_destination": StorageContainerDestinationResponse,
+    "replication_group": ReplicationGroupResponse,
+    "discovered_appliance": DiscoveredApplianceResponse,
+    "file_interface": FileInterfaceResponse,
+    "smb_server": SMBServerResponse,
+    "nfs_server": NFSServerResponse,
+    "file_dns": FileDNSResponse,
+    "file_nis": FileNISResponse,
+    "snmp_server": SNMPServerResponse,
 }
 
 
@@ -119,12 +128,22 @@ class FakeResponse(object):
     @staticmethod
     def get_reason(status_code):
         status_code_reason_mapping = {
-            200: 'OK', 201: 'Created', 202: 'Accepted', 204: 'No Content',
-            206: 'Partial Content', 400: 'Bad Request', 401: 'Unauthorized',
-            403: 'Forbidden', 404: 'Not Found', 405: 'Method Not Allowed',
-            416: 'Range Not Satisfiable', 422: 'Unprocessable Entity',
-            500: 'Internal Server Error', 503: 'Service Unavailable'}
-        return status_code_reason_mapping.get(status_code, 'OK')
+            200: "OK",
+            201: "Created",
+            202: "Accepted",
+            204: "No Content",
+            206: "Partial Content",
+            400: "Bad Request",
+            401: "Unauthorized",
+            403: "Forbidden",
+            404: "Not Found",
+            405: "Method Not Allowed",
+            416: "Range Not Satisfiable",
+            422: "Unprocessable Entity",
+            500: "Internal Server Error",
+            503: "Service Unavailable",
+        }
+        return status_code_reason_mapping.get(status_code, "OK")
 
     def json(self):
         return self.data
@@ -155,8 +174,8 @@ def get_factory_obj(method, url, **kwargs):
 
 
 def request(method, url, **kwargs):
-    if kwargs.get('data'):
-        kwargs['data'] = json.loads(kwargs['data'])
+    if kwargs.get("data"):
+        kwargs["data"] = json.loads(kwargs["data"])
     obj = get_factory_obj(method, url, **kwargs)
     api_name = obj.get_api_name()
     status_code, response = obj.execute_api(api_name)

@@ -12,13 +12,13 @@ class UserQuotaResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/file_user_quota'):
+        if self.method == "GET":
+            if self.url.endswith("/file_user_quota"):
                 return self.get_user_quotas
             return self.get_user_quota
-        if self.method == 'POST':
+        if self.method == "POST":
             return self.create_user_quota
-        if self.method == 'PATCH':
+        if self.method == "PATCH":
             return self.modify_user_quota
 
     def execute_api(self, api_name):
@@ -29,7 +29,7 @@ class UserQuotaResponse(Entity):
         return self.status_code, self.data.uq_list
 
     def create_user_quota(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         if set(data.keys()) - set(self.data.uq_valid_param):
             return 400, self.data.uq_error[400]
         return 201, self.data.create_user_quota

@@ -12,7 +12,7 @@ class AdsResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
+        if self.method == "GET":
             return self.get_file_ads
 
     def execute_api(self, api_name):

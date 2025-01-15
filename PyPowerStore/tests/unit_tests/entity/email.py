@@ -12,14 +12,14 @@ class EmailResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/email_notify_destination'):
-                if self.kwargs.get('params', {}).get('email_address'):
+        if self.method == "GET":
+            if self.url.endswith("/email_notify_destination"):
+                if self.kwargs.get("params", {}).get("email_address"):
                     return self.get_destination_email_by_address
                 return self.get_destination_emails
             return self.get_destination_email_details
-        if self.method == 'POST':
-            if self.url.endswith('/test'):
+        if self.method == "POST":
+            if self.url.endswith("/test"):
                 return self.test_destination_email
             return self.create_destination_email
         if self.method == "PATCH":
@@ -44,7 +44,7 @@ class EmailResponse(Entity):
         return 201, self.email_data.email_details_1
 
     def modify_destination_email(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         param = list(data.keys())
         if set(param) - set(self.email_data.email_valid_param_list):
             # invalid param given

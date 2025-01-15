@@ -5,8 +5,8 @@ class TestVcenter(TestBase):
 
     def test_modify_vcenter(self):
         vcenter_details = self.configuration.modify_vcenter(
-            self.vcenter_data.vcenter_id,
-            self.vcenter_data.vasa_provider_credentials)
+            self.vcenter_data.vcenter_id, self.vcenter_data.vasa_provider_credentials
+        )
         self.assertEqual(vcenter_details, self.vcenter_data.vcenter_details)
 
     def test_get_vcenters(self):
@@ -15,16 +15,18 @@ class TestVcenter(TestBase):
 
     def test_get_vcenter_details(self):
         vcenter_details = self.configuration.get_vcenter_details(
-            self.vcenter_data.vcenter_id)
+            self.vcenter_data.vcenter_id
+        )
         self.assertEqual(vcenter_details, self.vcenter_data.vcenter_details)
 
     def test_add_vcenter(self):
         vcenter_id = self.configuration.add_vcenter(
-            self.vcenter_data.add_vcenter_params)
+            self.vcenter_data.add_vcenter_params
+        )
         self.assertEqual(vcenter_id, self.vcenter_data.vcenter_id)
 
     def test_remove_vcenter(self):
-        resp = self.configuration.\
-            remove_vcenter(self.vcenter_data.vcenter_id,
-                           self.vcenter_data.delete_vasa_provider)
+        resp = self.configuration.remove_vcenter(
+            self.vcenter_data.vcenter_id, self.vcenter_data.delete_vasa_provider
+        )
         self.assertIsNone(resp)

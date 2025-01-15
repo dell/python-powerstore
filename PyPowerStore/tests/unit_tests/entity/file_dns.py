@@ -12,15 +12,15 @@ class FileDNSResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/file_dns'):
+        if self.method == "GET":
+            if self.url.endswith("/file_dns"):
                 return self.get_file_dns_list
             return self.get_file_dns_details
-        if self.method == 'PATCH':
+        if self.method == "PATCH":
             return self.modify_file_dns
-        if self.method == 'POST':
+        if self.method == "POST":
             return self.create_file_dns
-        if self.method == 'DELETE':
+        if self.method == "DELETE":
             return self.delete_file_dns
 
     def execute_api(self, api_name):
@@ -31,13 +31,14 @@ class FileDNSResponse(Entity):
         return self.status_code, self.file_dns_data.file_dns_list
 
     def get_file_dns_details(self):
-        if self.url.endswith('/file_dns/{0}'.format(
-           self.file_dns_data.file_dns_id_not_exist)):
+        if self.url.endswith(
+            "/file_dns/{0}".format(self.file_dns_data.file_dns_id_not_exist)
+        ):
             return 404, self.file_dns_data.file_dns_error[404]
         return 200, self.file_dns_data.file_dns_detail
 
     def modify_file_dns(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         param = list(data.keys())
         if set(param) - set(self.file_dns_data.file_dns_valid_param_list):
             # invalid param given

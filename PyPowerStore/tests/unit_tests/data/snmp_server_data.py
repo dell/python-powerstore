@@ -1,4 +1,4 @@
-class SNMPServerData():
+class SNMPServerData:
 
     snmp_server_id = "snmp_server_id_1"
 
@@ -12,7 +12,7 @@ class SNMPServerData():
             "alert_severity": "Info",
             "user_name": None,
             "auth_protocol": None,
-            "privacy_protocol": None
+            "privacy_protocol": None,
         },
         {
             "id": "54261519-c5c2-446a-ad76-5f4ca63581df",
@@ -23,7 +23,7 @@ class SNMPServerData():
             "alert_severity": "Info",
             "user_name": None,
             "auth_protocol": None,
-            "privacy_protocol": None
+            "privacy_protocol": None,
         },
         {
             "id": "789f4c09-9e15-4b44-a9f3-baf716172140",
@@ -34,8 +34,9 @@ class SNMPServerData():
             "alert_severity": "Info",
             "user_name": "test",
             "auth_protocol": "None",
-            "privacy_protocol": "None"
-        }]
+            "privacy_protocol": "None",
+        },
+    ]
 
     snmp_server_detail = {
         "id": "789f4c09-9e15-4b44-a9f3-baf716172140",
@@ -46,30 +47,43 @@ class SNMPServerData():
         "alert_severity": "Info",
         "user_name": "test",
         "auth_protocol": "None",
-        "privacy_protocol": "None"
+        "privacy_protocol": "None",
     }
 
     snmp_server_valid_param_list = [
-        "ip_address", "port", "version", "alert_severity", "trap_community"]
+        "ip_address",
+        "port",
+        "version",
+        "alert_severity",
+        "trap_community",
+    ]
 
     snmp_server_id_not_exist = "5f4a3017-0bad-899e-e1eb-c6f547282e66"
     snmp_server_error = {
-        400: {'messages': [{'arguments': ['Object instance has properties '
-                                          'which are not allowed by the '
-                                          'schema.'],
-                            'code': '0xE04040030001',
-                            'message_l10n': 'Validation failed: Object '
-                                            'instance has properties which '
-                                            'are not allowed by the schema.',
-                            'severity': 'Error'}]},
-        422: {"messages": [{
-            "code": "0xE0F0101D0024",
-            "severity": "Error",
-            "message_l10n": "Server Record Not Found, id: c5fdeb93-42ed-4ec9-988e-daec2974f2fk",
-            "arguments": [
-                "c5fdeb93-42ed-4ec9-988e-daec2974f2fk"
+        400: {
+            "messages": [
+                {
+                    "arguments": [
+                        "Object instance has properties "
+                        "which are not allowed by the "
+                        "schema."
+                    ],
+                    "code": "0xE04040030001",
+                    "message_l10n": "Validation failed: Object "
+                    "instance has properties which "
+                    "are not allowed by the schema.",
+                    "severity": "Error",
+                }
             ]
-        }
-        ]
-        }
+        },
+        422: {
+            "messages": [
+                {
+                    "code": "0xE0F0101D0024",
+                    "severity": "Error",
+                    "message_l10n": "Server Record Not Found, id: c5fdeb93-42ed-4ec9-988e-daec2974f2fk",
+                    "arguments": ["c5fdeb93-42ed-4ec9-988e-daec2974f2fk"],
+                }
+            ]
+        },
     }

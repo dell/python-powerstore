@@ -12,8 +12,8 @@ class VirtualVolumeResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/virtual_volume'):
+        if self.method == "GET":
+            if self.url.endswith("/virtual_volume"):
                 return self.get_virtual_volumes
 
     def execute_api(self, api_name):

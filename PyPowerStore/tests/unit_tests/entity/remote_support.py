@@ -12,12 +12,12 @@ class RemoteSupportResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/remote_support'):
+        if self.method == "GET":
+            if self.url.endswith("/remote_support"):
                 return self.get_remote_support_configs
             return self.get_remote_support_details
-        if self.method == 'POST':
-            if self.url.endswith('/verify'):
+        if self.method == "POST":
+            if self.url.endswith("/verify"):
                 return self.verify_remote_support_config
             return self.send_test_remote_support_config
         if self.method == "PATCH":
@@ -34,10 +34,9 @@ class RemoteSupportResponse(Entity):
         return self.status_code, self.remote_support_data.remote_support_details
 
     def modify_remote_support_details(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         param = list(data.keys())
-        if set(param) - \
-                set(self.remote_support_data.remote_support_valid_param_list):
+        if set(param) - set(self.remote_support_data.remote_support_valid_param_list):
             # invalid param given
             return 400, self.remote_support_data.remote_support_error[400]
         return 204, None

@@ -12,15 +12,15 @@ class NFSServerResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/nfs_server'):
+        if self.method == "GET":
+            if self.url.endswith("/nfs_server"):
                 return self.get_nfs_server_list
             return self.get_nfs_server_details
-        if self.method == 'PATCH':
+        if self.method == "PATCH":
             return self.modify_nfs_server
-        if self.method == 'POST':
+        if self.method == "POST":
             return self.create_nfs_server
-        if self.method == 'DELETE':
+        if self.method == "DELETE":
             return self.delete_nfs_server
 
     def execute_api(self, api_name):
@@ -31,13 +31,14 @@ class NFSServerResponse(Entity):
         return self.status_code, self.nfs_server_data.nfs_server_list
 
     def get_nfs_server_details(self):
-        if self.url.endswith('/nfs_server/{0}'.format(
-           self.nfs_server_data.nfs_server_id_not_exist)):
+        if self.url.endswith(
+            "/nfs_server/{0}".format(self.nfs_server_data.nfs_server_id_not_exist)
+        ):
             return 404, self.nfs_server_data.nfs_server_error[404]
         return 200, self.nfs_server_data.nfs_server_detail
 
     def modify_nfs_server(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         param = list(data.keys())
         if set(param) - set(self.nfs_server_data.nfs_server_valid_param_list):
             # invalid param given

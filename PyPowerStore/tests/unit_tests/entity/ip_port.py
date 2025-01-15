@@ -12,7 +12,7 @@ class IPPortResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
+        if self.method == "GET":
             return self.get_ip_port_details
 
     def execute_api(self, api_name):

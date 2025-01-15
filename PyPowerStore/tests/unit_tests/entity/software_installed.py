@@ -12,8 +12,8 @@ class SoftwareResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/software_installed'):
+        if self.method == "GET":
+            if self.url.endswith("/software_installed"):
                 return self.get_softwares
             return self.get_software_details
 

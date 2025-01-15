@@ -12,8 +12,8 @@ class NtpResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/ntp'):
+        if self.method == "GET":
+            if self.url.endswith("/ntp"):
                 return self.get_ntp_list
             return self.get_ntp_details
         if self.method == "PATCH":
@@ -30,7 +30,7 @@ class NtpResponse(Entity):
         return self.status_code, self.ntp_data.ntp_details
 
     def modify_ntp_details(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         param = list(data.keys())
         if set(param) - set(self.ntp_data.ntp_valid_param_list):
             # invalid param given

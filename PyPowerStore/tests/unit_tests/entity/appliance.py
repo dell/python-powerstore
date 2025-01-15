@@ -12,9 +12,9 @@ class ApplianceResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/appliance'):
-                if self.kwargs.get('params', {}).get('name'):
+        if self.method == "GET":
+            if self.url.endswith("/appliance"):
+                if self.kwargs.get("params", {}).get("name"):
                     return self.get_appliance_by_name
                 return self.get_appliances
             return self.get_appliance_details
@@ -27,8 +27,9 @@ class ApplianceResponse(Entity):
         return self.status_code, self.data.appliance_list
 
     def get_appliance_details(self):
-        if self.url.endswith('/appliance/{0}'.format(
-           self.data.appliance_does_not_exist)):
+        if self.url.endswith(
+            "/appliance/{0}".format(self.data.appliance_does_not_exist)
+        ):
             return 404, self.data.appliance_error[404]
         return self.status_code, self.data.appliance_details_1
 

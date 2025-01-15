@@ -12,17 +12,17 @@ class LocalUserResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/local_user'):
-                if self.kwargs.get('params', {}).get('name'):
+        if self.method == "GET":
+            if self.url.endswith("/local_user"):
+                if self.kwargs.get("params", {}).get("name"):
                     return self.get_local_user_by_name
                 return self.get_local_users
             return self.get_local_user_details
-        if self.method == 'PATCH':
+        if self.method == "PATCH":
             return self.modify_local_user
-        if self.method == 'POST':
+        if self.method == "POST":
             return self.create_local_user
-        if self.method == 'DELETE':
+        if self.method == "DELETE":
             return self.delete_local_user
 
     def execute_api(self, api_name):
@@ -33,8 +33,9 @@ class LocalUserResponse(Entity):
         return self.status_code, self.data.local_user_list
 
     def get_local_user_details(self):
-        if self.url.endswith('/local_user/{0}'.format(
-           self.data.local_user_does_not_exist)):
+        if self.url.endswith(
+            "/local_user/{0}".format(self.data.local_user_does_not_exist)
+        ):
             return 404, self.data.local_user_error[404]
         return self.status_code, self.data.local_user_details
 
@@ -42,7 +43,7 @@ class LocalUserResponse(Entity):
         return self.status_code, self.data.local_user_details
 
     def modify_local_user(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         param = list(data.keys())
         if set(param) - set(self.data.local_user_valid_param_list):
             # invalid param given

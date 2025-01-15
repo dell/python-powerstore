@@ -13,18 +13,19 @@ class SMBShareResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/smb_share'):
-                if self.kwargs.get('params', {}).get('select') == \
-                   constants.SELECT_ALL_SMB_SHARE.get('select'):
+        if self.method == "GET":
+            if self.url.endswith("/smb_share"):
+                if self.kwargs.get("params", {}).get(
+                    "select"
+                ) == constants.SELECT_ALL_SMB_SHARE.get("select"):
                     return self.get_smb_detail
                 return self.get_smbshares
             return self.get_smb_detail
-        if self.method == 'POST':
+        if self.method == "POST":
             return self.create_smb
-        if self.method == 'PATCH':
+        if self.method == "PATCH":
             return self.modify_smb
-        if self.method == 'DELETE':
+        if self.method == "DELETE":
             return self.delete_smb
 
     def execute_api(self, api_name):
@@ -44,7 +45,6 @@ class SMBShareResponse(Entity):
         return 204, None
 
     def delete_smb(self):
-        if self.url.endswith('/smb_share/{0}'.format(
-           self.data.invalid_smb_id)):
+        if self.url.endswith("/smb_share/{0}".format(self.data.invalid_smb_id)):
             return 404, self.data.smb_error[404]
         return 204, None

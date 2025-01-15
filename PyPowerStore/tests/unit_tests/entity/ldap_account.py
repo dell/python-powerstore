@@ -12,11 +12,11 @@ class LDAPAccountResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/ldap_account'):
+        if self.method == "GET":
+            if self.url.endswith("/ldap_account"):
                 return self.get_ldap_account_list
             return self.get_ldap_account_details
-        if self.method == 'POST':
+        if self.method == "POST":
             return self.create_ldap_account
         if self.method == "PATCH":
             return self.modify_ldap_account_details

@@ -12,9 +12,9 @@ class PolicyResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/policy'):
-                if self.kwargs.get('params', {}).get('name'):
+        if self.method == "GET":
+            if self.url.endswith("/policy"):
+                if self.kwargs.get("params", {}).get("name"):
                     return self.get_protection_policy_by_name
                 return self.get_policies
             return self.get_protection_policy_details
@@ -42,13 +42,17 @@ class PolicyResponse(Entity):
         return 201, self.data.protection_policy1
 
     def modify_protection_policy(self):
-        if 'add_snapshot_rule_ids' in self.kwargs['data'] and\
-                self.kwargs['data']['add_snapshot_rule_ids'][0] == \
-                self.data.invalid_sr_id:
+        if (
+            "add_snapshot_rule_ids" in self.kwargs["data"]
+            and self.kwargs["data"]["add_snapshot_rule_ids"][0]
+            == self.data.invalid_sr_id
+        ):
             return 404, self.data.add_invalid_sr_error[404]
-        if 'remove_snapshot_rule_ids' in self.kwargs['data'] and\
-                self.kwargs['data']['remove_snapshot_rule_ids'][0] == \
-                self.data.invalid_sr_id:
+        if (
+            "remove_snapshot_rule_ids" in self.kwargs["data"]
+            and self.kwargs["data"]["remove_snapshot_rule_ids"][0]
+            == self.data.invalid_sr_id
+        ):
             return 404, self.data.remove_invalid_sr_error[404]
         return 204, self.data.protection_policy1_modified
 
