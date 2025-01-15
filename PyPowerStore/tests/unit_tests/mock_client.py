@@ -1,7 +1,7 @@
 import base64
 import json
 
-import PyPowerStore.tests.unit_tests.myrequests as myrequests
+from PyPowerStore.tests.unit_tests import myrequests
 from PyPowerStore.utils import constants
 
 # from myrequests.exceptions import SSLError
@@ -232,23 +232,6 @@ class MockClient:
                         str(ex), http_method, url, payload, querystring
                     )
                 )
-                raise PowerStoreException(PowerStoreException.VALUE_ERROR, error_msg)
+                raise PowerStoreException(PowerStoreException.VALUE_ERROR, error_msg) from ex
         except Exception:
             raise
-        """
-        except socket.error as exception:
-            raise PowerStoreException(PowerStoreException.SOCKET_ERR,
-                                      str(exception))
-        except SSLError as exception:
-            raise PowerStoreException(PowerStoreException.SSL_ERROR,
-                                      str(exception))
-        except ConnectionError as exception:
-            raise PowerStoreException(PowerStoreException.CONNECTION_ERROR,
-                                      str(exception))
-        except TooManyRedirects as exception:
-            raise PowerStoreException(
-                PowerStoreException.TOO_MANY_REDIRECTS_ERROR, str(exception))
-        except Timeout as exception:
-            raise PowerStoreException(PowerStoreException.TIMEOUT_ERROR,
-                                      str(exception))
-        """

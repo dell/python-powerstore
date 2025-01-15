@@ -428,20 +428,20 @@ class Client:
                 raise PowerStoreException(PowerStoreException.VALUE_ERROR, error_msg)
         except SSLError as exception:
             LOG.error(str(exception))
-            raise PowerStoreException(PowerStoreException.SSL_ERROR, str(exception))
+            raise PowerStoreException(PowerStoreException.SSL_ERROR, str(exception)) from exception
         except ConnectionError as exception:
             LOG.error(str(exception))
             raise PowerStoreException(
-                PowerStoreException.CONNECTION_ERROR, str(exception)
+                PowerStoreException.CONNECTION_ERROR, str(exception) from exception
             )
         except TooManyRedirects as exception:
             LOG.error(str(exception))
             raise PowerStoreException(
-                PowerStoreException.TOO_MANY_REDIRECTS_ERROR, str(exception)
+                PowerStoreException.TOO_MANY_REDIRECTS_ERROR, str(exception) from exception
             )
         except Timeout as exception:
             LOG.error(str(exception))
-            raise PowerStoreException(PowerStoreException.TIMEOUT_ERROR, str(exception))
+            raise PowerStoreException(PowerStoreException.TIMEOUT_ERROR, str(exception)) from exception
         except socket.error as exception:
             LOG.error(str(exception))
-            raise PowerStoreException(PowerStoreException.SOCKET_ERR, str(exception))
+            raise PowerStoreException(PowerStoreException.SOCKET_ERR, str(exception)) from exception

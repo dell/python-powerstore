@@ -679,7 +679,7 @@ REFRESH_FILESYSTEM_URL = "https://{0}/api/rest/file_system/{1}/refresh"
 RESTORE_FILESYSTEM_URL = "https://{0}/api/rest/file_system/{1}/restore"
 
 MODIFY_FILESYSTEM_URL = GET_FILESYSTEM_DETAILS_URL
-CREATE_FILESYSTEM_SNAPSHOT_URL = "https://{0}/api/rest/file_system/{1}/" "snapshot"
+CREATE_FILESYSTEM_SNAPSHOT_URL = "https://{0}/api/rest/file_system/{1}/snapshot"
 GET_SNAPSHOTS_FILESYSTEM_URL = GET_FILE_SYSTEM_LIST_URL
 
 # Network endpoints

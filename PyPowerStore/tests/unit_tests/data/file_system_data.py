@@ -78,7 +78,7 @@ class FileSystemData:
             "messages": [
                 {
                     "arguments": [
-                        "[File system delete rejected due " "to existing snap(s).]"
+                        "[File system delete rejected due to existing snap(s).]"
                     ],
                     "code": "0xE08010080003",
                     "message_l10n": "Deletion of File System failed "
