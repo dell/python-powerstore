@@ -569,7 +569,8 @@ class Provisioning:
         :rtype: None
         """
         LOG.info(
-            f"Adding protection policy: '{protection_policy_id}' for volume: '{volume_id}'",
+            "Adding protection policy: '%s' for volume: '%s'",
+                protection_policy_id, volume_id
         )
         payload = self._prepare_modify_volume_payload(
             protection_policy_id=protection_policy_id,
@@ -686,7 +687,8 @@ class Provisioning:
         :type host_group_id: str
         """
         LOG.info(
-            f"Unmapping volume: '{volume_id}' from host group: '{host_group_id}'",
+            "Unmapping volume: '%s' from host group: '%s'",
+                volume_id, host_group_id
         )
         payload = self._prepare_unmap_vol_from_host_grp_payload(host_group_id)
         self.client.request(
@@ -714,7 +716,8 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting volumes with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting volumes with filter: '%s' and all_pages: %s", 
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.SELECT_ID_AND_NAME, filter_dict,
@@ -806,7 +809,8 @@ class Provisioning:
         :rtype: str
         """
         LOG.info(
-            f"Configuring the metro volume {volume_id} to remote system {remote_system_id}",
+            "Configuring the metro volume %s to remote system %s",
+                volume_id, remote_system_id
         )
 
         if helpers.is_foot_hill_prime_or_higher():
@@ -861,7 +865,8 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting hosts with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting hosts with filter: '%s' and all_pages: %s", 
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.SELECT_ID_AND_NAME, filter_dict,
@@ -894,7 +899,8 @@ class Provisioning:
         :rtype: dict
         """
         LOG.info(
-            f"Creating host with name: '{name}' os_type: '{os_type}' initiators: '{initiators}'",
+            "Creating host with name: '%s' os_type: '%s' initiators: '%s'",
+                name, os_type, initiators
         )
         payload = self._prepare_create_host_payload(
             name, description, os_type, initiators, host_connectivity,
@@ -1103,7 +1109,8 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting hostgroup with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting hostgroup with filter: '%s' and all_pages: %s", 
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.SELECT_ID_AND_NAME, filter_dict,
@@ -1354,7 +1361,8 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting volumegroups with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting volumegroups with filter: '%s' and all_pages: %s", 
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.SELECT_ID_AND_NAME, filter_dict,
@@ -1666,7 +1674,8 @@ class Provisioning:
         :rtype: None
         """
         LOG.info(
-            f"Adding volumes: '{volume_ids}' to volumegroup: '{volume_group_id}'",
+            "Adding volumes: '%s' to volumegroup: '%s'",
+                volume_ids, volume_group_id
         )
         payload = self._prepare_add_members_to_volume_group_payload(
             volume_ids, force_internal,
@@ -1702,7 +1711,8 @@ class Provisioning:
         :rtype None or dict
         """
         LOG.info(
-            f"Removing volumes: '{volume_ids}' from volumegroup: '{volume_group_id}'",
+            "Removing volumes: '%s' from volumegroup: '%s'",
+                volume_ids, volume_group_id
         )
         payload = self._prepare_remove_members_from_volume_group_payload(
             volume_ids, force_internal,
@@ -1738,7 +1748,8 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting nodes with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting nodes with filter: '%s' and all_pages: %s", 
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.SELECT_ID_AND_NAME, filter_dict,
@@ -1799,7 +1810,8 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting nasservers with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting nasservers with filter: '%s' and all_pages: %s", 
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.SELECT_ID_AND_NAME, filter_dict,
@@ -1936,7 +1948,8 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting filesystems with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting filesystems with filter: '%s' and all_pages: %s", 
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.SELECT_ID_AND_NAME, filter_dict,
@@ -2112,7 +2125,8 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting nfsexports with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting nfsexports with filter: '%s' and all_pages: %s", 
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.SELECT_ID_AND_NAME, filter_dict,
@@ -2199,7 +2213,8 @@ class Provisioning:
         :rtype: None
         """
         LOG.info(
-            f"Modifying nfsexport: '{nfs_export_id}' with params: '{nfs_other_params}'",
+            "Modifying nfsexport: '%s' with params: '%s'",
+                nfs_export_id, nfs_other_params
         )
         return self.client.request(
             constants.PATCH,
@@ -2237,7 +2252,8 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting smbshares with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting smbshares with filter: '%s' and all_pages: %s", 
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.SELECT_ALL_SMB_SHARE, filter_dict,
@@ -2312,7 +2328,7 @@ class Provisioning:
             payload=payload,
         )
 
-    def update_smb_share(self, id, **kw_smb_other_params):
+    def update_smb_share(self, idd, **kw_smb_other_params):
         """Modify a SMB Share.
 
         :param id: The ID of SMB Share.
@@ -2321,11 +2337,12 @@ class Provisioning:
         :rtype: None
         """
         LOG.info(
-            f"Modifying smbshare: '{id}' with params: '{kw_smb_other_params}'",
+            "Modifying smbshare: '%s' with params: '%s'",
+                idd, kw_smb_other_params
         )
         return self.client.request(
             constants.PATCH,
-            constants.MODIFY_SMB_SHARE_URL.format(self.server_ip, id),
+            constants.MODIFY_SMB_SHARE_URL.format(self.server_ip, idd),
             payload=kw_smb_other_params,
         )
 
@@ -2401,7 +2418,8 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting tree quotas with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting tree quotas with filter: '%s' and all_pages: %s", 
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.SELECT_ID_AND_PATH, filter_dict,
@@ -2427,7 +2445,8 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting user quotas with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting user quotas with filter: '%s' and all_pages: %s", 
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(filter_dict)
         LOG.info( "Querystring: '%s'", querystring)
@@ -2463,7 +2482,7 @@ class Provisioning:
                 querystring=constants.SELECT_ALL_TREE_QUOTA,
             )
         LOG.info(
-            f"Getting tree quota details by path: '{tree_quota_id}' and fs_id: '{file_system_id}'",
+            "Getting tree quota details by path: '{tree_quota_id}' and fs_id: '{file_system_id}'",
         )
         return self.client.request(
             constants.GET,
@@ -2563,7 +2582,8 @@ class Provisioning:
         :rtype: None
         """
         LOG.info(
-            f"Modifying tree quota: '{tree_quota_id}' with params: '{tree_quota_params}'",
+            "Modifying tree quota: '%s' with params: '%s'",
+                tree_quota_id, tree_quota_params
         )
         return self.client.request(
             constants.PATCH,
@@ -2582,7 +2602,8 @@ class Provisioning:
         :rtype: None
         """
         LOG.info(
-            f"Modifying user quota: '{user_quota_id}' with params: '{user_quota_params}'",
+            "Modifying user quota: '%s' with params: '%s'",
+                user_quota_id, user_quota_params
         )
         return self.client.request(
             constants.PATCH,
@@ -2640,7 +2661,8 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting active directories with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting active directories with filter: '%s' and all_pages: %s", 
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(filter_dict)
         LOG.info( "Querystring: '%s'", querystring)
@@ -2668,7 +2690,8 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting ldap with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting ldap with filter: '%s' and all_pages: %s", 
+                    filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(filter_dict)
         LOG.info( "Querystring: '%s'", querystring)
