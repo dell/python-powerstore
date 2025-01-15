@@ -1,4 +1,4 @@
-class CommonData(object):
+class CommonData:
     size_used = 1623195648
     size_total = 5368709120
     uuid = "5f474e2d-1a45-5980-5175-9245647c527e"

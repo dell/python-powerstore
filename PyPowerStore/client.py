@@ -426,9 +426,6 @@ class Client:
                 )
                 LOG.error(error_msg)
                 raise PowerStoreException(PowerStoreException.VALUE_ERROR, error_msg)
-        except socket.error as exception:
-            LOG.error(str(exception))
-            raise PowerStoreException(PowerStoreException.SOCKET_ERR, str(exception))
         except SSLError as exception:
             LOG.error(str(exception))
             raise PowerStoreException(PowerStoreException.SSL_ERROR, str(exception))
@@ -445,3 +442,6 @@ class Client:
         except Timeout as exception:
             LOG.error(str(exception))
             raise PowerStoreException(PowerStoreException.TIMEOUT_ERROR, str(exception))
+        except socket.error as exception:
+            LOG.error(str(exception))
+            raise PowerStoreException(PowerStoreException.SOCKET_ERR, str(exception))

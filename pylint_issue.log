@@ -1,0 +1,41 @@
+C0116: Missing function or method docstring (missing-function-docstring) 612 skip
+C0209: Formatting a regular string which could be an f-string (consider-using-f-string) 358 Change
+W1201: Use lazy % formatting in logging functions (logging-not-lazy) 301 Change
+C0114: Missing module docstring (missing-module-docstring) 135 skip
+C0115: Missing class docstring (missing-class-docstring) 133 skip
+R0801: Similar lines in 2 files (duplicate-code) 93 skip
+R1710: Either all return statements in a function should return an expression, or none of them should. (inconsistent-return-statements) 58 Change
+W0221: Number of parameters was <some data> method (arguments-differ) 51
+R0913: Too many arguments (9/5) (too-many-arguments) 34
+R0917: Too many positional arguments (9/5) (too-many-positional-arguments) 34
+C0301: Line too long   36 Change
+R0903: Too few public methods (1/2) (too-few-public-methods) 29
+W0719: Raising too general exception: Exception (broad-exception-raised) 29
+C0103: Constant name (invalid-name) 15
+E1111: Assigning result of a function call, where the function has no return (assignment-from-no-return) 12
+W0603: Using the global statement (global-statement) 11
+W0511: TODO: kept LOG as global for now will improve it to avoid overriding (fixme) 11
+E1128: Assigning result of a function call, where the function returns None (assignment-from-none) 2
+R0902: Too many instance attributes (9/7) (too-many-instance-attributes) 3
+C0302: Too many lines in module (too-many-lines) 3
+E0701: Bad except clauses order <some_data> (bad-except-order) 4
+W0622: Redefining built-in 'id' (redefined-builtin) 3
+W1203: Use lazy % formatting in logging functions (logging-fstring-interpolation) 1
+W1202: Use lazy % formatting in logging functions (logging-format-interpolation) 1
+E0401: Unable to import 'pytest' (import-error) 2
+R1725: Consider using Python 3 style super() without arguments (super-with-arguments) 1
+R0904: Too many public methods (22/20) (too-many-public-methods) 5
+E1101: Instance of 'CommonData' has no 'software_details_1' member (no-member) 2
+R0911: Too many return statements (too-many-return-statements) 7
+W1404: Implicit string concatenation found in list (implicit-str-concat) 3
+R0205: (useless-object-inheritance) 5
+R0402: Use 'from PyPowerStore.tests.unit_tests import myrequests' instead (consider-using-from-import) 1
+W0707: Consider explicitly re-raising using (raise-missing-from) 7
+R0912: Too many branches (21/12) (too-many-branches) 2
+R1702: Too many nested blocks (6/5) (too-many-nested-blocks) 2
+R1735: Consider using '{"delete_snaps": delete_snaps}' instead of a call to 'dict'. (use-dict-literal) 1
+R1725: Consider using Python 3 style super() without arguments (super-with-arguments) 1
+W0613: Unused argument 'enable_log' (unused-argument) 1
+W0706: The except handler raises immediately (try-except-raise) 1
+W0105: String statement has no effect (pointless-string-statement) 1
+E0606: Possibly using variable 'klass' before assignment (possibly-used-before-assignment) 1

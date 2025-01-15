@@ -51,11 +51,10 @@ class FileDNS:
         :rtype: list of dict
         """
         LOG.info(
-            "Getting file DNSs with filter: '%s' and all_pages: %s"
-            % (filter_dict, all_pages)
+            f"Getting file DNSs with filter: '{filter_dict}' and all_pages: {all_pages}"
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_FILE_DNS, filter_dict)
-        LOG.info("Querystring: '%s'" % querystring)
+        LOG.info(f"Querystring: '{querystring}'")
         return self.file_dns_client.request(
             constants.GET,
             GET_FILE_DNS_LIST_URL.format(self.server_ip),
@@ -74,7 +73,7 @@ class FileDNS:
         """
         querystring = SELECT_ALL_FILE_DNS
 
-        LOG.info("Getting file DNS details by ID: '%s'" % file_dns_id)
+        LOG.info(f"Getting file DNS details by ID: '{file_dns_id}'")
         return self.file_dns_client.request(
             constants.GET,
             GET_FILE_DNS_DETAILS_URL.format(self.server_ip, file_dns_id),
@@ -92,7 +91,7 @@ class FileDNS:
         """
         querystring = SELECT_ALL_FILE_DNS
 
-        LOG.info("Getting file DNS details by nas server id: '%s'" % nas_server_id)
+        LOG.info(f"Getting file DNS details by nas server id: '{nas_server_id}'")
         return self.file_dns_client.request(
             constants.GET,
             GET_FILE_DNS_DETAILS_BY_NAS_SERVER_URL.format(self.server_ip),
@@ -126,7 +125,7 @@ class FileDNS:
         :return: None if success else raise exception
         :rtype: None
         """
-        LOG.info("Modifying file DNS: '%s'" % file_dns_id)
+        LOG.info(f"Modifying file DNS: '{file_dns_id}'")
         if modify_parameters:
             payload = {}
             for key, value in modify_parameters.items():
@@ -150,7 +149,7 @@ class FileDNS:
         :return: None on success else raise exception
         :rtype: None
         """
-        LOG.info("Deleting file DNS: '%s'" % file_dns_id)
+        LOG.info(f"Deleting file DNS: '{file_dns_id}'")
         return self.file_dns_client.request(
             constants.DELETE, DELETE_FILE_DNS_URL.format(self.server_ip, file_dns_id)
         )

@@ -13,7 +13,7 @@ from PyPowerStore.utils.exception import PowerStoreException
 VALID_CODES = [200, 201, 202, 204, 206, 207]
 
 
-class MockClient(object):
+class MockClient:
     def __init__(
         self,
         username,

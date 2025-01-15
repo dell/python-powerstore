@@ -1,4 +1,4 @@
-class FileSystemData(object):
+class FileSystemData:
     # FileSystem
     fs_id1 = "5efc3ec5-ea0d-58d9-e21b-42079d64ae37"
     fs_name1 = "my_fs1"

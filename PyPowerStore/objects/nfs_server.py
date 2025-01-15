@@ -54,11 +54,10 @@ class NFSServer:
         :rtype: list of dict
         """
         LOG.info(
-            "Getting NFS servers with filter: '%s' and all_pages: %s"
-            % (filter_dict, all_pages)
+            f"Getting NFS servers with filter: '{filter_dict}' and all_pages: {all_pages}"
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_NFS_SERVER, filter_dict)
-        LOG.info("Querystring: '%s'" % querystring)
+        LOG.info(f"Querystring: '{querystring}'")
         return self.nfs_server_client.request(
             constants.GET,
             GET_NFS_SERVER_LIST_URL.format(self.server_ip),
@@ -77,7 +76,7 @@ class NFSServer:
         """
         querystring = SELECT_ALL_NFS_SERVER
 
-        LOG.info("Getting NFS server details by ID: '%s'" % nfs_server_id)
+        LOG.info(f"Getting NFS server details by ID: '{nfs_server_id}'")
         return self.nfs_server_client.request(
             constants.GET,
             GET_NFS_SERVER_DETAILS_URL.format(self.server_ip, nfs_server_id),
@@ -95,7 +94,7 @@ class NFSServer:
         """
         querystring = SELECT_ALL_NFS_SERVER
 
-        LOG.info("Getting NFS server details by nas server id: '%s'" % nas_server_id)
+        LOG.info(f"Getting NFS server details by nas server id: '{nas_server_id}'")
         return self.nfs_server_client.request(
             constants.GET,
             GET_NFS_SERVER_DETAILS_BY_NAS_SERVER_URL.format(self.server_ip),
@@ -131,7 +130,7 @@ class NFSServer:
         :return: None if success else raise exception
         :rtype: None
         """
-        LOG.info("Modifying NFS server: '%s'" % nfs_server_id)
+        LOG.info(f"Modifying NFS server: '{nfs_server_id}'")
         if modify_parameters:
             payload = {}
             for key, value in modify_parameters.items():
@@ -155,7 +154,7 @@ class NFSServer:
         :return: None on success else raise exception
         :rtype: None
         """
-        LOG.info("Deleting NFS server: '%s'" % nfs_server_id)
+        LOG.info(f"Deleting NFS server: '{nfs_server_id}'")
         return self.nfs_server_client.request(
             constants.DELETE,
             DELETE_NFS_SERVER_URL.format(self.server_ip, nfs_server_id),

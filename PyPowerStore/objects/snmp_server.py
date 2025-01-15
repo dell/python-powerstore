@@ -52,11 +52,10 @@ class SNMPServer:
         :rtype: list of dict
         """
         LOG.info(
-            "Getting SNMP servers with filter: '%s' and all_pages: %s"
-            % (filter_dict, all_pages)
+            f"Getting SNMP servers with filter: '{filter_dict}' and all_pages: {all_pages}"
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_SNMP, filter_dict)
-        LOG.info("Querystring: '%s'" % querystring)
+        LOG.info(f"Querystring: '{querystring}'")
         return self.snmp_server_client.request(
             constants.GET,
             GET_SNMP_LIST_URL.format(self.server_ip),
@@ -75,7 +74,7 @@ class SNMPServer:
         """
         querystring = SELECT_ALL_SNMP
 
-        LOG.info("Getting SNMP server details by ID: '%s'" % snmp_server_id)
+        LOG.info(f"Getting SNMP server details by ID: '{snmp_server_id}'")
         return self.snmp_server_client.request(
             constants.GET,
             GET_SNMP_DETAILS_URL.format(self.server_ip, snmp_server_id),
@@ -106,7 +105,7 @@ class SNMPServer:
         :return: None if success else raise exception
         :rtype: None
         """
-        LOG.info("Modifying SNMP server: '%s'" % snmp_server_id)
+        LOG.info(f"Modifying SNMP server: '{snmp_server_id}'")
         if modify_parameters:
             payload = {}
             for key, value in modify_parameters.items():
@@ -130,7 +129,7 @@ class SNMPServer:
         :return: None on success else raise exception
         :rtype: None
         """
-        LOG.info("Deleting SNMP server: '%s'" % snmp_server_id)
+        LOG.info(f"Deleting SNMP server: '{snmp_server_id}'")
         return self.snmp_server_client.request(
             constants.DELETE, DELETE_SNMP_URL.format(self.server_ip, snmp_server_id)
         )

@@ -119,7 +119,7 @@ ENTITY_CLASS_MAPPING = {
 }
 
 
-class FakeResponse(object):
+class FakeResponse:
     def __init__(self, data, status_code):
         self.headers = {}
         self.reason = self.get_reason(status_code)

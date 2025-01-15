@@ -1,4 +1,4 @@
-class PowerStoreConfig(object):
+class PowerStoreConfig:
 
     username = "user"
     password = "pass"

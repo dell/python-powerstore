@@ -1,0 +1,10 @@
+[MESSAGES CONTROL]
+disable=
+    missing-function-docstring,
+    missing-module-docstring,
+    missing-class-docstring,
+    duplicate-code,
+    inconsistent-return-statements,
+    arguments-differ,
+    too-many-arguments,
+    too-many-positional-arguments

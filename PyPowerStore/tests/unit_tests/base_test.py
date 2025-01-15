@@ -45,7 +45,7 @@ from PyPowerStore.tests.unit_tests.mock_client import MockClient
 
 class TestBase(TestCase):
     def setUp(self):
-        super(TestBase, self).setUp()
+        super().setUp()
         self.data = CommonData()
         self.certificate_data = CertificateData()
         self.security_config_data = SecurityConfigData()

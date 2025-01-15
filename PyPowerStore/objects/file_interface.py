@@ -54,13 +54,12 @@ class FileInterface:
         :rtype: list of dict
         """
         LOG.info(
-            "Getting file interfaces with filter: '%s' and all_pages: %s"
-            % (filter_dict, all_pages)
+            f"Getting file interfaces with filter: '{filter_dict}' and all_pages: {all_pages}"
         )
         querystring = helpers.prepare_querystring(
             SELECT_ALL_FILE_INTERFACE, filter_dict
         )
-        LOG.info("Querystring: '%s'" % querystring)
+        LOG.info(f"Querystring: '{querystring}'")
         return self.file_interface_client.request(
             constants.GET,
             GET_FILE_INTERFACE_LIST_URL.format(self.server_ip),
@@ -79,7 +78,7 @@ class FileInterface:
         """
         querystring = SELECT_ALL_FILE_INTERFACE
 
-        LOG.info("Getting file interface details by ID: '%s'" % file_interface_id)
+        LOG.info(f"Getting file interface details by ID: '{file_interface_id}'")
         return self.file_interface_client.request(
             constants.GET,
             GET_FILE_INTERFACE_DETAILS_URL.format(self.server_ip, file_interface_id),
@@ -98,7 +97,7 @@ class FileInterface:
         querystring = SELECT_ALL_FILE_INTERFACE
 
         LOG.info(
-            "Getting file interface details by nas server id: '%s'" % nas_server_id
+            f"Getting file interface details by nas server id: '{nas_server_id}'"
         )
         return self.file_interface_client.request(
             constants.GET,
@@ -136,7 +135,7 @@ class FileInterface:
         :return: None if success else raise exception
         :rtype: None
         """
-        LOG.info("Modifying file interface: '%s'" % file_interface_id)
+        LOG.info(f"Modifying file interface: '{file_interface_id}'")
         if modify_parameters:
             payload = {}
             for key, value in modify_parameters.items():
@@ -160,7 +159,7 @@ class FileInterface:
         :return: None on success else raise exception
         :rtype: None
         """
-        LOG.info("Deleting file interface: '%s'" % file_interface_id)
+        LOG.info(f"Deleting file interface: '{file_interface_id}'")
         return self.file_interface_client.request(
             constants.DELETE,
             DELETE_FILE_INTERFACE_URL.format(self.server_ip, file_interface_id),
