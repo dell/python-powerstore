@@ -15,7 +15,7 @@ class CertificateData:
         "is_valid": True,
         "members": [
             {
-                "subject": "C=US+O=Dell+L=Hopkinton+OU=PowerStore+ST=Massachusetts+CN=ReplicationHTTP.PS00d01e1bb312",
+                "subject": "C=US+O=Dell+L=Hopkinton+OU=PowerStore+ST=Massachusetts+CN=ReplicationHTTP.PS00d01e1bb312", # pylint: disable=line-too-long
                 "serial_number": "939c5a1cf39cb49f",
                 "signature_algorithm": "SHA256withRSA",
                 "issuer": "CN=Dell EMC PowerStore CA VYEEMAKP,O=Dell EMC,ST=MA,C=US",

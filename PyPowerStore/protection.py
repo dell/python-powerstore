@@ -530,7 +530,7 @@ class ProtectionFunctions:
                              deleted when this rule is removed. Default: False.
         :type delete_snaps: bool
         """
-        payload = dict(delete_snaps=delete_snaps)
+        payload = {"delete_snaps": delete_snaps}
         LOG.info(
             f"Deleting snapshot_rule: '{snapshot_rule_id}' payload: '{payload}'"
         )

@@ -17,6 +17,8 @@ disable=
     assignment-from-none,
     too-many-instance-attributes,
     too-many-lines,
+    too-many-branches,
+    too-many-nested-blocks,
     redefined-builtin,
     super-with-arguments,
     too-many-public-methods,

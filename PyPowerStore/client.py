@@ -425,20 +425,20 @@ class Client:
                     )
                 )
                 LOG.error(error_msg)
-                raise PowerStoreException(PowerStoreException.VALUE_ERROR, error_msg)
+                raise PowerStoreException(PowerStoreException.VALUE_ERROR, error_msg) from ex
         except SSLError as exception:
             LOG.error(str(exception))
             raise PowerStoreException(PowerStoreException.SSL_ERROR, str(exception)) from exception
         except ConnectionError as exception:
             LOG.error(str(exception))
             raise PowerStoreException(
-                PowerStoreException.CONNECTION_ERROR, str(exception) from exception
-            )
+                PowerStoreException.CONNECTION_ERROR, str(exception)
+            ) from exception
         except TooManyRedirects as exception:
             LOG.error(str(exception))
             raise PowerStoreException(
-                PowerStoreException.TOO_MANY_REDIRECTS_ERROR, str(exception) from exception
-            )
+                PowerStoreException.TOO_MANY_REDIRECTS_ERROR, str(exception)
+            ) from exception
         except Timeout as exception:
             LOG.error(str(exception))
             raise PowerStoreException(PowerStoreException.TIMEOUT_ERROR, str(exception)) from exception
