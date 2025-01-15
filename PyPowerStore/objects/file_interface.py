@@ -56,9 +56,10 @@ class FileInterface:
             f"Getting file interfaces with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(
-            SELECT_ALL_FILE_INTERFACE, filter_dict,
+            SELECT_ALL_FILE_INTERFACE,
+            filter_dict,
         )
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         return self.file_interface_client.request(
             constants.GET,
             GET_FILE_INTERFACE_LIST_URL.format(self.server_ip),
@@ -77,7 +78,7 @@ class FileInterface:
         """
         querystring = SELECT_ALL_FILE_INTERFACE
 
-        LOG.info(f"Getting file interface details by ID: '{file_interface_id}'")
+        LOG.info("Getting file interface details by ID: '%s'", file_interface_id)
         return self.file_interface_client.request(
             constants.GET,
             GET_FILE_INTERFACE_DETAILS_URL.format(self.server_ip, file_interface_id),
@@ -134,7 +135,7 @@ class FileInterface:
         :return: None if success else raise exception
         :rtype: None
         """
-        LOG.info(f"Modifying file interface: '{file_interface_id}'")
+        LOG.info("Modifying file interface: '%s'", file_interface_id)
         if modify_parameters:
             payload = {}
             for key, value in modify_parameters.items():
@@ -158,7 +159,7 @@ class FileInterface:
         :return: None on success else raise exception
         :rtype: None
         """
-        LOG.info(f"Deleting file interface: '{file_interface_id}'")
+        LOG.info("Deleting file interface: '%s'", file_interface_id)
         return self.file_interface_client.request(
             constants.DELETE,
             DELETE_FILE_INTERFACE_URL.format(self.server_ip, file_interface_id),

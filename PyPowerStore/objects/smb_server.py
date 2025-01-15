@@ -55,7 +55,7 @@ class SMBServer:
             f"Getting SMB servers with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_SMB_SERVER, filter_dict)
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         return self.smb_server_client.request(
             constants.GET,
             GET_SMB_SERVER_LIST_URL.format(self.server_ip),
@@ -74,7 +74,7 @@ class SMBServer:
         """
         querystring = SELECT_ALL_SMB_SERVER
 
-        LOG.info(f"Getting SMB server details by ID: '{smb_server_id}'")
+        LOG.info("Getting SMB server details by ID: '%s'", smb_server_id)
         return self.smb_server_client.request(
             constants.GET,
             GET_SMB_SERVER_DETAILS_URL.format(self.server_ip, smb_server_id),
@@ -92,7 +92,7 @@ class SMBServer:
         """
         querystring = SELECT_ALL_SMB_SERVER
 
-        LOG.info(f"Getting SMB server details by nas server id: '{nas_server_id}'")
+        LOG.info("Getting SMB server details by nas server id: '%s'", nas_server_id)
         return self.smb_server_client.request(
             constants.GET,
             GET_SMB_SERVER_DETAILS_BY_NAS_SERVER_URL.format(self.server_ip),
@@ -128,7 +128,7 @@ class SMBServer:
         :return: None if success else raise exception
         :rtype: None
         """
-        LOG.info(f"Modifying SMB server: '{smb_server_id}'")
+        LOG.info("Modifying SMB server: '%s'", smb_server_id)
         if modify_parameters:
             payload = {}
             for key, value in modify_parameters.items():
@@ -152,7 +152,7 @@ class SMBServer:
         :return: None on success else raise exception
         :rtype: None
         """
-        LOG.info(f"Deleting SMB server: '{smb_server_id}'")
+        LOG.info("Deleting SMB server: '%s'", smb_server_id)
         return self.smb_server_client.request(
             constants.DELETE,
             DELETE_SMB_SERVER_URL.format(self.server_ip, smb_server_id),

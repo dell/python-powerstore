@@ -49,7 +49,7 @@ class Configuration:
                 constants.SELECT_ID_AND_NAME, filter_dict,
             )
 
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         return self.config_client.request(
             constants.GET,
             constants.GET_NETWORK_LIST_URL.format(self.server_ip),
@@ -65,7 +65,7 @@ class Configuration:
         :return: Network details
         :rtype: dict
         """
-        LOG.info(f"Getting network details by ID: '{network_id}'")
+        LOG.info("Getting network details by ID: '%s'", network_id)
         querystring = constants.NETWORK_DETAILS_QUERY
 
         if helpers.is_foot_hill_or_higher():
@@ -89,7 +89,7 @@ class Configuration:
         :return: Network details
         :rtype: list[dict]
         """
-        LOG.info(f"Getting network details by name: '{name}'")
+        LOG.info("Getting network details by name: '%s'", name)
 
         NETWORK_DETAILS_QUERY_BY_NAME = {
             "select": "id,name,type,ip_version,vlan_id,prefix_length,"
@@ -143,7 +143,7 @@ class Configuration:
                                 storage network
         :type remove_port_ids: list[str]
         """
-        LOG.info(f"Add/remove IP ports: '{network_id}'")
+        LOG.info("Add/remove IP ports: '%s'", network_id)
         payload = self._prepare_add_remove_network_payload(
             add_port_ids=add_port_ids, remove_port_ids=remove_port_ids,
         )
@@ -168,7 +168,7 @@ class Configuration:
         :return: List of roles
         :rtype: list[dict]
         """
-        LOG.info(f"Getting roles with filter: '{filter_dict}'")
+        LOG.info("Getting roles with filter: '%s'", filter_dict)
         if all_pages:
             raise Exception("Pagination is not supported for roles.")
         if not filter_dict:
@@ -198,7 +198,7 @@ class Configuration:
         :return: Role details
         :rtype: dict
         """
-        LOG.info(f"Getting role details by ID: '{role_id}'")
+        LOG.info("Getting role details by ID: '%s'", role_id)
         return self.config_client.request(
             constants.GET,
             constants.GET_ROLE_DETAILS_URL.format(self.server_ip, role_id),
@@ -213,7 +213,7 @@ class Configuration:
         :return: Role details
         :rtype: dict
         """
-        LOG.info(f"Getting role details by name: '{name}'")
+        LOG.info("Getting role details by name: '%s'", name)
         resp = self.get_roles()
         for role in resp:
             if role["name"] == name:
@@ -235,7 +235,7 @@ class Configuration:
         :return: List of local users
         :rtype: list[dict]
         """
-        LOG.info(f"Getting local users with filter: '{filter_dict}'")
+        LOG.info("Getting local users with filter: '%s'", filter_dict)
         if all_pages:
             raise Exception("Pagination is not supported for local users.")
         if not filter_dict:
@@ -270,7 +270,7 @@ class Configuration:
         :return: local user details
         :rtype: dict
         """
-        LOG.info(f"Getting local user details by user ID: '{user_id}'")
+        LOG.info("Getting local user details by user ID: '%s'", user_id)
         return self.config_client.request(
             constants.GET,
             constants.GET_LOCAL_USER_DETAILS_URL.format(self.server_ip, user_id),
@@ -285,7 +285,7 @@ class Configuration:
         :return: local user details
         :rtype: list[dict]
         """
-        LOG.info(f"Getting local user details by name: '{name}'")
+        LOG.info("Getting local user details by name: '%s'", name)
         resp = self.get_local_users()
 
         for user in resp:
@@ -300,7 +300,7 @@ class Configuration:
         :return: None if success else raise exception
         :rtype: None
         """
-        LOG.info(f"Deleting local user id: '{user_id}'")
+        LOG.info("Deleting local user id: '%s'", user_id)
         return self.config_client.request(
             constants.DELETE,
             constants.DELETE_LOCAL_USER_URL.format(self.server_ip, user_id),
@@ -315,7 +315,7 @@ class Configuration:
         :return: user id if success else raise exception
         :rtype: None
         """
-        LOG.info(f"creating local user name: '{create_params['name']}'")
+        LOG.info("creating local user name: '%s'", create_params['name'])
 
         payload = {}
         if create_params:
@@ -341,7 +341,7 @@ class Configuration:
         :return: local user details
         :rtype : dict
         """
-        LOG.info(f"Modifying local user properties: '{local_user_id}'")
+        LOG.info("Modifying local user properties: '%s'", local_user_id)
 
         if modify_parameters:
             if (
@@ -360,13 +360,13 @@ class Configuration:
                 )
                 del modify_parameters["password"]
                 del modify_parameters["current_password"]
-                LOG.info(f"Modifying passwords: '{payload}'")
+                LOG.info("Modifying passwords: '%s'", payload)
 
             for key, value in modify_parameters.items():
                 if value is not None:
                     payload = {}
                     payload[key] = value
-                    LOG.info(f"Modifying localuser: '{payload}'")
+                    LOG.info("Modifying localuser: '%s'", payload)
                     self.config_client.request(
                         constants.PATCH,
                         constants.MODIFY_LOCAL_USER_URL.format(
@@ -405,7 +405,7 @@ class Configuration:
             }
             querystring = helpers.prepare_querystring(querystring, filter_dict)
 
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         return self.config_client.request(
             constants.GET,
             constants.GET_IP_POOL_LIST_URL.format(self.server_ip),
@@ -434,7 +434,7 @@ class Configuration:
             raise Exception("Pagination is not supported for clusters.")
         if not filter_dict:
             querystring = helpers.prepare_querystring(constants.SELECT_ID_AND_NAME)
-            LOG.info(f"Querystring: '{querystring}'")
+            LOG.info("Querystring: '%s'", querystring)
             return self.config_client.request(
                 constants.GET,
                 constants.GET_CLUSTER_LIST_URL.format(self.server_ip),
@@ -474,7 +474,7 @@ class Configuration:
         :return: Cluster details
         :rtype: dict
         """
-        LOG.info(f"Getting cluster details by ID: '{cluster_id}'")
+        LOG.info("Getting cluster details by ID: '%s'", cluster_id)
         querystring = constants.CLUSTER_DETAILS_QUERY
         if helpers.is_foot_hill_or_higher():
             querystring = {
@@ -497,7 +497,7 @@ class Configuration:
         :return: Cluster details
         :rtype: list[dict]
         """
-        LOG.info(f"Getting cluster details by name: '{name}'")
+        LOG.info("Getting cluster details by name: '%s'", name)
         querystring = constants.CLUSTER_DETAILS_QUERY
         if helpers.is_foot_hill_or_higher():
             querystring = {
@@ -527,7 +527,7 @@ class Configuration:
         :return: Cluster details
         :rtype : dict
         """
-        LOG.info(f"Modifying cluster properties: '{cluster_id}'")
+        LOG.info("Modifying cluster properties: '%s'", cluster_id)
         payload = {}
         if physical_mtu is not None:
             payload["physical_mtu"] = physical_mtu
@@ -656,7 +656,7 @@ class Configuration:
         :return: List of CHAP configurations
         :rtype: list[dict]
         """
-        LOG.info(f"Getting CHAP configurations with filter: '{filter_dict}'")
+        LOG.info("Getting CHAP configurations with filter: '%s'", filter_dict)
         if all_pages:
             raise Exception("Pagination is not supported for CHAP configuration.")
         if not filter_dict:
@@ -692,7 +692,7 @@ class Configuration:
         :return: CHAP configuration details
         :rtype: dict
         """
-        LOG.info(f"Getting CHAP configuration details by ID: '{chap_config_id}'")
+        LOG.info("Getting CHAP configuration details by ID: '%s'", chap_config_id)
         return self.config_client.request(
             constants.GET,
             constants.GET_CHAP_CONFIG_DETAILS_URL.format(
@@ -711,7 +711,7 @@ class Configuration:
         :return: CHAP configuration details
         :rtype : dict
         """
-        LOG.info(f"Modifying CHAP configuration properties: '{chap_config_id}'")
+        LOG.info("Modifying CHAP configuration properties: '%s'", chap_config_id)
         payload = {}
         if mode is not None:
             payload["mode"] = mode
@@ -736,7 +736,7 @@ class Configuration:
         :return: List of service configurations
         :rtype: list[dict]
         """
-        LOG.info(f"Getting service configurations with filter: '{filter_dict}'")
+        LOG.info("Getting service configurations with filter: '%s'", filter_dict)
         if all_pages:
             raise Exception("Pagination is not supported for service configuration.")
         if not filter_dict:
@@ -805,7 +805,7 @@ class Configuration:
         :return: service config details
         :rtype: dict
         """
-        LOG.info(f"Getting service config details by ID: '{service_config_id}'")
+        LOG.info("Getting service config details by ID: '%s'", service_config_id)
         return self.config_client.request(
             constants.GET,
             constants.GET_SERVICE_CONFIG_DETAILS_URL.format(
@@ -824,7 +824,7 @@ class Configuration:
         :return: service config details
         :rtype : dict
         """
-        LOG.info(f"Modifying service config properties: '{service_config_id}'")
+        LOG.info("Modifying service config properties: '%s'", service_config_id)
         payload = {}
         if is_ssh_enabled is not None:
             payload["is_ssh_enabled"] = is_ssh_enabled
@@ -852,7 +852,7 @@ class Configuration:
         :return: List of service users
         :rtype: list[dict]
         """
-        LOG.info(f"Getting service users with filter: '{filter_dict}'")
+        LOG.info("Getting service users with filter: '%s'", filter_dict)
         if all_pages:
             raise Exception("Pagination is not supported for service users.")
         if not filter_dict:
@@ -888,7 +888,7 @@ class Configuration:
         :return: service user details
         :rtype: dict
         """
-        LOG.info(f"Getting service user details by ID: '{service_user_id}'")
+        LOG.info("Getting service user details by ID: '%s'", service_user_id)
         return self.config_client.request(
             constants.GET,
             constants.GET_SERVICE_USER_DETAILS_URL.format(
@@ -905,7 +905,7 @@ class Configuration:
         :return: service user details
         :rtype: list[dict]
         """
-        LOG.info(f"Getting service user details by name: '{name}'")
+        LOG.info("Getting service user details by name: '%s'", name)
         resp = self.config_client.request(
             constants.GET,
             constants.GET_SERVICE_USER_LIST_URL.format(self.server_ip),
@@ -929,7 +929,7 @@ class Configuration:
         :return: service user details
         :rtype : dict
         """
-        LOG.info(f"Modifying service user properties: '{service_user_id}'")
+        LOG.info("Modifying service user properties: '%s'", service_user_id)
         payload = {}
         if password is not None:
             payload["password"] = password
@@ -952,7 +952,7 @@ class Configuration:
         :return: IP port details
         :rtype : dict
         """
-        LOG.info(f"Getting IP port details by ID: '{ip_port_id}'")
+        LOG.info("Getting IP port details by ID: '%s'", ip_port_id)
         return self.config_client.request(
             constants.GET,
             constants.GET_IP_PORT_DETAILS_URL.format(self.server_ip, ip_port_id),
@@ -975,7 +975,7 @@ class Configuration:
             f"Getting vcenters with filter: '{filter_dict}' and all_pages: '{all_pages}'",
         )
         querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         vcenter_list = self.config_client.request(
             constants.GET,
             constants.GET_VCENTER_LIST_URL.format(self.server_ip),
@@ -998,7 +998,7 @@ class Configuration:
         :return: Details of vcenter
         :rtype: dict
         """
-        LOG.info(f"Getting vcenter details by ID: '{vcenter_id}'")
+        LOG.info("Getting vcenter details by ID: '%s'", vcenter_id)
         querystring = constants.VCENTER_DETAILS_QUERY
         if helpers.is_foot_hill_prime_or_higher():
             querystring = constants.FHP_VCENTER_QUERY
@@ -1020,7 +1020,7 @@ class Configuration:
         :return: Details of vcenter
         :rtype: dict
         """
-        LOG.info(f"Modifying vCenter attributes: '{vcenter_id}'")
+        LOG.info("Modifying vCenter attributes: '%s'", vcenter_id)
         self.config_client.request(
             constants.PATCH,
             constants.MODIFY_VCENTER_URL.format(self.server_ip, vcenter_id),
@@ -1062,7 +1062,7 @@ class Configuration:
         :return: None if success
         :rtype: None
         """
-        LOG.info(f"Removing vcenter: {vcenter_id}.")
+        LOG.info("Removing vcenter: %s.", vcenter_id)
         payload = {}
         if delete_vasa_provider is not None:
             payload["delete_vendor_provider"] = delete_vasa_provider
@@ -1097,7 +1097,7 @@ class Configuration:
             querystring = helpers.prepare_querystring(
                 constants.APPLIANCE_DETAILS_FHP_QUERY, filter_dict,
             )
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         return self.config_client.request(
             constants.GET,
             constants.GET_APPLIANCE_LIST_URL.format(self.server_ip),
@@ -1113,7 +1113,7 @@ class Configuration:
         :return: appliance details
         :rtype: dict
         """
-        LOG.info(f"Getting appliance details by ID: '{appliance_id}'")
+        LOG.info("Getting appliance details by ID: '%s'", appliance_id)
         querystring = constants.APPLIANCE_DETAILS_QUERY
         if helpers.is_foot_hill_prime_or_higher():
             querystring = constants.APPLIANCE_DETAILS_FHP_QUERY
@@ -1142,7 +1142,7 @@ class Configuration:
         :return: appliance details
         :rtype: list[dict]
         """
-        LOG.info(f"Getting appliance details by name: '{appliance_name}'")
+        LOG.info("Getting appliance details by name: '%s'", appliance_name)
         querystring = constants.APPLIANCE_DETAILS_QUERY
         if helpers.is_foot_hill_prime_or_higher():
             querystring = constants.APPLIANCE_DETAILS_FHP_QUERY
@@ -1242,7 +1242,7 @@ class Configuration:
             f"Getting certificates with filter: '{filter_dict}' and all_pages: '{all_pages}'",
         )
         querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         return self.config_client.request(
             constants.GET,
             constants.GET_CERTIFICATE_LIST_URL.format(self.server_ip),
@@ -1258,7 +1258,7 @@ class Configuration:
         :return: certificate details
         :rtype: dict
         """
-        LOG.info(f"Getting certificate details by ID: '{certificate_id}'")
+        LOG.info("Getting certificate details by ID: '%s'", certificate_id)
         querystring = constants.CERTIFICATE_DETAILS_QUERY
 
         return self.config_client.request(
@@ -1365,7 +1365,7 @@ class Configuration:
         :return: List of all security configs
         :rtype: list[dict]
         """
-        LOG.info(f"Getting security configs with filter: '{filter_dict}'")
+        LOG.info("Getting security configs with filter: '%s'", filter_dict)
         if all_pages:
             raise Exception("Pagination is not supportedfor security configs.")
 
@@ -1402,7 +1402,7 @@ class Configuration:
         :return: security config details
         :rtype: dict
         """
-        LOG.info(f"Getting security config details by ID: '{security_config_id}'")
+        LOG.info("Getting security config details by ID: '%s'", security_config_id)
 
         querystring = constants.SECURITY_CONFIG_DETAILS_QUERY
         if not helpers.is_foot_hill_or_higher():
@@ -1460,7 +1460,7 @@ class Configuration:
         querystring = helpers.prepare_querystring(
             constants.SELECT_ID_AND_ADDRESS, filter_dict,
         )
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         return self.config_client.request(
             constants.GET,
             constants.GET_EMAIL_LIST_URL.format(self.server_ip),
@@ -1476,7 +1476,7 @@ class Configuration:
         :return: email details
         :rtype: dict
         """
-        LOG.info(f"Getting email details by ID: '{email_id}'")
+        LOG.info("Getting email details by ID: '%s'", email_id)
 
         querystring = constants.EMAIL_DETAILS_QUERY
         return self.config_client.request(
@@ -1493,7 +1493,7 @@ class Configuration:
         :return: Destination email details with corresponding email_address.
         :rtype: list[dict]
         """
-        LOG.info(f"Getting destination email details by address: '{email_address}'")
+        LOG.info("Getting destination email details by address: '%s'", email_address)
         return self.config_client.request(
             constants.GET,
             constants.GET_EMAIL_LIST_URL.format(self.server_ip),
@@ -1533,7 +1533,7 @@ class Configuration:
         :return: None if success else raise exception
         :rtype: None
         """
-        LOG.info(f"Deleting email id: '{email_id}'")
+        LOG.info("Deleting email id: '%s'", email_id)
         return self.config_client.request(
             constants.DELETE,
             constants.DELETE_EMAIL_URL.format(self.server_ip, email_id),
@@ -1548,7 +1548,7 @@ class Configuration:
         :return: None if success else raise exception
         :rtype: None
         """
-        LOG.info(f"Testing email id: '{email_id}'")
+        LOG.info("Testing email id: '%s'", email_id)
         return self.config_client.request(
             constants.POST,
             constants.TEST_EMAIL_URL.format(self.server_ip, email_id),
@@ -1596,7 +1596,7 @@ class Configuration:
             f"Getting SMTP configs with filter: '{filter_dict}' and all_pages: '{all_pages}'",
         )
         querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         return self.config_client.request(
             constants.GET,
             constants.GET_SMTP_LIST_URL.format(self.server_ip),
@@ -1612,7 +1612,7 @@ class Configuration:
         :return: smtp details
         :rtype: dict
         """
-        LOG.info(f"Getting SMTP config details by ID: '{smtp_id}'")
+        LOG.info("Getting SMTP config details by ID: '%s'", smtp_id)
 
         querystring = constants.SMTP_DETAILS_QUERY
         return self.config_client.request(
@@ -1654,7 +1654,7 @@ class Configuration:
         :return: None if success else raise exception
         :rtype: None
         """
-        LOG.info(f"Testing smtp id: '{smtp_id}'")
+        LOG.info("Testing smtp id: '%s'", smtp_id)
         return self.config_client.request(
             constants.POST,
             constants.TEST_SMTP_URL.format(self.server_ip, smtp_id),
@@ -1679,7 +1679,7 @@ class Configuration:
             f"Getting all DNS servers with filter: '{filter_dict}' and all_pages: '{all_pages}'",
         )
         querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         return self.config_client.request(
             constants.GET,
             constants.GET_DNS_LIST_URL.format(self.server_ip),
@@ -1695,7 +1695,7 @@ class Configuration:
         :return: DNS setting details
         :rtype: dict
         """
-        LOG.info(f"Getting DNS details by ID: '{dns_id}'")
+        LOG.info("Getting DNS details by ID: '%s'", dns_id)
 
         querystring = constants.DNS_DETAILS_QUERY
         return self.config_client.request(
@@ -1715,7 +1715,7 @@ class Configuration:
         :return: None
         :rtype : None
         """
-        LOG.info(f"Modifying DNS : '{dns_id}' with params '{modify_parameters}'")
+        LOG.info("Modifying DNS : '%s' with params '%s'", dns_id, modify_parameters)
 
         dns_url = constants.MODIFY_DNS_URL
         return self.config_client.request(
@@ -1742,7 +1742,7 @@ class Configuration:
             f"Getting all NTP servers with filter: '{filter_dict}' and all_pages: '{all_pages}'",
         )
         querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         return self.config_client.request(
             constants.GET,
             constants.GET_NTP_LIST_URL.format(self.server_ip),
@@ -1758,7 +1758,7 @@ class Configuration:
         :return: NTP setting details
         :rtype: dict
         """
-        LOG.info(f"Getting NTP details by ID: '{ntp_id}'")
+        LOG.info("Getting NTP details by ID: '%s'", ntp_id)
 
         querystring = constants.NTP_DETAILS_QUERY
         return self.config_client.request(
@@ -1779,7 +1779,7 @@ class Configuration:
         :return: None
         :rtype : None
         """
-        LOG.info(f"Modifying NTP : '{ntp_id}' with params '{modify_parameters}'")
+        LOG.info("Modifying NTP : '%s' with params '%s'", ntp_id, modify_parameters)
 
         ntp_url = constants.MODIFY_NTP_URL
         return self.config_client.request(
@@ -1808,7 +1808,7 @@ class Configuration:
         )
         if helpers.is_foot_hill_or_higher():
             querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
-            LOG.info(f"Querystring: '{querystring}'")
+            LOG.info("Querystring: '%s'", querystring)
             return self.config_client.request(
                 constants.GET,
                 constants.GET_REMOTE_SUPPORT_LIST_URL.format(self.server_ip),
@@ -1828,7 +1828,7 @@ class Configuration:
         :return: remote support configuration details
         :rtype: dict
         """
-        LOG.info(f"Getting remote_support details by ID: '{remote_support_id}'")
+        LOG.info("Getting remote_support details by ID: '%s'", remote_support_id)
         if helpers.is_foot_hill_or_higher():
             querystring = constants.REMOTE_SUPPORT_DETAILS_QUERY
             if return_support_license_text is True:
@@ -1907,7 +1907,7 @@ class Configuration:
         :return: None
         :rtype : None
         """
-        LOG.info(f"Sending a test alert for remote_support : '{(remote_support_id)}'")
+        LOG.info("Sending a test alert for remote_support : '%s'", (remote_support_id))
         if helpers.is_foot_hill_or_higher():
             remote_support_url = constants.SEND_ALERT_REMOTE_SUPPORT_URL
             return self.config_client.request(
@@ -1937,7 +1937,7 @@ class Configuration:
         )
         if helpers.is_foot_hill_or_higher():
             querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
-            LOG.info(f"Querystring: '{querystring}'")
+            LOG.info("Querystring: '%s'", querystring)
             array_version = self.provisioning.get_array_version()
             if array_version == "2.0.0.0":
                 resp = self.config_client.request(
@@ -2073,7 +2073,7 @@ class Configuration:
         :return: ldap domain details
         :rtype: dict
         """
-        LOG.info(f"Getting ldap domain details by ID: '{ldap_domain_id}'")
+        LOG.info("Getting ldap domain details by ID: '%s'", ldap_domain_id)
 
         return self.config_client.request(
             constants.GET,
@@ -2136,7 +2136,7 @@ class Configuration:
         :return: None
         :rtype: None
         """
-        LOG.info(f"Modifying LDAP domain configuration id: '{ldap_domain_id}'")
+        LOG.info("Modifying LDAP domain configuration id: '%s'", ldap_domain_id)
 
         return self.config_client.request(
             constants.PATCH,
@@ -2152,7 +2152,7 @@ class Configuration:
         :return: None
         :rtype: None
         """
-        LOG.info(f"Deleting LDAP domain configuration id: '{ldap_domain_id}'")
+        LOG.info("Deleting LDAP domain configuration id: '%s'", ldap_domain_id)
 
         return self.config_client.request(
             constants.DELETE,
@@ -2167,7 +2167,7 @@ class Configuration:
         :return: None
         :rtype: None
         """
-        LOG.info(f"Verifying LDAP domain configuration id: '{ldap_domain_id}'")
+        LOG.info("Verifying LDAP domain configuration id: '%s'", ldap_domain_id)
 
         return self.config_client.request(
             constants.POST,
@@ -2235,7 +2235,7 @@ class Configuration:
         :return: LDAP account details
         :rtype: dict
         """
-        LOG.info(f"Getting LDAP account details by ID: '{ldap_account_id}'")
+        LOG.info("Getting LDAP account details by ID: '%s'", ldap_account_id)
 
         return self.config_client.request(
             constants.GET,
@@ -2253,7 +2253,7 @@ class Configuration:
         :return: ldap account details
         :rtype: dict
         """
-        LOG.info(f"Getting LDAP Account details by name: '{ldap_account_name}'")
+        LOG.info("Getting LDAP Account details by name: '%s'", ldap_account_name)
         resp = self.get_ldap_account_list()
 
         for account in resp:
@@ -2286,7 +2286,7 @@ class Configuration:
         :return: None
         :rtype: None
         """
-        LOG.info(f"Modifying LDAP account id: '{ldap_account_id}'")
+        LOG.info("Modifying LDAP account id: '%s'", ldap_account_id)
 
         return self.config_client.request(
             constants.PATCH,
@@ -2302,7 +2302,7 @@ class Configuration:
         :return: None
         :rtype: None
         """
-        LOG.info(f"Deleting LDAP account configuration id: '{ldap_account_id}'")
+        LOG.info("Deleting LDAP account configuration id: '%s'", ldap_account_id)
 
         return self.config_client.request(
             constants.DELETE,
@@ -2333,7 +2333,7 @@ class Configuration:
             querystring = helpers.prepare_querystring(
                 constants.VIRTUAL_VOLUME_FHP_DETAILS_QUERY, filter_dict,
             )
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         return self.config_client.request(
             constants.GET,
             constants.GET_VIRTUAL_VOLUME_LIST_URL.format(self.server_ip),
@@ -2362,7 +2362,7 @@ class Configuration:
         querystring = helpers.prepare_querystring(
             constants.STORAGE_CONTAINER_DETAILS_QUERY, filter_dict,
         )
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         return self.config_client.request(
             constants.GET,
             constants.GET_STORAGE_CONTAINER_LIST_URL.format(self.server_ip),
@@ -2379,7 +2379,7 @@ class Configuration:
         :return: storage container details
         :rtype: dict
         """
-        LOG.info(f"Getting storage container details by ID: '{storage_container_id}'")
+        LOG.info("Getting storage container details by ID: '%s'", storage_container_id)
 
         return self.config_client.request(
             constants.GET,
@@ -2432,7 +2432,7 @@ class Configuration:
         :return: None
         :rtype: None
         """
-        LOG.info(f"Modifying storage containert id: '{storage_container_id}'")
+        LOG.info("Modifying storage containert id: '%s'", storage_container_id)
 
         return self.config_client.request(
             constants.PATCH,
@@ -2450,7 +2450,7 @@ class Configuration:
         :return: None
         :rtype: None
         """
-        LOG.info(f"Deleting storage container with id: '{storage_container_id}'")
+        LOG.info("Deleting storage container with id: '%s'", storage_container_id)
 
         return self.config_client.request(
             constants.DELETE,
@@ -2480,7 +2480,7 @@ class Configuration:
         querystring = helpers.prepare_querystring(
             constants.STORAGE_CONTAINER_DETAILS_DESTINATION_QUERY, filter_dict,
         )
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         return self.config_client.request(
             constants.GET,
             constants.GET_STORAGE_CONTAINER_DESTINATION_LIST_URL.format(self.server_ip),

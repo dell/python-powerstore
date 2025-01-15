@@ -54,7 +54,7 @@ class FileNIS:
             f"Getting file NISs with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_FILE_NIS, filter_dict)
-        LOG.info(f"Querystring: '{querystring}'")
+        LOG.info("Querystring: '%s'", querystring)
         return self.file_nis_client.request(
             constants.GET,
             GET_FILE_NIS_LIST_URL.format(self.server_ip),
@@ -73,7 +73,7 @@ class FileNIS:
         """
         querystring = SELECT_ALL_FILE_NIS
 
-        LOG.info(f"Getting file NIS details by ID: '{file_nis_id}'")
+        LOG.info("Getting file NIS details by ID: '%s'", file_nis_id)
         return self.file_nis_client.request(
             constants.GET,
             GET_FILE_NIS_DETAILS_URL.format(self.server_ip, file_nis_id),
@@ -91,7 +91,7 @@ class FileNIS:
         """
         querystring = SELECT_ALL_FILE_NIS
 
-        LOG.info(f"Getting file NIS details by nas server id: '{nas_server_id}'")
+        LOG.info("Getting file NIS details by nas server id: '%s'", nas_server_id)
         return self.file_nis_client.request(
             constants.GET,
             GET_FILE_NIS_DETAILS_BY_NAS_SERVER_URL.format(self.server_ip),
@@ -112,7 +112,9 @@ class FileNIS:
         """
         LOG.info("Creating file NIS")
         return self.file_nis_client.request(
-            constants.POST, CREATE_FILE_NIS_URL.format(self.server_ip), payload=payload,
+            constants.POST,
+            CREATE_FILE_NIS_URL.format(self.server_ip),
+            payload=payload,
         )
 
     def modify_file_nis(self, file_nis_id, modify_parameters):
@@ -125,7 +127,7 @@ class FileNIS:
         :return: None if success else raise exception
         :rtype: None
         """
-        LOG.info(f"Modifying file NIS: '{file_nis_id}'")
+        LOG.info("Modifying file NIS: '%s'", file_nis_id)
         if modify_parameters:
             payload = {}
             for key, value in modify_parameters.items():
@@ -149,9 +151,10 @@ class FileNIS:
         :return: None on success else raise exception
         :rtype: None
         """
-        LOG.info(f"Deleting file NIS: '{file_nis_id}'")
+        LOG.info("Deleting file NIS: '%s'", file_nis_id)
         return self.file_nis_client.request(
-            constants.DELETE, DELETE_FILE_NIS_URL.format(self.server_ip, file_nis_id),
+            constants.DELETE,
+            DELETE_FILE_NIS_URL.format(self.server_ip, file_nis_id),
         )
 
     # File NIS methods end
