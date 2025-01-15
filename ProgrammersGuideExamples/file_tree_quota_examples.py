@@ -22,7 +22,8 @@ QUOTA = CONN.provisioning.create_tree_quota(FS_ID, PATH, OTHER_PARAM)
 print(QUOTA)
 
 # Get treequota list
-filter_dict = {"id": "eq.{0}".format(QUOTA["id"])}
+quota_id = QUOTA["id"]
+filter_dict = {"id": f"eq.{quota_id}"}
 QUOTA_LIST = CONN.provisioning.get_file_tree_quotas(filter_dict=filter_dict)
 print(QUOTA_LIST)
 

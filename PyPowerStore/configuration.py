@@ -1426,7 +1426,8 @@ class Configuration:
         :rtype: None
         """
         LOG.info(
-            f"Modify security config properties: '{security_config_id}' with params '{protocol_mode}'",
+            f"Modify security config properties: \
+                '{security_config_id}' with params '{protocol_mode}'",
         )
 
         payload = {}
@@ -1515,7 +1516,8 @@ class Configuration:
         :rtype : None
         """
         LOG.info(
-            f"Modifying destination email properties: '{email_id}' with params '{modify_parameters}'",
+            f"Modifying destination email properties: \
+                '{email_id}' with params '{modify_parameters}'",
         )
 
         email_url = constants.MODIFY_EMAIL_URL
@@ -1633,7 +1635,8 @@ class Configuration:
         :rtype : None
         """
         LOG.info(
-            f"Modifying SMTP configuration properties: '{smtp_id}' with params '{modify_parameters}'",
+            f"Modifying SMTP configuration properties: \
+                '{smtp_id}' with params '{modify_parameters}'",
         )
 
         smtp_url = constants.MODIFY_SMTP_URL
@@ -1933,7 +1936,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting all remote support contact with filter: '{filter_dict}' and all_pages: '{all_pages}'",
+            f"Getting all remote support contact with filter: \
+                '{filter_dict}' and all_pages: '{all_pages}'",
         )
         if helpers.is_foot_hill_or_higher():
             querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
@@ -1999,7 +2003,8 @@ class Configuration:
         :rtype : None
         """
         LOG.info(
-            f"Modifying remote support contact : '{remote_support_contact_id}' with params '{modify_parameters}'",
+            f"Modifying remote support contact : \
+                '{remote_support_contact_id}' with params '{modify_parameters}'",
         )
         if helpers.is_foot_hill_or_higher():
             remote_support_contact_url = constants.MODIFY_REMOTE_SUPPORT_CONTACT_URL
@@ -2475,7 +2480,7 @@ class Configuration:
         """
         LOG.info(
             "Getting storage containers destination with filter: '%s' "
-            "and all_pages: %s" % (filter_dict, all_pages),
+            "and all_pages: %s" , filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.STORAGE_CONTAINER_DETAILS_DESTINATION_QUERY, filter_dict,
@@ -2502,7 +2507,7 @@ class Configuration:
         """
         LOG.info(
             "Getting storage container destination details by "
-            "ID: '%s'" % storage_container_destination_id,
+            "ID: '%s'" , storage_container_destination_id
         )
 
         return self.config_client.request(
@@ -2536,7 +2541,7 @@ class Configuration:
         """
         LOG.info(
             "Deleting storage container destination with "
-            "id: '%s'" % storage_container_destination_id,
+            "id: '%s'" , storage_container_destination_id,
         )
         return self.config_client.request(
             constants.DELETE,

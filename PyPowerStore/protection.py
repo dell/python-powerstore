@@ -839,7 +839,7 @@ class ProtectionFunctions:
             )
         LOG.info(
             "Getting filesystem snapshot: '%s' details by "
-            "nasserver id: '%s'" % (snapshot_name, nas_server_id),
+            "nasserver id: '%s'" , snapshot_name, nas_server_id
         )
         return self.provisioning.get_filesystem_by_name(
             filesystem_name=snapshot_name, nas_server_id=nas_server_id,
@@ -1058,7 +1058,7 @@ class ProtectionFunctions:
         """
         LOG.info(
             "Getting replication sessions with filter: '%s' and "
-            "all_pages: '%s'" % (filter_dict, all_pages),
+            "all_pages: '%s'" , filter_dict, all_pages,
         )
         querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
         LOG.info("Querystring: '%s'", querystring)
@@ -1190,7 +1190,7 @@ class ProtectionFunctions:
         """
         LOG.info(
             "Getting replication groups with filter: '%s' and "
-            "all_pages: %s" % (filter_dict, all_pages),
+            "all_pages: %s" , filter_dict, all_pages,
         )
         querystring = helpers.prepare_querystring(
             constants.REPLICATION_GROUP_QUERY, filter_dict,

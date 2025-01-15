@@ -221,9 +221,8 @@ class Client:
             headers.update(auth_headers)
 
         LOG.debug(
-            "Request's http_method: '%s' url: '%s' payload: '%s' "
-            "querystring: '%s' myrange: '%s'"
-            % (http_method, url, payload, querystring, myrange),
+            "Request's http_method: '%s' url: '%s' payload: '%s' querystring: '%s' myrange: '%s'"
+            , http_method, url, payload, querystring, myrange
         )
         if myrange:
             headers["Range"] = myrange
@@ -432,7 +431,8 @@ class Client:
             ) from exception
         except Timeout as exception:
             LOG.error(str(exception))
-            raise PowerStoreException(PowerStoreException.TIMEOUT_ERROR, str(exception)) from exception
+            raise PowerStoreException(PowerStoreException.TIMEOUT_ERROR, str(exception)
+                                      ) from exception
         except OSError as exception:
             LOG.error(str(exception))
             raise PowerStoreException(PowerStoreException.SOCKET_ERR, str(exception)) from exception

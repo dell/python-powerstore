@@ -1966,7 +1966,7 @@ class Provisioning:
         """
         LOG.info(
             "Getting filesystem details by name: '%s' and NAS Server: "
-            "'%s'" % (filesystem_name, nas_server_id),
+            "'%s'" , filesystem_name, nas_server_id,
         )
         querystring = constants.SELECT_ALL_FILESYSTEM
         if helpers.is_foot_hill_prime_or_higher():
