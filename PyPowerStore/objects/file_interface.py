@@ -53,7 +53,8 @@ class FileInterface:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting file interfaces with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting file interfaces with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             SELECT_ALL_FILE_INTERFACE,
@@ -97,7 +98,8 @@ class FileInterface:
         querystring = SELECT_ALL_FILE_INTERFACE
 
         LOG.info(
-            f"Getting file interface details by nas server id: '{nas_server_id}'",
+            "Getting file interface details by nas server id: '%s'",
+                nas_server_id
         )
         return self.file_interface_client.request(
             constants.GET,

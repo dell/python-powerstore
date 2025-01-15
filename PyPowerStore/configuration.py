@@ -39,7 +39,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting networks with filter: '{filter_dict}' and all_pages: '{all_pages}'",
+            "Getting networks with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
 
         querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
@@ -119,7 +120,8 @@ class Configuration:
         :rtype : dict
         """
         LOG.info(
-            f"Modifying network properties: '{network_id}' with params '{network_other_params}'",
+            "Modifying network properties: '%s' with params '%s'",
+                network_id, network_other_params
         )
 
         network_url = constants.MODIFY_NETWORK_URL
@@ -393,7 +395,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting IP's with filter: '{filter_dict}' and all_pages: '{all_pages}'",
+            "Getting IP's with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.IP_DETAILS_QUERY, filter_dict,
@@ -428,7 +431,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting clusters with filter: '{filter_dict}' and all_pages: '{all_pages}'",
+            "Getting clusters with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         if all_pages:
             raise Exception("Pagination is not supported for clusters.")
@@ -784,7 +788,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting service config details for appliance with id: '{appliance_id}'",
+            "Getting service config details for appliance with id: '%s'",
+                appliance_id
         )
         resp = self.config_client.request(
             constants.GET,
@@ -972,7 +977,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting vcenters with filter: '{filter_dict}' and all_pages: '{all_pages}'",
+            "Getting vcenters with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
         LOG.info("Querystring: '%s'", querystring)
@@ -1088,7 +1094,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting all appliances with filter: '{filter_dict}' and all_pages: '{all_pages}'",
+            "Getting all appliances with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.APPLIANCE_DETAILS_QUERY, filter_dict,
@@ -1239,7 +1246,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting certificates with filter: '{filter_dict}' and all_pages: '{all_pages}'",
+            "Getting certificates with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
         LOG.info("Querystring: '%s'", querystring)
@@ -1335,7 +1343,8 @@ class Configuration:
         :rtype : NoneType
         """
         LOG.info(
-            f"Resetting certificates of the service: '{(reset_cert_dict['service'])}'",
+            "Resetting certificates of the service: '%s'",
+                {(reset_cert_dict['service'])}
         )
         payload = {}
         if reset_cert_dict:
@@ -1426,8 +1435,8 @@ class Configuration:
         :rtype: None
         """
         LOG.info(
-            f"Modify security config properties: \
-                '{security_config_id}' with params '{protocol_mode}'",
+            "Modify security config properties: '%s' with params '%s'",
+                security_config_id, protocol_mode
         )
 
         payload = {}
@@ -1456,7 +1465,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting email addresses with filter: '{filter_dict}' and all_pages: '{all_pages}'",
+            "Getting email addresses with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.SELECT_ID_AND_ADDRESS, filter_dict,
@@ -1516,8 +1526,8 @@ class Configuration:
         :rtype : None
         """
         LOG.info(
-            f"Modifying destination email properties: \
-                '{email_id}' with params '{modify_parameters}'",
+            "Modifying destination email properties: '%s' with params '%s'",
+                email_id, modify_parameters
         )
 
         email_url = constants.MODIFY_EMAIL_URL
@@ -1595,7 +1605,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting SMTP configs with filter: '{filter_dict}' and all_pages: '{all_pages}'",
+            "Getting SMTP configs with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
         LOG.info("Querystring: '%s'", querystring)
@@ -1635,8 +1646,8 @@ class Configuration:
         :rtype : None
         """
         LOG.info(
-            f"Modifying SMTP configuration properties: \
-                '{smtp_id}' with params '{modify_parameters}'",
+            "Modifying SMTP configuration properties: '%s' with params '%s'",
+                smtp_id, modify_parameters
         )
 
         smtp_url = constants.MODIFY_SMTP_URL
@@ -1679,7 +1690,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting all DNS servers with filter: '{filter_dict}' and all_pages: '{all_pages}'",
+            "Getting all DNS servers with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
         LOG.info("Querystring: '%s'", querystring)
@@ -1742,7 +1754,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting all NTP servers with filter: '{filter_dict}' and all_pages: '{all_pages}'",
+            "Getting all NTP servers with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
         LOG.info("Querystring: '%s'", querystring)
@@ -1807,7 +1820,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting all remote_support with filter: '{filter_dict}' and all_pages: '{all_pages}'",
+            "Getting all remote_support with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         if helpers.is_foot_hill_or_higher():
             querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
@@ -1863,7 +1877,8 @@ class Configuration:
         :rtype : None
         """
         LOG.info(
-            f"Modifying remote_support : '{remote_support_id}' with params '{modify_parameters}'",
+            "Modifying remote_support : '%s' with params '%s'",
+            remote_support_id, modify_parameters
         )
         if helpers.is_foot_hill_or_higher():
             remote_support_url = constants.MODIFY_REMOTE_SUPPORT_URL
@@ -1890,7 +1905,8 @@ class Configuration:
         :rtype : None
         """
         LOG.info(
-            f"Verifying remote_support : '{remote_support_id}' with params '{verify_parameters}'",
+            "Verifying remote_support : '%s' with params '%s'",
+            remote_support_id, verify_parameters
         )
         if helpers.is_foot_hill_or_higher():
             remote_support_url = constants.VERIFY_REMOTE_SUPPORT_URL
@@ -1936,8 +1952,9 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting all remote support contact with filter: \
-                '{filter_dict}' and all_pages: '{all_pages}'",
+            "Getting all remote support contact with filter: \
+                '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         if helpers.is_foot_hill_or_higher():
             querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
@@ -1975,7 +1992,8 @@ class Configuration:
         :rtype: dict
         """
         LOG.info(
-            f"Getting remote support contact details by ID: '{remote_support_contact_id}'",
+            "Getting remote support contact details by ID: '%s'",
+            remote_support_contact_id
         )
         if helpers.is_foot_hill_or_higher():
             querystring = constants.REMOTE_SUPPORT_CONTACT_DETAILS_QUERY
@@ -2003,8 +2021,8 @@ class Configuration:
         :rtype : None
         """
         LOG.info(
-            f"Modifying remote support contact : \
-                '{remote_support_contact_id}' with params '{modify_parameters}'",
+            "Modifying remote support contact : '%s' with params '%s'",
+                remote_support_contact_id, modify_parameters
         )
         if helpers.is_foot_hill_or_higher():
             remote_support_contact_url = constants.MODIFY_REMOTE_SUPPORT_CONTACT_URL
@@ -2033,7 +2051,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting all ldap domain with filter: '{filter_dict}' and all_pages: '{all_pages}'",
+            "Getting all ldap domain with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
 
         if all_pages:
@@ -2195,7 +2214,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting all ldap accounts with filter: '{filter_dict}' and all_pages: '{all_pages}'",
+            "Getting all ldap accounts with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
 
         if all_pages:
@@ -2329,7 +2349,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting volumes with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting volumes with filter: '%s' and all_pages: %s",
+            filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.VIRTUAL_VOLUME_DETAILS_QUERY, filter_dict,
@@ -2362,7 +2383,8 @@ class Configuration:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting storage containers with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting storage containers with filter: '%s' and all_pages: %s",
+            filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(
             constants.STORAGE_CONTAINER_DETAILS_QUERY, filter_dict,
@@ -2403,7 +2425,8 @@ class Configuration:
         :rtype: dict
         """
         LOG.info(
-            f"Getting storage container details by name: '{storage_container_name}'",
+            "Getting storage container details by name: '%s'",
+            storage_container_name
         )
         resp = self.get_storage_container_list()
 

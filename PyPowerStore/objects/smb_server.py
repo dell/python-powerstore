@@ -52,7 +52,8 @@ class SMBServer:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting SMB servers with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting SMB servers with filter: '%s' and all_pages: '%s'",
+            filter_dict, all_pages,
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_SMB_SERVER, filter_dict)
         LOG.info("Querystring: '%s'", querystring)

@@ -51,7 +51,8 @@ class SNMPServer:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting SNMP servers with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting SNMP servers with filter: '%s' and all_pages: '%s'",
+            filter_dict, all_pages,
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_SNMP, filter_dict)
         LOG.info("Querystring: '%s'", querystring)

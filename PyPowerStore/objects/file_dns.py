@@ -50,7 +50,8 @@ class FileDNS:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting file DNSs with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting file DNSs with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_FILE_DNS, filter_dict)
         LOG.info("Querystring: '%s'", querystring)

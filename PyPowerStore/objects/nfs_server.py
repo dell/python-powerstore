@@ -53,7 +53,8 @@ class NFSServer:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting NFS servers with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting NFS servers with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_NFS_SERVER, filter_dict)
         LOG.info("Querystring: '%s'", querystring)

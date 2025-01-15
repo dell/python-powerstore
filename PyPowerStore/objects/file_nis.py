@@ -51,7 +51,8 @@ class FileNIS:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting file NISs with filter: '{filter_dict}' and all_pages: {all_pages}",
+            "Getting file NISs with filter: '%s' and all_pages: '%s'",
+                filter_dict, all_pages
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_FILE_NIS, filter_dict)
         LOG.info("Querystring: '%s'", querystring)
