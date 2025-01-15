@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.file_nis_data import FileNISData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class FileNISResponse(Entity):

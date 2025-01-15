@@ -1,8 +1,9 @@
-from PyPowerStore.utils import constants
-from PyPowerStore.tests.unit_tests.base_test import TestBase
-from PyPowerStore.utils.exception import PowerStoreException
-from PyPowerStore.objects import smb_server
 from unittest import mock
+
+from PyPowerStore.objects import smb_server
+from PyPowerStore.tests.unit_tests.base_test import TestBase
+from PyPowerStore.utils import constants
+from PyPowerStore.utils.exception import PowerStoreException
 
 
 class TestSMBServer(TestBase):

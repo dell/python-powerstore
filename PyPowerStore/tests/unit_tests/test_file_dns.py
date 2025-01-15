@@ -1,8 +1,9 @@
-from PyPowerStore.utils import constants
-from PyPowerStore.tests.unit_tests.base_test import TestBase
-from PyPowerStore.utils.exception import PowerStoreException
-from PyPowerStore.objects import file_dns
 from unittest import mock
+
+from PyPowerStore.objects import file_dns
+from PyPowerStore.tests.unit_tests.base_test import TestBase
+from PyPowerStore.utils import constants
+from PyPowerStore.utils.exception import PowerStoreException
 
 
 class TestFileDNS(TestBase):

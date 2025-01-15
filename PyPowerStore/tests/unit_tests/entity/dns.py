@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.dns_data import DnsData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class DnsResponse(Entity):

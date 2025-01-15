@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.remote_system_data import RemoteSystemData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class RemoteSystemResponse(Entity):

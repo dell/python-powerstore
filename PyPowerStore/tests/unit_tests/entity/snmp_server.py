@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.snmp_server_data import SNMPServerData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class SNMPServerResponse(Entity):

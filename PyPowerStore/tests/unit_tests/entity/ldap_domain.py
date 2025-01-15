@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.ldap_data import LdapData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class LDAPDomainResponse(Entity):

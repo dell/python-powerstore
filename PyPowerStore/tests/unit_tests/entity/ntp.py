@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.ntp_data import NtpData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class NtpResponse(Entity):

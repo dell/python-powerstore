@@ -1,65 +1,66 @@
-from PyPowerStore.tests.unit_tests.entity.volume import VolumeResponse
-from PyPowerStore.tests.unit_tests.entity.volume_group import VolumeGroupResponse
+import json
+
+from PyPowerStore.tests.unit_tests.entity.ads import AdsResponse
+from PyPowerStore.tests.unit_tests.entity.appliance import ApplianceResponse
+from PyPowerStore.tests.unit_tests.entity.certificate import CertificateResponse
+from PyPowerStore.tests.unit_tests.entity.chap_config import ChapConfigResponse
+from PyPowerStore.tests.unit_tests.entity.cluster import ClusterResponse
+from PyPowerStore.tests.unit_tests.entity.discovered_appliances import (
+    DiscoveredApplianceResponse,
+)
+from PyPowerStore.tests.unit_tests.entity.dns import DnsResponse
+from PyPowerStore.tests.unit_tests.entity.email import EmailResponse
+from PyPowerStore.tests.unit_tests.entity.file_dns import FileDNSResponse
+from PyPowerStore.tests.unit_tests.entity.file_interface import FileInterfaceResponse
+from PyPowerStore.tests.unit_tests.entity.file_nis import FileNISResponse
+from PyPowerStore.tests.unit_tests.entity.file_system import FileSystemResponse
 from PyPowerStore.tests.unit_tests.entity.host import HostResponse
 from PyPowerStore.tests.unit_tests.entity.host_group import HostGroupResponse
-from PyPowerStore.tests.unit_tests.entity.policy import PolicyResponse
-from PyPowerStore.tests.unit_tests.entity.snap_rule import SnapRuleResponse
-from PyPowerStore.tests.unit_tests.entity.nas_server import NASServerResponse
-from PyPowerStore.tests.unit_tests.entity.nfs_export import NFSExportResponse
-from PyPowerStore.tests.unit_tests.entity.smb_share import SMBShareResponse
-from PyPowerStore.tests.unit_tests.entity.file_system import FileSystemResponse
-from PyPowerStore.tests.unit_tests.entity.tree_quota import TreeQuotaResponse
-from PyPowerStore.tests.unit_tests.entity.user_quota import UserQuotaResponse
-from PyPowerStore.tests.unit_tests.entity.rep_rule import RepRuleResponse
-from PyPowerStore.tests.unit_tests.entity.rep_session import RepSessionResponse
-from PyPowerStore.tests.unit_tests.entity.network import NetworkResponse
-from PyPowerStore.tests.unit_tests.entity.software_installed import SoftwareResponse
-from PyPowerStore.tests.unit_tests.entity.job import JobResponse
-from PyPowerStore.tests.unit_tests.entity.vcenter import VcenterResponse
-from PyPowerStore.tests.unit_tests.entity.virtual_volume import VirtualVolumeResponse
 from PyPowerStore.tests.unit_tests.entity.ip_pool_address import IPPoolAddressResponse
 from PyPowerStore.tests.unit_tests.entity.ip_port import IPPortResponse
-from PyPowerStore.tests.unit_tests.entity.local_user import LocalUserResponse
-from PyPowerStore.tests.unit_tests.entity.role import RoleResponse
-from PyPowerStore.tests.unit_tests.entity.appliance import ApplianceResponse
-from PyPowerStore.tests.unit_tests.entity.cluster import ClusterResponse
-from PyPowerStore.tests.unit_tests.entity.service_user import ServiceUserResponse
-from PyPowerStore.tests.unit_tests.entity.service_config import ServiceConfigResponse
-from PyPowerStore.tests.unit_tests.entity.chap_config import ChapConfigResponse
-from PyPowerStore.tests.unit_tests.entity.certificate import CertificateResponse
-from PyPowerStore.tests.unit_tests.entity.security_config import SecurityConfigResponse
-from PyPowerStore.tests.unit_tests.entity.remote_system import RemoteSystemResponse
-from PyPowerStore.tests.unit_tests.entity.ads import AdsResponse
+from PyPowerStore.tests.unit_tests.entity.job import JobResponse
 from PyPowerStore.tests.unit_tests.entity.ldap import LdapResponse
-from PyPowerStore.tests.unit_tests.entity.email import EmailResponse
-from PyPowerStore.tests.unit_tests.entity.smtp_config import SmtpConfigResponse
-from PyPowerStore.tests.unit_tests.entity.dns import DnsResponse
+from PyPowerStore.tests.unit_tests.entity.ldap_account import LDAPAccountResponse
+from PyPowerStore.tests.unit_tests.entity.ldap_domain import LDAPDomainResponse
+from PyPowerStore.tests.unit_tests.entity.local_user import LocalUserResponse
+from PyPowerStore.tests.unit_tests.entity.nas_server import NASServerResponse
+from PyPowerStore.tests.unit_tests.entity.network import NetworkResponse
+from PyPowerStore.tests.unit_tests.entity.nfs_export import NFSExportResponse
+from PyPowerStore.tests.unit_tests.entity.nfs_server import NFSServerResponse
 from PyPowerStore.tests.unit_tests.entity.ntp import NtpResponse
+from PyPowerStore.tests.unit_tests.entity.policy import PolicyResponse
 from PyPowerStore.tests.unit_tests.entity.remote_support import RemoteSupportResponse
 from PyPowerStore.tests.unit_tests.entity.remote_support_contact import (
     RemoteSupportContactResponse,
 )
-from PyPowerStore.tests.unit_tests.entity.ldap_domain import LDAPDomainResponse
-from PyPowerStore.tests.unit_tests.entity.ldap_account import LDAPAccountResponse
+from PyPowerStore.tests.unit_tests.entity.remote_system import RemoteSystemResponse
+from PyPowerStore.tests.unit_tests.entity.rep_rule import RepRuleResponse
+from PyPowerStore.tests.unit_tests.entity.rep_session import RepSessionResponse
+from PyPowerStore.tests.unit_tests.entity.replication_group import (
+    ReplicationGroupResponse,
+)
+from PyPowerStore.tests.unit_tests.entity.role import RoleResponse
+from PyPowerStore.tests.unit_tests.entity.security_config import SecurityConfigResponse
+from PyPowerStore.tests.unit_tests.entity.service_config import ServiceConfigResponse
+from PyPowerStore.tests.unit_tests.entity.service_user import ServiceUserResponse
+from PyPowerStore.tests.unit_tests.entity.smb_server import SMBServerResponse
+from PyPowerStore.tests.unit_tests.entity.smb_share import SMBShareResponse
+from PyPowerStore.tests.unit_tests.entity.smtp_config import SmtpConfigResponse
+from PyPowerStore.tests.unit_tests.entity.snap_rule import SnapRuleResponse
+from PyPowerStore.tests.unit_tests.entity.snmp_server import SNMPServerResponse
+from PyPowerStore.tests.unit_tests.entity.software_installed import SoftwareResponse
 from PyPowerStore.tests.unit_tests.entity.storage_container import (
     StorageContainerResponse,
 )
 from PyPowerStore.tests.unit_tests.entity.storage_container_destination import (
     StorageContainerDestinationResponse,
 )
-from PyPowerStore.tests.unit_tests.entity.replication_group import (
-    ReplicationGroupResponse,
-)
-from PyPowerStore.tests.unit_tests.entity.discovered_appliances import (
-    DiscoveredApplianceResponse,
-)
-from PyPowerStore.tests.unit_tests.entity.file_interface import FileInterfaceResponse
-from PyPowerStore.tests.unit_tests.entity.smb_server import SMBServerResponse
-from PyPowerStore.tests.unit_tests.entity.nfs_server import NFSServerResponse
-from PyPowerStore.tests.unit_tests.entity.file_dns import FileDNSResponse
-from PyPowerStore.tests.unit_tests.entity.file_nis import FileNISResponse
-from PyPowerStore.tests.unit_tests.entity.snmp_server import SNMPServerResponse
-import json
+from PyPowerStore.tests.unit_tests.entity.tree_quota import TreeQuotaResponse
+from PyPowerStore.tests.unit_tests.entity.user_quota import UserQuotaResponse
+from PyPowerStore.tests.unit_tests.entity.vcenter import VcenterResponse
+from PyPowerStore.tests.unit_tests.entity.virtual_volume import VirtualVolumeResponse
+from PyPowerStore.tests.unit_tests.entity.volume import VolumeResponse
+from PyPowerStore.tests.unit_tests.entity.volume_group import VolumeGroupResponse
 
 # map the entity class name with the url resource name
 ENTITY_CLASS_MAPPING = {

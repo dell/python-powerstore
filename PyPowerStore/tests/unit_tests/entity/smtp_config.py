@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.smtp_config_data import SmtpConfigData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class SmtpConfigResponse(Entity):

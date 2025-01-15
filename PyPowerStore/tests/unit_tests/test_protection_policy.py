@@ -1,8 +1,9 @@
-from PyPowerStore.utils import constants
-from PyPowerStore.tests.unit_tests.base_test import TestBase
-from PyPowerStore.protection import PROTECTION_POLICY_FILTER
-from PyPowerStore.utils.exception import PowerStoreException
 from unittest import mock
+
+from PyPowerStore.protection import PROTECTION_POLICY_FILTER
+from PyPowerStore.tests.unit_tests.base_test import TestBase
+from PyPowerStore.utils import constants
+from PyPowerStore.utils.exception import PowerStoreException
 
 
 class TestPolicy(TestBase):

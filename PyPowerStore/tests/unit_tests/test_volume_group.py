@@ -1,7 +1,8 @@
-from PyPowerStore.utils import constants
-from PyPowerStore.tests.unit_tests.base_test import TestBase
-from PyPowerStore.utils.exception import PowerStoreException
 from unittest import mock
+
+from PyPowerStore.tests.unit_tests.base_test import TestBase
+from PyPowerStore.utils import constants
+from PyPowerStore.utils.exception import PowerStoreException
 
 
 class TestVolumeGroup(TestBase):
@@ -14,7 +15,7 @@ class TestVolumeGroup(TestBase):
         querystring = {"is_replication_destination": "eq.false"}
         querystring.update(constants.SELECT_ID_AND_NAME)
         with mock.patch.object(self.provisioning.client, "request") as mock_request:
-            volgrp_list = self.provisioning.get_volume_group_list(
+            self.provisioning.get_volume_group_list(
                 filter_dict=querystring, all_pages=True
             )
             mock_request.assert_called_with(

@@ -1,7 +1,7 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.replication_group_data import (
     ReplicationGroupData,
 )
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class ReplicationGroupResponse(Entity):

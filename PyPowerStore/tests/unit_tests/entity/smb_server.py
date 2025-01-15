@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.smb_server_data import SMBServerData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class SMBServerResponse(Entity):

@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.certificate_data import CertificateData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class CertificateResponse(Entity):

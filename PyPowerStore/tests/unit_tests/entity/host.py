@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.common_data import CommonData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class HostResponse(Entity):

@@ -1,7 +1,7 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.remote_support_contact_data import (
     RemoteSupportContactData,
 )
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class RemoteSupportContactResponse(Entity):

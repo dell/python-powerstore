@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.security_config_data import SecurityConfigData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class SecurityConfigResponse(Entity):

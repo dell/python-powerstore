@@ -3,17 +3,16 @@
 
 """Client module for PowerStore"""
 
-import json
 import base64
+import json
 import socket
-import requests
 import time
-from requests.exceptions import SSLError
-from requests.exceptions import ConnectionError
-from requests.exceptions import TooManyRedirects
-from requests.exceptions import Timeout
-from PyPowerStore.utils.exception import PowerStoreException
+
+import requests
+from requests.exceptions import ConnectionError, SSLError, Timeout, TooManyRedirects
+
 from PyPowerStore.utils import constants, helpers
+from PyPowerStore.utils.exception import PowerStoreException
 
 requests.packages.urllib3.disable_warnings()
 

@@ -1,13 +1,14 @@
-import json
 import base64
+import json
+
 import PyPowerStore.tests.unit_tests.myrequests as myrequests
+from PyPowerStore.utils import constants
 
 # from myrequests.exceptions import SSLError
 # from myrequests.exceptions import ConnectionError
 # from myrequests.exceptions import TooManyRedirects
 # from myrequests.exceptions import Timeout
 from PyPowerStore.utils.exception import PowerStoreException
-from PyPowerStore.utils import constants
 
 VALID_CODES = [200, 201, 202, 204, 206, 207]
 
@@ -232,7 +233,7 @@ class MockClient(object):
                     )
                 )
                 raise PowerStoreException(PowerStoreException.VALUE_ERROR, error_msg)
-        except Exception as ex:
+        except Exception:
             raise
         """
         except socket.error as exception:

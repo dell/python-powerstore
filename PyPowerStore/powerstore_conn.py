@@ -3,15 +3,15 @@
 
 """Module for establishing connection with PowerStore"""
 
+from PyPowerStore.configuration import Configuration
+from PyPowerStore.objects.file_dns import FileDNS
+from PyPowerStore.objects.file_interface import FileInterface
+from PyPowerStore.objects.file_nis import FileNIS
+from PyPowerStore.objects.nfs_server import NFSServer
+from PyPowerStore.objects.smb_server import SMBServer
+from PyPowerStore.objects.snmp_server import SNMPServer
 from PyPowerStore.protection import ProtectionFunctions
 from PyPowerStore.provisioning import Provisioning
-from PyPowerStore.configuration import Configuration
-from PyPowerStore.objects.file_interface import FileInterface
-from PyPowerStore.objects.smb_server import SMBServer
-from PyPowerStore.objects.nfs_server import NFSServer
-from PyPowerStore.objects.file_dns import FileDNS
-from PyPowerStore.objects.file_nis import FileNIS
-from PyPowerStore.objects.snmp_server import SNMPServer
 
 
 class PowerStoreConn:
