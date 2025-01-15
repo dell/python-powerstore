@@ -25,10 +25,10 @@ class TestNFSExport(TestBase):
             )
 
     def test_create_nfsexport(self):
-        path = "/{0}".format(self.data.fs_name1)
+        path = f"/{self.data.fs_name1}"
         param = {"description": "My description"}
         nfs = self.provisioning.create_nfs_export(
-            self.data.fs_id1, path, self.data.nfs_name1, param
+            self.data.fs_id1, path, self.data.nfs_name1, param,
         )
         self.assertEqual(nfs, self.data.create_nfs)
 
@@ -38,7 +38,7 @@ class TestNFSExport(TestBase):
 
     def test_get_nfs_export_details_by_name(self):
         nfs_detail = self.provisioning.get_nfs_export_details_by_name(
-            self.data.nfs_name1
+            self.data.nfs_name1,
         )
         self.assertEqual(nfs_detail, self.data.nfs_detail)
 

@@ -16,7 +16,7 @@ class TestPolicy(TestBase):
         querystring.update(constants.SELECT_ID_AND_NAME)
         with mock.patch.object(self.protection.rest_client, "request") as mock_request:
             self.protection.get_replication_rules(
-                filter_dict=querystring, all_pages=True
+                filter_dict=querystring, all_pages=True,
             )
             mock_request.assert_called_with(
                 constants.GET,
@@ -27,13 +27,13 @@ class TestPolicy(TestBase):
 
     def test_get_replication_rule_details(self):
         rr_details = self.protection.get_replication_rule_details(
-            self.data.rep_rule_id_1
+            self.data.rep_rule_id_1,
         )
         self.assertEqual(rr_details, self.data.rep_rule_details_1)
 
     def test_get_replication_rule_by_name(self):
         rr_details = self.protection.get_replication_rule_by_name(
-            self.data.rep_rule_name_1
+            self.data.rep_rule_name_1,
         )
         self.assertEqual(rr_details, [self.data.rep_rule_details_1])
 
@@ -48,7 +48,7 @@ class TestPolicy(TestBase):
 
     def test_modify_replication_rule(self):
         rep_rule = self.protection.modify_replication_rule(
-            self.data.rep_rule_id_1, alert_threshold=self.data.new_alert_threshold
+            self.data.rep_rule_id_1, alert_threshold=self.data.new_alert_threshold,
         )
         self.assertIsNotNone(rep_rule)
 

@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Vcenter Operations"""
+"""Vcenter Operations"""
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(
@@ -20,7 +19,7 @@ print(vcenters_list)
 
 # Get Vcenter details by vcenter_id
 vcenter_details = CONN.config_mgmt.get_vcenter_details(
-    vcenter_id=vcenters_list[0]["id"]
+    vcenter_id=vcenters_list[0]["id"],
 )
 print(vcenter_details)
 
@@ -29,11 +28,11 @@ param_dict = {
     "vasa_provider_credentials": {
         "username": "<<admin_user>>",
         "password": "<<admin_password>>",
-    }
+    },
 }
 
 vcenter_details = CONN.config_mgmt.modify_vcenter(
-    vcenter_id=vcenters_list[0]["id"], modify_param_dict=param_dict
+    vcenter_id=vcenters_list[0]["id"], modify_param_dict=param_dict,
 )
 print(vcenter_details)
 
@@ -55,6 +54,6 @@ print(vcenter_id)
 remove_vasa = True
 print(
     CONN.config_mgmt.remove_vcenter(
-        vcenter_id=vcenters_list[0]["id"], delete_vasa_provider=remove_vasa
-    )
+        vcenter_id=vcenters_list[0]["id"], delete_vasa_provider=remove_vasa,
+    ),
 )

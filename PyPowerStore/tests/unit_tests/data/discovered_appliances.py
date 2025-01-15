@@ -19,7 +19,7 @@ class DiscoveredApplianceData:
             "node_count": 1,
             "is_unified_capable": True,
             "drive_failure_tolerance_level_and_availability": [
-                {"level": "Single", "availability": "Available"}
+                {"level": "Single", "availability": "Available"},
             ],
-        }
+        },
     ]

@@ -15,7 +15,7 @@ class NFSServerData:
             "is_joined": False,
             "is_extended_credentials_enabled": False,
             "credentials_cache_TTL": 15,
-        }
+        },
     ]
 
     nas_server_id = "651067dc-5a14-a3c2-d031-0e1089268650"
@@ -55,15 +55,15 @@ class NFSServerData:
                     "arguments": [
                         "Object instance has properties "
                         "which are not allowed by the "
-                        "schema."
+                        "schema.",
                     ],
                     "code": "0xE04040030001",
                     "message_l10n": "Validation failed: Object "
                     "instance has properties which "
                     "are not allowed by the schema.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
         404: {
             "messages": [
@@ -72,7 +72,7 @@ class NFSServerData:
                     "message_l10n": "Operation failed because "
                     "NFS Server ID is invalid.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
     }

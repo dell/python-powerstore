@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" LDAP domain operations"""
+"""LDAP domain operations"""
 
 from PyPowerStore import powerstore_conn
 
@@ -44,13 +43,13 @@ print(ldap_domain_list)
 
 # Get LDAP domain configuration details
 ldap_domain_details = CONN.config_mgmt.get_ldap_domain_configuration_details(
-    ldap_domain_list[0]["id"]
+    ldap_domain_list[0]["id"],
 )
 print(ldap_domain_details)
 
 # Get LDAP domain configuration details by name
 ldap_domain_details = CONN.config_mgmt.get_ldap_domain_configuration_details_by_name(
-    ldap_domain_details["domain_name"]
+    ldap_domain_details["domain_name"],
 )
 print(ldap_domain_details)
 

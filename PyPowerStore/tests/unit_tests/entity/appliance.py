@@ -28,7 +28,7 @@ class ApplianceResponse(Entity):
 
     def get_appliance_details(self):
         if self.url.endswith(
-            "/appliance/{0}".format(self.data.appliance_does_not_exist)
+            f"/appliance/{self.data.appliance_does_not_exist}",
         ):
             return 404, self.data.appliance_error[404]
         return self.status_code, self.data.appliance_details_1

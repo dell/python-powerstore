@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Certificate operations"""
+"""Certificate operations"""
 
 from PyPowerStore import powerstore_conn
 
@@ -19,7 +18,7 @@ certificate_list = CONN.config_mgmt.get_certificates()
 print(certificate_list)
 
 certificate_details = CONN.config_mgmt.get_certificate_details(
-    certificate_list[0]["id"]
+    certificate_list[0]["id"],
 )
 print(certificate_details)
 
@@ -42,6 +41,6 @@ print(resp)
 modify_dict = {"certificate": "<passphrase>", "is_current": True}
 
 resp = CONN.config_mgmt.modify_certificate(
-    certificate_id=resp["id"], modify_cert_dict=modify_dict
+    certificate_id=resp["id"], modify_cert_dict=modify_dict,
 )
 print(resp)

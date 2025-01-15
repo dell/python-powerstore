@@ -6,15 +6,15 @@ class TestRemoteSystem(TestBase):
     def test_get_remote_systems(self):
         remote_system_list = self.protection.get_remote_systems()
         self.assertListEqual(
-            remote_system_list, self.remote_system_data.remote_system_list
+            remote_system_list, self.remote_system_data.remote_system_list,
         )
 
     def test_get_remote_system(self):
         remote_system_details_1 = self.protection.get_remote_system_details(
-            self.remote_system_data.remote_system_id_1
+            self.remote_system_data.remote_system_id_1,
         )
         self.assertEqual(
-            remote_system_details_1, self.remote_system_data.remote_system_details_1
+            remote_system_details_1, self.remote_system_data.remote_system_details_1,
         )
 
     def test_get_remote_system_by_name(self):
@@ -23,23 +23,23 @@ class TestRemoteSystem(TestBase):
             self.remote_system_data.mgmt_ip_1,
         )
         self.assertEqual(
-            remote_system_details_1, [self.remote_system_data.remote_system_details_1]
+            remote_system_details_1, [self.remote_system_data.remote_system_details_1],
         )
 
     def test_get_remote_system_by_mgmt_address(self):
         remote_system_details_1 = self.protection.get_remote_system_by_mgmt_address(
-            self.remote_system_data.mgmt_ip_1
+            self.remote_system_data.mgmt_ip_1,
         )
         self.assertEqual(
-            remote_system_details_1, [self.remote_system_data.remote_system_details_1]
+            remote_system_details_1, [self.remote_system_data.remote_system_details_1],
         )
 
     def test_create_remote_system(self):
         remote_system_details_1 = self.protection.create_remote_system(
-            self.remote_system_data.create_remote_sys_dict
+            self.remote_system_data.create_remote_sys_dict,
         )
         self.assertEqual(
-            remote_system_details_1, self.remote_system_data.remote_system_details_1
+            remote_system_details_1, self.remote_system_data.remote_system_details_1,
         )
 
     def test_modify_remote_system(self):
@@ -52,14 +52,14 @@ class TestRemoteSystem(TestBase):
 
     def test_delete_remote_system(self):
         remote_system = self.protection.delete_remote_system(
-            self.remote_system_data.remote_system_id_1
+            self.remote_system_data.remote_system_id_1,
         )
         self.assertIsNone(remote_system)
 
     def test_get_remote_appliance_details(self):
         remote_app_details_1 = self.protection.get_remote_system_appliance_details(
-            self.remote_system_data.remote_system_id_1
+            self.remote_system_data.remote_system_id_1,
         )
         self.assertEqual(
-            remote_app_details_1, self.remote_system_data.remote_app_details
+            remote_app_details_1, self.remote_system_data.remote_app_details,
         )

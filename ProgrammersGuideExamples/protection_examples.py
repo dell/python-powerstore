@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Protection Policy Module Operations"""
+"""Protection Policy Module Operations"""
 
 from PyPowerStore import powerstore_conn
 
@@ -64,7 +63,7 @@ resp = CONN.protection.get_replication_rule_by_name(name="test-rule")
 
 # Modify replication rule
 resp = CONN.protection.modify_replication_rule(
-    replication_rule_id=rule_id["id"], name="test-rule-modified", rpo="One_Hour"
+    replication_rule_id=rule_id["id"], name="test-rule-modified", rpo="One_Hour",
 )
 
 # Delete replication rule
@@ -74,7 +73,7 @@ resp = CONN.protection.delete_replication_rule(replication_rule_id=rule_id["id"]
 SRULE_IDS = []
 for index in range(1, 4):
     srule_id = CONN.protection.create_snapshot_rule_by_interval(
-        name="pr-sdk-srule-{}".format(index), desired_retention=3, interval="Two_Hours"
+        name=f"pr-sdk-srule-{index}", desired_retention=3, interval="Two_Hours",
     ).get("id")
     if srule_id:
         SRULE_IDS.append(srule_id)
@@ -109,25 +108,25 @@ print(RESP)
 
 # Add snapshot rules to the protection policy
 RESP = CONN.protection.add_snapshot_rules_to_protection_policy(
-    policy_id=CREATED_PP_ID, add_snapshot_rule_ids=SRULE_IDS[1:]
+    policy_id=CREATED_PP_ID, add_snapshot_rule_ids=SRULE_IDS[1:],
 )
 print(RESP)
 
 # Remove snapshot rules from the protection policy
 RESP = CONN.protection.remove_snapshot_rules_from_protection_policy(
-    policy_id=CREATED_PP_ID, remove_snapshot_rule_ids=SRULE_IDS
+    policy_id=CREATED_PP_ID, remove_snapshot_rule_ids=SRULE_IDS,
 )
 print(RESP)
 
 # Add replication rule to the protection policy
 resp = CONN.protection.add_replication_rules_to_protection_policy(
-    policy_id=CREATED_PP_ID, add_replication_rule_ids=[rule_id["id"]]
+    policy_id=CREATED_PP_ID, add_replication_rule_ids=[rule_id["id"]],
 )
 print(resp)
 
 # Remove replication rule from the protection policy
 resp = CONN.protection.remove_replication_rules_from_protection_policy(
-    policy_id=CREATED_PP_ID, remove_replication_rule_ids=[rule_id["id"]]
+    policy_id=CREATED_PP_ID, remove_replication_rule_ids=[rule_id["id"]],
 )
 print(resp)
 

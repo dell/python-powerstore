@@ -10,7 +10,7 @@ class TestLocalUser(TestBase):
 
     def test_get_local_user_by_name(self):
         local_user_details = self.configuration.get_local_user_by_name(
-            self.data.local_user_name1
+            self.data.local_user_name1,
         )
         self.assertEqual(local_user_details, self.data.local_user_details)
 
@@ -20,7 +20,7 @@ class TestLocalUser(TestBase):
 
     def test_get_local_user_details(self):
         local_user_details = self.configuration.get_local_user_details(
-            self.data.local_user_id1
+            self.data.local_user_id1,
         )
         self.assertEqual(local_user_details, self.data.local_user_details)
 
@@ -34,7 +34,7 @@ class TestLocalUser(TestBase):
 
     def test_modify_local_user(self):
         resp = self.configuration.modify_local_user(
-            self.data.local_user_id1, {"role_id": "4"}
+            self.data.local_user_id1, {"role_id": "4"},
         )
         self.assertIsNone(resp)
 

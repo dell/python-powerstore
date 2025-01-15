@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Remote Support Contact operations"""
+"""Remote Support Contact operations"""
 
 from PyPowerStore import powerstore_conn
 
@@ -19,7 +18,7 @@ print(remote_support_contact_list)
 
 # Getting Remote Support Contact instance details
 remote_support_contact_details = CONN.config_mgmt.get_remote_support_contact_details(
-    remote_support_contact_id=remote_support_contact_list[0]["id"]
+    remote_support_contact_id=remote_support_contact_list[0]["id"],
 )
 print(remote_support_contact_details)
 

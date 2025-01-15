@@ -8,12 +8,12 @@ class TestRemoteSupport(TestBase):
         remote_support_list = self.configuration.get_remote_support_list()
         print(remote_support_list)
         self.assertListEqual(
-            remote_support_list, self.remote_support_data.remote_support_list
+            remote_support_list, self.remote_support_data.remote_support_list,
         )
 
     def test_get_remote_support_details(self):
         resp = self.configuration.get_remote_support_details(
-            self.remote_support_data.remote_support_id
+            self.remote_support_data.remote_support_id,
         )
         self.assertEqual(resp, self.remote_support_data.remote_support_details)
 
@@ -43,6 +43,6 @@ class TestRemoteSupport(TestBase):
 
     def test_send_test_alert_remote_support(self):
         resp = self.configuration.test_remote_support_config(
-            self.remote_support_data.remote_support_id
+            self.remote_support_data.remote_support_id,
         )
         self.assertIsNone(resp)

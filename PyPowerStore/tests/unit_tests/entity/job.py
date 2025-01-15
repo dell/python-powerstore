@@ -19,6 +19,6 @@ class JobResponse(Entity):
         return status_code, response
 
     def get_job_details(self):
-        if self.url.endswith("/job/{0}".format(self.data.job_does_not_exist)):
+        if self.url.endswith(f"/job/{self.data.job_does_not_exist}"):
             return 404, self.data.job_error[404]
         return self.status_code, self.data.job_details

@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Local User Operations"""
+"""Local User Operations"""
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(
@@ -21,13 +20,13 @@ print(local_users_list)
 
 # Get local user details by name
 local_user_details_by_name = CONN.config_mgmt.get_local_user_by_name(
-    name=local_users_list[0]["name"]
+    name=local_users_list[0]["name"],
 )
 print(local_user_details_by_name)
 
 # Get local user details by ID
 local_user_details = CONN.config_mgmt.get_local_user_details(
-    user_id=local_users_list[0]["id"]
+    user_id=local_users_list[0]["id"],
 )
 print(local_user_details)
 
@@ -48,7 +47,7 @@ modify_parameters = {
     "password": "<<New local user passoword>>",
 }
 updated_local_user = CONN.config_mgmt.modify_local_user(
-    local_user_id=local_user["id"], modify_parameters=modify_parameters
+    local_user_id=local_user["id"], modify_parameters=modify_parameters,
 )
 print(updated_local_user)
 

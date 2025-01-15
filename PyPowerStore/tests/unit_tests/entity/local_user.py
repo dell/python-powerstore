@@ -34,7 +34,7 @@ class LocalUserResponse(Entity):
 
     def get_local_user_details(self):
         if self.url.endswith(
-            "/local_user/{0}".format(self.data.local_user_does_not_exist)
+            f"/local_user/{self.data.local_user_does_not_exist}",
         ):
             return 404, self.data.local_user_error[404]
         return self.status_code, self.data.local_user_details

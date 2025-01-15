@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" NAS Server Operations"""
+"""NAS Server Operations"""
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(

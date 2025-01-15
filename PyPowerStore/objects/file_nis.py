@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
 """Collection of file NIS related functions for PowerStore"""
@@ -10,7 +9,7 @@ LOG = helpers.get_logger(__name__)
 
 SELECT_ALL_FILE_NIS = {
     "select": "id, nas_server_id, domain, ip_addresses,"
-    "is_destination_override_enabled, nas_server(id,name)"
+    "is_destination_override_enabled, nas_server(id,name)",
 }
 
 # File NIS endpoints
@@ -52,7 +51,7 @@ class FileNIS:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting file NISs with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting file NISs with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_FILE_NIS, filter_dict)
         LOG.info(f"Querystring: '{querystring}'")
@@ -113,7 +112,7 @@ class FileNIS:
         """
         LOG.info("Creating file NIS")
         return self.file_nis_client.request(
-            constants.POST, CREATE_FILE_NIS_URL.format(self.server_ip), payload=payload
+            constants.POST, CREATE_FILE_NIS_URL.format(self.server_ip), payload=payload,
         )
 
     def modify_file_nis(self, file_nis_id, modify_parameters):
@@ -152,7 +151,7 @@ class FileNIS:
         """
         LOG.info(f"Deleting file NIS: '{file_nis_id}'")
         return self.file_nis_client.request(
-            constants.DELETE, DELETE_FILE_NIS_URL.format(self.server_ip, file_nis_id)
+            constants.DELETE, DELETE_FILE_NIS_URL.format(self.server_ip, file_nis_id),
         )
 
     # File NIS methods end

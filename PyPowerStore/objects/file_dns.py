@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
 """Collection of file DNS related functions for PowerStore"""
@@ -9,7 +8,7 @@ from PyPowerStore.utils import constants, helpers
 LOG = helpers.get_logger(__name__)
 
 SELECT_ALL_FILE_DNS = {
-    "select": "id, nas_server_id, domain, ip_addresses, transport, nas_server(id,name), is_destination_override_enabled"
+    "select": "id, nas_server_id, domain, ip_addresses, transport, nas_server(id,name), is_destination_override_enabled",
 }
 
 # File DNS endpoints
@@ -51,7 +50,7 @@ class FileDNS:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting file DNSs with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting file DNSs with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_FILE_DNS, filter_dict)
         LOG.info(f"Querystring: '{querystring}'")
@@ -112,7 +111,7 @@ class FileDNS:
         """
         LOG.info("Creating file DNS")
         return self.file_dns_client.request(
-            constants.POST, CREATE_FILE_DNS_URL.format(self.server_ip), payload=payload
+            constants.POST, CREATE_FILE_DNS_URL.format(self.server_ip), payload=payload,
         )
 
     def modify_file_dns(self, file_dns_id, modify_parameters):
@@ -151,7 +150,7 @@ class FileDNS:
         """
         LOG.info(f"Deleting file DNS: '{file_dns_id}'")
         return self.file_dns_client.request(
-            constants.DELETE, DELETE_FILE_DNS_URL.format(self.server_ip, file_dns_id)
+            constants.DELETE, DELETE_FILE_DNS_URL.format(self.server_ip, file_dns_id),
         )
 
     # File DNS methods end

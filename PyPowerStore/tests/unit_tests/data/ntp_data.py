@@ -16,11 +16,11 @@ class NtpData:
                     "severity": "Error",
                     "message_l10n": 'Validation failed: Object instance has properties which are not allowed by the schema: ["invalid_param"].',
                     "arguments": [
-                        'Object instance has properties which are not allowed by the schema: ["invalid_param"]'
+                        'Object instance has properties which are not allowed by the schema: ["invalid_param"]',
                     ],
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     ntp_details = {"id": "ntp_id", "addresses": ["XX.XX.XX.XX", "XX.XX.XX.YY"]}

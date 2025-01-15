@@ -8,7 +8,7 @@ class VcenterData:
             "username": "vcenter_admin",
             "vendor_provider_status": "Online",
             "vendor_provider_status_l10n": "Online",
-        }
+        },
     ]
     add_vcenter_params = {
         "address": "dummy ip",

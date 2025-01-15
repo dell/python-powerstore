@@ -21,7 +21,7 @@ class TestVolume(TestBase):
 
     def test_create_vol_with_app_type(self):
         vol = self.provisioning.create_volume(
-            self.data.vol_name1, self.data.size, app_type=self.data.app_type1
+            self.data.vol_name1, self.data.size, app_type=self.data.app_type1,
         )
         self.assertIsNone(vol)
 
@@ -36,7 +36,7 @@ class TestVolume(TestBase):
 
     def test_create_vol_with_appliance_id(self):
         vol = self.provisioning.create_volume(
-            self.data.vol_name1, self.data.size, appliance_id=self.data.appliance_id
+            self.data.vol_name1, self.data.size, appliance_id=self.data.appliance_id,
         )
         self.assertIsNone(vol)
 
@@ -100,7 +100,7 @@ class TestVolume(TestBase):
 
     def test_add_protection_policy_for_volume(self):
         resp = self.provisioning.add_protection_policy_for_volume(
-            self.data.vol_id1, self.data.pol_id
+            self.data.vol_id1, self.data.pol_id,
         )
         self.assertIsNone(resp)
 
@@ -122,31 +122,31 @@ class TestVolume(TestBase):
 
     def test_map_volume_to_host(self):
         resp = self.provisioning.map_volume_to_host(
-            self.data.vol_id1, self.data.host_id1, self.data.lun
+            self.data.vol_id1, self.data.host_id1, self.data.lun,
         )
         self.assertIsNone(resp)
 
     def test_unmap_volume_from_host(self):
         resp = self.provisioning.unmap_volume_from_host(
-            self.data.vol_id1, self.data.host_id1
+            self.data.vol_id1, self.data.host_id1,
         )
         self.assertIsNone(resp)
 
     def test_map_volume_to_hg(self):
         resp = self.provisioning.map_volume_to_host_group(
-            self.data.vol_id1, self.data.hg_id1, self.data.lun
+            self.data.vol_id1, self.data.hg_id1, self.data.lun,
         )
         self.assertIsNone(resp)
 
     def test_unmap_volume_from_host_group(self):
         resp = self.provisioning.unmap_volume_from_host_group(
-            self.data.vol_id1, self.data.hg_id1
+            self.data.vol_id1, self.data.hg_id1,
         )
         self.assertIsNone(resp)
 
     def test_create_volume_snapshot(self):
         vol_snap_detail = self.protection.create_volume_snapshot(
-            self.data.vol_id1, description="vol snap description"
+            self.data.vol_id1, description="vol snap description",
         )
         self.assertEqual(vol_snap_detail, self.data.vol_snap_detail)
 
@@ -160,7 +160,7 @@ class TestVolume(TestBase):
 
     def test_modify_volume_snapshot(self):
         snap = self.protection.modify_volume_snapshot(
-            self.data.vol_snap_id, name="vol_snap"
+            self.data.vol_snap_id, name="vol_snap",
         )
         self.assertEqual(snap, self.data.vol_snap_detail)
 
@@ -170,7 +170,7 @@ class TestVolume(TestBase):
 
     def test_config_metro_volume(self):
         resp = self.provisioning.configure_metro_volume(
-            self.data.vol_id1, self.data.remote_system_id
+            self.data.vol_id1, self.data.remote_system_id,
         )
         self.assertEqual(resp, self.data.metro_replication_session_id)
 

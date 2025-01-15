@@ -32,7 +32,7 @@ class NFSServerResponse(Entity):
 
     def get_nfs_server_details(self):
         if self.url.endswith(
-            "/nfs_server/{0}".format(self.nfs_server_data.nfs_server_id_not_exist)
+            f"/nfs_server/{self.nfs_server_data.nfs_server_id_not_exist}",
         ):
             return 404, self.nfs_server_data.nfs_server_error[404]
         return 200, self.nfs_server_data.nfs_server_detail

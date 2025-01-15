@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" SNMP server Operations"""
+"""SNMP server Operations"""
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(
@@ -44,7 +43,7 @@ print(SNMP_SERVER)
 
 # modify SNMP server
 MODIFY_SNMP_SERVER = CONN.snmp_server.modify_snmp_server(
-    SNMP_SERVERS[0]["id"], MODIFY_PARAMS
+    SNMP_SERVERS[0]["id"], MODIFY_PARAMS,
 )
 print(MODIFY_SNMP_SERVER)
 

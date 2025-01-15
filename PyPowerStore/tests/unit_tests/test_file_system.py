@@ -40,19 +40,19 @@ class TestFileSystem(TestBase):
 
     def test_get_filesystem_by_name(self):
         fs = self.provisioning.get_filesystem_by_name(
-            self.file_system_data.fs_name1, self.file_system_data.nas_id1
+            self.file_system_data.fs_name1, self.file_system_data.nas_id1,
         )
         self.assertEqual(fs, self.file_system_data.fs_detail)
 
     def test_create_filesystem_snapshot(self):
         fs_snap = self.protection.create_filesystem_snapshot(
-            self.file_system_data.fs_id1, is_smb_sync_writes_enabled=True
+            self.file_system_data.fs_id1, is_smb_sync_writes_enabled=True,
         )
         self.assertEqual(fs_snap, self.file_system_data.create_filesystem_snap)
 
     def test_get_filesystem_snapshot_details(self):
         fs_snap_detail = self.protection.get_filesystem_snapshot_details(
-            self.file_system_data.fs_snap_id
+            self.file_system_data.fs_snap_id,
         )
         self.assertEqual(fs_snap_detail, self.file_system_data.fs_snap_detail)
 
@@ -77,7 +77,7 @@ class TestFileSystem(TestBase):
             mock_request.assert_called_with(
                 constants.GET,
                 constants.GET_FILESYSTEM_DETAILS_BY_NAME_URL.format(
-                    self.protection.server_ip
+                    self.protection.server_ip,
                 ),
                 querystring=querystring,
             )
@@ -100,13 +100,13 @@ class TestFileSystem(TestBase):
 
     def test_get_snapshots_filesystem(self):
         fs_snap_list = self.provisioning.get_snapshots_filesystem(
-            self.file_system_data.fs_id1
+            self.file_system_data.fs_id1,
         )
         self.assertEqual(fs_snap_list, self.file_system_data.fs_snap_list)
 
     def test_modify_filesystem_snapshot(self):
         resp = self.protection.modify_filesystem_snapshot(
-            self.file_system_data.fs_snap_id, description="My Desc"
+            self.file_system_data.fs_snap_id, description="My Desc",
         )
         self.assertIsNone(resp)
 
@@ -125,7 +125,7 @@ class TestFileSystem(TestBase):
 
     def test_delete_filesystem_snapshot(self):
         resp = self.protection.delete_filesystem_snapshot(
-            self.file_system_data.fs_snap_id
+            self.file_system_data.fs_snap_id,
         )
         self.assertIsNone(resp)
 

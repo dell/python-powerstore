@@ -25,7 +25,7 @@ class LdapData:
             "group_member_attribute": "member",
             "bind_user": "cn=admin,dc=ldap,dc=com",
             "group_name_attribute": "cn",
-        }
+        },
     ]
 
     ldap_domain_details1 = {

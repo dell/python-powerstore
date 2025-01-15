@@ -31,5 +31,5 @@ class VirtualVolumeData:
             "usage_type_l10n": "Config",
             "io_priority_l10n": "Medium",
             "creator_type_l10n": "User",
-        }
+        },
     ]

@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" SMB Share Operations"""
+"""SMB Share Operations"""
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(
@@ -20,12 +19,12 @@ PATH = "/sample_fs"
 
 # Create smbshare
 SMB = CONN.provisioning.create_smb_share(
-    FS_ID, PATH, SMB_NAME, description="Description"
+    FS_ID, PATH, SMB_NAME, description="Description",
 )
 print(SMB)
 
 # Get smbshare list
-filter_dict = {"name": "eq.{0}".format(SMB_NAME)}
+filter_dict = {"name": f"eq.{SMB_NAME}"}
 SMB_LIST = CONN.provisioning.get_smb_shares(filter_dict=filter_dict)
 print(SMB_LIST)
 

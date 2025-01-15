@@ -16,10 +16,10 @@ class TestSNMPServer(TestBase):
         querystring = {"version": "V2c"}
         querystring.update(snmp_server.SELECT_ALL_SNMP)
         with mock.patch.object(
-            self.snmp_server.snmp_server_client, "request"
+            self.snmp_server.snmp_server_client, "request",
         ) as mock_request:
             self.snmp_server.get_snmp_server_list(
-                filter_dict=querystring, all_pages=True
+                filter_dict=querystring, all_pages=True,
             )
             mock_request.assert_called_with(
                 constants.GET,
@@ -31,7 +31,7 @@ class TestSNMPServer(TestBase):
 
     def test_get_snmp_server_details(self):
         snmp_server_detail = self.snmp_server.get_snmp_server_details(
-            self.snmp_server_data.snmp_server_id
+            self.snmp_server_data.snmp_server_id,
         )
         self.assertEqual(snmp_server_detail, self.snmp_server_data.snmp_server_detail)
 
@@ -52,7 +52,7 @@ class TestSNMPServer(TestBase):
             "trap_community": "public",
         }
         resp = self.snmp_server.modify_snmp_server(
-            self.snmp_server_data.snmp_server_id, param
+            self.snmp_server_data.snmp_server_id, param,
         )
         self.assertIsNone(resp)
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
 """Collection of NFS server related functions for PowerStore"""
@@ -12,7 +11,7 @@ SELECT_ALL_NFS_SERVER = {
     "select": "id, nas_server_id, host_name, is_nfsv3_enabled,"
     "is_nfsv4_enabled, is_secure_enabled, is_use_smb_config_enabled,"
     "service_principal_name, is_joined, is_extended_credentials_enabled,"
-    "credentials_cache_TTL, nas_server(id,name)"
+    "credentials_cache_TTL, nas_server(id,name)",
 }
 
 # NFS server endpoints
@@ -54,7 +53,7 @@ class NFSServer:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting NFS servers with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting NFS servers with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_NFS_SERVER, filter_dict)
         LOG.info(f"Querystring: '{querystring}'")

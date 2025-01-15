@@ -15,7 +15,7 @@ class TestSmtp_Config(TestBase):
 
     def test_modify_smtp_config_details(self):
         resp = self.configuration.modify_smtp_config_details(
-            self.smtp_config_data.smtp_id, self.smtp_config_data.modify_smtp_dict
+            self.smtp_config_data.smtp_id, self.smtp_config_data.modify_smtp_dict,
         )
         self.assertIsNone(resp)
 
@@ -31,6 +31,6 @@ class TestSmtp_Config(TestBase):
 
     def test_send_test_mail_smtp_config(self):
         resp = self.configuration.test_smtp_config(
-            self.smtp_config_data.smtp_id, self.smtp_config_data.test_smtp_dict
+            self.smtp_config_data.smtp_id, self.smtp_config_data.test_smtp_dict,
         )
         self.assertIsNone(resp)

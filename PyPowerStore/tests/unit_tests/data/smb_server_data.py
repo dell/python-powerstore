@@ -13,7 +13,7 @@ class SMBServerData:
             "description": "sample_description",
             "is_standalone": True,
             "is_joined": False,
-        }
+        },
     ]
 
     nas_server_id = "6581683c-61a3-76ab-f107-62b767ad9845"
@@ -50,15 +50,15 @@ class SMBServerData:
                     "arguments": [
                         "Object instance has properties "
                         "which are not allowed by the "
-                        "schema."
+                        "schema.",
                     ],
                     "code": "0xE04040030001",
                     "message_l10n": "Validation failed: Object "
                     "instance has properties which "
                     "are not allowed by the schema.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
         404: {
             "messages": [
@@ -67,7 +67,7 @@ class SMBServerData:
                     "message_l10n": "Operation failed because "
                     "SMB server ID is invalid.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
     }

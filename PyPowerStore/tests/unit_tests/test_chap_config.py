@@ -10,7 +10,7 @@ class TestChapConfig(TestBase):
 
     def test_get_chap_config_details(self):
         chap_config_details = self.configuration.get_chap_config_details(
-            self.data.chap_config_id_1
+            self.data.chap_config_id_1,
         )
         self.assertEqual(chap_config_details, self.data.chap_config_details_1)
 
@@ -24,6 +24,6 @@ class TestChapConfig(TestBase):
 
     def test_modify_chap_config(self):
         chap_config_details_1 = self.configuration.modify_chap_config(
-            self.data.chap_config_id_1, mode="Single"
+            self.data.chap_config_id_1, mode="Single",
         )
         self.assertEqual(chap_config_details_1, self.data.chap_config_details_1)

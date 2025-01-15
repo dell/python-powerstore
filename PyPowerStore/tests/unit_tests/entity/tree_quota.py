@@ -43,6 +43,6 @@ class TreeQuotaResponse(Entity):
         return 204, None
 
     def delete_tree_quota(self):
-        if self.url.endswith("/file_tree_quota/{0}".format(self.data.invalid_tq_id)):
+        if self.url.endswith(f"/file_tree_quota/{self.data.invalid_tq_id}"):
             return 404, self.data.tq_error[404]
         return 204, None

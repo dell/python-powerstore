@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" NFS Server Operations"""
+"""NFS Server Operations"""
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(
@@ -50,13 +49,13 @@ print(NFS_SERVER)
 
 # get NFS server details by NAS server
 NFS_SERVER = CONN.nfs_server.get_nfs_server_by_nas_server_id(
-    CREATE_PARAMS["nas_server_id"]
+    CREATE_PARAMS["nas_server_id"],
 )
 print(NFS_SERVER)
 
 # modify NFS server
 MODIFY_NFS_SERVER = CONN.nfs_server.modify_nfs_server(
-    NFS_SERVER[0]["id"], MODIFY_PARAMS
+    NFS_SERVER[0]["id"], MODIFY_PARAMS,
 )
 print(MODIFY_NFS_SERVER)
 

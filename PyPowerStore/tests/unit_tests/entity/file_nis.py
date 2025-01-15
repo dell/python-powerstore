@@ -32,7 +32,7 @@ class FileNISResponse(Entity):
 
     def get_file_nis_details(self):
         if self.url.endswith(
-            "/file_nis/{0}".format(self.file_nis_data.file_nis_id_not_exist)
+            f"/file_nis/{self.file_nis_data.file_nis_id_not_exist}",
         ):
             return 404, self.file_nis_data.file_nis_error[404]
         return 200, self.file_nis_data.file_nis_detail

@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
 """Client module for PowerStore"""
 
 import base64
 import json
-import socket
 import time
 
 import requests
@@ -28,10 +26,9 @@ class AuthenticationManager:
     """Manage the powerstore authentication"""
 
     def __init__(
-        self, username, password, verify, application_type, timeout, host=None
+        self, username, password, verify, application_type, timeout, host=None,
     ):
-        """
-        Initializes AuthenticationManager
+        """Initializes AuthenticationManager
 
         :param username: array username
         :type username: str
@@ -71,9 +68,7 @@ class AuthenticationManager:
     def get_authorization(self):
         """Get the authorization header"""
         credentials = base64.b64encode(
-            "{username}:{password}".format(
-                username=self.username, password=self.password
-            ).encode()
+            f"{self.username}:{self.password}".encode(),
         )
         return {"authorization": "Basic " + credentials.decode()}
 
@@ -192,7 +187,7 @@ class Client:
         LOG = helpers.get_logger(__name__, enable_log=enable_log)
 
     def fetch_response(
-        self, http_method, url, payload=None, querystring=None, myrange=None
+        self, http_method, url, payload=None, querystring=None, myrange=None,
     ):
         """Fetch & return the response based on request parameters.
 
@@ -209,7 +204,6 @@ class Client:
         :return: Request's response.
         :rtype: requests.models.Response object
         """
-
         headers = {
             "Accept": "application/json",
             "Accept-Language": "en-US",
@@ -229,7 +223,7 @@ class Client:
         LOG.debug(
             "Request's http_method: '%s' url: '%s' payload: '%s' "
             "querystring: '%s' myrange: '%s'"
-            % (http_method, url, payload, querystring, myrange)
+            % (http_method, url, payload, querystring, myrange),
         )
         if myrange:
             headers["Range"] = myrange
@@ -280,18 +274,18 @@ class Client:
         :type response: requests.models.Response
         """
         if response.status_code == 500:
-            error_msg = "PowerStore internal server error. Error " "details: " + str(
-                response.json()
+            error_msg = "PowerStore internal server error. Error details: " + str(
+                response.json(),
             )
         elif response.status_code == 401:
             error_msg = "Access forbidden: Authentication required."
         elif response.status_code == 403:
-            error_msg = "Not allowed - authorization failure. " "Error details: " + str(
-                response.json()
+            error_msg = "Not allowed - authorization failure. Error details: " + str(
+                response.json(),
             )
         elif response.status_code == 404:
-            error_msg = "Requested resource not found. " "Error details: " + str(
-                response.json()
+            error_msg = "Requested resource not found. Error details: " + str(
+                response.json(),
             )
         elif response.status_code == 405:
             error_msg = (
@@ -306,8 +300,8 @@ class Client:
                 "Error details: " + str(response.json())
             )
         elif response.status_code == 415:
-            error_msg = "Invalid request Content-Type. " "Error details: " + str(
-                response.json()
+            error_msg = "Invalid request Content-Type. Error details: " + str(
+                response.json(),
             )
         elif response.status_code == 416:
             error_msg = (
@@ -318,8 +312,8 @@ class Client:
                 "result set. Error details: " + str(response.json())
             )
         elif response.status_code == 422:
-            error_msg = "Request could not be completed. " "Error details: " + str(
-                response.json()
+            error_msg = "Request could not be completed. Error details: " + str(
+                response.json(),
             )
         elif response.status_code == 503:
             error_msg = (
@@ -370,11 +364,10 @@ class Client:
         :return: Request's response.
         :rtype: dict or list of dict
         """
-
         try:
 
             response = self.fetch_response(
-                http_method, url, payload=payload, querystring=querystring
+                http_method, url, payload=payload, querystring=querystring,
             )
             try:
                 if self.is_valid_response(response):
@@ -391,12 +384,12 @@ class Client:
                     if all_pages and response.status_code == 206 and content_range:
                         # 'content-range': '0-99/789'
                         total_size = self.get_total_size_from_content_range(
-                            content_range
+                            content_range,
                         )
                         myranges = [
-                            "{0}-{1}".format(i, i + constants.MAX_LIMIT)
+                            f"{i}-{i + constants.MAX_LIMIT}"
                             for i in range(
-                                constants.OFFSET, total_size, constants.MAX_LIMIT
+                                constants.OFFSET, total_size, constants.MAX_LIMIT,
                             )
                         ]
                         for myrange in myranges:
@@ -419,10 +412,8 @@ class Client:
                 # its low-level or response level error caused by
                 # response.json() and not in requests.exceptions
                 error_msg = (
-                    "ValueError: '{0}' for Method: '{1}' URL: '{2}'"
-                    " PayLoad: '{3}' QueryString: '{4}'".format(
-                        str(ex), http_method, url, payload, querystring
-                    )
+                    f"ValueError: '{ex!s}' for Method: '{http_method}' URL: '{url}'"
+                    f" PayLoad: '{payload}' QueryString: '{querystring}'"
                 )
                 LOG.error(error_msg)
                 raise PowerStoreException(PowerStoreException.VALUE_ERROR, error_msg) from ex
@@ -432,16 +423,16 @@ class Client:
         except ConnectionError as exception:
             LOG.error(str(exception))
             raise PowerStoreException(
-                PowerStoreException.CONNECTION_ERROR, str(exception)
+                PowerStoreException.CONNECTION_ERROR, str(exception),
             ) from exception
         except TooManyRedirects as exception:
             LOG.error(str(exception))
             raise PowerStoreException(
-                PowerStoreException.TOO_MANY_REDIRECTS_ERROR, str(exception)
+                PowerStoreException.TOO_MANY_REDIRECTS_ERROR, str(exception),
             ) from exception
         except Timeout as exception:
             LOG.error(str(exception))
             raise PowerStoreException(PowerStoreException.TIMEOUT_ERROR, str(exception)) from exception
-        except socket.error as exception:
+        except OSError as exception:
             LOG.error(str(exception))
             raise PowerStoreException(PowerStoreException.SOCKET_ERR, str(exception)) from exception

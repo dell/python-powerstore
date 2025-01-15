@@ -32,7 +32,7 @@ class FileDNSResponse(Entity):
 
     def get_file_dns_details(self):
         if self.url.endswith(
-            "/file_dns/{0}".format(self.file_dns_data.file_dns_id_not_exist)
+            f"/file_dns/{self.file_dns_data.file_dns_id_not_exist}",
         ):
             return 404, self.file_dns_data.file_dns_error[404]
         return 200, self.file_dns_data.file_dns_detail

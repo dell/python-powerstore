@@ -49,6 +49,6 @@ class NFSExportResponse(Entity):
         return 204, None
 
     def delete_nfs(self):
-        if self.url.endswith("/nfs_export/{0}".format(self.data.invalid_nfs)):
+        if self.url.endswith(f"/nfs_export/{self.data.invalid_nfs}"):
             return 404, self.data.nfs_error[404]
         return 204, None

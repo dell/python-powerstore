@@ -30,7 +30,7 @@ class ServiceConfigResponse(Entity):
 
     def get_service_config_details(self):
         if self.url.endswith(
-            "/service_config/{0}".format(self.data.invalid_service_config_id)
+            f"/service_config/{self.data.invalid_service_config_id}",
         ):
             return 404, self.data.service_config_error[404]
         return self.status_code, self.data.service_config_details_1

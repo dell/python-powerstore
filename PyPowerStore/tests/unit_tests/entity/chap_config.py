@@ -28,7 +28,7 @@ class ChapConfigResponse(Entity):
 
     def get_chap_config_details(self):
         if self.url.endswith(
-            "/chap_config/{0}".format(self.data.invalid_chap_config_id)
+            f"/chap_config/{self.data.invalid_chap_config_id}",
         ):
             return 404, self.data.chap_config_error[404]
         return self.status_code, self.data.chap_config_details_1

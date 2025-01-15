@@ -13,7 +13,7 @@ class LdapAccountData:
             "type": "User",
             "type_l10n": "User",
             "dn": "cn=ldap_test_user_1,dc=ansildap,dc=com",
-        }
+        },
     ]
 
     ldap_account_details1 = {

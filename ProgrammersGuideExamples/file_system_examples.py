@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" File System Operations"""
+"""File System Operations"""
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(
@@ -24,7 +23,7 @@ FS = CONN.provisioning.create_filesystem(FS_NAME, NAS_ID, SIZE, ADV_PARAM)
 print(FS)
 
 # Get filesystem list
-filter_dict = {"name": "eq.{0}".format(FS_NAME)}
+filter_dict = {"name": f"eq.{FS_NAME}"}
 FS_LIST = CONN.provisioning.get_file_systems(filter_dict=filter_dict)
 print(FS_LIST)
 
@@ -65,13 +64,13 @@ print(FS_SNAP_DETAIL)
 
 # Get filesystem snapshot details by name
 FS_SNAP_DETAIL = CONN.protection.get_filesystem_snapshot_details_by_name(
-    FS_SNAP_DETAIL["name"], nas_server_id=NAS_ID
+    FS_SNAP_DETAIL["name"], nas_server_id=NAS_ID,
 )
 print(FS_SNAP_DETAIL)
 
 # Modify filesystem snapshot
 MODIFY_FS_SNAP = CONN.protection.modify_filesystem_snapshot(
-    FS_SNAP["id"], description="My Description"
+    FS_SNAP["id"], description="My Description",
 )
 print(MODIFY_FS_SNAP)
 

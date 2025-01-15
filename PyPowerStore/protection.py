@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 # Copyright: (c) 2024, Ivan Pchelintsev <Ivan.Pchelintsev@emc.com>
 
@@ -10,27 +9,27 @@ from PyPowerStore.utils import constants, helpers
 
 # Volume types
 VOLUME_TYPE = namedtuple("VolumeType", "primary clone snapshot")(
-    primary="Primary", clone="Clone", snapshot="Snapshot"
+    primary="Primary", clone="Clone", snapshot="Snapshot",
 )
 # Policy types
 POLICY_TYPE = namedtuple("PolicyType", "protection performance")(
-    protection="Protection", performance="Performance"
+    protection="Protection", performance="Performance",
 )
 # Snapshot Rule
 SNAPSHOT_RULE_DETAILS_QUERY = {
     "select": "id,name,interval,days_of_week,time_of_day,desired_retention,"
-    "policies(id,name)"
+    "policies(id,name)",
 }
 # Replication Rule
 REPLICATION_RULE_DETAILS_QUERY = {
     "select": "id,name,rpo,remote_system_id,is_replica,alert_threshold,"
-    "policies(id,name)"
+    "policies(id,name)",
 }
 # Protection Policy
 PROTECTION_POLICY_FILTER = {"type": constants.EQUALS + POLICY_TYPE.protection}
 PROTECTION_POLICY_DETAILS_QUERY = {
     "select": "id,name,description,type,replication_rules(id,name),"
-    "snapshot_rules(id,name)"
+    "snapshot_rules(id,name)",
 }
 # Replication session
 REPLICATION_SESSION_DETAILS_QUERY = {
@@ -39,7 +38,7 @@ REPLICATION_SESSION_DETAILS_QUERY = {
     "progress_percentage,estimated_completion_timestamp,"
     "replication_rule_id,storage_element_pairs,state_l10n,"
     "role_l10n,resource_type_l10n,remote_system(id,name),"
-    "migration_session(id,name),replication_rule(id,name)"
+    "migration_session(id,name),replication_rule(id,name)",
 }
 REPLICATION_SESSION_DETAILS_FHP_QUERY = {
     "select": "id,state,role,resource_type,last_sync_timestamp,"
@@ -52,7 +51,7 @@ REPLICATION_SESSION_DETAILS_FHP_QUERY = {
     "next_sync_timestamp,failover_test_in_progress,error_code,"
     "data_connection_state,parent_replication_session_id,"
     "local_resource_state,data_transfer_state_l10n,"
-    "data_connection_state_l10n,local_resource_state_l10n"
+    "data_connection_state_l10n,local_resource_state_l10n",
 }
 
 # TODO: kept LOG as global for now will improve it to avoid overriding
@@ -155,7 +154,7 @@ class ProtectionFunctions:
         return response
 
     def modify_volume_snapshot(
-        self, snapshot_id, name=None, description=None, expiration_timestamp=None
+        self, snapshot_id, name=None, description=None, expiration_timestamp=None,
     ):
         """Modify a snapshot of a volume.
 
@@ -212,7 +211,7 @@ class ProtectionFunctions:
         """
         LOG.info(f"Getting volumegroup snapshots: '{volume_group_id}'")
         filter_by_source = {
-            "protection_data->>source_id": constants.EQUALS + volume_group_id
+            "protection_data->>source_id": constants.EQUALS + volume_group_id,
         }
         return self.rest_client.request(
             constants.GET,
@@ -235,7 +234,7 @@ class ProtectionFunctions:
         return self.provisioning.get_volume_group_details(volume_group_id=snapshot_id)
 
     def create_volume_group_snapshot(
-        self, volume_group_id, name=None, description=None, expiration_timestamp=None
+        self, volume_group_id, name=None, description=None, expiration_timestamp=None,
     ):
         """Create a snapshot of a volume group.
 
@@ -268,7 +267,7 @@ class ProtectionFunctions:
         response = self.rest_client.request(
             constants.POST,
             constants.CREATE_VOLUME_GROUP_SNAPSHOT_URL.format(
-                self.server_ip, volume_group_id
+                self.server_ip, volume_group_id,
             ),
             payload,
         )
@@ -277,7 +276,7 @@ class ProtectionFunctions:
         return response
 
     def modify_volume_group_snapshot(
-        self, snapshot_id, name=None, description=None, expiration_timestamp=None
+        self, snapshot_id, name=None, description=None, expiration_timestamp=None,
     ):
         """Modify a snapshot of a volume group.
 
@@ -338,10 +337,10 @@ class ProtectionFunctions:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting snapshot_rules with filter: '{filter_dict}' and all_pages: '{all_pages}'"
+            f"Getting snapshot_rules with filter: '{filter_dict}' and all_pages: '{all_pages}'",
         )
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_AND_NAME, filter_dict
+            constants.SELECT_ID_AND_NAME, filter_dict,
         )
         LOG.info(f"Querystring: '{querystring}'")
         return self.rest_client.request(
@@ -364,7 +363,7 @@ class ProtectionFunctions:
             constants.GET,
             constants.SNAPSHOT_RULE_LIST_URL.format(self.server_ip),
             querystring=helpers.prepare_querystring(
-                constants.SELECT_ID_AND_NAME, name=constants.EQUALS + name
+                constants.SELECT_ID_AND_NAME, name=constants.EQUALS + name,
             ),
         )
 
@@ -384,7 +383,7 @@ class ProtectionFunctions:
         )
 
     def create_snapshot_rule_by_interval(
-        self, name, desired_retention, interval, days_of_week=None
+        self, name, desired_retention, interval, days_of_week=None,
     ):
         """Create a new snapshot rule to take snapshots with time interval
         between.
@@ -418,7 +417,7 @@ class ProtectionFunctions:
         )
 
     def create_snapshot_rule_by_time_of_day(
-        self, name, desired_retention, time_of_day, days_of_week=None
+        self, name, desired_retention, time_of_day, days_of_week=None,
     ):
         """Create a new snapshot rule to take daily snapshots at the specified
         time of day.
@@ -532,7 +531,7 @@ class ProtectionFunctions:
         """
         payload = {"delete_snaps": delete_snaps}
         LOG.info(
-            f"Deleting snapshot_rule: '{snapshot_rule_id}' payload: '{payload}'"
+            f"Deleting snapshot_rule: '{snapshot_rule_id}' payload: '{payload}'",
         )
         return self.rest_client.request(
             constants.DELETE,
@@ -552,10 +551,10 @@ class ProtectionFunctions:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting policies with filter: '{filter_dict}' and all_pages: '{all_pages}'"
+            f"Getting policies with filter: '{filter_dict}' and all_pages: '{all_pages}'",
         )
         querystring = helpers.prepare_querystring(
-            PROTECTION_POLICY_FILTER, constants.SELECT_ID_AND_NAME, filter_dict
+            PROTECTION_POLICY_FILTER, constants.SELECT_ID_AND_NAME, filter_dict,
         )
         LOG.info(f"Querystring: {querystring}")
         return self.rest_client.request(
@@ -600,7 +599,7 @@ class ProtectionFunctions:
         )
 
     def create_protection_policy(
-        self, name, description=None, snapshot_rule_ids=None, replication_rule_ids=None
+        self, name, description=None, snapshot_rule_ids=None, replication_rule_ids=None,
     ):
         """Create a new protection policy. Protection policies can be assigned
         to volumes or application groups. When a protection policy is assigned
@@ -647,8 +646,7 @@ class ProtectionFunctions:
         return response
 
     def add_snapshot_rules_to_protection_policy(self, policy_id, add_snapshot_rule_ids):
-        """
-        Add snapshot rules to protection policy.
+        """Add snapshot rules to protection policy.
 
         :param policy_id: Protection policy unique identifier.
         :type policy_id: str
@@ -658,17 +656,16 @@ class ProtectionFunctions:
         :return:
         """
         LOG.info(
-            f"Adding snapshot_rules: '{add_snapshot_rule_ids}' to policy: '{policy_id}'"
+            f"Adding snapshot_rules: '{add_snapshot_rule_ids}' to policy: '{policy_id}'",
         )
         return self.modify_protection_policy(
-            policy_id=policy_id, add_snapshot_rule_ids=add_snapshot_rule_ids
+            policy_id=policy_id, add_snapshot_rule_ids=add_snapshot_rule_ids,
         )
 
     def remove_snapshot_rules_from_protection_policy(
-        self, policy_id, remove_snapshot_rule_ids
+        self, policy_id, remove_snapshot_rule_ids,
     ):
-        """
-        Remove snapshot rules from protection policy.
+        """Remove snapshot rules from protection policy.
 
         :param policy_id: Protection policy unique identifier.
         :type policy_id: str
@@ -679,17 +676,16 @@ class ProtectionFunctions:
         :rtype: dict
         """
         LOG.info(
-            f"Removing snapshot_rules: '{remove_snapshot_rule_ids}' to policy: '{policy_id}'"
+            f"Removing snapshot_rules: '{remove_snapshot_rule_ids}' to policy: '{policy_id}'",
         )
         return self.modify_protection_policy(
-            policy_id=policy_id, remove_snapshot_rule_ids=remove_snapshot_rule_ids
+            policy_id=policy_id, remove_snapshot_rule_ids=remove_snapshot_rule_ids,
         )
 
     def add_replication_rules_to_protection_policy(
-        self, policy_id, add_replication_rule_ids
+        self, policy_id, add_replication_rule_ids,
     ):
-        """
-        Add replication rule to protection policy.
+        """Add replication rule to protection policy.
 
         :param policy_id: Protection policy unique identifier.
         :type policy_id: str
@@ -700,17 +696,16 @@ class ProtectionFunctions:
         :rtype: dict
         """
         LOG.info(
-            f"Adding replication rule: '{add_replication_rule_ids}' to policy: '{policy_id}'"
+            f"Adding replication rule: '{add_replication_rule_ids}' to policy: '{policy_id}'",
         )
         return self.modify_protection_policy(
-            policy_id=policy_id, add_replication_rule_ids=add_replication_rule_ids
+            policy_id=policy_id, add_replication_rule_ids=add_replication_rule_ids,
         )
 
     def remove_replication_rules_from_protection_policy(
-        self, policy_id, remove_replication_rule_ids
+        self, policy_id, remove_replication_rule_ids,
     ):
-        """
-        Remove replication rules from protection policy.
+        """Remove replication rules from protection policy.
 
         :param policy_id: Protection policy unique identifier.
         :type policy_id: str
@@ -721,10 +716,10 @@ class ProtectionFunctions:
         :rtype: dict
         """
         LOG.info(
-            f"Removing replication rule: '{remove_replication_rule_ids}' from policy: '{policy_id}'"
+            f"Removing replication rule: '{remove_replication_rule_ids}' from policy: '{policy_id}'",
         )
         return self.modify_protection_policy(
-            policy_id=policy_id, remove_replication_rule_ids=remove_replication_rule_ids
+            policy_id=policy_id, remove_replication_rule_ids=remove_replication_rule_ids,
         )
 
     def modify_protection_policy(
@@ -810,7 +805,7 @@ class ProtectionFunctions:
     # FS Snapshot Methods
 
     def get_filesystem_snapshot_details_by_name(
-        self, snapshot_name, filesystem_id=None, nas_server_id=None
+        self, snapshot_name, filesystem_id=None, nas_server_id=None,
     ):
         """Get details of a particular filesystem snapshot.
 
@@ -823,7 +818,6 @@ class ProtectionFunctions:
         :return: Filesystem snapshot details
         :rtype: list
         """
-
         if filesystem_id is None and nas_server_id is None:
             raise ValueError("Provide filesystem_id or nas_server_id.")
 
@@ -832,7 +826,7 @@ class ProtectionFunctions:
 
         if filesystem_id:
             LOG.info(
-                f"Getting filesystem snapshot: '{snapshot_name}' details by fs_id: '{filesystem_id}'"
+                f"Getting filesystem snapshot: '{snapshot_name}' details by fs_id: '{filesystem_id}'",
             )
             return self.rest_client.request(
                 constants.GET,
@@ -845,10 +839,10 @@ class ProtectionFunctions:
             )
         LOG.info(
             "Getting filesystem snapshot: '%s' details by "
-            "nasserver id: '%s'" % (snapshot_name, nas_server_id)
+            "nasserver id: '%s'" % (snapshot_name, nas_server_id),
         )
         return self.provisioning.get_filesystem_by_name(
-            filesystem_name=snapshot_name, nas_server_id=nas_server_id
+            filesystem_name=snapshot_name, nas_server_id=nas_server_id,
         )
 
     def get_filesystem_snapshot_details(self, snapshot_id):
@@ -874,12 +868,12 @@ class ProtectionFunctions:
         :rtype: dict
         """
         LOG.info(
-            f"Creating filesystem: '{filesystem_id}' snapshot with param: '{kwargs}'"
+            f"Creating filesystem: '{filesystem_id}' snapshot with param: '{kwargs}'",
         )
         return self.rest_client.request(
             constants.POST,
             constants.CREATE_FILESYSTEM_SNAPSHOT_URL.format(
-                self.server_ip, filesystem_id
+                self.server_ip, filesystem_id,
             ),
             payload=kwargs,
         )
@@ -894,7 +888,7 @@ class ProtectionFunctions:
         :type kwargs: dict
         """
         LOG.info(
-            f"Modifying filesystem snapshot: '{snapshot_id}' with param: '{kwargs}'"
+            f"Modifying filesystem snapshot: '{snapshot_id}' with param: '{kwargs}'",
         )
         return self.rest_client.request(
             constants.PATCH,
@@ -930,10 +924,10 @@ class ProtectionFunctions:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting replication_rules with filter: '{filter_dict}' and all_pages: '{all_pages}'"
+            f"Getting replication_rules with filter: '{filter_dict}' and all_pages: '{all_pages}'",
         )
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_AND_NAME, filter_dict
+            constants.SELECT_ID_AND_NAME, filter_dict,
         )
         LOG.info(f"Querystring: '{querystring}'")
         return self.rest_client.request(
@@ -956,7 +950,7 @@ class ProtectionFunctions:
             constants.GET,
             constants.REPLICATION_RULE_LIST_URL.format(self.server_ip),
             querystring=helpers.prepare_querystring(
-                constants.SELECT_ID_AND_NAME, name=constants.EQUALS + name
+                constants.SELECT_ID_AND_NAME, name=constants.EQUALS + name,
             ),
         )
 
@@ -972,7 +966,7 @@ class ProtectionFunctions:
         return self.rest_client.request(
             constants.GET,
             constants.REPLICATION_RULE_OBJECT_URL.format(
-                self.server_ip, replication_rule_id
+                self.server_ip, replication_rule_id,
             ),
             querystring=REPLICATION_RULE_DETAILS_QUERY,
         )
@@ -1027,7 +1021,7 @@ class ProtectionFunctions:
         self.rest_client.request(
             constants.PATCH,
             constants.REPLICATION_RULE_OBJECT_URL.format(
-                self.server_ip, replication_rule_id
+                self.server_ip, replication_rule_id,
             ),
             payload,
         )
@@ -1043,7 +1037,7 @@ class ProtectionFunctions:
         return self.rest_client.request(
             constants.DELETE,
             constants.REPLICATION_RULE_OBJECT_URL.format(
-                self.server_ip, replication_rule_id
+                self.server_ip, replication_rule_id,
             ),
         )
 
@@ -1064,7 +1058,7 @@ class ProtectionFunctions:
         """
         LOG.info(
             "Getting replication sessions with filter: '%s' and "
-            "all_pages: '%s'" % (filter_dict, all_pages)
+            "all_pages: '%s'" % (filter_dict, all_pages),
         )
         querystring = helpers.prepare_querystring(constants.SELECT_ID, filter_dict)
         LOG.info(f"Querystring: '{querystring}'")
@@ -1095,8 +1089,7 @@ class ProtectionFunctions:
         )
 
     def sync_replication_session(self, session_id):
-        """
-        Synchronize the replication session
+        """Synchronize the replication session
         :param session_id: Replication session id
         :type session_id: str
         """
@@ -1107,8 +1100,7 @@ class ProtectionFunctions:
         )
 
     def pause_replication_session(self, session_id):
-        """
-        Pause the replication session
+        """Pause the replication session
         :param session_id: Replication session id
         :type session_id: str
         """
@@ -1119,8 +1111,7 @@ class ProtectionFunctions:
         )
 
     def resume_replication_session(self, session_id):
-        """
-        Resume the replication session
+        """Resume the replication session
         :param session_id: Replication session id
         :type session_id: str
         """
@@ -1131,8 +1122,7 @@ class ProtectionFunctions:
         )
 
     def failover_replication_session(self, session_id, is_planned=None, reverse=None):
-        """
-        Fail over the replication session
+        """Fail over the replication session
         :param session_id: Replication session id
         :type session_id: str
         :param is_planned: Indicates whether the replication session failover
@@ -1144,31 +1134,29 @@ class ProtectionFunctions:
         """
         LOG.info(f"Fail over the replication session with ID: '{session_id}'")
         payload = self._prepare_failover_replication_session_payload(
-            is_planned=is_planned, reverse=reverse
+            is_planned=is_planned, reverse=reverse,
         )
         return self.rest_client.request(
             constants.POST,
             constants.REPLICATION_SESSION_FAILOVER_URL.format(
-                self.server_ip, session_id
+                self.server_ip, session_id,
             ),
             payload,
         )
 
     def reprotect_replication_session(self, session_id):
-        """
-        Reprotect over the replication session
+        """Reprotect over the replication session
         """
         LOG.info(f"Reprotect the replication session with ID: '{session_id}'")
         return self.rest_client.request(
             constants.POST,
             constants.REPLICATION_SESSION_REPROTECT_URL.format(
-                self.server_ip, session_id
+                self.server_ip, session_id,
             ),
         )
 
     def modify_replication_session(self, session_id, role):
-        """
-        Modify the replication session
+        """Modify the replication session
         :param session_id: ID of replication session
         :type session_id: str
         :param role: Role of the replication session
@@ -1202,10 +1190,10 @@ class ProtectionFunctions:
         """
         LOG.info(
             "Getting replication groups with filter: '%s' and "
-            "all_pages: %s" % (filter_dict, all_pages)
+            "all_pages: %s" % (filter_dict, all_pages),
         )
         querystring = helpers.prepare_querystring(
-            constants.REPLICATION_GROUP_QUERY, filter_dict
+            constants.REPLICATION_GROUP_QUERY, filter_dict,
         )
         LOG.info(f"Querystring: '{querystring}'")
         return self.rest_client.request(
@@ -1224,13 +1212,13 @@ class ProtectionFunctions:
         :rtype: dict
         """
         LOG.info(
-            f"Getting replication session details by ID: '{replication_group_id}'"
+            f"Getting replication session details by ID: '{replication_group_id}'",
         )
 
         return self.rest_client.request(
             constants.GET,
             constants.REPLICATION_GROUP_DETAILS_URL.format(
-                self.server_ip, replication_group_id
+                self.server_ip, replication_group_id,
             ),
             querystring=constants.REPLICATION_GROUP_QUERY,
         )
@@ -1243,7 +1231,7 @@ class ProtectionFunctions:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting replication group details by name: '{replication_group_name}'"
+            f"Getting replication group details by name: '{replication_group_name}'",
         )
         return self.rest_client.request(
             constants.GET,
@@ -1269,10 +1257,10 @@ class ProtectionFunctions:
         :rtype: list[dict]
         """
         LOG.info(
-            f"Getting remote_systems with filter: '{filter_dict}' and all_pages: '{all_pages}'"
+            f"Getting remote_systems with filter: '{filter_dict}' and all_pages: '{all_pages}'",
         )
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_AND_NAME, filter_dict
+            constants.SELECT_ID_AND_NAME, filter_dict,
         )
         LOG.info(f"Querystring: '{querystring}'")
         return self.rest_client.request(
@@ -1348,14 +1336,13 @@ class ProtectionFunctions:
         return self.rest_client.request(
             constants.GET,
             constants.GET_REMOTE_SYSTEM_DETAILS_URL.format(
-                self.server_ip, remote_system_id
+                self.server_ip, remote_system_id,
             ),
             querystring=querystring,
         )
 
     def create_remote_system(self, create_remote_sys_dict):
-        """
-        Create a new remote system
+        """Create a new remote system
         :params create_remote_sys_dict: The create dictionary includes
         management_address, description and data_network_latency keys.
         :type create_remote_sys_dict: dict
@@ -1374,10 +1361,9 @@ class ProtectionFunctions:
         return response
 
     def modify_remote_system(
-        self, remote_system_id, modify_remote_sys_dict, is_async=True
+        self, remote_system_id, modify_remote_sys_dict, is_async=True,
     ):
-        """
-        Modify a remote system
+        """Modify a remote system
         :params remote_system_id: ID of the remote system.
         :type remote_system_id: str
         :params modify_remote_sys_dict: The modify dictionary includes
@@ -1411,7 +1397,7 @@ class ProtectionFunctions:
         if is_async:
             delete_url = delete_url + "?is_async=true"
         return self.rest_client.request(
-            constants.DELETE, delete_url.format(self.server_ip, remote_system_id)
+            constants.DELETE, delete_url.format(self.server_ip, remote_system_id),
         )
 
     def get_remote_system_appliance_details(self, remote_system_id):

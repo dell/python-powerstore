@@ -33,7 +33,7 @@ class ClusterResponse(Entity):
         return self.status_code, self.data.cluster_list
 
     def get_cluster_details(self):
-        if self.url.endswith("/cluster/{0}".format(self.data.invalid_cluster_id)):
+        if self.url.endswith(f"/cluster/{self.data.invalid_cluster_id}"):
             return 404, self.data.cluster_error[404]
         return self.status_code, self.data.cluster_details_1
 

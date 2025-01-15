@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
 """Collection of file interface related functions for PowerStore"""
@@ -12,7 +11,7 @@ SELECT_ALL_FILE_INTERFACE = {
     "select": "id, nas_server_id, ip_address, prefix_length,"
     "gateway, vlan_id, name, role, is_disabled,"
     "is_destination_override_enabled, ip_port_id,"
-    "source_parameters, is_dr_test, nas_server(id,name)"
+    "source_parameters, is_dr_test, nas_server(id,name)",
 }
 
 # File Interface endpoints
@@ -54,10 +53,10 @@ class FileInterface:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting file interfaces with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting file interfaces with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(
-            SELECT_ALL_FILE_INTERFACE, filter_dict
+            SELECT_ALL_FILE_INTERFACE, filter_dict,
         )
         LOG.info(f"Querystring: '{querystring}'")
         return self.file_interface_client.request(
@@ -97,7 +96,7 @@ class FileInterface:
         querystring = SELECT_ALL_FILE_INTERFACE
 
         LOG.info(
-            f"Getting file interface details by nas server id: '{nas_server_id}'"
+            f"Getting file interface details by nas server id: '{nas_server_id}'",
         )
         return self.file_interface_client.request(
             constants.GET,

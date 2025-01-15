@@ -39,7 +39,7 @@ class RepSessionResponse(Entity):
 
     def get_replication_session_details(self):
         if self.url.endswith(
-            "/replication_session/{0}".format(self.data.nas_id_not_exist)
+            f"/replication_session/{self.data.nas_id_not_exist}",
         ):
             return 404, self.data.rep_session_error[404]
         return 200, self.data.rep_session_details_1
@@ -60,7 +60,7 @@ class RepSessionResponse(Entity):
             # invalid param given
             return 400, self.data.rep_session_error[400]
         if self.url.endswith(
-            "/replication_session/{0}".format(self.data.rep_session_id_not_exist)
+            f"/replication_session/{self.data.rep_session_id_not_exist}",
         ):
             return 404, self.data.rep_session_error[404]
         return 204, None

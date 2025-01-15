@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" NFS Export Operations"""
+"""NFS Export Operations"""
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(
@@ -24,7 +23,7 @@ NFS = CONN.provisioning.create_nfs_export(FS_ID, PATH, NFS_NAME, OTHER_PARAM)
 print(NFS)
 
 # Get nfsexport list
-filter_dict = {"name": "eq.{0}".format(NFS_NAME)}
+filter_dict = {"name": f"eq.{NFS_NAME}"}
 NFS_LIST = CONN.provisioning.get_nfs_exports(filter_dict=filter_dict)
 print(NFS_LIST)
 

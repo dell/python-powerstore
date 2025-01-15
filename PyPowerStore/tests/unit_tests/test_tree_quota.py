@@ -16,7 +16,7 @@ class TestTreeQuota(TestBase):
         querystring.update(constants.SELECT_ID_AND_PATH)
         with mock.patch.object(self.provisioning.client, "request") as mock_request:
             self.provisioning.get_file_tree_quotas(
-                filter_dict=querystring, all_pages=True
+                filter_dict=querystring, all_pages=True,
             )
             mock_request.assert_called_with(
                 constants.GET,
@@ -56,7 +56,7 @@ class TestTreeQuota(TestBase):
         )
         with mock.patch.object(self.provisioning.client, "request") as mock_request:
             self.provisioning.get_tree_quota(
-                tree_quota_id=None, path=path, file_system_id=self.data.fs_id1
+                tree_quota_id=None, path=path, file_system_id=self.data.fs_id1,
             )
             mock_request.assert_called_with(
                 constants.GET,

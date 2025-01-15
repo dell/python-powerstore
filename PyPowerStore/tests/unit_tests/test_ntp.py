@@ -14,7 +14,7 @@ class TestNtp(TestBase):
 
     def test_modify_ntp_details(self):
         resp = self.configuration.modify_ntp_details(
-            self.ntp_data.ntp_id, self.ntp_data.modify_ntp_dict
+            self.ntp_data.ntp_id, self.ntp_data.modify_ntp_dict,
         )
         self.assertIsNone(resp)
 

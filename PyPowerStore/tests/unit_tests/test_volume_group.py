@@ -16,7 +16,7 @@ class TestVolumeGroup(TestBase):
         querystring.update(constants.SELECT_ID_AND_NAME)
         with mock.patch.object(self.provisioning.client, "request") as mock_request:
             self.provisioning.get_volume_group_list(
-                filter_dict=querystring, all_pages=True
+                filter_dict=querystring, all_pages=True,
             )
             mock_request.assert_called_with(
                 constants.GET,
@@ -36,7 +36,7 @@ class TestVolumeGroup(TestBase):
 
     def test_create_volume_group(self):
         vg = self.provisioning.create_volume_group(
-            self.data.vg_name1, volume_ids=[self.data.vol_id1]
+            self.data.vg_name1, volume_ids=[self.data.vol_id1],
         )
         self.assertEqual(vg, self.data.vg_id1)
 
@@ -66,7 +66,7 @@ class TestVolumeGroup(TestBase):
 
     def test_clone_volume_group(self):
         vg_clone_id = self.provisioning.clone_volume_group(
-            self.data.vg_id1, self.data.vg_name2, None, self.data.pol_id
+            self.data.vg_id1, self.data.vg_name2, None, self.data.pol_id,
         )
         self.assertEqual(vg_clone_id, self.data.vg_id2)
 

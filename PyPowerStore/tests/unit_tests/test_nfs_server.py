@@ -16,7 +16,7 @@ class TestNFSServer(TestBase):
         querystring = {"nas_server_id": "eq.6581683c-61a3-76ab-f107-62b767ad9845"}
         querystring.update(nfs_server.SELECT_ALL_NFS_SERVER)
         with mock.patch.object(
-            self.nfs_server.nfs_server_client, "request"
+            self.nfs_server.nfs_server_client, "request",
         ) as mock_request:
             self.nfs_server.get_nfs_server_list(filter_dict=querystring, all_pages=True)
             mock_request.assert_called_with(
@@ -29,7 +29,7 @@ class TestNFSServer(TestBase):
 
     def test_get_nfs_server_details(self):
         nfs_server_detail = self.nfs_server.get_nfs_server_details(
-            self.nfs_server_data.nfs_server_id
+            self.nfs_server_data.nfs_server_id,
         )
         self.assertEqual(nfs_server_detail, self.nfs_server_data.nfs_server_detail)
 
@@ -43,7 +43,7 @@ class TestNFSServer(TestBase):
 
     def test_get_nfs_server_by_nas(self):
         nfs_server_detail = self.nfs_server.get_nfs_server_by_nas_server_id(
-            self.nfs_server_data.nas_server_id
+            self.nfs_server_data.nas_server_id,
         )
         self.assertEqual(nfs_server_detail, self.nfs_server_data.nfs_server_list)
 
@@ -59,7 +59,7 @@ class TestNFSServer(TestBase):
             "credentials_cache_TTL": 20,
         }
         resp = self.nfs_server.modify_nfs_server(
-            self.nfs_server_data.nfs_server_id, param
+            self.nfs_server_data.nfs_server_id, param,
         )
         self.assertIsNone(resp)
 

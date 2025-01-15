@@ -15,10 +15,10 @@ class TestRemoteSupportContact(TestBase):
 
     def test_get_remote_support_contact_details(self):
         resp = self.configuration.get_remote_support_contact_details(
-            self.remote_support_contact_data.remote_support_contact_id
+            self.remote_support_contact_data.remote_support_contact_id,
         )
         self.assertEqual(
-            resp, self.remote_support_contact_data.remote_support_contact_details
+            resp, self.remote_support_contact_data.remote_support_contact_details,
         )
 
     def test_modify_remote_support_contact_details(self):

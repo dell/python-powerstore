@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Volume Group Module Operations"""
+"""Volume Group Module Operations"""
 
 from PyPowerStore import powerstore_conn
 
@@ -22,7 +21,7 @@ print(RESP)
 
 # Create Volume Group
 AG = CONN.provisioning.create_volume_group(
-    name="pr-sdk-ag-new-1", description="Created this VG " "from SDK"
+    name="pr-sdk-ag-new-1", description="Created this VG from SDK",
 )
 print(AG)
 
@@ -41,13 +40,13 @@ print(VOL)
 
 # Add volumes to Volume Group
 ADD_VOL_TO_AG = CONN.provisioning.add_members_to_volume_group(
-    volume_group_id=AG["id"], volume_ids=[VOL[0]["id"]]
+    volume_group_id=AG["id"], volume_ids=[VOL[0]["id"]],
 )
 print(ADD_VOL_TO_AG)
 
 # Remove volumes from Volume Group
 REMOVE_VOL_FROM_AG = CONN.provisioning.remove_members_from_volume_group(
-    volume_group_id=AG["id"], volume_ids=[VOL[0]["id"]]
+    volume_group_id=AG["id"], volume_ids=[VOL[0]["id"]],
 )
 print(REMOVE_VOL_FROM_AG)
 
@@ -61,7 +60,7 @@ print(MODIFY_AG)
 
 # Get Volume group by name
 AG_BY_NAME = CONN.provisioning.get_volume_group_by_name(
-    volume_group_name="modified-ag-name-sdk"
+    volume_group_name="modified-ag-name-sdk",
 )
 print(AG_BY_NAME)
 

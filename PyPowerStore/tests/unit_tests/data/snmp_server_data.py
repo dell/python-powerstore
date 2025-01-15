@@ -66,15 +66,15 @@ class SNMPServerData:
                     "arguments": [
                         "Object instance has properties "
                         "which are not allowed by the "
-                        "schema."
+                        "schema.",
                     ],
                     "code": "0xE04040030001",
                     "message_l10n": "Validation failed: Object "
                     "instance has properties which "
                     "are not allowed by the schema.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
         422: {
             "messages": [
@@ -83,7 +83,7 @@ class SNMPServerData:
                     "severity": "Error",
                     "message_l10n": "Server Record Not Found, id: c5fdeb93-42ed-4ec9-988e-daec2974f2fk",
                     "arguments": ["c5fdeb93-42ed-4ec9-988e-daec2974f2fk"],
-                }
-            ]
+                },
+            ],
         },
     }

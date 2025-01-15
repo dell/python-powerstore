@@ -29,19 +29,19 @@ class TestPolicy(TestBase):
 
     def test_get_snapshot_rule_by_name(self):
         sr_details = self.protection.get_snapshot_rule_by_name(
-            self.data.snap_rule_name1
+            self.data.snap_rule_name1,
         )
         self.assertEqual(sr_details, [self.data.snap_rule1])
 
     def test_create_snapshot_rule(self):
         snap_rule = self.protection.create_snapshot_rule_by_interval(
-            self.data.snap_rule_name1, self.data.desired_retention1, self.data.interval
+            self.data.snap_rule_name1, self.data.desired_retention1, self.data.interval,
         )
         self.assertEqual(snap_rule, self.data.snap_rule1)
 
     def test_modify_snapshot_rule(self):
         snap_rule = self.protection.modify_snapshot_rule(
-            self.data.snap_rule_id1, self.data.desired_retention2
+            self.data.snap_rule_id1, self.data.desired_retention2,
         )
         self.assertIsNotNone(snap_rule)
 

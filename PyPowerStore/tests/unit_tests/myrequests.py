@@ -151,7 +151,7 @@ class FakeResponse:
 
 
 def get_entity_class(url):
-    klass = ''
+    klass = ""
     url_split = url.split("/")
     if ENTITY_CLASS_MAPPING.get(url_split[-1]):
         # generic request .i.e. '/<entity>'

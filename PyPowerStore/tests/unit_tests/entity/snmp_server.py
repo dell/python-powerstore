@@ -32,7 +32,7 @@ class SNMPServerResponse(Entity):
 
     def get_snmp_server_details(self):
         if self.url.endswith(
-            "/snmp_server/{0}".format(self.snmp_server_data.snmp_server_id_not_exist)
+            f"/snmp_server/{self.snmp_server_data.snmp_server_id_not_exist}",
         ):
             return 422, self.snmp_server_data.snmp_server_error[422]
         return 200, self.snmp_server_data.snmp_server_detail

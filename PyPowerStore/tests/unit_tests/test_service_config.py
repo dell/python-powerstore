@@ -10,7 +10,7 @@ class TestServiceConfig(TestBase):
 
     def test_get_service_config_details(self):
         service_config_details = self.configuration.get_service_config_details(
-            self.data.service_config_id_1
+            self.data.service_config_id_1,
         )
         self.assertEqual(service_config_details, self.data.service_config_details_1)
 
@@ -24,6 +24,6 @@ class TestServiceConfig(TestBase):
 
     def test_modify_service_config(self):
         service_config_details_1 = self.configuration.modify_service_config(
-            self.data.service_config_id_1, is_ssh_enabled=True
+            self.data.service_config_id_1, is_ssh_enabled=True,
         )
         self.assertEqual(service_config_details_1, self.data.service_config_details_1)

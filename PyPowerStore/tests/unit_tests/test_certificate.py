@@ -9,7 +9,7 @@ class TestCertificate(TestBase):
 
     def test_get_certificate_details(self):
         certificate_details = self.configuration.get_certificate_details(
-            self.certificate_data.certificate_id1
+            self.certificate_data.certificate_id1,
         )
         self.assertEqual(certificate_details, self.certificate_data.certificate_details)
 
@@ -23,19 +23,19 @@ class TestCertificate(TestBase):
 
     def test_create_certificate(self):
         resp = self.configuration.create_certificate(
-            self.certificate_data.certificate_create_params
+            self.certificate_data.certificate_create_params,
         )
         self.assertEqual(resp, self.certificate_data.certificate_create_response)
 
     def test_reset_certificates(self):
         resp = self.configuration.reset_certificates(
-            self.certificate_data.certificate_reset_params
+            self.certificate_data.certificate_reset_params,
         )
         self.assertIsNone(resp)
 
     def test_exchange_certificates(self):
         resp = self.configuration.exchange_certificate(
-            self.certificate_data.certificate_exchange_params
+            self.certificate_data.certificate_exchange_params,
         )
         self.assertIsNone(resp)
 

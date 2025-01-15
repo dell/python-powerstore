@@ -28,7 +28,7 @@ class SecurityConfigResponse(Entity):
 
     def get_security_config_details(self):
         if self.url.endswith(
-            "/security_config/{0}".format(self.data.invalid_security_config_id)
+            f"/security_config/{self.data.invalid_security_config_id}",
         ):
             return 404, self.data.security_config_error[404]
         return self.status_code, self.data.security_config_details_1

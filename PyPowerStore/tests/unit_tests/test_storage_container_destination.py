@@ -15,7 +15,7 @@ class TestStorageContainerDestination(TestBase):
         resp = self.configuration.get_storage_container_destination_details(
             self.storage_container_destination_data.storage_container_destination_details[
                 "id"
-            ]
+            ],
         )
         self.assertEqual(
             resp,
@@ -24,7 +24,7 @@ class TestStorageContainerDestination(TestBase):
 
     def test_create_storage_container_destination(self):
         resp = self.configuration.create_storage_container_destination(
-            self.storage_container_destination_data.create_storage_container_destination_dict
+            self.storage_container_destination_data.create_storage_container_destination_dict,
         )
         self.assertEqual(
             resp,
@@ -33,6 +33,6 @@ class TestStorageContainerDestination(TestBase):
 
     def test_delete_storage_container_destination(self):
         resp = self.configuration.delete_storage_container_destination(
-            self.storage_container_destination_data.storage_container_destination_id
+            self.storage_container_destination_data.storage_container_destination_id,
         )
         self.assertIsNone(resp)

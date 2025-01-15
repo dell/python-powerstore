@@ -32,9 +32,7 @@ class FileInterfaceResponse(Entity):
 
     def get_file_interface_details(self):
         if self.url.endswith(
-            "/file_interface/{0}".format(
-                self.file_interface_data.file_interface_id_not_exist
-            )
+            f"/file_interface/{self.file_interface_data.file_interface_id_not_exist}",
         ):
             return 404, self.file_interface_data.file_interface_error[404]
         return 200, self.file_interface_data.file_interface_detail

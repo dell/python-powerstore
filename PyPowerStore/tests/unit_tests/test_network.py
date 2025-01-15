@@ -30,7 +30,7 @@ class TestNetwork(TestBase):
 
     def test_add_remove_ports(self):
         network_details = self.configuration.add_remove_ports(
-            self.data.network_id1, add_port_ids=self.data.add_ip_ports
+            self.data.network_id1, add_port_ids=self.data.add_ip_ports,
         )
         self.assertEqual(network_details, self.data.network_details_1)
 

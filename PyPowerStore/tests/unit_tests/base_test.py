@@ -74,7 +74,7 @@ class TestBase(TestCase):
         self.snmp_server_data = SNMPServerData()
         self.conf = PowerStoreConfig()
         self.mock_client = mock.patch(
-            "PyPowerStore.provisioning.Client", new=MockClient
+            "PyPowerStore.provisioning.Client", new=MockClient,
         )
         self.mock_client = self.mock_client.start()
         self.conn = PowerStoreConn(

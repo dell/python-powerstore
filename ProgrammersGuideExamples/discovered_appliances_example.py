@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Discovered Appliance operations"""
+"""Discovered Appliance operations"""
 
 from PyPowerStore import powerstore_conn
 

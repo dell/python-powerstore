@@ -34,11 +34,11 @@ class EmailData:
                     "severity": "Error",
                     "message_l10n": 'Validation failed: Object instance has properties which are not allowed by the schema: ["invalid_param"].',
                     "arguments": [
-                        'Object instance has properties which are not allowed by the schema: ["invalid_param"]'
+                        'Object instance has properties which are not allowed by the schema: ["invalid_param"]',
                     ],
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     email_details_1 = {

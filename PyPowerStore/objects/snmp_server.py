@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
 """Collection of SNMP related functions for PowerStore"""
@@ -10,7 +9,7 @@ LOG = helpers.get_logger(__name__)
 
 SELECT_ALL_SNMP = {
     "select": "id, ip_address, port, version, trap_community,"
-    "alert_severity, user_name, auth_protocol, privacy_protocol"
+    "alert_severity, user_name, auth_protocol, privacy_protocol",
 }
 
 # SNMP server endpoints
@@ -52,7 +51,7 @@ class SNMPServer:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting SNMP servers with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting SNMP servers with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_SNMP, filter_dict)
         LOG.info(f"Querystring: '{querystring}'")
@@ -92,7 +91,7 @@ class SNMPServer:
         """
         LOG.info("Creating SNMP server")
         return self.snmp_server_client.request(
-            constants.POST, CREATE_SNMP_URL.format(self.server_ip), payload=payload
+            constants.POST, CREATE_SNMP_URL.format(self.server_ip), payload=payload,
         )
 
     def modify_snmp_server(self, snmp_server_id, modify_parameters):
@@ -131,7 +130,7 @@ class SNMPServer:
         """
         LOG.info(f"Deleting SNMP server: '{snmp_server_id}'")
         return self.snmp_server_client.request(
-            constants.DELETE, DELETE_SNMP_URL.format(self.server_ip, snmp_server_id)
+            constants.DELETE, DELETE_SNMP_URL.format(self.server_ip, snmp_server_id),
         )
 
     # SNMP server methods end

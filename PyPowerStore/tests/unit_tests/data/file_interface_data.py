@@ -18,7 +18,7 @@ class FileInterfaceData:
             "source_parameters": None,
             "is_dr_test": False,
             "role_l10n": "Production",
-        }
+        },
     ]
 
     nas_server_id = "651067dc-5a14-a3c2-d031-0e1089268650"
@@ -61,15 +61,15 @@ class FileInterfaceData:
                     "arguments": [
                         "Object instance has properties "
                         "which are not allowed by the "
-                        "schema."
+                        "schema.",
                     ],
                     "code": "0xE04040030001",
                     "message_l10n": "Validation failed: Object "
                     "instance has properties which "
                     "are not allowed by the schema.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
         404: {
             "messages": [
@@ -78,7 +78,7 @@ class FileInterfaceData:
                     "message_l10n": "Operation failed because "
                     "file interface ID is invalid.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
     }

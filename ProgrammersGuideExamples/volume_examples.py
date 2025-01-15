@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Volume Module Operations"""
+"""Volume Module Operations"""
 
 from PyPowerStore import powerstore_conn
 
@@ -23,7 +22,7 @@ INITIATORS = [
         "chap_single_password": "chappasswd12345",
         "chap_mutual_username": "chapuserMutual",
         "chap_mutual_password": "chappasswd12345",
-    }
+    },
 ]
 
 # Get volume list
@@ -39,13 +38,13 @@ print(VOL)
 
 # Modify volume
 MODIFY_VOL = CONN.provisioning.modify_volume(
-    volume_id=VOL[0]["id"], name="modified-volume-name-1"
+    volume_id=VOL[0]["id"], name="modified-volume-name-1",
 )
 print(MODIFY_VOL)
 
 # Register a new Host
 HOST = CONN.provisioning.create_host(
-    name="pr-sdk-host", os_type="Linux", initiators=INITIATORS
+    name="pr-sdk-host", os_type="Linux", initiators=INITIATORS,
 )
 print(HOST)
 
@@ -61,18 +60,18 @@ CONN.provisioning.unmap_volume_from_host(volume_id=VOL[0]["id"], host_id=HOST["i
 
 # Create a Host Group
 HG = CONN.provisioning.create_host_group(
-    name="pr-sdk-hg", host_ids=[HOST["id"]], description="HG from SDK"
+    name="pr-sdk-hg", host_ids=[HOST["id"]], description="HG from SDK",
 )
 print(HG)
 
 # Map volume to Host Group
 CONN.provisioning.map_volume_to_host_group(
-    volume_id=VOL[0]["id"], host_group_id=HG["id"]
+    volume_id=VOL[0]["id"], host_group_id=HG["id"],
 )
 
 # Unmap volume from Host Group
 CONN.provisioning.unmap_volume_from_host_group(
-    volume_id=VOL[0]["id"], host_group_id=HG["id"]
+    volume_id=VOL[0]["id"], host_group_id=HG["id"],
 )
 
 # Get volume details
@@ -98,22 +97,22 @@ print(CLONE_VOLUME)
 
 # Refresh Volume
 REFRESH_VOLUME_SNAPSHOT = CONN.provisioning.refresh_volume(
-    volume_id=VOL[0]["id"], volume_id_to_refresh_from=CLONE_VOLUME["id"]
+    volume_id=VOL[0]["id"], volume_id_to_refresh_from=CLONE_VOLUME["id"],
 )
 print(REFRESH_VOLUME_SNAPSHOT)
 
 # Restore Volume
 RESTORE_VOLUME_SNAPSHOT = CONN.provisioning.restore_volume(
-    volume_id=VOL[0]["id"], snap_id_to_restore_from=REFRESH_VOLUME_SNAPSHOT["id"]
+    volume_id=VOL[0]["id"], snap_id_to_restore_from=REFRESH_VOLUME_SNAPSHOT["id"],
 )
 print(RESTORE_VOLUME_SNAPSHOT)
 
 # Configure a metro volume
 CONN.provisioning.configure_metro_volume(
-    volume_id=VOL[0]["id"], remote_system_id="434f534e-7009-4e60-8e1e-5cf721ae40df"
+    volume_id=VOL[0]["id"], remote_system_id="434f534e-7009-4e60-8e1e-5cf721ae40df",
 )
 
 # End a volume metro session
 CONN.provisioning.end_volume_metro_config(
-    volume_id=VOL[0]["id"], delete_remote_volume=True
+    volume_id=VOL[0]["id"], delete_remote_volume=True,
 )

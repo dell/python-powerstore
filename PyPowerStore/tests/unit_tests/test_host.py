@@ -42,7 +42,7 @@ class TestHost(TestBase):
 
     def test_modify_host(self):
         host = self.provisioning.modify_host(
-            self.data.host_id1, description="modify host " "description"
+            self.data.host_id1, description="modify host description",
         )
         self.assertIsNone(host)
 

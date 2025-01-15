@@ -25,7 +25,7 @@ class TestAuthenticationManager:
     def test_get_authorization(self, auth_manager):
         auth_header = auth_manager.get_authorization()
         assert auth_header == {
-            "authorization": "Basic dGVzdF91c2VyOnRlc3RfcGFzc3dvcmQ="
+            "authorization": "Basic dGVzdF91c2VyOnRlc3RfcGFzc3dvcmQ=",
         }
 
     def test_set_session_timeout_and_creation_time(self, auth_manager):

@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" SMB Server Operations"""
+"""SMB Server Operations"""
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(
@@ -49,13 +48,13 @@ print(SMB_SERVER)
 
 # get SMB server details by NAS server
 SMB_SERVER = CONN.smb_server.get_smb_server_by_nas_server_id(
-    CREATE_PARAMS["nas_server_id"]
+    CREATE_PARAMS["nas_server_id"],
 )
 print(SMB_SERVER)
 
 # modify SMB server
 MODIFY_SMB_SERVER = CONN.smb_server.modify_smb_server(
-    SMB_SERVER[0]["id"], MODIFY_PARAMS
+    SMB_SERVER[0]["id"], MODIFY_PARAMS,
 )
 print(MODIFY_SMB_SERVER)
 

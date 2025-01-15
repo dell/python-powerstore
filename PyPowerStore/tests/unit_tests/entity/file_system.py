@@ -66,8 +66,8 @@ class FileSystemResponse(Entity):
         return 204, None
 
     def delete_fs(self):
-        if self.url.endswith("/file_system/{0}".format(self.data.invalid_fs_id)):
+        if self.url.endswith(f"/file_system/{self.data.invalid_fs_id}"):
             return 404, self.data.fs_error[404]
-        if self.url.endswith("/file_system/{0}".format(self.data.fs_id_with_snap)):
+        if self.url.endswith(f"/file_system/{self.data.fs_id_with_snap}"):
             return 422, self.data.fs_error[422]
         return 204, None

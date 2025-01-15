@@ -25,7 +25,7 @@ class TestSMBShare(TestBase):
             )
 
     def test_create_smb_share(self):
-        path = "/{0}".format(self.data.fs_name1)
+        path = f"/{self.data.fs_name1}"
         smb = self.provisioning.create_smb_share(
             self.data.fs_id1,
             path,
@@ -45,7 +45,7 @@ class TestSMBShare(TestBase):
 
     def test_update_smb_share(self):
         resp = self.provisioning.update_smb_share(
-            self.data.smb_id1, is_ABE_enabled=True
+            self.data.smb_id1, is_ABE_enabled=True,
         )
         self.assertIsNone(resp)
 
@@ -70,7 +70,7 @@ class TestSMBShare(TestBase):
             mock_request.assert_called_once_with(
                 constants.POST,
                 constants.GET_ACL_DETAILS.format(
-                    self.provisioning.server_ip, self.data.smb_id1
+                    self.provisioning.server_ip, self.data.smb_id1,
                 ),
             )
 
@@ -83,7 +83,7 @@ class TestSMBShare(TestBase):
             mock_request.assert_called_once_with(
                 constants.POST,
                 constants.SET_ACL_DETAILS.format(
-                    self.provisioning.server_ip, self.data.smb_id1
+                    self.provisioning.server_ip, self.data.smb_id1,
                 ),
                 payload=payload,
             )

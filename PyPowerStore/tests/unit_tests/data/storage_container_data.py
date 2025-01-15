@@ -15,7 +15,7 @@ class StorageContainerData:
             "storage_protocol": "NVMe",
             "storage_protocol_l10n": "NVMe",
             "virtual_volumes": [],
-        }
+        },
     ]
 
     storage_container_details = {

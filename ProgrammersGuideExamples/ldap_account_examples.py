@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" LDAP Account operations"""
+"""LDAP Account operations"""
 
 from PyPowerStore import powerstore_conn
 
@@ -35,13 +34,13 @@ print(ldap_account_list)
 
 # Get LDAP account details
 ldap_account_details = CONN.config_mgmt.get_ldap_account_details(
-    ldap_account_list[0]["id"]
+    ldap_account_list[0]["id"],
 )
 print(ldap_account_details)
 
 # Get LDAP account details by name
 ldap_account_details = CONN.config_mgmt.get_ldap_account_details_by_name(
-    ldap_account_list[0]["name"]
+    ldap_account_list[0]["name"],
 )
 print(ldap_account_details)
 

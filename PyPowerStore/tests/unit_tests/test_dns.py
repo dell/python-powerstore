@@ -14,7 +14,7 @@ class TestDns(TestBase):
 
     def test_modify_dns_details(self):
         resp = self.configuration.modify_dns_details(
-            self.dns_data.dns_id, self.dns_data.modify_dns_dict
+            self.dns_data.dns_id, self.dns_data.modify_dns_dict,
         )
         self.assertIsNone(resp)
 

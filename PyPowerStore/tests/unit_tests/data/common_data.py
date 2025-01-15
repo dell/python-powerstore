@@ -28,7 +28,7 @@ class CommonData:
 
     volume1 = {
         "appliance_id": "A1",
-        "creation_timestamp": "2020-08-10T13:" "20:57.899845+00:00",
+        "creation_timestamp": "2020-08-10T13:20:57.899845+00:00",
         "description": "",
         "hlu_details": hlu_details,
         "host": [],
@@ -131,14 +131,14 @@ class CommonData:
         404: {
             "messages": [
                 {
-                    "arguments": ["{0}".format(invalid_vol_id)],
+                    "arguments": [f"{invalid_vol_id}"],
                     "code": "0xE0A07001000C",
-                    "message_l10n": "The volume {0} is not "
-                    "found.".format(invalid_vol_id),
+                    "message_l10n": f"The volume {invalid_vol_id} is not "
+                    "found.",
                     "severity": "Error",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     # VolumeGroup End
@@ -171,7 +171,7 @@ class CommonData:
                 "chap_single_username": "",
                 "chap_mutual_username": "",
                 "port_name": initiator1,
-            }
+            },
         ],
         "name": host_name1,
         "id": host_id1,
@@ -190,9 +190,9 @@ class CommonData:
                     "message_l10n": "Cannot add iqn since it already exists as part "
                     "of the host",
                     "severity": "Error",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     remove_invalid_initiator_error = {
@@ -203,9 +203,9 @@ class CommonData:
                     "message_l10n": "Cannot remove the specified iqn since it does "
                     "not exist as part of the host.",
                     "severity": "Error",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     # Host End
@@ -234,27 +234,27 @@ class CommonData:
         400: {
             "messages": [
                 {
-                    "arguments": ["{0}".format(existing_hg_name)],
+                    "arguments": [f"{existing_hg_name}"],
                     "code": "0xE0A030010010",
-                    "message_l10n": "Host Group with name {0} already"
-                    " exists".format(existing_hg_name),
+                    "message_l10n": f"Host Group with name {existing_hg_name} already"
+                    " exists",
                     "severity": "Error",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     add_invalid_host_error = {
         400: {
             "messages": [
                 {
-                    "arguments": ["{0}".format(invalid_host_id)],
+                    "arguments": [f"{invalid_host_id}"],
                     "code": "0xE0A030010001",
                     "message_l10n": "Invalid host IDs provided "
-                    "{0}".format(invalid_host_id),
-                }
-            ]
-        }
+                    f"{invalid_host_id}",
+                },
+            ],
+        },
     }
 
     # HostGroup End
@@ -276,14 +276,14 @@ class CommonData:
         404: {
             "messages": [
                 {
-                    "arguments": ["{0}".format(invalid_pol_id)],
+                    "arguments": [f"{invalid_pol_id}"],
                     "code": "0xE0A090010001",
                     "message_l10n": "Unable to find the policy with ID "
-                    "{0}".format(invalid_pol_id),
+                    f"{invalid_pol_id}",
                     "severity": "Error",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     pol_snap_rule_id = "f24c1295-f73f-48f3-8e82-3e45c5444fcc"
@@ -313,28 +313,28 @@ class CommonData:
         404: {
             "messages": [
                 {
-                    "arguments": ["{0}".format(invalid_sr_id)],
+                    "arguments": [f"{invalid_sr_id}"],
                     "code": "0xE0203001000B",
                     "message_l10n": "The specified snapshot "
-                    "rule {0} is not found".format(invalid_sr_id),
+                    f"rule {invalid_sr_id} is not found",
                     "severity": "Error",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     remove_invalid_sr_error = {
         404: {
             "messages": [
                 {
-                    "arguments": ["{0}".format(invalid_sr_id)],
+                    "arguments": [f"{invalid_sr_id}"],
                     "code": "0xE02020010007",
-                    "message_l10n": "Rule {0} does not exist in the "
-                    "policy".format(invalid_sr_id),
+                    "message_l10n": f"Rule {invalid_sr_id} does not exist in the "
+                    "policy",
                     "severity": "Error",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     # ProtectionPolicy End
@@ -399,9 +399,9 @@ class CommonData:
                     "severity": "Error",
                     "message_l10n": "Invalid REST request.",
                     "code": "0xE04040010005",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     # SnapshotRule End
@@ -469,15 +469,15 @@ class CommonData:
                     "arguments": [
                         "Object instance has properties "
                         "which are not allowed by the "
-                        "schema."
+                        "schema.",
                     ],
                     "code": "0xE04040030001",
                     "message_l10n": "Validation failed: Object "
                     "instance has properties which "
                     "are not allowed by the schema.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
         404: {
             "messages": [
@@ -486,8 +486,8 @@ class CommonData:
                     "message_l10n": "Operation failed because "
                     "NAS Server ID is invalid.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
     }
 
@@ -539,15 +539,15 @@ class CommonData:
                     "arguments": [
                         "Object instance has properties "
                         "which are not allowed by the "
-                        "schema."
+                        "schema.",
                     ],
                     "code": "0xE04040030001",
                     "message_l10n": "Validation failed: Object "
                     "instance has properties which "
                     "are not allowed by the schema.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
         404: {
             "messages": [
@@ -558,8 +558,8 @@ class CommonData:
                     "valid NFS Export ID and "
                     "try again.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
     }
 
@@ -631,9 +631,9 @@ class CommonData:
                     "valid SMB Share ID and "
                     "try again.",
                     "severity": "Error",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     acl_data = [
@@ -642,7 +642,7 @@ class CommonData:
             "trustee_name": "admin",
             "access_level": "Full",
             "access_type": "Allow",
-        }
+        },
     ]
 
     # SMBShare End
@@ -715,22 +715,22 @@ class CommonData:
                     "System ID is invalid. Enter a valid File System "
                     "ID and try again.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
         422: {
             "messages": [
                 {
                     "arguments": [
-                        "[File system delete rejected due to existing snap(s).]"
+                        "[File system delete rejected due to existing snap(s).]",
                     ],
                     "code": "0xE08010080003",
                     "message_l10n": "Deletion of File System failed "
                     "as, [File system delete rejected "
                     "due to existing snap (s).]",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
     }
 
@@ -765,15 +765,15 @@ class CommonData:
                     "arguments": [
                         "Object instance has properties "
                         "which are not allowed by the "
-                        "schema"
+                        "schema",
                     ],
                     "code": "0xE04040030001",
                     "message_l10n": "Validation failed: Object "
                     "instance has properties which "
                     "are not allowed by the schema",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
         404: {
             "messages": [
@@ -784,8 +784,8 @@ class CommonData:
                     "a valid File Tree Quota id and "
                     "try again.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
     }
 
@@ -835,16 +835,16 @@ class CommonData:
                     "arguments": [
                         "Object instance has properties "
                         "which are not allowed by the "
-                        "schema"
+                        "schema",
                     ],
                     "code": "0xE04040030001",
                     "message_l10n": "Validation failed: Object "
                     "instance has properties which "
                     "are not allowed by the schema",
                     "severity": "Error",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     uq_detail = {
@@ -889,10 +889,10 @@ class CommonData:
                     "arguments": [
                         "Object instance has properties w"
                         "hich are not allowed by the schema:"
-                        " [dupe_is_planned]"
+                        " [dupe_is_planned]",
                     ],
-                }
-            ]
+                },
+            ],
         },
         404: {
             "messages": [
@@ -903,8 +903,8 @@ class CommonData:
                     "2754bad0-cfcd-4796-a06b-78368bad1cd "
                     "was not found.",
                     "arguments": ["2754bad0-cfcd-4796-a06b-78368bad1cd"],
-                }
-            ]
+                },
+            ],
         },
     }
     rep_session_id_not_exist = "5f4a3017-0bad-899e-e1eb-c6f547282e66"
@@ -975,11 +975,11 @@ class CommonData:
                     "arguments": [
                         "[Path '/alert_threshold'] Instance type "
                         "(string) does not match any allowed "
-                        "primitive type (allowed: [integer])"
+                        "primitive type (allowed: [integer])",
                     ],
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     rep_rule_details_1 = {
@@ -1046,24 +1046,24 @@ class CommonData:
                     "arguments": [
                         "Object instance has properties "
                         "which are not allowed by the "
-                        "schema."
+                        "schema.",
                     ],
                     "code": "0xE04040030001",
                     "message_l10n": "Validation failed: Object "
                     "instance has properties which "
                     "are not allowed by the schema.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
         404: {
             "messages": [
                 {
                     "code": "0xE04040020009",
-                    "message_l10n": "Instance with id NW20 was not " "found.",
+                    "message_l10n": "Instance with id NW20 was not found.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
     }
     # network end
@@ -1113,9 +1113,9 @@ class CommonData:
                     "dfb47ef3-7ade-4b75-951a-34163c4e55d9 was "
                     "not found.",
                     "severity": "Error",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
     # job end
 
@@ -1241,8 +1241,8 @@ class CommonData:
                     "code": "0xE09040040001",
                     "severity": "Error",
                     "message_l10n": "Error while getting local users!",
-                }
-            ]
+                },
+            ],
         },
         400: {
             "messages": [
@@ -1255,10 +1255,10 @@ class CommonData:
                     '["invalid_key"].',
                     "arguments": [
                         "Object instance has properties which are not "
-                        'allowed by the schema: ["invalid_key"]'
+                        'allowed by the schema: ["invalid_key"]',
                     ],
-                }
-            ]
+                },
+            ],
         },
     }
 
@@ -1293,9 +1293,9 @@ class CommonData:
                     "code": "0xE09040050001",
                     "severity": "Error",
                     "message_l10n": "Role object does not exist!",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
     # role end
 
@@ -1331,9 +1331,9 @@ class CommonData:
                     "severity": "Error",
                     "message_l10n": "Instance with id A2 was not found.",
                     "arguments": ["A2"],
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
     # appliance end
     # cluster start
@@ -1363,7 +1363,7 @@ class CommonData:
             "type": "Management",
             "prefix_length": 24,
             "addresses": ["4x.3x.2x.1x", "1xx.2xx.3xx.4xx"],
-        }
+        },
     ]
     is_http_redirect_enabled = True
 
@@ -1374,11 +1374,11 @@ class CommonData:
                 {
                     "code": "0xE0C01003000E",
                     "severity": "Error",
-                    "message_l10n": "Invalid Cluster ID provided," " Cluster ID: 10",
+                    "message_l10n": "Invalid Cluster ID provided, Cluster ID: 10",
                     "arguments": ["10"],
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     # cluster end
@@ -1400,9 +1400,9 @@ class CommonData:
                     "code": "0xE09030010003",
                     "severity": "Error",
                     "message_l10n": "Appliance id does not exist",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
     # service config end
 
@@ -1425,9 +1425,9 @@ class CommonData:
                     "severity": "Error",
                     "message_l10n": "Service User object with given id "
                     "does not exist!",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
     # service user end
 
@@ -1444,9 +1444,9 @@ class CommonData:
                     "severity": "Error",
                     "message_l10n": "CHAP Configuration 3 not found",
                     "arguments": ["3"],
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     # chap config end

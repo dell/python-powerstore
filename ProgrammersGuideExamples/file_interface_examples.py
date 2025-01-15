@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" File Interface Operations"""
+"""File Interface Operations"""
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(
@@ -47,18 +46,18 @@ print(FILE_INTERFACE)
 
 # get file interface details by NAS server
 FILE_INTERFACE = CONN.file_interface.get_file_interface_by_nas_server_id(
-    nas_server_id=CREATE_PARAMS["nas_server_id"], ip_address="10.10.10.11"
+    nas_server_id=CREATE_PARAMS["nas_server_id"], ip_address="10.10.10.11",
 )
 print(FILE_INTERFACE)
 
 # modify file interface
 MODIFY_FILE_INTERFACE = CONN.file_interface.modify_file_interface(
-    FILE_INTERFACE[0]["id"], MODIFY_PARAMS
+    FILE_INTERFACE[0]["id"], MODIFY_PARAMS,
 )
 print(MODIFY_FILE_INTERFACE)
 
 # delete file interface
 DELETE_FILE_INTERFACE = CONN.file_interface.delete_file_interface(
-    FILE_INTERFACE[0]["id"]
+    FILE_INTERFACE[0]["id"],
 )
 print(DELETE_FILE_INTERFACE)

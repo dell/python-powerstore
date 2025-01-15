@@ -32,7 +32,7 @@ class SMBServerResponse(Entity):
 
     def get_smb_server_details(self):
         if self.url.endswith(
-            "/smb_server/{0}".format(self.smb_server_data.smb_server_id_not_exist)
+            f"/smb_server/{self.smb_server_data.smb_server_id_not_exist}",
         ):
             return 404, self.smb_server_data.smb_server_error[404]
         return 200, self.smb_server_data.smb_server_detail

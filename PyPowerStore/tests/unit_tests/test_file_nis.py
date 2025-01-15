@@ -16,7 +16,7 @@ class TestFileNIS(TestBase):
         querystring = {"nas_server_id": "eq.6581683c-61a3-76ab-f107-62b767ad9845"}
         querystring.update(file_nis.SELECT_ALL_FILE_NIS)
         with mock.patch.object(
-            self.file_nis.file_nis_client, "request"
+            self.file_nis.file_nis_client, "request",
         ) as mock_request:
             self.file_nis.get_file_nis_list(filter_dict=querystring, all_pages=True)
             mock_request.assert_called_with(
@@ -29,7 +29,7 @@ class TestFileNIS(TestBase):
 
     def test_get_file_nis_details(self):
         file_nis_detail = self.file_nis.get_file_nis_details(
-            self.file_nis_data.file_nis_id
+            self.file_nis_data.file_nis_id,
         )
         self.assertEqual(file_nis_detail, self.file_nis_data.file_nis_detail)
 
@@ -43,7 +43,7 @@ class TestFileNIS(TestBase):
 
     def test_get_file_nis_by_nas(self):
         file_nis_detail = self.file_nis.get_file_nis_by_nas_server_id(
-            self.file_nis_data.nas_server_id
+            self.file_nis_data.nas_server_id,
         )
         self.assertEqual(file_nis_detail, self.file_nis_data.file_nis_list)
 

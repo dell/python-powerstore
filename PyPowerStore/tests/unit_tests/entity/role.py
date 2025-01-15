@@ -26,7 +26,7 @@ class RoleResponse(Entity):
         return self.status_code, self.data.role_list
 
     def get_role_details(self):
-        if self.url.endswith("/role/{0}".format(self.data.role_does_not_exist)):
+        if self.url.endswith(f"/role/{self.data.role_does_not_exist}"):
             return 404, self.data.role_error[404]
         return self.status_code, self.data.role_details_1
 

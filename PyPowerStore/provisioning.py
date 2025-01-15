@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
 """Collection of provisioning related functions for PowerStore"""
@@ -49,7 +48,7 @@ class Provisioning:
             port_no = 443
         self.server_ip = server_ip + ":" + str(port_no)
         self.client = Client(
-            username, password, verify, application_type, timeout, enable_log=enable_log
+            username, password, verify, application_type, timeout, enable_log=enable_log,
         )
         LOG = helpers.get_logger(__name__, enable_log=enable_log)
         helpers.set_provisioning_obj(self)
@@ -102,7 +101,7 @@ class Provisioning:
         if app_type is not None and not helpers.is_malka_or_higher():
             raise Exception(
                 "'app_type' parameter is supported only from "
-                "Powerstore version 2.1.0.0 onwards"
+                "Powerstore version 2.1.0.0 onwards",
             )
 
         LOG.info(f"Creating volume: '{name}'")
@@ -118,7 +117,7 @@ class Provisioning:
             appliance_id,
         )
         self.client.request(
-            constants.POST, constants.VOLUME_CREATE_URL.format(self.server_ip), payload
+            constants.POST, constants.VOLUME_CREATE_URL.format(self.server_ip), payload,
         )
 
     def _prepare_create_volume_payload(
@@ -205,7 +204,7 @@ class Provisioning:
         if app_type is not None and not helpers.is_malka_or_higher():
             raise Exception(
                 "'app_type' parameter is supported only from "
-                "Powerstore version 2.1.0.0 onwards"
+                "Powerstore version 2.1.0.0 onwards",
             )
 
         LOG.info(f"Modifying volume: '{volume_id}'")
@@ -502,7 +501,7 @@ class Provisioning:
                     and not helpers.is_foot_hill_prime_or_higher()
                 ):
                     raise Exception(
-                        key + " is supported for PowerStore version 3.0.0.0 and above."
+                        key + " is supported for PowerStore version 3.0.0.0 and above.",
                     )
                 payload[key] = value
         return self.client.request(
@@ -556,12 +555,11 @@ class Provisioning:
         :return: None if success else raise exception
         :rtype: None
         """
-
         LOG.info(
-            f"Adding protection policy: '{protection_policy_id}' for volume: '{volume_id}'"
+            f"Adding protection policy: '{protection_policy_id}' for volume: '{volume_id}'",
         )
         payload = self._prepare_modify_volume_payload(
-            protection_policy_id=protection_policy_id
+            protection_policy_id=protection_policy_id,
         )
         return self.client.request(
             constants.PATCH,
@@ -613,7 +611,7 @@ class Provisioning:
         return map_volume_to_host_dict
 
     def map_volume_to_host_group(
-        self, volume_id, host_group_id=None, logical_unit_number=None
+        self, volume_id, host_group_id=None, logical_unit_number=None,
     ):
         """Map a volume to a Host.
 
@@ -626,7 +624,7 @@ class Provisioning:
         """
         LOG.info(f"Mapping volume: '{volume_id}' to host group")
         payload = self._prepare_map_vol_to_host_grp_payload(
-            host_group_id, logical_unit_number
+            host_group_id, logical_unit_number,
         )
         self.client.request(
             constants.POST,
@@ -675,7 +673,7 @@ class Provisioning:
         :type host_group_id: str
         """
         LOG.info(
-            f"Unmapping volume: '{volume_id}' from host group: '{host_group_id}'"
+            f"Unmapping volume: '{volume_id}' from host group: '{host_group_id}'",
         )
         payload = self._prepare_unmap_vol_from_host_grp_payload(host_group_id)
         self.client.request(
@@ -703,10 +701,10 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting volumes with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting volumes with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_AND_NAME, filter_dict
+            constants.SELECT_ID_AND_NAME, filter_dict,
         )
         LOG.info(f"Querystring: '{querystring}'")
         return self.client.request(
@@ -769,7 +767,7 @@ class Provisioning:
             constants.GET_VOLUME_BY_NAME_URL.format(self.server_ip),
             payload=None,
             querystring=helpers.prepare_querystring(
-                querystring, name=constants.EQUALS + volume_name
+                querystring, name=constants.EQUALS + volume_name,
             ),
         )
 
@@ -781,7 +779,7 @@ class Provisioning:
         return resp
 
     def configure_metro_volume(
-        self, volume_id, remote_system_id, remote_appliance_id=None
+        self, volume_id, remote_system_id, remote_appliance_id=None,
     ):
         """Configure the metro volume
         :param volume_id: ID of the volume
@@ -795,7 +793,7 @@ class Provisioning:
         :rtype: str
         """
         LOG.info(
-            f"Configuring the metro volume {volume_id} to remote system {remote_system_id}"
+            f"Configuring the metro volume {volume_id} to remote system {remote_system_id}",
         )
 
         if helpers.is_foot_hill_prime_or_higher():
@@ -813,8 +811,7 @@ class Provisioning:
         raise Exception("Not supported for PowerStore version less than 3.0.0.0")
 
     def end_volume_metro_config(self, volume_id, delete_remote_volume=None):
-        """
-        End a metro configuration from a volume and keep both copies.The local
+        """End a metro configuration from a volume and keep both copies.The local
         copy will retain its SCSI Identity while the remote volume will get a
         new SCSI Identity
         :param volume_id: ID of the volume
@@ -851,10 +848,10 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting hosts with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting hosts with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_AND_NAME, filter_dict
+            constants.SELECT_ID_AND_NAME, filter_dict,
         )
         LOG.info(f"Querystring: '{querystring}'")
         return self.client.request(
@@ -866,7 +863,7 @@ class Provisioning:
         )
 
     def create_host(
-        self, name, os_type, initiators, description=None, host_connectivity=None
+        self, name, os_type, initiators, description=None, host_connectivity=None,
     ):
         """Register a host on the array.
 
@@ -884,17 +881,17 @@ class Provisioning:
         :rtype: dict
         """
         LOG.info(
-            f"Creating host with name: '{name}' os_type: '{os_type}' initiators: '{initiators}'"
+            f"Creating host with name: '{name}' os_type: '{os_type}' initiators: '{initiators}'",
         )
         payload = self._prepare_create_host_payload(
-            name, description, os_type, initiators, host_connectivity
+            name, description, os_type, initiators, host_connectivity,
         )
         return self.client.request(
-            constants.POST, constants.CREATE_HOST_URL.format(self.server_ip), payload
+            constants.POST, constants.CREATE_HOST_URL.format(self.server_ip), payload,
         )
 
     def _prepare_create_host_payload(
-        self, name, description, os_type, initiators, host_connectivity
+        self, name, description, os_type, initiators, host_connectivity,
     ):
         create_host_dict = {}
         if name is not None:
@@ -1077,7 +1074,7 @@ class Provisioning:
             constants.GET_HOST_BY_NAME_URL.format(self.server_ip),
             payload=None,
             querystring=helpers.prepare_querystring(
-                querystring, name=constants.EQUALS + host_name
+                querystring, name=constants.EQUALS + host_name,
             ),
         )
 
@@ -1093,10 +1090,10 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting hostgroup with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting hostgroup with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_AND_NAME, filter_dict
+            constants.SELECT_ID_AND_NAME, filter_dict,
         )
         LOG.info(f"Querystring: '{querystring}'")
         return self.client.request(
@@ -1176,7 +1173,7 @@ class Provisioning:
             constants.GET_HOST_GROUP_BY_NAME_URL.format(self.server_ip),
             payload=None,
             querystring=helpers.prepare_querystring(
-                querystring, name=constants.EQUALS + host_group_name
+                querystring, name=constants.EQUALS + host_group_name,
             ),
         )
 
@@ -1194,7 +1191,7 @@ class Provisioning:
             constants.GET_HOSTS_BY_HOST_GROUP.format(self.server_ip, host_group_name),
             payload=None,
             querystring=helpers.prepare_querystring(
-                name=constants.EQUALS + host_group_name, select="hosts(name,id)"
+                name=constants.EQUALS + host_group_name, select="hosts(name,id)",
             ),
         )
 
@@ -1228,7 +1225,7 @@ class Provisioning:
         """
         LOG.info(f"Modifying hostgroup: '{host_group_id}'")
         payload = self._prepare_modify_host_group_payload(
-            name, remove_host_ids, add_host_ids, description, host_connectivity
+            name, remove_host_ids, add_host_ids, description, host_connectivity,
         )
         return self.client.request(
             constants.PATCH,
@@ -1289,7 +1286,7 @@ class Provisioning:
         """
         LOG.info(f"Removing hosts from host_group: '{host_group_id}'")
         payload = self._prepare_modify_host_group_payload(
-            remove_host_ids=remove_host_ids
+            remove_host_ids=remove_host_ids,
         )
         return self.client.request(
             constants.PATCH,
@@ -1324,11 +1321,11 @@ class Provisioning:
         return self.client.request(
             constants.GET,
             constants.GET_VOLUMES_FROM_VOLUME_GROUP.format(
-                self.server_ip, vol_group_name
+                self.server_ip, vol_group_name,
             ),
             payload=None,
             querystring=helpers.prepare_querystring(
-                name=constants.EQUALS + vol_group_name, select="volumes(name)"
+                name=constants.EQUALS + vol_group_name, select="volumes(name)",
             ),
         )
 
@@ -1344,10 +1341,10 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting volumegroups with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting volumegroups with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_AND_NAME, filter_dict
+            constants.SELECT_ID_AND_NAME, filter_dict,
         )
         LOG.info(f"Querystring: '{querystring}'")
         return self.client.request(
@@ -1400,7 +1397,7 @@ class Provisioning:
         )
 
     def clone_volume_group(
-        self, volume_group_id, name, description=None, protection_policy_id=None
+        self, volume_group_id, name, description=None, protection_policy_id=None,
     ):
         """Clone a volume group.
 
@@ -1418,7 +1415,7 @@ class Provisioning:
         """
         LOG.info(f"Cloning volumegroup: '{volume_group_id}'")
         payload = self._prepare_clone_vg_payload(
-            name, description, protection_policy_id
+            name, description, protection_policy_id,
         )
         return self.client.request(
             constants.POST,
@@ -1450,7 +1447,7 @@ class Provisioning:
         """
         LOG.info(f"Refreshing volumegroup: '{volume_group_id}'")
         payload = self._prepare_vg_payload(
-            "refresh", src_vol_group, create_backup_snap, backup_snap_profile
+            "refresh", src_vol_group, create_backup_snap, backup_snap_profile,
         )
         return self.client.request(
             constants.POST,
@@ -1482,7 +1479,7 @@ class Provisioning:
         """
         LOG.info(f"Restoring volumegroup: '{volume_group_id}'")
         payload = self._prepare_vg_payload(
-            "restore", src_snap_id, create_backup_snap, backup_snap_profile
+            "restore", src_snap_id, create_backup_snap, backup_snap_profile,
         )
         return self.client.request(
             constants.POST,
@@ -1501,7 +1498,7 @@ class Provisioning:
         return vol_group_clone
 
     def _prepare_vg_payload(
-        self, action, src_vol_group, create_backup_snap, backup_snap_profile
+        self, action, src_vol_group, create_backup_snap, backup_snap_profile,
     ):
         vg_payload = {}
         if action == "refresh":
@@ -1551,7 +1548,7 @@ class Provisioning:
         return self.client.request(
             constants.GET,
             constants.GET_VOLUME_GROUP_DETAILS_URL.format(
-                self.server_ip, volume_group_id
+                self.server_ip, volume_group_id,
             ),
             payload=None,
             querystring=helpers.prepare_querystring(constants.SELECT_ALL_VOL_GROUP),
@@ -1605,7 +1602,7 @@ class Provisioning:
         """
         LOG.info(f"Modifying volumegroup: '{volume_group_id}'")
         payload = self._prepare_modify_vg_payload(
-            name, description, is_write_order_consistent, protection_policy_id
+            name, description, is_write_order_consistent, protection_policy_id,
         )
         self.client.request(
             constants.PATCH,
@@ -1614,7 +1611,7 @@ class Provisioning:
         )
 
     def _prepare_modify_vg_payload(
-        self, name, description, is_write_order_consistent, protection_policy_id
+        self, name, description, is_write_order_consistent, protection_policy_id,
     ):
         modify_vg_dict = {}
         if name is not None:
@@ -1644,7 +1641,7 @@ class Provisioning:
         )
 
     def add_members_to_volume_group(
-        self, volume_group_id, volume_ids, force_internal=False
+        self, volume_group_id, volume_ids, force_internal=False,
     ):
         """Add members to volume group.
 
@@ -1656,15 +1653,15 @@ class Provisioning:
         :rtype: None
         """
         LOG.info(
-            f"Adding volumes: '{volume_ids}' to volumegroup: '{volume_group_id}'"
+            f"Adding volumes: '{volume_ids}' to volumegroup: '{volume_group_id}'",
         )
         payload = self._prepare_add_members_to_volume_group_payload(
-            volume_ids, force_internal
+            volume_ids, force_internal,
         )
         return self.client.request(
             constants.POST,
             constants.ADD_MEMBERS_TO_VOLUME_GROUP_URL.format(
-                self.server_ip, volume_group_id
+                self.server_ip, volume_group_id,
             ),
             payload=payload,
         )
@@ -1679,7 +1676,7 @@ class Provisioning:
         return add_members_to_vg_dict
 
     def remove_members_from_volume_group(
-        self, volume_group_id, volume_ids, force_internal=False
+        self, volume_group_id, volume_ids, force_internal=False,
     ):
         """Remove members from volume group.
 
@@ -1692,21 +1689,21 @@ class Provisioning:
         :rtype None or dict
         """
         LOG.info(
-            f"Removing volumes: '{volume_ids}' from volumegroup: '{volume_group_id}'"
+            f"Removing volumes: '{volume_ids}' from volumegroup: '{volume_group_id}'",
         )
         payload = self._prepare_remove_members_from_volume_group_payload(
-            volume_ids, force_internal
+            volume_ids, force_internal,
         )
         return self.client.request(
             constants.POST,
             constants.REMOVE_MEMBERS_FROM_VOLUME_GROUP_URL.format(
-                self.server_ip, volume_group_id
+                self.server_ip, volume_group_id,
             ),
             payload=payload,
         )
 
     def _prepare_remove_members_from_volume_group_payload(
-        self, volume_ids, force_internal
+        self, volume_ids, force_internal,
     ):
         remove_members_from_vg_dict = {}
         if volume_ids is not None:
@@ -1728,10 +1725,10 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting nodes with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting nodes with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_AND_NAME, filter_dict
+            constants.SELECT_ID_AND_NAME, filter_dict,
         )
         LOG.info(f"Querystring: '{querystring}'")
         return self.client.request(
@@ -1789,10 +1786,10 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting nasservers with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting nasservers with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_AND_NAME, filter_dict
+            constants.SELECT_ID_AND_NAME, filter_dict,
         )
         LOG.info(f"Querystring: {querystring}")
         return self.client.request(
@@ -1841,7 +1838,7 @@ class Provisioning:
             constants.GET_NAS_SERVER_DETAILS_BY_NAME_URL.format(self.server_ip),
             payload=None,
             querystring=helpers.prepare_querystring(
-                querystring, name=constants.EQUALS + nas_server_name
+                querystring, name=constants.EQUALS + nas_server_name,
             ),
         )
 
@@ -1860,7 +1857,7 @@ class Provisioning:
         ):
             raise Exception(
                 "Protection policy is supported for PowerStore"
-                " version 3.0.0.0 and above."
+                " version 3.0.0.0 and above.",
             )
         return self.client.request(
             constants.POST,
@@ -1889,7 +1886,7 @@ class Provisioning:
                 return self.client.request(
                     constants.PATCH,
                     constants.MODIFY_NAS_SERVER_URL.format(
-                        self.server_ip, nasserver_id
+                        self.server_ip, nasserver_id,
                     ),
                     payload=payload,
                 )
@@ -1926,10 +1923,10 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting filesystems with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting filesystems with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_AND_NAME, filter_dict
+            constants.SELECT_ID_AND_NAME, filter_dict,
         )
         LOG.info(f"Querystring: '{querystring}'")
         return self.client.request(
@@ -1969,7 +1966,7 @@ class Provisioning:
         """
         LOG.info(
             "Getting filesystem details by name: '%s' and NAS Server: "
-            "'%s'" % (filesystem_name, nas_server_id)
+            "'%s'" % (filesystem_name, nas_server_id),
         )
         querystring = constants.SELECT_ALL_FILESYSTEM
         if helpers.is_foot_hill_prime_or_higher():
@@ -2012,7 +2009,7 @@ class Provisioning:
                     and not helpers.is_foot_hill_prime_or_higher()
                 ):
                     raise Exception(
-                        key + " is supported for PowerStore version 3.0.0.0 and above."
+                        key + " is supported for PowerStore version 3.0.0.0 and above.",
                     )
                 payload[key] = value
         return self.client.request(
@@ -2049,7 +2046,7 @@ class Provisioning:
             constants.GET,
             constants.GET_SNAPSHOTS_FILESYSTEM_URL.format(self.server_ip),
             querystring=helpers.prepare_querystring(
-                constants.SELECT_ID_AND_NAME, parent_id=constants.EQUALS + filesystem_id
+                constants.SELECT_ID_AND_NAME, parent_id=constants.EQUALS + filesystem_id,
             ),
         )
 
@@ -2071,7 +2068,7 @@ class Provisioning:
                     and not helpers.is_foot_hill_prime_or_higher()
                 ):
                     raise Exception(
-                        key + " is supported for PowerStore version 3.0.0.0 and above."
+                        key + " is supported for PowerStore version 3.0.0.0 and above.",
                     )
                 if value is not None:
                     payload[key] = value
@@ -2080,7 +2077,7 @@ class Provisioning:
                 return self.client.request(
                     constants.PATCH,
                     constants.MODIFY_FILESYSTEM_URL.format(
-                        self.server_ip, filesystem_id
+                        self.server_ip, filesystem_id,
                     ),
                     payload=payload,
                 )
@@ -2102,10 +2099,10 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting nfsexports with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting nfsexports with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_AND_NAME, filter_dict
+            constants.SELECT_ID_AND_NAME, filter_dict,
         )
         LOG.info(f"Querystring: {querystring}")
         return self.client.request(
@@ -2144,7 +2141,7 @@ class Provisioning:
             constants.GET,
             constants.GET_NFS_EXPORT_DETAILS_BY_NAME_URL.format(self.server_ip),
             querystring=helpers.prepare_querystring(
-                constants.SELECT_ALL_NFS_EXPORT, name=constants.EQUALS + nfs_export_name
+                constants.SELECT_ALL_NFS_EXPORT, name=constants.EQUALS + nfs_export_name,
             ),
         )
 
@@ -2189,7 +2186,7 @@ class Provisioning:
         :rtype: None
         """
         LOG.info(
-            f"Modifying nfsexport: '{nfs_export_id}' with params: '{nfs_other_params}'"
+            f"Modifying nfsexport: '{nfs_export_id}' with params: '{nfs_other_params}'",
         )
         return self.client.request(
             constants.PATCH,
@@ -2227,10 +2224,10 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting smbshares with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting smbshares with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ALL_SMB_SHARE, filter_dict
+            constants.SELECT_ALL_SMB_SHARE, filter_dict,
         )
         LOG.info(f"Querystring: '{querystring}'")
         return self.client.request(
@@ -2254,7 +2251,7 @@ class Provisioning:
             constants.GET,
             constants.GET_SMB_SHARE_LIST_URL.format(self.server_ip),
             querystring=helpers.prepare_querystring(
-                constants.SELECT_ALL_SMB_SHARE, name=constants.EQUALS + share_name
+                constants.SELECT_ALL_SMB_SHARE, name=constants.EQUALS + share_name,
             ),
         )
 
@@ -2311,7 +2308,7 @@ class Provisioning:
         :rtype: None
         """
         LOG.info(
-            f"Modifying smbshare: '{id}' with params: '{kw_smb_other_params}'"
+            f"Modifying smbshare: '{id}' with params: '{kw_smb_other_params}'",
         )
         return self.client.request(
             constants.PATCH,
@@ -2338,8 +2335,7 @@ class Provisioning:
     # ACL Methods
 
     def get_acl(self, share_id):
-        """
-        Retrieves the Access Control List (ACL) details for a given share ID.
+        """Retrieves the Access Control List (ACL) details for a given share ID.
 
         :param share_id: The ID of the share for which to retrieve the ACL details.
         :type share_id: str
@@ -2353,8 +2349,8 @@ class Provisioning:
         )
 
     def set_acl(self, share_id, add_aces=None, remove_aces=None):
-        """
-        Sets the access control list (ACL) for a given share.
+        """Sets the access control list (ACL) for a given share.
+
         Args:
             share_id (str): The ID of the share.
             add_aces (list, optional): A list of access control entries
@@ -2364,6 +2360,7 @@ class Provisioning:
 
         Returns:
             dict: The response from the server after setting the ACL.
+
         """
         payload = {}
         if add_aces:
@@ -2391,10 +2388,10 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting tree quotas with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting tree quotas with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ID_AND_PATH, filter_dict
+            constants.SELECT_ID_AND_PATH, filter_dict,
         )
         LOG.info(f"Querystring: '{querystring}'")
         return self.client.request(
@@ -2417,7 +2414,7 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting user quotas with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting user quotas with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(filter_dict)
         LOG.info(f"Querystring: '{querystring}'")
@@ -2448,12 +2445,12 @@ class Provisioning:
             return self.client.request(
                 constants.GET,
                 constants.GET_TREE_QUOTA_DETAILS_URL.format(
-                    self.server_ip, tree_quota_id
+                    self.server_ip, tree_quota_id,
                 ),
                 querystring=constants.SELECT_ALL_TREE_QUOTA,
             )
         LOG.info(
-            f"Getting tree quota details by path: '{tree_quota_id}' and fs_id: '{file_system_id}'"
+            f"Getting tree quota details by path: '{tree_quota_id}' and fs_id: '{file_system_id}'",
         )
         return self.client.request(
             constants.GET,
@@ -2476,13 +2473,12 @@ class Provisioning:
         :return: User Quota details
         :rtype: dict
         """
-
         if user_quota_id:
             LOG.info(f"Getting user quota details by ID: '{user_quota_id}'")
             return self.client.request(
                 constants.GET,
                 constants.GET_USER_QUOTA_DETAILS_URL.format(
-                    self.server_ip, user_quota_id
+                    self.server_ip, user_quota_id,
                 ),
                 querystring=constants.SELECT_ALL_USER_QUOTA,
             )
@@ -2494,7 +2490,7 @@ class Provisioning:
             constants.GET,
             constants.GET_USER_QUOTA_LIST_URL.format(self.server_ip),
             querystring=helpers.prepare_querystring(
-                constants.SELECT_ALL_USER_QUOTA, query_params
+                constants.SELECT_ALL_USER_QUOTA, query_params,
             ),
         )
 
@@ -2554,7 +2550,7 @@ class Provisioning:
         :rtype: None
         """
         LOG.info(
-            f"Modifying tree quota: '{tree_quota_id}' with params: '{tree_quota_params}'"
+            f"Modifying tree quota: '{tree_quota_id}' with params: '{tree_quota_params}'",
         )
         return self.client.request(
             constants.PATCH,
@@ -2573,7 +2569,7 @@ class Provisioning:
         :rtype: None
         """
         LOG.info(
-            f"Modifying user quota: '{user_quota_id}' with params: '{user_quota_params}'"
+            f"Modifying user quota: '{user_quota_id}' with params: '{user_quota_params}'",
         )
         return self.client.request(
             constants.PATCH,
@@ -2631,7 +2627,7 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting active directories with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting active directories with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(filter_dict)
         LOG.info(f"Querystring: '{querystring}'")
@@ -2659,7 +2655,7 @@ class Provisioning:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting ldap with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting ldap with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(filter_dict)
         LOG.info(f"Querystring: '{querystring}'")

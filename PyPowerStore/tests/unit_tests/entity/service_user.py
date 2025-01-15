@@ -30,7 +30,7 @@ class ServiceUserResponse(Entity):
 
     def get_service_user_details(self):
         if self.url.endswith(
-            "/service_user/{0}".format(self.data.invalid_service_user_id)
+            f"/service_user/{self.data.invalid_service_user_id}",
         ):
             return 404, self.data.service_user_error[404]
         return self.status_code, self.data.service_user_details_1

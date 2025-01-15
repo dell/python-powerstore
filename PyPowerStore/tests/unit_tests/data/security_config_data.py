@@ -18,16 +18,16 @@ class SecurityConfigData:
                     "code": "0xE04040010005",
                     "severity": "Error",
                     "message_l10n": "Invalid REST request.",
-                }
-            ]
+                },
+            ],
         },
         404: {
             "messages": [
                 {
                     "code": "0xE09040060004",
                     "severity": "Error",
-                    "message_l10n": "Security configuration object does " "not exist!",
-                }
-            ]
+                    "message_l10n": "Security configuration object does not exist!",
+                },
+            ],
         },
     }

@@ -16,7 +16,7 @@ class TestHostGroup(TestBase):
         querystring.update(constants.SELECT_ID_AND_NAME)
         with mock.patch.object(self.provisioning.client, "request") as mock_request:
             self.provisioning.get_host_group_list(
-                filter_dict=querystring, all_pages=True
+                filter_dict=querystring, all_pages=True,
             )
             mock_request.assert_called_with(
                 constants.GET,
@@ -36,13 +36,13 @@ class TestHostGroup(TestBase):
 
     def test_create_host_group(self):
         hg = self.provisioning.create_host_group(
-            self.data.hg_name1, host_ids=[self.data.host_id1]
+            self.data.hg_name1, host_ids=[self.data.host_id1],
         )
         self.assertEqual(hg, self.data.create_hg)
 
     def test_modify_host_group(self):
         hg = self.provisioning.modify_host_group(
-            self.data.hg_id1, add_host_ids=[self.data.host_id2]
+            self.data.hg_id1, add_host_ids=[self.data.host_id2],
         )
         self.assertIsNone(hg)
 

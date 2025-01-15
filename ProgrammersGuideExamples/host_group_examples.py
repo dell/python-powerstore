@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Host Group Module Operations"""
+"""Host Group Module Operations"""
 
 from PyPowerStore import powerstore_conn
 
@@ -24,7 +23,7 @@ INITIATORS = [
         "chap_single_password": "chappasswd12345",
         "chap_mutual_username": "chapuserMutual",
         "chap_mutual_password": "chappasswd12345",
-    }
+    },
 ]
 
 # Get list of Host Groups
@@ -33,13 +32,13 @@ print(RESP)
 
 # Register a new Host
 HOST = CONN.provisioning.create_host(
-    name="pr-sdk-host", os_type="Linux", initiators=INITIATORS
+    name="pr-sdk-host", os_type="Linux", initiators=INITIATORS,
 )
 print(HOST)
 
 # Create a Host Group
 RESP = CONN.provisioning.create_host_group(
-    name="pr-sdk-hg", host_ids=[HOST["id"]], description="HG from SDK"
+    name="pr-sdk-hg", host_ids=[HOST["id"]], description="HG from SDK",
 )
 print(RESP)
 
@@ -63,19 +62,19 @@ print(HG_MODIFIED)
 
 # Add Hosts to Host Group
 ADD_HOSTS_TO_HG = CONN.provisioning.add_hosts_to_host_group(
-    host_group_id=RESP["id"], add_host_ids=[HOST["id"]]
+    host_group_id=RESP["id"], add_host_ids=[HOST["id"]],
 )
 print(ADD_HOSTS_TO_HG)
 
 # Remove Hosts from Host Group
 REMOVE_HOSTS_FROM_HG = CONN.provisioning.remove_hosts_from_host_group(
-    host_group_id=RESP["id"], remove_host_ids=[HOST["id"]]
+    host_group_id=RESP["id"], remove_host_ids=[HOST["id"]],
 )
 print(REMOVE_HOSTS_FROM_HG)
 
 # Get Hosts from Host Group
 HOSTS_FROM_HG = CONN.provisioning.get_hosts_from_host_group(
-    host_group_name="modified-pr-hg-name-x1"
+    host_group_name="modified-pr-hg-name-x1",
 )
 print(HOSTS_FROM_HG)
 

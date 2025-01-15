@@ -35,7 +35,7 @@ class NASServerResponse(Entity):
         return self.status_code, self.data.nas_list
 
     def get_nasserver_detail(self):
-        if self.url.endswith("/nas_server/{0}".format(self.data.nas_id_not_exist)):
+        if self.url.endswith(f"/nas_server/{self.data.nas_id_not_exist}"):
             return 404, self.data.nas_error[404]
         return 200, self.data.nas_detail
 
@@ -45,7 +45,7 @@ class NASServerResponse(Entity):
         if set(param) - set(self.data.nas_valid_param_list):
             # invalid param given
             return 400, self.data.nas_error[400]
-        if self.url.endswith("/nas_server/{0}".format(self.data.nas_id_not_exist)):
+        if self.url.endswith(f"/nas_server/{self.data.nas_id_not_exist}"):
             return 404, self.data.nas_error[404]
         return 204, None
 

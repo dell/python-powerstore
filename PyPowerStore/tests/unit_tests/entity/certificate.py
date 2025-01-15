@@ -35,7 +35,7 @@ class CertificateResponse(Entity):
 
     def get_certificate_details(self):
         if self.url.endswith(
-            "/x509_certificate/{0}".format(self.certificate_data.invalid_certificate_id)
+            f"/x509_certificate/{self.certificate_data.invalid_certificate_id}",
         ):
             return 404, self.certificate_data.certificate_error[404]
         return self.status_code, self.certificate_data.certificate_details

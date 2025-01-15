@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Snapshot Module Operations"""
+"""Snapshot Module Operations"""
 
 from datetime import datetime, timedelta
 
@@ -25,7 +24,7 @@ print(RESP)
 
 # Create volume snapshot
 RESP = CONN.protection.create_volume_snapshot(
-    volume_id=CREATED_VOL_ID, name="pr-sdk-snap", description="Snap from SDK"
+    volume_id=CREATED_VOL_ID, name="pr-sdk-snap", description="Snap from SDK",
 )
 CREATED_VOL_SNAP_ID = RESP.get("id")
 print(RESP)
@@ -52,20 +51,20 @@ CONN.protection.delete_volume_snapshot(snapshot_id=CREATED_VOL_SNAP_ID)
 
 # Create volume group
 RESP = CONN.provisioning.create_volume_group(
-    name="pr-sdk-vg", description="VG from SDK"
+    name="pr-sdk-vg", description="VG from SDK",
 )
 CREATED_VG_ID = RESP.get("id")
 print(RESP)
 
 # Add volumes to volume group
 RESP = CONN.provisioning.add_members_to_volume_group(
-    volume_group_id=CREATED_VG_ID, volume_ids=[CREATED_VOL_ID]
+    volume_group_id=CREATED_VG_ID, volume_ids=[CREATED_VOL_ID],
 )
 print(RESP)
 
 # Create volume group snapshot
 RESP = CONN.protection.create_volume_group_snapshot(
-    volume_group_id=CREATED_VG_ID, name="pr-sdk-vg-snap", description="Snap from SDK"
+    volume_group_id=CREATED_VG_ID, name="pr-sdk-vg-snap", description="Snap from SDK",
 )
 CREATED_VG_SNAP_ID = RESP.get("id")
 print(RESP)
@@ -92,7 +91,7 @@ CONN.protection.delete_volume_group_snapshot(snapshot_id=CREATED_VG_SNAP_ID)
 
 # Remove volumes from volume group
 RESP = CONN.provisioning.remove_members_from_volume_group(
-    volume_group_id=CREATED_VG_ID, volume_ids=[CREATED_VOL_ID]
+    volume_group_id=CREATED_VG_ID, volume_ids=[CREATED_VOL_ID],
 )
 print(RESP)
 

@@ -26,9 +26,9 @@ class RemoteSystemData:
                     "code": "0xE0201002004A",
                     "severity": "Error",
                     "message_l10n": "Failed to create a new remote system. No iSCSI Targets configured.",
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     remote_system_details_1 = {
@@ -52,7 +52,7 @@ class RemoteSystemData:
                 "node_id": "N2",
                 "target_address": "1xx.2xx.3xx.4xx",
                 "initiator_address": "1xx.2xx.3xx.4xx",
-            }
+            },
         ],
         "type_l10n": "PowerStore",
         "state_l10n": "OK",
@@ -70,5 +70,5 @@ class RemoteSystemData:
     modify_job_id_1 = "55d1-de22-4d39-b24d-08ba329f"
 
     remote_app_details = [
-        {"id": "A1", "name": "Appliance-RS-000", "model": "PowerStore 1000T"}
+        {"id": "A1", "name": "Appliance-RS-000", "model": "PowerStore 1000T"},
     ]

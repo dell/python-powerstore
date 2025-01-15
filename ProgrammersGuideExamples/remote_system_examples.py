@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Remote system operations"""
+"""Remote system operations"""
 
 from PyPowerStore import powerstore_conn
 
@@ -21,12 +20,12 @@ rs_details = CONN.protection.get_remote_system_by_name(name=rs_list[0]["name"])
 print(rs_details)
 
 rs_details = CONN.protection.get_remote_system_by_mgmt_address(
-    remote_address=rs_list[0]["management_address"]
+    remote_address=rs_list[0]["management_address"],
 )
 print(rs_details)
 
 rs_details = CONN.protection.get_remote_system_details(
-    remote_system_id=rs_list[0]["id"]
+    remote_system_id=rs_list[0]["id"],
 )
 print(rs_details)
 
@@ -53,7 +52,7 @@ print(resp)
 modify_dict = {"description": "modify_description", "network_latency": "High"}
 
 resp = CONN.protection.modify_remote_system(
-    remote_system_id=resp["id"], modify_remote_sys_dict=modify_dict
+    remote_system_id=resp["id"], modify_remote_sys_dict=modify_dict,
 )
 print(resp)
 

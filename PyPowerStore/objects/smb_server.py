@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
 """Collection of SMB server related functions for PowerStore"""
@@ -11,7 +10,7 @@ LOG = helpers.get_logger(__name__)
 SELECT_ALL_SMB_SERVER = {
     "select": "id, nas_server_id, computer_name, domain,"
     "netbios_name, workgroup, description, is_standalone,"
-    "is_joined, nas_server(id,name)"
+    "is_joined, nas_server(id,name)",
 }
 
 # SMB server endpoints
@@ -53,7 +52,7 @@ class SMBServer:
         :rtype: list of dict
         """
         LOG.info(
-            f"Getting SMB servers with filter: '{filter_dict}' and all_pages: {all_pages}"
+            f"Getting SMB servers with filter: '{filter_dict}' and all_pages: {all_pages}",
         )
         querystring = helpers.prepare_querystring(SELECT_ALL_SMB_SERVER, filter_dict)
         LOG.info(f"Querystring: '{querystring}'")

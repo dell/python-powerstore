@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Storage container destination operations"""
+"""Storage container destination operations"""
 
 from PyPowerStore import powerstore_conn
 
@@ -29,7 +28,7 @@ print(storage_container_list)
 
 # Get storage container destination details
 storage_container_details = CONN.config_mgmt.get_storage_container_destination_details(
-    create_resp["id"]
+    create_resp["id"],
 )
 print(storage_container_details)
 

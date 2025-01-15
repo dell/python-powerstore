@@ -29,11 +29,11 @@ class RemoteSupportData:
                     "severity": "Error",
                     "message_l10n": 'Validation failed: Object instance has properties which are not allowed by the schema: ["invalid_param"].',
                     "arguments": [
-                        'Object instance has properties which are not allowed by the schema: ["invalid_param"]'
+                        'Object instance has properties which are not allowed by the schema: ["invalid_param"]',
                     ],
-                }
-            ]
-        }
+                },
+            ],
+        },
     }
 
     remote_support_details = {
@@ -58,7 +58,7 @@ class RemoteSupportData:
                         "connectivity_qos_value": 1.00,
                         "connectivity_qos": "Good",
                         "connectivity_qos_priority": 8,
-                    }
+                    },
                 ],
             },
             {

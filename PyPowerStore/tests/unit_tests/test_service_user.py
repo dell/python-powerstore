@@ -10,7 +10,7 @@ class TestServiceUser(TestBase):
 
     def test_get_service_user_details(self):
         service_user_details = self.configuration.get_service_user_details(
-            self.data.service_user_id_1
+            self.data.service_user_id_1,
         )
         self.assertEqual(service_user_details, self.data.service_user_details_1)
 
@@ -24,12 +24,12 @@ class TestServiceUser(TestBase):
 
     def test_modify_service_user(self):
         service_user_details_1 = self.configuration.modify_service_user(
-            self.data.service_user_id_1, password="Password123!"
+            self.data.service_user_id_1, password="Password123!",
         )
         self.assertEqual(service_user_details_1, self.data.service_user_details_1)
 
     def test_get_service_user_by_name(self):
         service_user_list = self.configuration.get_service_user_by_name(
-            self.data.service_user_name_1
+            self.data.service_user_name_1,
         )
         self.assertListEqual(service_user_list, self.data.service_user_list)

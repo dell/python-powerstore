@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Email operations"""
+"""Email operations"""
 
 from PyPowerStore import powerstore_conn
 
@@ -20,13 +19,13 @@ print(email_list)
 
 # Getting destination email instance details
 email_details = CONN.config_mgmt.get_destination_email_details(
-    email_id=email_list[0]["id"]
+    email_id=email_list[0]["id"],
 )
 print(email_details)
 
 # Getting destination email instance details using address
 email_details = CONN.config_mgmt.get_destination_email_by_address(
-    email_address=email_details["email_address"]
+    email_address=email_details["email_address"],
 )
 print(email_details)
 
@@ -40,7 +39,7 @@ print(resp_create)
 modify_dict = {"notify_major": True}
 
 resp_modify = CONN.config_mgmt.modify_destination_email_details(
-    email_id=resp_create["id"], modify_parameters=modify_dict
+    email_id=resp_create["id"], modify_parameters=modify_dict,
 )
 print(resp_modify)
 

@@ -16,7 +16,7 @@ class TestUserQuota(TestBase):
         querystring.update(constants.SELECT_ID_AND_PATH)
         with mock.patch.object(self.provisioning.client, "request") as mock_request:
             self.provisioning.get_file_user_quotas(
-                filter_dict=querystring, all_pages=True
+                filter_dict=querystring, all_pages=True,
             )
             mock_request.assert_called_with(
                 constants.GET,
@@ -49,7 +49,7 @@ class TestUserQuota(TestBase):
         param = {"uid": str(1), "tree_quota_id": self.data.tq_id1}
         my_param = {k: constants.EQUALS + v for k, v in param.items()}
         querystring = helpers.prepare_querystring(
-            constants.SELECT_ALL_USER_QUOTA, my_param
+            constants.SELECT_ALL_USER_QUOTA, my_param,
         )
         with mock.patch.object(self.provisioning.client, "request") as mock_request:
             self.provisioning.get_user_quota(user_quota_id=None, query_params=param)

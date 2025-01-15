@@ -10,7 +10,7 @@ class FileNISData:
             "ip_addresses": ["10.10.10.10"],
             "is_destination_override_enabled": False,
             "source_parameters": None,
-        }
+        },
     ]
 
     nas_server_id = "6581683c-61a3-76ab-f107-62b767ad9845"
@@ -41,15 +41,15 @@ class FileNISData:
                     "arguments": [
                         "Object instance has properties "
                         "which are not allowed by the "
-                        "schema."
+                        "schema.",
                     ],
                     "code": "0xE04040030001",
                     "message_l10n": "Validation failed: Object "
                     "instance has properties which "
                     "are not allowed by the schema.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
         404: {
             "messages": [
@@ -58,7 +58,7 @@ class FileNISData:
                     "message_l10n": "Operation failed because "
                     "file NIS ID is invalid.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
     }

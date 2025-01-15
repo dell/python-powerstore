@@ -22,7 +22,7 @@ class TestCluster(TestBase):
 
     def test_modify_cluster(self):
         cluster_details_1 = self.configuration.modify_cluster(
-            self.data.cluster_id_1, physical_mtu=2000
+            self.data.cluster_id_1, physical_mtu=2000,
         )
         self.assertEqual(cluster_details_1, self.data.cluster_details_1)
 

@@ -57,7 +57,7 @@ class TestNASServer(TestBase):
             mock_request.assert_called_with(
                 constants.PATCH,
                 constants.MODIFY_NAS_SERVER_URL.format(
-                    self.provisioning.server_ip, self.data.nas_id1
+                    self.provisioning.server_ip, self.data.nas_id1,
                 ),
                 payload=param,
             )
@@ -84,7 +84,7 @@ class TestNASServer(TestBase):
 
     def test_modify_nasserver_with_empty_param(self):
         self.assertRaises(
-            ValueError, self.provisioning.modify_nasserver, self.data.nas_id1, {}
+            ValueError, self.provisioning.modify_nasserver, self.data.nas_id1, {},
         )
 
     def test_create_nas_server(self):

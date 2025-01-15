@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Host Module Operations"""
+"""Host Module Operations"""
 
 from PyPowerStore import powerstore_conn
 
@@ -15,7 +14,7 @@ INITIATORS = [
         "chap_single_password": "chappasswd12345",
         "chap_mutual_username": "chapuserMutual",
         "chap_mutual_password": "chappasswd12345",
-    }
+    },
 ]
 
 
@@ -26,7 +25,7 @@ MODIFY_INITIATORS = [
         "chap_single_password": "prashantrakheja",
         "chap_mutual_username": "chapuserMutual",
         "chap_mutual_password": "chappasswd12345",
-    }
+    },
 ]
 
 REMOVE_INITIATORS = ["iqn.1998-01.com.vmware:lgloc187-4cfa37b6"]
@@ -46,7 +45,7 @@ print(RESP)
 
 # Register a new Host
 RESP = CONN.provisioning.create_host(
-    name="pr-sdk-host", os_type="Linux", initiators=INITIATORS
+    name="pr-sdk-host", os_type="Linux", initiators=INITIATORS,
 )
 
 print(RESP)
@@ -66,13 +65,13 @@ print(HOST_MODIFIED)
 
 # Remove Initiators from Host
 HOST_REMOVE_INITIATOR = CONN.provisioning.remove_initiators_from_host(
-    host_id=RESP["id"], remove_initiators=REMOVE_INITIATORS
+    host_id=RESP["id"], remove_initiators=REMOVE_INITIATORS,
 )
 print(HOST_REMOVE_INITIATOR)
 
 # Add initiators to Host
 HOST_ADD_INITIATOR = CONN.provisioning.add_initiators_to_host(
-    host_id=RESP["id"], add_initiators=INITIATORS
+    host_id=RESP["id"], add_initiators=INITIATORS,
 )
 print(HOST_ADD_INITIATOR)
 

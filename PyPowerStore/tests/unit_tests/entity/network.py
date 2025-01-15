@@ -31,7 +31,7 @@ class NetworkResponse(Entity):
         return self.status_code, self.data.network_list
 
     def get_network_details(self):
-        if self.url.endswith("/network/{0}".format(self.data.network_does_not_exist)):
+        if self.url.endswith(f"/network/{self.data.network_does_not_exist}"):
             return 404, self.data.network_error[404]
         return self.status_code, self.data.network_details_1
 

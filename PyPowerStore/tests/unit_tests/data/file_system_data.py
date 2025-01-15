@@ -71,22 +71,22 @@ class FileSystemData:
                     "System ID is invalid. Enter a valid File System "
                     "ID and try again.",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
         422: {
             "messages": [
                 {
                     "arguments": [
-                        "[File system delete rejected due to existing snap(s).]"
+                        "[File system delete rejected due to existing snap(s).]",
                     ],
                     "code": "0xE08010080003",
                     "message_l10n": "Deletion of File System failed "
                     "as, [File system delete rejected "
                     "due to existing snap (s).]",
                     "severity": "Error",
-                }
-            ]
+                },
+            ],
         },
     }
 
