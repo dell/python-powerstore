@@ -20,9 +20,11 @@ class RemoteSupportContactData:
                 {
                     "code": "0xE04040030001",
                     "severity": "Error",
-                    "message_l10n": 'Validation failed: Object instance has properties which are not allowed by the schema: ["invalid_param"].',
+                    "message_l10n": 'Validation failed: Object instance has \
+                        properties which are not allowed by the schema: ["invalid_param"].',
                     "arguments": [
-                        'Object instance has properties which are not allowed by the schema: ["invalid_param"]',
+                        'Object instance has properties which are not allowed \
+                            by the schema: ["invalid_param"]',
                     ],
                 },
             ],

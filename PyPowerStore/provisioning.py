@@ -341,19 +341,25 @@ class Provisioning:
 
         :param volume_id: The volume ID
         :type volume_id: str
-        :param volume_id_to_refresh_from: Unique identifier of the source volume that will be used for the refresh operation
+        :param volume_id_to_refresh_from: Unique identifier of the source volume
+          that will be used for the refresh operation
         :type volume_id_to_refresh_from: str
-        :param create_backup_snap: Indicates whether a backup snapshot of the target volume will be created before it is refreshed from the source volume
+        :param create_backup_snap: Indicates whether a backup snapshot of the
+          target volume will be created before it is refreshed from the source volume
         :type create_backup_snap: bool
-        :param backup_snap_name: Name of the backup snapshot to be created. The default name of the volume snapshot is the date and time when the snapshot is taken
+        :param backup_snap_name: Name of the backup snapshot to be created. The
+          default name of the volume snapshot is the date and time when the snapshot is taken
         :type backup_snap_name: str
         :param backup_snap_description: Description of the backup snapshot.
         :type backup_snap_description: str
-        :param backup_snap_performance_policy_id: Unique identifier of the performance policy assigned to the snapshot.
+        :param backup_snap_performance_policy_id: Unique identifier of the
+          performance policy assigned to the snapshot.
         :type backup_snap_performance_policy_id: str
-        :param backup_snap_expiration_timestamp: Time at which the backup snapshot will expire.
+        :param backup_snap_expiration_timestamp: Time at which the backup
+          snapshot will expire.
         :type backup_snap_expiration_timestamp: str
-        :return: 'backup_snapshot_id' Unique identifier of the backup snapshot of the target volume, if one is created prior to the refresh operation.
+        :return: 'backup_snapshot_id' Unique identifier of the backup snapshot
+          of the target volume, if one is created prior to the refresh operation.
         :rtype: dict
         """
         LOG.info( "Refreshing the volume: '%s'", volume_id)
@@ -418,19 +424,25 @@ class Provisioning:
 
         :param volume_id: The volume ID
         :type volume_id: str
-        :param snap_id_to_restore_from: Unique identifier of the source snapshot that will be used for the restore operation.
+        :param snap_id_to_restore_from: Unique identifier of the source
+          snapshot that will be used for the restore operation.
         :type snap_id_to_restore_from: str
-        :param create_backup_snap: Indicates whether a backup snapshot of the target volume will be created before it is restored from the snapshot.
+        :param create_backup_snap: Indicates whether a backup snapshot of the
+          target volume will be created before it is restored from the snapshot.
         :type create_backup_snap: bool
-        :param backup_snap_name: Name of the backup snapshot to be created. The default name of the volume snapshot is the date and time when the snapshot is taken
+        :param backup_snap_name: Name of the backup snapshot to be created.
+          The default name of the volume snapshot is the date and time when the snapshot is taken
         :type backup_snap_name: str
         :param backup_snap_description: Description of the backup snapshot.
         :type backup_snap_description: str
-        :param backup_snap_performance_policy_id: Unique identifier of the performance policy assigned to the snapshot.
+        :param backup_snap_performance_policy_id: Unique identifier of the
+          performance policy assigned to the snapshot.
         :type backup_snap_performance_policy_id: str
-        :param backup_snap_expiration_timestamp: Time at which the backup snapshot will expire.
+        :param backup_snap_expiration_timestamp: Time at which the backup
+          snapshot will expire.
         :type backup_snap_expiration_timestamp: str
-        :return: 'backup_snapshot_id' Unique identifier of the backup snapshot of the target volume, if one is created prior to the restore operation.
+        :return: 'backup_snapshot_id' Unique identifier of the backup snapshot
+          of the target volume, if one is created prior to the restore operation.
         :rtype: dict
         """
         LOG.info( "Restoring the volume: '%s'", volume_id)
@@ -515,7 +527,8 @@ class Provisioning:
 
         :param snapshot_id: Unique identifier of the file system snapshot.
         :type snapshot_id: str
-        :param backup_snap_name: Name of the backup snap to be created before the restore operation occurs. If no name is specified, no backup copy will be made.
+        :param backup_snap_name: Name of the backup snap to be created before
+          the restore operation occurs. If no name is specified, no backup copy will be made.
         :type backup_snap_name: str
         :return: Unique identifier of the backup snapshot set or None if backup_snap_name is None
                  if success else raise exception

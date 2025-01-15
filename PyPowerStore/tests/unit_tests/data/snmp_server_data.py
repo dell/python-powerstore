@@ -81,7 +81,8 @@ class SNMPServerData:
                 {
                     "code": "0xE0F0101D0024",
                     "severity": "Error",
-                    "message_l10n": "Server Record Not Found, id: c5fdeb93-42ed-4ec9-988e-daec2974f2fk",
+                    "message_l10n": "Server Record Not Found, id: \
+                        c5fdeb93-42ed-4ec9-988e-daec2974f2fk",
                     "arguments": ["c5fdeb93-42ed-4ec9-988e-daec2974f2fk"],
                 },
             ],

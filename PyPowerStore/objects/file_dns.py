@@ -8,7 +8,7 @@ from PyPowerStore.utils import constants, helpers
 LOG = helpers.get_logger(__name__)
 
 SELECT_ALL_FILE_DNS = {
-    "select": "id, nas_server_id, domain, ip_addresses, transport, nas_server(id,name), is_destination_override_enabled",
+    "select": "id, nas_server_id, domain, ip_addresses, transport, nas_server(id,name), is_destination_override_enabled", # pylint: disable=line-too-long
 }
 
 # File DNS endpoints

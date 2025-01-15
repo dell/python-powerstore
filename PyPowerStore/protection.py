@@ -716,7 +716,8 @@ class ProtectionFunctions:
         :rtype: dict
         """
         LOG.info(
-            f"Removing replication rule: '{remove_replication_rule_ids}' from policy: '{policy_id}'",
+            f"Removing replication rule: \
+                '{remove_replication_rule_ids}' from policy: '{policy_id}'",
         )
         return self.modify_protection_policy(
             policy_id=policy_id, remove_replication_rule_ids=remove_replication_rule_ids,
@@ -826,7 +827,8 @@ class ProtectionFunctions:
 
         if filesystem_id:
             LOG.info(
-                f"Getting filesystem snapshot: '{snapshot_name}' details by fs_id: '{filesystem_id}'",
+                f"Getting filesystem snapshot: \
+                    '{snapshot_name}' details by fs_id: '{filesystem_id}'",
             )
             return self.rest_client.request(
                 constants.GET,

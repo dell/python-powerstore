@@ -25,7 +25,8 @@ class RemoteSystemData:
                 {
                     "code": "0xE0201002004A",
                     "severity": "Error",
-                    "message_l10n": "Failed to create a new remote system. No iSCSI Targets configured.",
+                    "message_l10n": "Failed to create a new remote system. No \
+                        iSCSI Targets configured.",
                 },
             ],
         },
