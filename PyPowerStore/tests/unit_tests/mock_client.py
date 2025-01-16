@@ -28,6 +28,7 @@ class MockClient:
         self.verify = verify
         self.application_type = application_type
         self.timeout = timeout
+        self.enable_log = enable_log
 
     def fetch_response(
         self, http_method, url, payload=None, querystring=None, myrange=None,
@@ -229,5 +230,5 @@ class MockClient:
                     f" PayLoad: '{payload}' QueryString: '{querystring}'"
                 )
                 raise PowerStoreException(PowerStoreException.VALUE_ERROR, error_msg) from ex
-        except Exception:
-            raise
+        except Exception as err:
+            raise err
