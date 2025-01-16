@@ -24,4 +24,5 @@ disable=
     too-many-public-methods,
     no-member,
     too-many-return-statements,
-    too-many-boolean-expressions
+    too-many-boolean-expressions,
+    

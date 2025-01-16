@@ -2,10 +2,7 @@
 
 """Setup file for PowerStore SDK"""
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from setuptools import setup
 
 
 setup(
