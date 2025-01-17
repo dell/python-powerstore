@@ -1,35 +1,41 @@
-class RemoteSupportData():
+class RemoteSupportData:
 
     remote_support_id = "0"
 
     remote_support_list = [{"id": remote_support_id}]
 
-    modify_remote_support_dict={
-        "type": "SRS_Integrated_Tier3"
-    }
+    modify_remote_support_dict = {"type": "SRS_Integrated_Tier3"}
 
-    verify_remote_support_dict={
-        "type": "SRS_Integrated_Tier2"
-    }
+    verify_remote_support_dict = {"type": "SRS_Integrated_Tier2"}
 
     remote_support_valid_param_list = [
-        'id', 'type', 'remote_support_server', 'proxy_address', 'proxy_port', 'proxy_username', 'proxy_password',
-        'is_cloudiq_enabled', 'is_rc_enabled', 'is_icw_configured'
+        "id",
+        "type",
+        "remote_support_server",
+        "proxy_address",
+        "proxy_port",
+        "proxy_username",
+        "proxy_password",
+        "is_cloudiq_enabled",
+        "is_rc_enabled",
+        "is_icw_configured",
     ]
 
     remote_support_error = {
         400: {
-               "messages": [
+            "messages": [
                 {
                     "code": "0xE04040030001",
                     "severity": "Error",
-                    "message_l10n": "Validation failed: Object instance has properties which are not allowed by the schema: [\"invalid_param\"].",
+                    "message_l10n": 'Validation failed: Object instance has \
+                        properties which are not allowed by the schema: ["invalid_param"].',
                     "arguments": [
-                        "Object instance has properties which are not allowed by the schema: [\"invalid_param\"]"
-                    ]
-                }
-                ]
-        }
+                        'Object instance has properties which are not allowed by \
+                            the schema: ["invalid_param"]',
+                    ],
+                },
+            ],
+        },
     }
 
     remote_support_details = {
@@ -53,23 +59,22 @@ class RemoteSupportData():
                         "last_update": "2022-01-24T14:27:01.239+00:00",
                         "connectivity_qos_value": 1.00,
                         "connectivity_qos": "Good",
-                        "connectivity_qos_priority": 8
-                     }
-                 ]
-             },
+                        "connectivity_qos_priority": 8,
+                    },
+                ],
+            },
             {
                 "id": "1",
                 "remote_support_id": "0",
                 "address": None,
                 "port": None,
                 "is_primary": False,
-                "connectivity_qos": None
-             }
+                "connectivity_qos": None,
+            },
         ],
         "proxy_address": "10.10.10.10",
         "proxy_port": 3128,
         "proxy_username": "user",
         "policy_manager_address": None,
-        "policy_manager_port": None
+        "policy_manager_port": None,
     }
-

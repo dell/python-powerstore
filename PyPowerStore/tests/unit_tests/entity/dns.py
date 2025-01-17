@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.dns_data import DnsData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class DnsResponse(Entity):
@@ -12,12 +12,11 @@ class DnsResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/dns'):
+        if self.method == "GET":
+            if self.url.endswith("/dns"):
                 return self.get_dns_list
-            else:
-                return self.get_dns_details
-        elif self.method == "PATCH":
+            return self.get_dns_details
+        if self.method == "PATCH":
             return self.modify_dns_details
 
     def execute_api(self, api_name):
@@ -31,7 +30,7 @@ class DnsResponse(Entity):
         return self.status_code, self.dns_data.dns_details
 
     def modify_dns_details(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         param = list(data.keys())
         if set(param) - set(self.dns_data.dns_valid_param_list):
             # invalid param given

@@ -1,22 +1,22 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Info Module Operations"""
+"""Info Module Operations"""
 
 from PyPowerStore import powerstore_conn
 
-CONN = powerstore_conn.PowerStoreConn(username="<username>",
-                                      password="<password>",
-                                      server_ip="<IP>",
-                                      verify=False,
-                                      application_type="<Application>",
-                                      timeout=180.0)
+CONN = powerstore_conn.PowerStoreConn(
+    username="<username>",
+    password="<password>",
+    server_ip="<IP>",
+    verify=False,
+    application_type="<Application>",
+    timeout=180.0,
+)
 print(CONN)
 
 # Get volume list
-filter_dict = {'name': 'ilike.*vol*'}
-VOL_LIST = CONN.provisioning.get_volumes(all_pages=True,
-                                         filter_dict=filter_dict)
+filter_dict = {"name": "ilike.*vol*"}
+VOL_LIST = CONN.provisioning.get_volumes(all_pages=True, filter_dict=filter_dict)
 print(VOL_LIST)
 
 # Get list of Host Groups
@@ -24,7 +24,7 @@ RESP = CONN.provisioning.get_host_group_list()
 print(RESP)
 
 # Get Host list
-filter_dict = {'os_type': 'neq.Linux'}
+filter_dict = {"os_type": "neq.Linux"}
 RESP = CONN.provisioning.get_hosts(filter_dict=filter_dict)
 print(RESP)
 
@@ -41,7 +41,7 @@ RESP = CONN.provisioning.get_cluster_list()
 print(RESP)
 
 # Get snapshot rules list
-filter_dict = {'desired_retention': ['gt.100', 'lt.500']}
+filter_dict = {"desired_retention": ["gt.100", "lt.500"]}
 RESP = CONN.protection.get_snapshot_rules(filter_dict=filter_dict)
 print(RESP)
 
@@ -140,4 +140,3 @@ print(RESP)
 # Get virtual volume list
 RESP = CONN.config_mgmt.get_virtual_volume_list()
 print(RESP)
-

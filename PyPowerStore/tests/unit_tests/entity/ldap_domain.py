@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.ldap_data import LdapData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class LDAPDomainResponse(Entity):
@@ -12,19 +12,17 @@ class LDAPDomainResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/ldap_domain'):
+        if self.method == "GET":
+            if self.url.endswith("/ldap_domain"):
                 return self.get_ldap_domain_configuration_list
-            else:
-                return self.get_ldap_domain_configuration_details
-        elif self.method == 'POST':
-            if self.url.endswith('/verify'):
+            return self.get_ldap_domain_configuration_details
+        if self.method == "POST":
+            if self.url.endswith("/verify"):
                 return self.verify_ldap_domain_configuration
-            else:
-                return self.create_ldap_domain_configuration
-        elif self.method == "PATCH":
+            return self.create_ldap_domain_configuration
+        if self.method == "PATCH":
             return self.modify_ldap_domain_configuration
-        elif self.method == "DELETE":
+        if self.method == "DELETE":
             return self.delete_ldap_domain_configuration
 
     def execute_api(self, api_name):

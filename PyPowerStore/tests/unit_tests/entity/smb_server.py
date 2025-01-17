@@ -1,7 +1,6 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.smb_server_data import SMBServerData
-from PyPowerStore.utils import constants
-from PyPowerStore.objects import smb_server
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
+
 
 class SMBServerResponse(Entity):
 
@@ -13,16 +12,15 @@ class SMBServerResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/smb_server'):
+        if self.method == "GET":
+            if self.url.endswith("/smb_server"):
                 return self.get_smb_server_list
-            else:
-                return self.get_smb_server_details
-        elif self.method == 'PATCH':
+            return self.get_smb_server_details
+        if self.method == "PATCH":
             return self.modify_smb_server
-        elif self.method == 'POST':
+        if self.method == "POST":
             return self.create_smb_server
-        elif self.method == 'DELETE':
+        if self.method == "DELETE":
             return self.delete_smb_server
 
     def execute_api(self, api_name):
@@ -33,13 +31,14 @@ class SMBServerResponse(Entity):
         return self.status_code, self.smb_server_data.smb_server_list
 
     def get_smb_server_details(self):
-        if self.url.endswith('/smb_server/{0}'.format(
-           self.smb_server_data.smb_server_id_not_exist)):
+        if self.url.endswith(
+            f"/smb_server/{self.smb_server_data.smb_server_id_not_exist}",
+        ):
             return 404, self.smb_server_data.smb_server_error[404]
         return 200, self.smb_server_data.smb_server_detail
 
     def modify_smb_server(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         param = list(data.keys())
         if set(param) - set(self.smb_server_data.smb_server_valid_param_list):
             # invalid param given
@@ -47,7 +46,7 @@ class SMBServerResponse(Entity):
         return 204, None
 
     def create_smb_server(self):
-       return 201, self.smb_server_data.smb_server_id
+        return 201, self.smb_server_data.smb_server_id
 
     def delete_smb_server(self):
         return 204, None

@@ -17,7 +17,8 @@ class TestRole(TestBase):
             PowerStoreException,
             "HTTP code: 404, Not Found",
             self.configuration.get_role_details,
-            self.data.role_does_not_exist)
+            self.data.role_does_not_exist,
+        )
 
     def test_get_role_by_name(self):
         role_details_1 = self.configuration.get_role_by_name(self.data.role_name1)

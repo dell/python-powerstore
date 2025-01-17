@@ -1,7 +1,6 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.file_nis_data import FileNISData
-from PyPowerStore.utils import constants
-from PyPowerStore.objects import file_nis
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
+
 
 class FileNISResponse(Entity):
 
@@ -13,16 +12,15 @@ class FileNISResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/file_nis'):
+        if self.method == "GET":
+            if self.url.endswith("/file_nis"):
                 return self.get_file_nis_list
-            else:
-                return self.get_file_nis_details
-        elif self.method == 'PATCH':
+            return self.get_file_nis_details
+        if self.method == "PATCH":
             return self.modify_file_nis
-        elif self.method == 'POST':
+        if self.method == "POST":
             return self.create_file_nis
-        elif self.method == 'DELETE':
+        if self.method == "DELETE":
             return self.delete_file_nis
 
     def execute_api(self, api_name):
@@ -33,13 +31,14 @@ class FileNISResponse(Entity):
         return self.status_code, self.file_nis_data.file_nis_list
 
     def get_file_nis_details(self):
-        if self.url.endswith('/file_nis/{0}'.format(
-           self.file_nis_data.file_nis_id_not_exist)):
+        if self.url.endswith(
+            f"/file_nis/{self.file_nis_data.file_nis_id_not_exist}",
+        ):
             return 404, self.file_nis_data.file_nis_error[404]
         return 200, self.file_nis_data.file_nis_detail
 
     def modify_file_nis(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         param = list(data.keys())
         if set(param) - set(self.file_nis_data.file_nis_valid_param_list):
             # invalid param given
@@ -47,7 +46,7 @@ class FileNISResponse(Entity):
         return 204, None
 
     def create_file_nis(self):
-       return 201, self.file_nis_data.file_nis_id
+        return 201, self.file_nis_data.file_nis_id
 
     def delete_file_nis(self):
         return 204, None

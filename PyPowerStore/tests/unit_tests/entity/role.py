@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.common_data import CommonData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class RoleResponse(Entity):
@@ -11,14 +11,12 @@ class RoleResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/role'):
-                if self.kwargs.get('params', {}).get('name'):
+        if self.method == "GET":
+            if self.url.endswith("/role"):
+                if self.kwargs.get("params", {}).get("name"):
                     return self.get_role_by_name
-                else:
-                    return self.get_roles
-            else:
-                return self.get_role_details
+                return self.get_roles
+            return self.get_role_details
 
     def execute_api(self, api_name):
         status_code, response = api_name()
@@ -28,8 +26,7 @@ class RoleResponse(Entity):
         return self.status_code, self.data.role_list
 
     def get_role_details(self):
-        if self.url.endswith('/role/{0}'.format(
-           self.data.role_does_not_exist)):
+        if self.url.endswith(f"/role/{self.data.role_does_not_exist}"):
             return 404, self.data.role_error[404]
         return self.status_code, self.data.role_details_1
 

@@ -1,16 +1,17 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Discovered Appliance operations"""
+"""Discovered Appliance operations"""
 
 from PyPowerStore import powerstore_conn
 
-CONN = powerstore_conn.PowerStoreConn(username="<username>",
-                                      password="<password>",
-                                      server_ip="<IP>",
-                                      verify=False,
-                                      application_type="<Application>",
-                                      timeout=180.0)
+CONN = powerstore_conn.PowerStoreConn(
+    username="<username>",
+    password="<password>",
+    server_ip="<IP>",
+    verify=False,
+    application_type="<Application>",
+    timeout=180.0,
+)
 print(CONN)
 
 # Get Discovered appliances list

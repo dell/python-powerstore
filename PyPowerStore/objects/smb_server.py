@@ -1,22 +1,21 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
 """Collection of SMB server related functions for PowerStore"""
 
-from PyPowerStore.client import Client
 from PyPowerStore.utils import constants, helpers
 
 # TODO: kept LOG as global for now will improve it to avoid overriding
 LOG = helpers.get_logger(__name__)
 
-SELECT_ALL_SMB_SERVER = {"select": "id, nas_server_id, computer_name, domain,"
-                         "netbios_name, workgroup, description, is_standalone,"
-                         "is_joined, nas_server(id,name)"
-                        }
+SELECT_ALL_SMB_SERVER = {
+    "select": "id, nas_server_id, computer_name, domain,"
+    "netbios_name, workgroup, description, is_standalone,"
+    "is_joined, nas_server(id,name)",
+}
 
 # SMB server endpoints
-GET_SMB_SERVER_LIST_URL = 'https://{0}/api/rest/smb_server'
-GET_SMB_SERVER_DETAILS_URL = 'https://{0}/api/rest/smb_server/{1}'
+GET_SMB_SERVER_LIST_URL = "https://{0}/api/rest/smb_server"
+GET_SMB_SERVER_DETAILS_URL = "https://{0}/api/rest/smb_server/{1}"
 GET_SMB_SERVER_DETAILS_BY_NAS_SERVER_URL = GET_SMB_SERVER_LIST_URL
 MODIFY_SMB_SERVER_URL = GET_SMB_SERVER_DETAILS_URL
 CREATE_SMB_SERVER_URL = GET_SMB_SERVER_LIST_URL
@@ -25,8 +24,9 @@ DELETE_SMB_SERVER_URL = GET_SMB_SERVER_DETAILS_URL
 
 class SMBServer:
     """Provisioning related functionality for PowerStore."""
+
     def __init__(self, provisioning, enable_log=False):
-        """ Initializes ProtectionFunctions Class.
+        """Initializes ProtectionFunctions Class.
 
         :param provisioning: Provisioning class object
         :type provisioning: Provisioning
@@ -51,15 +51,19 @@ class SMBServer:
         :returns: SMB servers
         :rtype: list of dict
         """
-        LOG.info("Getting SMB servers with filter: '%s' and all_pages: %s"
-                 % (filter_dict, all_pages))
+        LOG.info(
+            "Getting SMB servers with filter: '%s' and all_pages: '%s'",
+            filter_dict, all_pages,
+        )
         querystring = helpers.prepare_querystring(SELECT_ALL_SMB_SERVER, filter_dict)
-        LOG.info("Querystring: '%s'" % querystring)
-        return self.smb_server_client.request(constants.GET,
-                                   GET_SMB_SERVER_LIST_URL.format
-                                   (self.server_ip), payload=None,
-                                   querystring=querystring,
-                                   all_pages=all_pages)
+        LOG.info("Querystring: '%s'", querystring)
+        return self.smb_server_client.request(
+            constants.GET,
+            GET_SMB_SERVER_LIST_URL.format(self.server_ip),
+            payload=None,
+            querystring=querystring,
+            all_pages=all_pages,
+        )
 
     def get_smb_server_details(self, smb_server_id):
         """Details of a SMB server.
@@ -71,13 +75,13 @@ class SMBServer:
         """
         querystring = SELECT_ALL_SMB_SERVER
 
-        LOG.info("Getting SMB server details by ID: '%s'" % smb_server_id)
+        LOG.info("Getting SMB server details by ID: '%s'", smb_server_id)
         return self.smb_server_client.request(
             constants.GET,
-            GET_SMB_SERVER_DETAILS_URL.format(self.server_ip,
-                                              smb_server_id),
+            GET_SMB_SERVER_DETAILS_URL.format(self.server_ip, smb_server_id),
             payload=None,
-            querystring=querystring)
+            querystring=querystring,
+        )
 
     def get_smb_server_by_nas_server_id(self, nas_server_id):
         """Get details of a SMB server by NAS server ID.
@@ -89,15 +93,15 @@ class SMBServer:
         """
         querystring = SELECT_ALL_SMB_SERVER
 
-        LOG.info("Getting SMB server details by nas server id: '%s'" % nas_server_id)
+        LOG.info("Getting SMB server details by nas server id: '%s'", nas_server_id)
         return self.smb_server_client.request(
             constants.GET,
-            GET_SMB_SERVER_DETAILS_BY_NAS_SERVER_URL.format(
-                self.server_ip),
-            payload=None, querystring=helpers.prepare_querystring(
+            GET_SMB_SERVER_DETAILS_BY_NAS_SERVER_URL.format(self.server_ip),
+            payload=None,
+            querystring=helpers.prepare_querystring(
                 querystring,
                 nas_server_id=constants.EQUALS + nas_server_id,
-            )
+            ),
         )
 
     def create_smb_server(self, payload):
@@ -112,7 +116,8 @@ class SMBServer:
         return self.smb_server_client.request(
             constants.POST,
             CREATE_SMB_SERVER_URL.format(self.server_ip),
-            payload=payload)
+            payload=payload,
+        )
 
     def modify_smb_server(self, smb_server_id, modify_parameters):
         """Modify SMB server attributes.
@@ -124,9 +129,9 @@ class SMBServer:
         :return: None if success else raise exception
         :rtype: None
         """
-        LOG.info("Modifying SMB server: '%s'" % smb_server_id)
+        LOG.info("Modifying SMB server: '%s'", smb_server_id)
         if modify_parameters:
-            payload = dict()
+            payload = {}
             for key, value in modify_parameters.items():
                 if value is not None:
                     payload[key] = value
@@ -134,9 +139,9 @@ class SMBServer:
             if payload:
                 return self.smb_server_client.request(
                     constants.PATCH,
-                    MODIFY_SMB_SERVER_URL.format(
-                        self.server_ip, smb_server_id),
-                    payload=payload)
+                    MODIFY_SMB_SERVER_URL.format(self.server_ip, smb_server_id),
+                    payload=payload,
+                )
 
         raise ValueError("Nothing to modify")
 
@@ -148,9 +153,10 @@ class SMBServer:
         :return: None on success else raise exception
         :rtype: None
         """
-        LOG.info("Deleting SMB server: '%s'" % smb_server_id)
+        LOG.info("Deleting SMB server: '%s'", smb_server_id)
         return self.smb_server_client.request(
             constants.DELETE,
-            DELETE_SMB_SERVER_URL.format(self.server_ip, smb_server_id))
+            DELETE_SMB_SERVER_URL.format(self.server_ip, smb_server_id),
+        )
 
     # SMB server methods end

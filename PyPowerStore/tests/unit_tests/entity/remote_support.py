@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.remote_support_data import RemoteSupportData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class RemoteSupportResponse(Entity):
@@ -12,17 +12,15 @@ class RemoteSupportResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/remote_support'):
+        if self.method == "GET":
+            if self.url.endswith("/remote_support"):
                 return self.get_remote_support_configs
-            else:
-                return self.get_remote_support_details
-        elif self.method == 'POST':
-            if self.url.endswith('/verify'):
+            return self.get_remote_support_details
+        if self.method == "POST":
+            if self.url.endswith("/verify"):
                 return self.verify_remote_support_config
-            else:
-                return self.send_test_remote_support_config
-        elif self.method == "PATCH":
+            return self.send_test_remote_support_config
+        if self.method == "PATCH":
             return self.modify_remote_support_details
 
     def execute_api(self, api_name):
@@ -36,7 +34,7 @@ class RemoteSupportResponse(Entity):
         return self.status_code, self.remote_support_data.remote_support_details
 
     def modify_remote_support_details(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         param = list(data.keys())
         if set(param) - set(self.remote_support_data.remote_support_valid_param_list):
             # invalid param given

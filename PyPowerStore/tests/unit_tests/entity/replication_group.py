@@ -1,5 +1,7 @@
+from PyPowerStore.tests.unit_tests.data.replication_group_data import (
+    ReplicationGroupData,
+)
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
-from PyPowerStore.tests.unit_tests.data.replication_group_data import ReplicationGroupData
 
 
 class ReplicationGroupResponse(Entity):
@@ -12,20 +14,17 @@ class ReplicationGroupResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/replication_group'):
+        if self.method == "GET":
+            if self.url.endswith("/replication_group"):
                 return self.get_replication_group_list
-            else:
-                return self.get_replication_group_details
+            return self.get_replication_group_details
 
     def execute_api(self, api_name):
         status_code, response = api_name()
         return status_code, response
 
     def get_replication_group_list(self):
-        return self.status_code, self.replication_group_data.\
-            replication_group_list
+        return self.status_code, self.replication_group_data.replication_group_list
 
     def get_replication_group_details(self):
-        return self.status_code, self.replication_group_data.\
-            replication_group_details
+        return self.status_code, self.replication_group_data.replication_group_details

@@ -1,7 +1,6 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.snmp_server_data import SNMPServerData
-from PyPowerStore.utils import constants
-from PyPowerStore.objects import snmp_server
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
+
 
 class SNMPServerResponse(Entity):
 
@@ -13,16 +12,15 @@ class SNMPServerResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/snmp_server'):
+        if self.method == "GET":
+            if self.url.endswith("/snmp_server"):
                 return self.get_snmp_server_list
-            else:
-                return self.get_snmp_server_details
-        elif self.method == 'PATCH':
+            return self.get_snmp_server_details
+        if self.method == "PATCH":
             return self.modify_snmp_server
-        elif self.method == 'POST':
+        if self.method == "POST":
             return self.create_snmp_server
-        elif self.method == 'DELETE':
+        if self.method == "DELETE":
             return self.delete_snmp_server
 
     def execute_api(self, api_name):
@@ -33,13 +31,14 @@ class SNMPServerResponse(Entity):
         return self.status_code, self.snmp_server_data.snmp_server_list
 
     def get_snmp_server_details(self):
-        if self.url.endswith('/snmp_server/{0}'.format(
-           self.snmp_server_data.snmp_server_id_not_exist)):
+        if self.url.endswith(
+            f"/snmp_server/{self.snmp_server_data.snmp_server_id_not_exist}",
+        ):
             return 422, self.snmp_server_data.snmp_server_error[422]
         return 200, self.snmp_server_data.snmp_server_detail
 
     def modify_snmp_server(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         param = list(data.keys())
         if set(param) - set(self.snmp_server_data.snmp_server_valid_param_list):
             # invalid param given
@@ -47,7 +46,7 @@ class SNMPServerResponse(Entity):
         return 204, None
 
     def create_snmp_server(self):
-       return 201, self.snmp_server_data.snmp_server_id
+        return 201, self.snmp_server_data.snmp_server_id
 
     def delete_snmp_server(self):
         return 204, None

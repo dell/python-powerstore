@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.common_data import CommonData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class IPPoolAddressResponse(Entity):
@@ -12,7 +12,7 @@ class IPPoolAddressResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
+        if self.method == "GET":
             return self.get_ip_pool_address
 
     def execute_api(self, api_name):

@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.common_data import CommonData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class VolumeGroupResponse(Entity):
@@ -12,27 +12,25 @@ class VolumeGroupResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/volume_group'):
-                if self.kwargs.get('params', {}).get('name'):
+        if self.method == "GET":
+            if self.url.endswith("/volume_group"):
+                if self.kwargs.get("params", {}).get("name"):
                     return self.get_volume_group_by_name
-                else:
-                    return self.get_volume_group_list
-            else:
-                return self.get_volume_group_details
-        elif self.method == 'POST':
-            if self.url.endswith('/add_members'):
+                return self.get_volume_group_list
+            return self.get_volume_group_details
+        if self.method == "POST":
+            if self.url.endswith("/add_members"):
                 return self.add_members_to_volume_group
-            elif self.url.endswith('/clone'):
+            if self.url.endswith("/clone"):
                 return self.clone_volume_group
-            elif self.url.endswith('/restore'):
+            if self.url.endswith("/restore"):
                 return self.restore_volume_group
-            elif self.url.endswith('/refresh'):
+            if self.url.endswith("/refresh"):
                 return self.refresh_volume_group
             return self.create_volume_group
-        elif self.method == 'PATCH':
+        if self.method == "PATCH":
             return self.modify_volume_group
-        elif self.method == 'DELETE':
+        if self.method == "DELETE":
             return self.delete_volume_group
 
     def execute_api(self, api_name):
@@ -52,16 +50,18 @@ class VolumeGroupResponse(Entity):
         return 201, self.data.vg_id1
 
     def add_members_to_volume_group(self):
-        if 'volume_ids' in self.kwargs['data'] and \
-                self.kwargs['data']['volume_ids'][0] == \
-                self.data.invalid_vol_id:
+        if (
+            "volume_ids" in self.kwargs["data"]
+            and self.kwargs["data"]["volume_ids"][0] == self.data.invalid_vol_id
+        ):
             return 404, self.data.volume_error[404]
         return 201, None
 
     def modify_volume_group(self):
-        if 'protection_policy_id' in self.kwargs['data'] and \
-           self.kwargs['data']['protection_policy_id'] == \
-               self.data.invalid_pol_id:
+        if (
+            "protection_policy_id" in self.kwargs["data"]
+            and self.kwargs["data"]["protection_policy_id"] == self.data.invalid_pol_id
+        ):
             return 404, self.data.policy_error[404]
         return 204, None
 

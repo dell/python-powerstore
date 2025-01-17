@@ -1,15 +1,16 @@
-# -*- coding: utf-8 -*-
 # Copyright: (c) 2024, Dell Technologies
 
-""" Volume Group Module Operations"""
+"""Volume Group Module Operations"""
 
 from PyPowerStore import powerstore_conn
 
-CONN = powerstore_conn.PowerStoreConn(username="<username>",
-                                      password="<password>",
-                                      server_ip="<IP>",
-                                      verify=False,
-                                      application_type="<Application>")
+CONN = powerstore_conn.PowerStoreConn(
+    username="<username>",
+    password="<password>",
+    server_ip="<IP>",
+    verify=False,
+    application_type="<Application>",
+)
 print(CONN)
 
 VOLUMES = ["664ae002-651f-4c42-9236-a10277f93b3e"]
@@ -19,14 +20,13 @@ RESP = CONN.provisioning.get_volume_group_list()
 print(RESP)
 
 # Create Volume Group
-AG = CONN.provisioning.create_volume_group(name="pr-sdk-ag-new-1",
-                                           description="Created this VG "
-                                                       "from SDK")
+AG = CONN.provisioning.create_volume_group(
+    name="pr-sdk-ag-new-1", description="Created this VG from SDK",
+)
 print(AG)
 
 # Get Volume Group details
-AG_DETAILS = CONN.provisioning.get_volume_group_details(
-    volume_group_id=AG['id'])
+AG_DETAILS = CONN.provisioning.get_volume_group_details(volume_group_id=AG["id"])
 print(AG_DETAILS)
 
 # Create volume
@@ -40,33 +40,34 @@ print(VOL)
 
 # Add volumes to Volume Group
 ADD_VOL_TO_AG = CONN.provisioning.add_members_to_volume_group(
-    volume_group_id=AG['id'],
-    volume_ids=[VOL[0]['id']]
-    )
+    volume_group_id=AG["id"], volume_ids=[VOL[0]["id"]],
+)
 print(ADD_VOL_TO_AG)
 
 # Remove volumes from Volume Group
 REMOVE_VOL_FROM_AG = CONN.provisioning.remove_members_from_volume_group(
-    volume_group_id=AG['id'],
-    volume_ids=[VOL[0]['id']]
-    )
+    volume_group_id=AG["id"], volume_ids=[VOL[0]["id"]],
+)
 print(REMOVE_VOL_FROM_AG)
 
 # Modify Volume Group
 MODIFY_AG = CONN.provisioning.modify_volume_group(
-    volume_group_id=AG['id'], name="modified-ag-name-sdk",
-    description="modified description sdk")
+    volume_group_id=AG["id"],
+    name="modified-ag-name-sdk",
+    description="modified description sdk",
+)
 print(MODIFY_AG)
 
 # Get Volume group by name
 AG_BY_NAME = CONN.provisioning.get_volume_group_by_name(
-    volume_group_name="modified-ag-name-sdk")
+    volume_group_name="modified-ag-name-sdk",
+)
 print(AG_BY_NAME)
 
 # Delete Volume Group
-DEL_AG = CONN.provisioning.delete_volume_group(volume_group_id=AG['id'])
+DEL_AG = CONN.provisioning.delete_volume_group(volume_group_id=AG["id"])
 print(DEL_AG)
 
 # Delete volume
-DEL_VOL = CONN.provisioning.delete_volume(volume_id=VOL[0]['id'])
+DEL_VOL = CONN.provisioning.delete_volume(volume_id=VOL[0]["id"])
 print(DEL_VOL)

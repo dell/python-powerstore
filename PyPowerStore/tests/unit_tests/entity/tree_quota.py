@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.common_data import CommonData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class TreeQuotaResponse(Entity):
@@ -12,16 +12,15 @@ class TreeQuotaResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/file_tree_quota'):
+        if self.method == "GET":
+            if self.url.endswith("/file_tree_quota"):
                 return self.get_tree_quotas
-            else:
-                return self.get_tree_quota_detail
-        elif self.method == 'POST':
+            return self.get_tree_quota_detail
+        if self.method == "POST":
             return self.create_tree_quota
-        elif self.method == 'PATCH':
+        if self.method == "PATCH":
             return self.modify_tree_quota
-        elif self.method == 'DELETE':
+        if self.method == "DELETE":
             return self.delete_tree_quota
 
     def execute_api(self, api_name):
@@ -32,7 +31,7 @@ class TreeQuotaResponse(Entity):
         return self.status_code, self.data.tq_list
 
     def create_tree_quota(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         if set(data.keys()) - set(self.data.tq_valid_param):
             return 400, self.data.tq_error[400]
         return 201, self.data.create_tree_quota
@@ -44,7 +43,6 @@ class TreeQuotaResponse(Entity):
         return 204, None
 
     def delete_tree_quota(self):
-        if self.url.endswith('/file_tree_quota/{0}'.format(
-           self.data.invalid_tq_id)):
+        if self.url.endswith(f"/file_tree_quota/{self.data.invalid_tq_id}"):
             return 404, self.data.tq_error[404]
         return 204, None
