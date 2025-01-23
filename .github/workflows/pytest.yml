@@ -39,6 +39,6 @@ jobs:
           coverage run -m pytest -v PyPowerStore/tests/unit_tests/test_*.py
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v5
-        if: ${{ matrix.python == '3.12' }}
+        if: ${{ matrix.python-version == '3.12' }}
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
