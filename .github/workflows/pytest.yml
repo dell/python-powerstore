@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - collections
+      - main
   pull_request:
   # Runs CI on every day (at 06:00 UTC)
   schedule:
