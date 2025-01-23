@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.common_data import CommonData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.utils import constants
 
 
@@ -13,42 +13,41 @@ class VolumeResponse(Entity):
         self.status_code = 200
 
     def get_post_api_name(self):
-        if self.url.endswith('/volume'):
+        if self.url.endswith("/volume"):
             return self.create_volume
-        elif self.url.endswith('/attach'):
+        if self.url.endswith("/attach"):
             return self.map_volume
-        elif self.url.endswith('/detach'):
+        if self.url.endswith("/detach"):
             return self.unmap_volume
-        elif self.url.endswith('/snapshot'):
+        if self.url.endswith("/snapshot"):
             return self.create_snap
-        elif self.url.endswith('/clone'):
+        if self.url.endswith("/clone"):
             return self.clone_volume
-        elif self.url.endswith('/refresh'):
+        if self.url.endswith("/refresh"):
             return self.refresh_volume
-        elif self.url.endswith('/restore'):
+        if self.url.endswith("/restore"):
             return self.restore_volume
-        elif self.url.endswith('/configure_metro'):
+        if self.url.endswith("/configure_metro"):
             return self.configure_metro_volume
-        elif self.url.endswith('/end_metro'):
+        if self.url.endswith("/end_metro"):
             return self.end_volume_metro_config
 
     def get_api_name(self):
-        if self.method == 'PATCH':
+        if self.method == "PATCH":
             return self.modify_volume
-        elif self.method == 'POST':
+        if self.method == "POST":
             return self.get_post_api_name()
 
-        elif self.method == 'GET':
+        if self.method == "GET":
             # its a GET request
-            if self.url.endswith('/volume'):
-                if self.kwargs.get('params', {}).get('select') == \
-                   constants.FHP_VOLUME_DETAILS_QUERY.get('select'):
+            if self.url.endswith("/volume"):
+                if self.kwargs.get("params", {}).get(
+                    "select",
+                ) == constants.FHP_VOLUME_DETAILS_QUERY.get("select"):
                     return self.get_volume_by_name
-                else:
-                    return self.get_volume_list
-            else:
-                return self.get_volume_details
-        elif self.method == 'DELETE':
+                return self.get_volume_list
+            return self.get_volume_details
+        if self.method == "DELETE":
             return self.delete_volume
 
     def execute_api(self, api_name):
@@ -68,9 +67,10 @@ class VolumeResponse(Entity):
         return self.status_code, [self.data.volume1]
 
     def modify_volume(self):
-        if 'protection_policy_id' in self.kwargs['data'] and \
-           self.kwargs['data']['protection_policy_id'] == \
-               self.data.invalid_pol_id:
+        if (
+            "protection_policy_id" in self.kwargs["data"]
+            and self.kwargs["data"]["protection_policy_id"] == self.data.invalid_pol_id
+        ):
             return 404, self.data.policy_error[404]
         return 204, None
 

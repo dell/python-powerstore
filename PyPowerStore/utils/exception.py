@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
-# Copyright: (c) 2019, Dell Technologies
+# Copyright: (c) 2024, Dell Technologies
 
 """PowerStore exceptions"""
 
 
 class PowerStoreException(Exception):
     """Class for PowerStore exceptions"""
+
     HTTP_ERR = 1
     SOCKET_ERR = 2
     SSL_ERROR = 3

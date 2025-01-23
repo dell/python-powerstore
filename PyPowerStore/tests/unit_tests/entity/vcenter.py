@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.vcenter_data import VcenterData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class VcenterResponse(Entity):
@@ -12,16 +12,15 @@ class VcenterResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/vcenter'):
+        if self.method == "GET":
+            if self.url.endswith("/vcenter"):
                 return self.get_vcenters
-            else:
-                return self.get_vcenter_details
-        elif self.method == 'PATCH':
+            return self.get_vcenter_details
+        if self.method == "PATCH":
             return self.modify_vcenter
-        elif self.method == 'POST':
+        if self.method == "POST":
             return self.add_vcenter
-        elif self.method == 'DELETE':
+        if self.method == "DELETE":
             return self.remove_vcenter
 
     def execute_api(self, api_name):

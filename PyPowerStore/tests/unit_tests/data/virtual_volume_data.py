@@ -1,5 +1,5 @@
 class VirtualVolumeData:
-    virtual_volume_id = '42d08c86-f958-4fbb-82f0-3ce1a5d99d1e'
+    virtual_volume_id = "42d08c86-f958-4fbb-82f0-3ce1a5d99d1e"
     virtual_volume_list = [
         {
             "id": "6c0b25ea-3f77-4f1f-93d1-e189df2385b9",
@@ -30,6 +30,6 @@ class VirtualVolumeData:
             "type_l10n": "Primary",
             "usage_type_l10n": "Config",
             "io_priority_l10n": "Medium",
-            "creator_type_l10n": "User"
-        }
+            "creator_type_l10n": "User",
+        },
     ]

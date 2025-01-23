@@ -1,5 +1,30 @@
 # PyPowerStore Change Log
 
+## Version 3.4.0.0 - released on 29/11/24
+- Added the support for SNMP server object.
+
+## Version 3.3.0.0 - released on 31/05/24
+- Added the Support for ACL in SMB Share object.
+
+## Version 3.2.0.0 - released on 30/04/24
+- Added support for PowerStore 4.0.0.0 version(Victory release).
+
+## Version 3.1.0.0 - released on 29/02/24
+- Added support for session management using cookie.
+
+## Version 3.0.0.0 - released on 31/01/24
+- Added support for creating, getting details, modifying and deleting
+  a file interface.
+- Added support for enabling, getting details, modifying and disabling
+  the file DNS.
+- Added support for enabling, getting details, modifying and disabling
+  the file NIS.
+- Added support for enabling, getting details, modifying and disabling
+  the SMB server.
+- Added support for enabling, getting details, modifying and disabling
+  the NFS server.
+- Added support for getting details and modifying a service configuration.
+
 ## Version 2.1.0.0 - released on 29/09/23
 - Added support for cloning, refreshing, and restoring filesystem.
 - Added support for creating and deleting NAS server.

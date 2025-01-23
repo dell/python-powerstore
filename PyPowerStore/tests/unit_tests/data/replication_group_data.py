@@ -8,7 +8,7 @@ class ReplicationGroupData:
             "creator_type": "User",
             "creation_timestamp": "2023-05-16T13:58:09.348368+00:00",
             "is_replication_destination": False,
-            "creator_type_l10n": "User"
+            "creator_type_l10n": "User",
         },
         {
             "id": "643b5c66-0d51-49ea-9113-dc13a1a454e1",
@@ -18,8 +18,9 @@ class ReplicationGroupData:
             "creator_type": "User",
             "creation_timestamp": "2023-05-16T13:58:09.348368+00:00",
             "is_replication_destination": False,
-            "creator_type_l10n": "User"
-        }]
+            "creator_type_l10n": "User",
+        },
+    ]
 
     replication_group_details = {
         "id": "643b5c66-0d51-49ea-9113-dc13a1a454e2",
@@ -29,8 +30,8 @@ class ReplicationGroupData:
         "creator_type": "User",
         "creation_timestamp": "2023-05-16T13:58:09.348368+00:00",
         "is_replication_destination": False,
-        "creator_type_l10n": "User"
+        "creator_type_l10n": "User",
     }
 
-    replication_group_id = '643b5c66-0d51-49ea-9113-dc13a1a454e2'
+    replication_group_id = "643b5c66-0d51-49ea-9113-dc13a1a454e2"
     replication_group_name = "Ansible_ABD8337_VM"

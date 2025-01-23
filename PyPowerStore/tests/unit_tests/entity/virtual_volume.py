@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.virtual_volume_data import VirtualVolumeData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class VirtualVolumeResponse(Entity):
@@ -12,8 +12,8 @@ class VirtualVolumeResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/virtual_volume'):
+        if self.method == "GET":
+            if self.url.endswith("/virtual_volume"):
                 return self.get_virtual_volumes
 
     def execute_api(self, api_name):

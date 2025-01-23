@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.common_data import CommonData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class ServiceUserResponse(Entity):
@@ -12,15 +12,13 @@ class ServiceUserResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/service_user'):
-                if self.kwargs.get('params', {}).get('name'):
+        if self.method == "GET":
+            if self.url.endswith("/service_user"):
+                if self.kwargs.get("params", {}).get("name"):
                     return self.get_service_user_by_name
-                else:
-                    return self.get_service_users
-            else:
-                return self.get_service_user_details
-        elif self.method == 'PATCH':
+                return self.get_service_users
+            return self.get_service_user_details
+        if self.method == "PATCH":
             return self.modify_service_user
 
     def execute_api(self, api_name):
@@ -31,8 +29,9 @@ class ServiceUserResponse(Entity):
         return self.status_code, self.data.service_user_list
 
     def get_service_user_details(self):
-        if self.url.endswith('/service_user/{0}'.format(
-           self.data.invalid_service_user_id)):
+        if self.url.endswith(
+            f"/service_user/{self.data.invalid_service_user_id}",
+        ):
             return 404, self.data.service_user_error[404]
         return self.status_code, self.data.service_user_details_1
 

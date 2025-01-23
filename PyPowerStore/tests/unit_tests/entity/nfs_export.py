@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.common_data import CommonData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.utils import constants
 
 
@@ -13,20 +13,18 @@ class NFSExportResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/nfs_export'):
-                sel = self.kwargs.get('params', {}).get('select')
-                if sel == constants.SELECT_ALL_NFS_EXPORT['select']:
+        if self.method == "GET":
+            if self.url.endswith("/nfs_export"):
+                sel = self.kwargs.get("params", {}).get("select")
+                if sel == constants.SELECT_ALL_NFS_EXPORT["select"]:
                     return self.get_nfs_detail
-                else:
-                    return self.get_nfsexports
-            else:
-                return self.get_nfs_detail
-        elif self.method == 'POST':
+                return self.get_nfsexports
+            return self.get_nfs_detail
+        if self.method == "POST":
             return self.create_nfs
-        elif self.method == 'PATCH':
+        if self.method == "PATCH":
             return self.modify_nfs
-        elif self.method == 'DELETE':
+        if self.method == "DELETE":
             return self.delete_nfs
 
     def execute_api(self, api_name):
@@ -43,7 +41,7 @@ class NFSExportResponse(Entity):
         return self.status_code, self.data.nfs_detail
 
     def modify_nfs(self):
-        data = self.kwargs.get('data', {})
+        data = self.kwargs.get("data", {})
         param = list(data.keys())
         if set(param) - set(self.data.nfs_valid_param):
             # invalid param given
@@ -51,6 +49,6 @@ class NFSExportResponse(Entity):
         return 204, None
 
     def delete_nfs(self):
-        if self.url.endswith('/nfs_export/{0}'.format(self.data.invalid_nfs)):
+        if self.url.endswith(f"/nfs_export/{self.data.invalid_nfs}"):
             return 404, self.data.nfs_error[404]
         return 204, None

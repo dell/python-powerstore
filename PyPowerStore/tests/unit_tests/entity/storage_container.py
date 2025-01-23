@@ -1,5 +1,7 @@
+from PyPowerStore.tests.unit_tests.data.storage_container_data import (
+    StorageContainerData,
+)
 from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
-from PyPowerStore.tests.unit_tests.data.storage_container_data import StorageContainerData
 
 
 class StorageContainerResponse(Entity):
@@ -12,16 +14,15 @@ class StorageContainerResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/storage_container'):
+        if self.method == "GET":
+            if self.url.endswith("/storage_container"):
                 return self.get_storage_container_list
-            else:
-                return self.get_storage_container_details
-        elif self.method == 'POST':
+            return self.get_storage_container_details
+        if self.method == "POST":
             return self.create_storage_container
-        elif self.method == "PATCH":
+        if self.method == "PATCH":
             return self.modify_storage_container_details
-        elif self.method == "DELETE":
+        if self.method == "DELETE":
             return self.delete_storage_container
 
     def execute_api(self, api_name):
@@ -35,7 +36,10 @@ class StorageContainerResponse(Entity):
         return self.status_code, self.storage_container_data.storage_container_details
 
     def create_storage_container(self):
-        return self.status_code, self.storage_container_data.create_storage_container_response
+        return (
+            self.status_code,
+            self.storage_container_data.create_storage_container_response,
+        )
 
     def modify_storage_container_details(self):
         return 204, None

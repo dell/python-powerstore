@@ -1,5 +1,5 @@
 class VcenterData:
-    vcenter_id = '42d08c86-f958-4fbb-82f0-3ce1a5d99d1e'
+    vcenter_id = "42d08c86-f958-4fbb-82f0-3ce1a5d99d1e"
     vcenter_list = [
         {
             "id": "42d08c86-f958-4fbb-82f0-3ce1a5d99d1e",
@@ -7,8 +7,8 @@ class VcenterData:
             "address": "vpi7.lab.comp.com",
             "username": "vcenter_admin",
             "vendor_provider_status": "Online",
-            "vendor_provider_status_l10n": "Online"
-        }
+            "vendor_provider_status_l10n": "Online",
+        },
     ]
     add_vcenter_params = {
         "address": "dummy ip",
@@ -16,12 +16,12 @@ class VcenterData:
         "password": "vcenter_Password",
         "vasa_provider_credentials": {
             "username": "sample_vasa_user",
-            "password": "sample_vasa_password"
-        }
+            "password": "sample_vasa_password",
+        },
     }
     vasa_provider_credentials = {
         "username": "sample_vasa_user",
-        "password": "sample_vasa_password"
+        "password": "sample_vasa_password",
     }
     vcenter_details = {
         "id": "42d08c86-f958-4fbb-82f0-3ce1a5d99d1e",
@@ -29,7 +29,7 @@ class VcenterData:
         "address": "vpi7.lab.comp.com",
         "username": "vcenter_admin",
         "vendor_provider_status": "Online",
-        "vendor_provider_status_l10n": "Online"
+        "vendor_provider_status_l10n": "Online",
     }
 
     delete_vasa_provider = True

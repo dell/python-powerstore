@@ -1,5 +1,5 @@
 class DiscoveredApplianceData:
-    discovered_appliance_id = '51d0dc86-f0e8-2fdb-81g0-5cd1hgfhhd1e'
+    discovered_appliance_id = "51d0dc86-f0e8-2fdb-81g0-5cd1hgfhhd1e"
     discovered_appliance_list = [
         {
             "id": "51d0dc86-f0e8-2fdb-81g0-5cd1hgfhhd1e",
@@ -19,10 +19,7 @@ class DiscoveredApplianceData:
             "node_count": 1,
             "is_unified_capable": True,
             "drive_failure_tolerance_level_and_availability": [
-                {
-                    "level": "Single",
-                    "availability": "Available"
-                }
-            ]
-        }
+                {"level": "Single", "availability": "Available"},
+            ],
+        },
     ]

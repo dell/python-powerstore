@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.ldap_data import LdapData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class LdapResponse(Entity):
@@ -10,10 +10,10 @@ class LdapResponse(Entity):
         self.kwargs = kwargs
         self.ldap_data = LdapData()
         self.status_code = 200
-    
+
     def get_api_name(self):
-        if self.method == 'GET':
-                return self.get_file_ldaps
+        if self.method == "GET":
+            return self.get_file_ldaps
 
     def execute_api(self, api_name):
         status_code, response = api_name()

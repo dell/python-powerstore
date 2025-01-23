@@ -1,7 +1,5 @@
-from PyPowerStore.utils import constants
 from PyPowerStore.tests.unit_tests.base_test import TestBase
 from PyPowerStore.utils.exception import PowerStoreException
-from unittest import mock
 
 
 class TestNetwork(TestBase):
@@ -14,4 +12,5 @@ class TestNetwork(TestBase):
             PowerStoreException,
             "HTTP code: 404, Not Found",
             self.provisioning.get_job_details,
-            self.data.job_does_not_exist)
+            self.data.job_does_not_exist,
+        )

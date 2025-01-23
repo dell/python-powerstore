@@ -1,5 +1,5 @@
-from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 from PyPowerStore.tests.unit_tests.data.remote_system_data import RemoteSystemData
+from PyPowerStore.tests.unit_tests.entity.base_abstract import Entity
 
 
 class RemoteSystemResponse(Entity):
@@ -12,23 +12,21 @@ class RemoteSystemResponse(Entity):
         self.status_code = 200
 
     def get_api_name(self):
-        if self.method == 'GET':
-            if self.url.endswith('/remote_system'):
-                if self.kwargs.get('params', {}).get('name'):
+        if self.method == "GET":
+            if self.url.endswith("/remote_system"):
+                if self.kwargs.get("params", {}).get("name"):
                     return self.get_remote_system_by_name
-                elif self.kwargs.get('params', {}).get('management_address'):
+                if self.kwargs.get("params", {}).get("management_address"):
                     return self.get_remote_system_by_mgmt_address
-                else:
-                    return self.get_remote_systems
-            else:
-                return self.get_remote_system_details
-        elif self.method == 'POST':
-            if self.url.endswith('/query_appliances'):
+                return self.get_remote_systems
+            return self.get_remote_system_details
+        if self.method == "POST":
+            if self.url.endswith("/query_appliances"):
                 return self.get_remote_system_appliance_details
             return self.create_remote_system
-        elif self.method == "PATCH":
+        if self.method == "PATCH":
             return self.modify_remote_system
-        elif self.method == "DELETE":
+        if self.method == "DELETE":
             return self.delete_remote_system
 
     def execute_api(self, api_name):
