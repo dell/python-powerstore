@@ -1,0 +1,29 @@
+# nonk8s
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: python-powerstore
+  description: "Python SDK for Dell PowerStore"
+  tags:
+    - ansible
+    - devops
+    - automation
+    - storage
+    - dell
+    - infrastructure-as-code
+    - powerstore
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: dell/python-powerstore
+  links:
+    - url: 'https://pypi.org/project/PyPowerStore/'
+      title: 'PyPI'
+      icon: 'web'
+    - url: 'https://github.com/dell/python-powerstore/issues'
+      title: 'Contact Technical Support'
+      icon: 'help'
+spec:
+  type: service
+  lifecycle: production
+  owner: user:default/sachin.apagundi
+  visibility: all
