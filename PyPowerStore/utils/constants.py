@@ -510,7 +510,7 @@ REPLICATION_GROUP_QUERY = {
 
 # LOGIN_SESSION details
 LOGIN_SESSION_DETAILS_QUERY = {
-    "select": "id,user_id,user,role_ids,is_password_change_required,is_built_in_user,user_type,idle_timeout", # pylint: disable=line-too-long
+    "select": "id,user,role_ids,is_password_change_required,is_built_in_user,idle_timeout", # pylint: disable=line-too-long
 }
 
 # LDAP Account details
