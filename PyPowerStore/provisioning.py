@@ -2328,7 +2328,7 @@ class Provisioning:
             payload=payload,
         )
 
-    def update_smb_share(self, idd, **kw_smb_other_params):
+    def update_smb_share(self, id, **kw_smb_other_params):
         """Modify a SMB Share.
 
         :param id: The ID of SMB Share.
@@ -2338,11 +2338,11 @@ class Provisioning:
         """
         LOG.info(
             "Modifying smbshare: '%s' with params: '%s'",
-                idd, kw_smb_other_params
+                id, kw_smb_other_params
         )
         return self.client.request(
             constants.PATCH,
-            constants.MODIFY_SMB_SHARE_URL.format(self.server_ip, idd),
+            constants.MODIFY_SMB_SHARE_URL.format(self.server_ip, id),
             payload=kw_smb_other_params,
         )
 
