@@ -1,5 +1,9 @@
 # PyPowerStore Change Log
 
+## Version 3.4.1.0 - released on 29/04/25
+- Fix authentication issue
+- Correct id name of update_smb_share
+
 ## Version 3.4.0.0 - released on 29/11/24
 - Added the support for SNMP server object.
 
