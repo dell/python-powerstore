@@ -1,5 +1,9 @@
-class SmtpConfigData:
+"""Data for smtp config unit tests."""
 
+# pylint: disable=too-few-public-methods
+
+class SmtpConfigData:
+    """This class contains data for smtp config unit tests."""
     smtp_id = "0"
 
     smtp_list = [{"id": smtp_id}]

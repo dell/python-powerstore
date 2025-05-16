@@ -3,6 +3,8 @@
 
 """Collection of protection related functions for PowerStore"""
 
+# pylint: disable=too-many-lines,too-many-arguments,too-many-positional-arguments,too-many-public-methods,global-statement
+
 from collections import namedtuple
 
 from PyPowerStore.utils import constants, helpers
@@ -54,7 +56,6 @@ REPLICATION_SESSION_DETAILS_FHP_QUERY = {
     "data_connection_state_l10n,local_resource_state_l10n",
 }
 
-# TODO: kept LOG as global for now will improve it to avoid overriding
 LOG = helpers.get_logger(__name__)
 
 
@@ -69,10 +70,10 @@ class ProtectionFunctions:
         :param enable_log: (optional) Whether to enable log or not
         :type enable_log: bool
         """
-        global LOG
         self.provisioning = provisioning
         self.server_ip = provisioning.server_ip
         self.rest_client = provisioning.client
+        global LOG # Reset LOG based on param
         LOG = helpers.get_logger(__name__, enable_log=enable_log)
 
     def get_volume_snapshots(self, volume_id):

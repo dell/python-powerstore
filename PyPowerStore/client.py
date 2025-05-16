@@ -2,19 +2,20 @@
 
 """Client module for PowerStore"""
 
+# pylint: disable=too-many-instance-attributes,too-many-arguments,too-many-positional-arguments,no-member,too-many-nested-blocks,too-many-branches,global-statement
+
 import base64
 import json
 import time
 
 import requests
-from requests.exceptions import ConnectionError, SSLError, Timeout, TooManyRedirects
+from requests.exceptions import SSLError, Timeout, TooManyRedirects
 
 from PyPowerStore.utils import constants, helpers
 from PyPowerStore.utils.exception import PowerStoreException
 
 requests.packages.urllib3.disable_warnings()
 
-# TODO: kept LOG as global for now will improve it to avoid overriding
 LOG = helpers.get_logger(__name__)
 
 # Codes
@@ -170,7 +171,6 @@ class Client:
         :type enable_log: bool
         :type timeout: float
         """
-        global LOG
         self.username = username
         self.password = password
         self.verify = verify
@@ -184,6 +184,7 @@ class Client:
             self.application_type,
             self.timeout,
         )
+        global LOG # Reset LOG based on param
         LOG = helpers.get_logger(__name__, enable_log=enable_log)
 
     def fetch_response(
@@ -406,6 +407,7 @@ class Client:
 
                     return response_json
                 self.raise_http_exception(response)
+                return None
 
             except ValueError as ex:
                 # its low-level or response level error caused by

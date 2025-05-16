@@ -2,6 +2,8 @@
 
 """Snapshot Module Operations"""
 
+# pylint: disable=duplicate-code
+
 from datetime import datetime, timedelta
 
 from PyPowerStore import powerstore_conn

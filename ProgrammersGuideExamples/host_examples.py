@@ -2,6 +2,8 @@
 
 """Host Module Operations"""
 
+# pylint: disable=duplicate-code
+
 from PyPowerStore import powerstore_conn
 
 REMOVE_INITIATORS = ["iqn.1998-01.com.vmware:lgloc187-4cfa37b6"]

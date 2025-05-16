@@ -1,6 +1,9 @@
 # Copyright: (c) 2024, Dell Technologies
 
 """Local User Operations"""
+
+# pylint: disable=invalid-name,assignment-from-none,duplicate-code
+
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(

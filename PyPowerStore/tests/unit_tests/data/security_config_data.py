@@ -1,5 +1,9 @@
-class SecurityConfigData:
+"""Data for security config unit tests."""
 
+# pylint: disable=too-few-public-methods
+
+class SecurityConfigData:
+    """This class holds data for security config unit tests."""
     security_config_id_1 = 1
     security_config_list = [{"id": security_config_id_1}]
     security_config_details_1 = {
