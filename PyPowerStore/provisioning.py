@@ -1666,6 +1666,8 @@ class Provisioning:
     ):
         """Add members to volume group.
 
+        :param volume_group_id: The volume group ID
+        :type volume_group_id: str
         :param volume_ids: The volume IDs to be added
         :type volume_ids: list
         :param force_internal: (optional) The force internal flag
@@ -1702,8 +1704,10 @@ class Provisioning:
     ):
         """Remove members from volume group.
 
+        :param volume_group_id: The volume group ID
+        :type volume_group_id: str
         :param volume_ids: The list of volume IDs to be removed
-        :type volume_ids: str
+        :type volume_ids: list
         :param force_internal: (optional) The force internal flag
         :type force_internal: bool
         :return: None if success else raise exception
