@@ -1,5 +1,9 @@
-class NFSServerData:
+"""Data for NFS server unit tests."""
 
+# pylint: disable=too-few-public-methods,duplicate-code
+
+class NFSServerData:
+    """This class contains data required for NFS server unit tests."""
     nfs_server_id = "nfs_server_id_1"
 
     nfs_server_list = [

@@ -1,4 +1,11 @@
+"""Certificate data for unit tests."""
+
+# pylint: disable=too-few-public-methods,duplicate-code
+
 class CertificateData:
+    """
+    This class contains sample data used for unit testing certificate operations.
+    """
 
     certificate_id1 = "37b76535-612b-456a-a694-1389f17632c7"
     certificate_id2 = "37b76535-612b-456a-a694-1389f17632c3"

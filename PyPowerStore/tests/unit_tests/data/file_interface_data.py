@@ -1,4 +1,9 @@
+"""Data for File Interface unit tests."""
+
+# pylint: disable=too-few-public-methods,duplicate-code
+
 class FileInterfaceData:
+    """This class holds the required data for File Interface unit tests."""
 
     file_interface_id = "file_interface_id_1"
 

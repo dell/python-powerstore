@@ -1,3 +1,5 @@
+"""Mock requests module for PowerStore Unit Tests"""
+
 import json
 
 from PyPowerStore.tests.unit_tests.entity.ads import AdsResponse
@@ -120,7 +122,19 @@ ENTITY_CLASS_MAPPING = {
 
 
 class FakeResponse:
+    """
+    A class used to simulate an HTTP response.
+    """
+
     def __init__(self, data, status_code):
+        """
+        Initializes the FakeResponse object.
+
+        Args:
+        ----
+        data (dict): The response data in JSON format.
+        status_code (int): The status code of the HTTP response.
+        """
         self.headers = {}
         self.reason = self.get_reason(status_code)
         self.status_code = status_code
@@ -128,6 +142,17 @@ class FakeResponse:
 
     @staticmethod
     def get_reason(status_code):
+        """
+        Returns the reason phrase for a given status code.
+
+        Args:
+        ----
+        status_code (int): The status code of the HTTP response.
+
+        Returns:
+        -------
+        str: The reason phrase for the given status code.
+        """
         status_code_reason_mapping = {
             200: "OK",
             201: "Created",
@@ -147,10 +172,28 @@ class FakeResponse:
         return status_code_reason_mapping.get(status_code, "OK")
 
     def json(self):
+        """
+        Returns the response data in JSON format.
+
+        Returns:
+        -------
+        dict: The response data in JSON format.
+        """
         return self.data
 
 
 def get_entity_class(url):
+    """
+    Returns the entity class based on the given URL.
+
+    Args:
+    ----
+    url (str): The URL for which the entity class is to be determined.
+
+    Returns:
+    -------
+    str: The entity class corresponding to the given URL.
+    """
     klass = ""
     url_split = url.split("/")
     if ENTITY_CLASS_MAPPING.get(url_split[-1]):
@@ -162,20 +205,42 @@ def get_entity_class(url):
     elif ENTITY_CLASS_MAPPING.get(url_split[-3]):
         # request for specific id. i.e. '/<entity>/{id}/clone'
         klass = ENTITY_CLASS_MAPPING.get(url_split[-3])
-    else:
-        # TODO: raise exception to add the EntityResponse class and entry in
-        #       ENTITY_CLASS_MAPPING
-        pass
     return klass
 
 
 def get_factory_obj(method, url, **kwargs):
+    """
+    Returns an object of the entity class based on the given URL.
+
+    Args:
+    ----
+    method (str): The HTTP method.
+    url (str): The URL for which the entity class object is to be created.
+    **kwargs: Additional keyword arguments.
+
+    Returns:
+    -------
+    object: An object of the entity class corresponding to the given URL.
+    """
     klass = get_entity_class(url)
     obj = klass(method, url, **kwargs)
     return obj
 
 
 def request(method, url, **kwargs):
+    """
+    Sends a request to the server and returns the response.
+
+    Args:
+    ----
+    method (str): The HTTP method to use (e.g. GET, POST, PUT, DELETE).
+    url (str): The URL of the request.
+    **kwargs: Additional keyword arguments.
+
+    Returns:
+    -------
+    FakeResponse: The response from the server.
+    """
     if kwargs.get("data"):
         kwargs["data"] = json.loads(kwargs["data"])
     obj = get_factory_obj(method, url, **kwargs)

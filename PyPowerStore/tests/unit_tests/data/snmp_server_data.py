@@ -1,5 +1,9 @@
-class SNMPServerData:
+"""Data for SNMP Server unit tests."""
 
+# pylint: disable=too-few-public-methods
+
+class SNMPServerData:
+    """This class holds data for SNMP server unit tests."""
     snmp_server_id = "snmp_server_id_1"
 
     snmp_server_list = [

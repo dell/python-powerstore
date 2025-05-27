@@ -1,4 +1,9 @@
+"""Data for vCenter unit tests."""
+
+# pylint: disable=too-few-public-methods
+
 class VcenterData:
+    """This class contains data for vCenter unit tests."""
     vcenter_id = "42d08c86-f958-4fbb-82f0-3ce1a5d99d1e"
     vcenter_list = [
         {

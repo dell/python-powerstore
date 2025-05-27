@@ -1,5 +1,9 @@
-class RemoteSupportData:
+"""Data for Remote Support Unit tests."""
 
+# pylint: disable=too-few-public-methods,duplicate-code
+
+class RemoteSupportData:
+    """This class contains data for Remote Support unit tests."""
     remote_support_id = "0"
 
     remote_support_list = [{"id": remote_support_id}]

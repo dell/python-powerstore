@@ -2,6 +2,8 @@
 
 """Module for establishing connection with PowerStore"""
 
+# pylint: disable=too-many-instance-attributes,too-many-arguments,too-many-positional-arguments,too-few-public-methods
+
 from PyPowerStore.configuration import Configuration
 from PyPowerStore.objects.file_dns import FileDNS
 from PyPowerStore.objects.file_interface import FileInterface

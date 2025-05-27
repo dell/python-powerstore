@@ -1,5 +1,11 @@
-class DnsData:
+"""Data for DNS unit tests."""
 
+# pylint: disable=too-few-public-methods,duplicate-code
+
+class DnsData:
+    """
+    This class holds the required data for DNS tests.
+    """
     dns_id = "DNS1"
 
     dns_list = [{"id": dns_id}]

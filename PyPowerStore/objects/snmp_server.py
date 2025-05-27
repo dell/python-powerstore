@@ -2,9 +2,10 @@
 
 """Collection of SNMP related functions for PowerStore"""
 
+# pylint: disable=global-statement,duplicate-code
+
 from PyPowerStore.utils import constants, helpers
 
-# TODO: kept LOG as global for now will improve it to avoid overriding
 LOG = helpers.get_logger(__name__)
 
 SELECT_ALL_SNMP = {
@@ -32,10 +33,10 @@ class SNMPServer:
         :param enable_log: (optional) Whether to enable log or not
         :type enable_log: bool
         """
-        global LOG
         self.provisioning = provisioning
         self.server_ip = provisioning.server_ip
         self.snmp_server_client = provisioning.client
+        global LOG # Reset LOG based on param
         LOG = helpers.get_logger(__name__, enable_log=enable_log)
 
     # SNMP server methods begin
