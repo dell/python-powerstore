@@ -1,6 +1,9 @@
 # Copyright: (c) 2024, Dell Technologies
 
 """File Tree Quota Operations"""
+
+# pylint: disable=duplicate-code
+
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(

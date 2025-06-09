@@ -1,5 +1,11 @@
-class EmailData:
+"""Data for Email unit tests."""
 
+# pylint: disable=too-few-public-methods,duplicate-code
+
+class EmailData:
+    """
+    This class contains sample data used for email unit tests.
+    """
     email_id_1 = "55d14477-de22-4d39-b24d-07cf08ba329f"
     email_address_1 = "abc_xyz@dell.com"
 

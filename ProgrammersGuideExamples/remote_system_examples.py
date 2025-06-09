@@ -2,6 +2,8 @@
 
 """Remote system operations"""
 
+# pylint: disable=invalid-name,duplicate-code
+
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(
@@ -37,8 +39,7 @@ exchange_dict = {
     "service": "Replication_HTTP",
 }
 
-resp = CONN.config_mgmt.exchange_certificate(exchange_cert_dict=exchange_dict)
-print(resp)
+CONN.config_mgmt.exchange_certificate(exchange_cert_dict=exchange_dict)
 
 create_dict = {
     "management_address": "<remote_address>",

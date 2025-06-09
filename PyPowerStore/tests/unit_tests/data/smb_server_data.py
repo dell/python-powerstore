@@ -1,5 +1,9 @@
-class SMBServerData:
+"""Data for SMB server unit tests"""
 
+# pylint: disable=too-few-public-methods,duplicate-code
+
+class SMBServerData:
+    """This class contains data for SMB server unit tests"""
     smb_server_id = "smb_server_id_1"
 
     smb_server_list = [

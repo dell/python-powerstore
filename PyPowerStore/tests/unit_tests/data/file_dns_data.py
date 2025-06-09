@@ -1,5 +1,11 @@
-class FileDNSData:
+"""Data for File DNS unit tests."""
 
+# pylint: disable=too-few-public-methods,duplicate-code
+
+class FileDNSData:
+    """
+    This class holds the required data for File DNS unit tests.
+    """
     file_dns_id = "file_dns_id_1"
 
     file_dns_list = [

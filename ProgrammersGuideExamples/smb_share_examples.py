@@ -1,5 +1,7 @@
 # Copyright: (c) 2024, Dell Technologies
 
+# pylint: disable=duplicate-code
+
 """SMB Share Operations"""
 from PyPowerStore import powerstore_conn
 
