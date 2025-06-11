@@ -1,5 +1,8 @@
 # PyPowerStore Change Log
 
+## Version 3.4.2.0 - released on 30/05/25
+- Fixed Pylint issues
+
 ## Version 3.4.1.0 - released on 29/04/25
 - Fix authentication issue
 - Correct id name of update_smb_share

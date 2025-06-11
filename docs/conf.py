@@ -26,11 +26,11 @@ sys.path.insert(0, os.path.abspath(".."))
 # -- Project information -----------------------------------------------------
 
 project = "PyPowerStore"
-copyright = "2024, Dell"
+copyright = "2025, Dell"
 author = "Dell"
 
 # The full version, including alpha/beta/rc tags
-release = "3.4.1.0"
+release = "3.4.2.0"
 
 
 # -- General configuration ---------------------------------------------------
