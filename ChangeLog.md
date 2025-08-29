@@ -1,4 +1,6 @@
 # PyPowerStore Change Log
+## Version 3.4.1.0 - released on 29/08/25
+-added metrics.py
 
 ## Version 3.4.1.0 - released on 29/04/25
 - Fix authentication issue

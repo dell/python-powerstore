@@ -7,7 +7,7 @@ from setuptools import setup
 
 setup(
     name="PyPowerStore",
-    version="3.4.1.0",
+    version="3.4.1.1",
     description="Python Library for Dell PowerStore",
     author="Ansible Team at Dell",
     author_email="ansible.team@dell.com",
