@@ -27,7 +27,8 @@ class MetricsFunctions:
         """Get performance metrics for the given entity.
 
         entity: The entity to get metrics for see documentation for Entity
-        class https://developer.dell.com/apis/3898/versions/4.1.0/reference/openapi.json/paths/~1metrics~1generate/post
+        class https://developer.dell.com/apis/3898/versions/{
+        version}/reference/openapi.json/paths/~1metrics~1generate/post
         entity_id: The ID of the entity - str
         entity_id: The ID of the entity - str
         interval: The interval to get metrics for, Best_Available
