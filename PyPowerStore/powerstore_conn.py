@@ -13,6 +13,7 @@ from PyPowerStore.objects.smb_server import SMBServer
 from PyPowerStore.objects.snmp_server import SNMPServer
 from PyPowerStore.protection import ProtectionFunctions
 from PyPowerStore.provisioning import Provisioning
+from PyPowerStore.metrics import MetricsFunctions
 
 
 class PowerStoreConn:
@@ -67,3 +68,4 @@ class PowerStoreConn:
         self.file_dns = FileDNS(self.provisioning, enable_log=enable_log)
         self.file_nis = FileNIS(self.provisioning, enable_log=enable_log)
         self.snmp_server = SNMPServer(self.provisioning, enable_log=enable_log)
+        self.metrics= MetricsFunctions(self.provisioning, enable_log=enable_log)
