@@ -6,7 +6,7 @@
 
 import logging
 
-from pkg_resources import parse_version
+from packaging.version import Version as parse_version
 
 from PyPowerStore.utils import constants
 
