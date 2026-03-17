@@ -220,7 +220,7 @@ FHP_NAS_QUERYSTRING = {
     "current_unix_directory_service_l10n,"
     "file_interfaces(name,id,ip_address),"
     "nfs_servers,smb_servers,"
-    "file_ldaps,file_nises,file_systems(id,name)"
+    "file_ldaps,file_nises,file_systems(id,name),"
     "file_events_publishing_mode,"
     "is_replication_destination,"
     "is_production_mode_enabled,"
