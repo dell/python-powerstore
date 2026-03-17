@@ -19,7 +19,6 @@ INITIATORS = [
     },
 ]
 
-
 MODIFY_INITIATORS = [
     {
         "port_name": "iqn.1998-01.com.vmware:lgloc187-4cfa37b6",
@@ -29,8 +28,6 @@ MODIFY_INITIATORS = [
         "chap_mutual_password": "chappasswd12345",
     },
 ]
-
-REMOVE_INITIATORS = ["iqn.1998-01.com.vmware:lgloc187-4cfa37b6"]
 
 CONN = powerstore_conn.PowerStoreConn(
     username="<username>",
