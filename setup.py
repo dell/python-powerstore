@@ -11,7 +11,12 @@ setup(
     description="Python Library for Dell PowerStore",
     author="Ansible Team at Dell",
     author_email="ansible.team@dell.com",
-    install_requires=["urllib3>=1.26.7", "requests>=2.23.0", "packaging>=26.0", "setuptools>=80.10.2"],
+    install_requires=[
+        "urllib3>=1.26.7", 
+        "requests>=2.23.0", 
+        "packaging>=26.0", 
+        "setuptools>=80.10.2"
+    ],
     license_files=("LICENSE",),
     classifiers=["License :: OSI Approved :: Apache Software License"],
     url="https://github.com/dell/python-powerstore",

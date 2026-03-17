@@ -697,9 +697,6 @@ LOGOUT_URL = "https://{0}/api/rest/logout"
 # Login session endpoint
 LOGIN_SESSION = "https://{0}/api/rest/login_session"
 
-# Local_user endpoints
-GET_LOCAL_USER_LIST_URL = "https://{0}/api/rest/local_user"
-
 # IP Pool Address endpoint
 GET_IP_POOL_LIST_URL = "https://{0}/api/rest/ip_pool_address"
 
@@ -847,5 +844,4 @@ GET_STORAGE_CONTAINER_DESTINATION_DETAILS_URL = (
 CREATE_STORAGE_CONTAINER_DESTINATION_URL = GET_STORAGE_CONTAINER_DESTINATION_LIST_URL
 DELETE_STORAGE_CONTAINER_DESTINATION_URL = GET_STORAGE_CONTAINER_DESTINATION_DETAILS_URL
 
-GET_PERFORMANCE_METRICS_URL = (
-    "https://{""0}/api/rest/metrics/generate")
+GET_PERFORMANCE_METRICS_URL = "https://{0}/api/rest/metrics/generate"

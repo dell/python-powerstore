@@ -3,6 +3,8 @@
 import time
 from unittest.mock import MagicMock, patch
 
+# pytest is a test framework dependency, will be available in test environment
+# pylint: disable=import-error
 import pytest
 import requests
 
