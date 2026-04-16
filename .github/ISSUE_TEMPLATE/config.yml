@@ -12,9 +12,9 @@ contact_links:
   - name: "GitHub Discussions"
     url: https://github.com/orgs/dell/discussions
     about: Ask and answer PowerStore questions in community discussions
-  - name: "Dell PowerStore Community"
-    url: https://www.dell.com/community/powerscale
-    about: PowerStore community discussions and best practices
+  - name: "Dell Storage Community"
+    url: https://www.dell.com/community/en/categories/storage
+    about: Dell Storage community discussions and best practices
   - name: "Security Issues"
     url: mailto:security@dell.com
     about: Please report security vulnerabilities privately and responsibly
