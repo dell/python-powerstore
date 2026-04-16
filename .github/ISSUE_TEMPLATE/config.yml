@@ -1,0 +1,23 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "PyPowerStore Documentation"
+    url: https://github.com/dell/python-powerstore
+    about: Official PyPowerStore documentation and examples
+  - name: "PowerStore Documentation"
+    url: https://www.dell.com/support/home/en-us/product-support/product/dell-emc-powerstore/documentation
+    about: Official PowerStore documentation and API references
+  - name: "PyPowerStore on PyPI"
+    url: https://pypi.org/project/pypowerstore/
+    about: Browse and install the PyPowerStore package
+  - name: "GitHub Discussions"
+    url: https://github.com/orgs/dell/discussions
+    about: Ask and answer PowerStore questions in community discussions
+  - name: "Dell PowerStore Community"
+    url: https://www.dell.com/community/powerscale
+    about: PowerStore community discussions and best practices
+  - name: "Security Issues"
+    url: mailto:security@dell.com
+    about: Please report security vulnerabilities privately and responsibly
+  - name: "PowerStore Support"
+    url: mailto:ansible.team@dell.com
+    about: Contact Dell team for PowerStore support and inquiries
