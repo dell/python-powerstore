@@ -1,4 +1,7 @@
 # PyPowerStore Change Log
+## Version 3.4.2.0 - released on 17/03/26
+- Added support for PowerStore 4.3.0.0 version
+
 ## Version 3.4.1.0 - released on 29/08/25
 -added metrics.py
 

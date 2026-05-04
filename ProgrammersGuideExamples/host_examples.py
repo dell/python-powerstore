@@ -6,9 +6,9 @@
 
 from PyPowerStore import powerstore_conn
 
-REMOVE_INITIATORS = ["iqn.1998-01.com.vmware:lgloc187-4cfa37b6"]
+remove_initiators = ["iqn.1998-01.com.vmware:lgloc187-4cfa37b6"]
 
-INITIATORS = [
+initiators = [
     {
         "port_name": "iqn.1998-01.com.vmware:lgloc187-4cfa37b6",
         "port_type": "iSCSI",
@@ -20,7 +20,7 @@ INITIATORS = [
 ]
 
 
-MODIFY_INITIATORS = [
+modify_initiators = [
     {
         "port_name": "iqn.1998-01.com.vmware:lgloc187-4cfa37b6",
         "chap_single_username": "prashantrakheja",
@@ -29,8 +29,6 @@ MODIFY_INITIATORS = [
         "chap_mutual_password": "chappasswd12345",
     },
 ]
-
-REMOVE_INITIATORS = ["iqn.1998-01.com.vmware:lgloc187-4cfa37b6"]
 
 CONN = powerstore_conn.PowerStoreConn(
     username="<username>",
@@ -47,7 +45,7 @@ print(RESP)
 
 # Register a new Host
 RESP = CONN.provisioning.create_host(
-    name="pr-sdk-host", os_type="Linux", initiators=INITIATORS,
+    name="pr-sdk-host", os_type="Linux", initiators=initiators,
 )
 
 print(RESP)
@@ -67,13 +65,13 @@ print(HOST_MODIFIED)
 
 # Remove Initiators from Host
 HOST_REMOVE_INITIATOR = CONN.provisioning.remove_initiators_from_host(
-    host_id=RESP["id"], remove_initiators=REMOVE_INITIATORS,
+    host_id=RESP["id"], remove_initiators=remove_initiators,
 )
 print(HOST_REMOVE_INITIATOR)
 
 # Add initiators to Host
 HOST_ADD_INITIATOR = CONN.provisioning.add_initiators_to_host(
-    host_id=RESP["id"], add_initiators=INITIATORS,
+    host_id=RESP["id"], add_initiators=initiators,
 )
 print(HOST_ADD_INITIATOR)
 

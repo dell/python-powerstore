@@ -63,6 +63,7 @@ from PyPowerStore.tests.unit_tests.entity.vcenter import VcenterResponse
 from PyPowerStore.tests.unit_tests.entity.virtual_volume import VirtualVolumeResponse
 from PyPowerStore.tests.unit_tests.entity.volume import VolumeResponse
 from PyPowerStore.tests.unit_tests.entity.volume_group import VolumeGroupResponse
+from PyPowerStore.tests.unit_tests.entity.metrics import MetricsResponse
 
 # map the entity class name with the url resource name
 ENTITY_CLASS_MAPPING = {
@@ -97,6 +98,7 @@ ENTITY_CLASS_MAPPING = {
     "chap_config": ChapConfigResponse,
     "x509_certificate": CertificateResponse,
     "security_config": SecurityConfigResponse,
+    "generate": MetricsResponse,
     "remote_system": RemoteSystemResponse,
     "file_ftp": AdsResponse,
     "file_ldap": LdapResponse,

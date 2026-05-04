@@ -4,6 +4,7 @@
 
 # pylint: disable=invalid-name,assignment-from-none,duplicate-code
 
+from pprint import pprint
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(
