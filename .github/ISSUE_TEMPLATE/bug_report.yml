@@ -1,0 +1,136 @@
+name: "Bug Report"
+description: "File a bug report for PyPowerStore"
+title: "[BUG]: "
+labels: ["type/bug", "needs-triage"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: "[BUG]: prefix is required and cannot be removed"
+      value: "[BUG]: "
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug in PyPowerStore! Please provide the information below.
+        
+        ## Community Note
+        * Please vote on this issue by adding a reaction to help prioritize this request
+        * Please do not leave "+1" or other comments that do not add relevant new information or questions
+        * If you are interested in working on this issue or have submitted a pull request, please leave a comment
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is
+    validations:
+      required: true
+
+  - type: textarea
+    id: python-environment
+    attributes:
+      label: Python Environment
+      description: |
+        Please provide your Python environment details:
+        - Python Version: [e.g. 3.8, 3.9, 3.10]
+        - PyPowerStore Version: [e.g. 1.0.0, 1.1.0]
+        - Operating System: [e.g. RHEL 8.5, Ubuntu 20.04, Windows 10]
+        - Installation Method: [e.g. pip, git clone]
+      placeholder: |
+        Python: 3.9.10
+        PyPowerStore: 1.0.0
+        OS: Ubuntu 20.04
+        Installation: pip install pypowerstore
+    validations:
+      required: true
+
+  - type: textarea
+    id: powerstore-environment
+    attributes:
+      label: PowerStore Environment
+      description: |
+        Please provide details about the PowerStore environment:
+        - PowerStore Version: [e.g. 4.0, 3.6, 3.5]
+        - PowerStore IP/Hostname: [e.g. 192.168.1.100]
+        - Authentication Method: [e.g. username/password, API key]
+        - Network Configuration: [e.g. VPN, direct connection, proxy]
+      placeholder: |
+        PowerStore Version: 4.0
+        PowerStore IP: 192.168.1.100
+        Auth: Username/Password
+        Network: Direct connection
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: Reproduction Steps
+      description: |
+        Include the complete Python code that reproduces the issue.
+        Please be sure to remove all sensitive data such as IP addresses, host names, credentials, etc.
+        
+        Example:
+        ```python
+        from pypowerstore import PowerStore
+        
+        # Initialize PowerStore connection
+        powerstore = PowerStore(
+            server_ip="192.168.1.100",
+            username="admin",
+            password="password"
+        )
+        
+        # Code that reproduces the issue
+        try:
+            volumes = powerstore.volume.get_all_volumes()
+            print(f"Found {len(volumes)} volumes")
+        except Exception as e:
+            print(f"Error: {e}")
+        ```
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: A clear and concise description of what you expected to happen
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: A clear and concise description of what actually happened
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-output
+    attributes:
+      label: Complete Error Output
+      description: Copy/paste the complete error message including traceback. Remove sensitive data.
+    validations:
+      required: false
+
+  - type: textarea
+    id: troubleshooting
+    attributes:
+      label: Troubleshooting Steps Taken
+      description: What have you tried so far to resolve this issue?
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other context about the problem, such as related documentation, similar issues, etc.
+    validations:
+      required: false
