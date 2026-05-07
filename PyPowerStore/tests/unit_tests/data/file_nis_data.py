@@ -1,5 +1,9 @@
-class FileNISData:
+"""Data for File NIS unit tests."""
 
+# pylint: disable=too-few-public-methods,duplicate-code
+
+class FileNISData:
+    """This class holds the required data for File NIS unit tests."""
     file_nis_id = "file_nis_id_1"
 
     file_nis_list = [

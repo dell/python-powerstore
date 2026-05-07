@@ -1,3 +1,7 @@
+"""Mock Client for PowerStore Unit Tests"""
+
+# pylint: disable=duplicate-code,too-many-arguments,too-many-positional-arguments,too-many-nested-blocks
+
 import base64
 import json
 
@@ -14,6 +18,9 @@ VALID_CODES = [200, 201, 202, 204, 206, 207]
 
 
 class MockClient:
+    """
+    Mock Client for PowerStore Unit Tests
+    """
     def __init__(
         self,
         username,
@@ -184,6 +191,22 @@ class MockClient:
         )
 
     def request(self, http_method, url, payload=None, querystring=None, all_pages=None):
+        """Method which serves requests to PowerStore.
+
+        :param http_method: HTTP Method
+        :type http_method: str
+        :param url: Service Endpoint
+        :type url: str
+        :param payload: (optional) Request payload
+        :type payload: dict
+        :param querystring: (optional) Request querystring
+        :type querystring: dict
+        :param all_pages: (optional) Indicates whether to return all available
+                          entities on the storage system
+        :type all_pages: If not given default is None, else bool
+        :return: Request's response.
+        :rtype: dict or list of dict
+        """
         try:
             response = self.fetch_response(
                 http_method, url, payload=payload, querystring=querystring,
@@ -222,6 +245,7 @@ class MockClient:
 
                     return response_json
                 self.raise_http_exception(response)
+                return None
             except ValueError as ex:
                 # its low-level or response level error caused by
                 # response.json() and not in requests.exceptions

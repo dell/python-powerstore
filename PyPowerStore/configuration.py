@@ -2,9 +2,10 @@
 
 """Collection of configuration related functions for PowerStore"""
 
+# pylint: disable=too-many-lines,too-many-arguments,too-many-positional-arguments,too-many-public-methods,global-statement
+
 from PyPowerStore.utils import constants, helpers
 
-# TODO: kept LOG as global for now will improve it to avoid overriding
 LOG = helpers.get_logger(__name__)
 
 
@@ -19,10 +20,10 @@ class Configuration:
         :param enable_log: (optional) Whether to enable log or not
         :type enable_log: bool
         """
-        global LOG
         self.provisioning = provisioning
         self.server_ip = provisioning.server_ip
         self.config_client = provisioning.client
+        global LOG # Reset LOG based on param
         LOG = helpers.get_logger(__name__, enable_log=enable_log)
 
     # Network Operations Start
@@ -92,7 +93,7 @@ class Configuration:
         """
         LOG.info("Getting network details by name: '%s'", name)
 
-        NETWORK_DETAILS_QUERY_BY_NAME = {
+        network_details_query_by_name = {
             "select": "id,name,type,ip_version,vlan_id,prefix_length,"
             "gateway,mtu,purposes,type_l10n,ip_version_l10n,"
             "purposes_l10n",
@@ -102,7 +103,7 @@ class Configuration:
             constants.GET,
             constants.GET_NETWORK_LIST_URL.format(self.server_ip),
             querystring=helpers.prepare_querystring(
-                NETWORK_DETAILS_QUERY_BY_NAME, name=constants.EQUALS + name,
+                network_details_query_by_name, name=constants.EQUALS + name,
             ),
         )
 
@@ -172,7 +173,7 @@ class Configuration:
         """
         LOG.info("Getting roles with filter: '%s'", filter_dict)
         if all_pages:
-            raise Exception("Pagination is not supported for roles.")
+            raise ValueError("Pagination is not supported for roles.")
         if not filter_dict:
             querystring = helpers.prepare_querystring(constants.SELECT_ID_AND_NAME)
             return self.config_client.request(
@@ -239,7 +240,7 @@ class Configuration:
         """
         LOG.info("Getting local users with filter: '%s'", filter_dict)
         if all_pages:
-            raise Exception("Pagination is not supported for local users.")
+            raise ValueError("Pagination is not supported for local users.")
         if not filter_dict:
             querystring = helpers.prepare_querystring(constants.SELECT_ID_AND_NAME)
             return self.config_client.request(
@@ -293,6 +294,7 @@ class Configuration:
         for user in resp:
             if user["name"] == name:
                 return self.get_local_user_details(user["id"])
+        return None
 
     def delete_local_user(self, user_id):
         """Delete a local user.
@@ -435,7 +437,7 @@ class Configuration:
                 filter_dict, all_pages
         )
         if all_pages:
-            raise Exception("Pagination is not supported for clusters.")
+            raise ValueError("Pagination is not supported for clusters.")
         if not filter_dict:
             querystring = helpers.prepare_querystring(constants.SELECT_ID_AND_NAME)
             LOG.info("Querystring: '%s'", querystring)
@@ -662,7 +664,7 @@ class Configuration:
         """
         LOG.info("Getting CHAP configurations with filter: '%s'", filter_dict)
         if all_pages:
-            raise Exception("Pagination is not supported for CHAP configuration.")
+            raise ValueError("Pagination is not supported for CHAP configuration.")
         if not filter_dict:
             querystring = helpers.prepare_querystring(constants.SELECT_ID)
             return self.config_client.request(
@@ -742,7 +744,7 @@ class Configuration:
         """
         LOG.info("Getting service configurations with filter: '%s'", filter_dict)
         if all_pages:
-            raise Exception("Pagination is not supported for service configuration.")
+            raise ValueError("Pagination is not supported for service configuration.")
         if not filter_dict:
             querystring = helpers.prepare_querystring(
                 constants.SERVICE_CONFIG_DETAILS_QUERY,
@@ -859,7 +861,7 @@ class Configuration:
         """
         LOG.info("Getting service users with filter: '%s'", filter_dict)
         if all_pages:
-            raise Exception("Pagination is not supported for service users.")
+            raise ValueError("Pagination is not supported for service users.")
         if not filter_dict:
             querystring = helpers.prepare_querystring(constants.SELECT_ID)
             return self.config_client.request(
@@ -1376,7 +1378,7 @@ class Configuration:
         """
         LOG.info("Getting security configs with filter: '%s'", filter_dict)
         if all_pages:
-            raise Exception("Pagination is not supportedfor security configs.")
+            raise ValueError("Pagination is not supportedfor security configs.")
 
         if not filter_dict:
             querystring = helpers.prepare_querystring(constants.SELECT_ID)
@@ -1833,7 +1835,7 @@ class Configuration:
                 all_pages=all_pages,
             )
 
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise ValueError("Not supported for PowerStore versions less than 2.0.0.0")
 
     def get_remote_support_details(
         self, remote_support_id, return_support_license_text=False,
@@ -1861,7 +1863,7 @@ class Configuration:
                 querystring=querystring,
             )
 
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise ValueError("Not supported for PowerStore versions less than 2.0.0.0")
 
     def modify_remote_support_details(
         self, remote_support_id, modify_parameters, is_async=False,
@@ -1890,7 +1892,7 @@ class Configuration:
                 payload=modify_parameters,
             )
 
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise ValueError("Not supported for PowerStore versions less than 2.0.0.0")
 
     def verify_remote_support_config(self, remote_support_id, verify_parameters):
         """Verify remote support configuration .
@@ -1916,7 +1918,7 @@ class Configuration:
                 payload=verify_parameters,
             )
 
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise ValueError("Not supported for PowerStore versions less than 2.0.0.0")
 
     def test_remote_support_config(self, remote_support_id):
         """Send a test alert for the remote support configuration.
@@ -1934,7 +1936,7 @@ class Configuration:
                 remote_support_url.format(self.server_ip, remote_support_id),
             )
 
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise ValueError("Not supported for PowerStore versions less than 2.0.0.0")
 
     # Remote Support operations end
 
@@ -1981,7 +1983,7 @@ class Configuration:
                 all_pages=all_pages,
             )
 
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise ValueError("Not supported for PowerStore versions less than 2.0.0.0")
 
     def get_remote_support_contact_details(self, remote_support_contact_id):
         """Get details of a remote support contact instance.
@@ -2005,7 +2007,7 @@ class Configuration:
                 querystring=querystring,
             )
 
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise ValueError("Not supported for PowerStore versions less than 2.0.0.0")
 
     def modify_remote_support_contact_details(
         self, remote_support_contact_id, modify_parameters,
@@ -2033,7 +2035,7 @@ class Configuration:
                 ),
                 payload=modify_parameters,
             )
-        raise Exception("Not supported for PowerStore versions less than 2.0.0.0")
+        raise ValueError("Not supported for PowerStore versions less than 2.0.0.0")
 
     # Remote Support contact operations end
 
@@ -2056,7 +2058,7 @@ class Configuration:
         )
 
         if all_pages:
-            raise Exception("Pagination is not supported for LDAP domain.")
+            raise ValueError("Pagination is not supported for LDAP domain.")
         if not filter_dict:
             querystring = helpers.prepare_querystring(
                 constants.LDAP_DOMAIN_DETAILS_QUERY,
@@ -2133,6 +2135,7 @@ class Configuration:
         )
         if resp:
             return self.get_ldap_domain_configuration_details(resp[0]["id"])
+        return None
 
     def create_ldap_domain_configuration(self, create_parameters):
         """Create LDAP domain configuration.
@@ -2219,7 +2222,7 @@ class Configuration:
         )
 
         if all_pages:
-            raise Exception("Pagination is not supported for LDAP accounts.")
+            raise ValueError("Pagination is not supported for LDAP accounts.")
         if not filter_dict:
             querystring = helpers.prepare_querystring(
                 constants.LDAP_ACCOUNT_DETAILS_QUERY,
@@ -2284,6 +2287,7 @@ class Configuration:
         for account in resp:
             if account["name"] == ldap_account_name:
                 return self.get_ldap_account_details(account["id"])
+        return None
 
     def create_ldap_account(self, create_parameters):
         """Create LDAP account configuration.
@@ -2433,6 +2437,7 @@ class Configuration:
         for container in resp:
             if container["name"] == storage_container_name:
                 return self.get_storage_container_details(container["id"])
+        return None
 
     def create_storage_container(self, create_parameters):
         """Create a storage_container.

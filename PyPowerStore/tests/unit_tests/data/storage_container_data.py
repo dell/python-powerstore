@@ -1,4 +1,9 @@
+"""Data for Storage Container unit tests."""
+
+# pylint: disable=too-few-public-methods
+
 class StorageContainerData:
+    """This class contains data for Storage Container unit tests."""
     storage_container_list = [
         "37b76535-612b-456a-a694-1389f17632c7",
         "37b76535-612b-456a-a694-1389f17632c",

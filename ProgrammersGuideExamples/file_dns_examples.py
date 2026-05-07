@@ -1,5 +1,7 @@
 # Copyright: (c) 2024, Dell Technologies
 
+# pylint: disable=duplicate-code
+
 """File DNS Operations"""
 from PyPowerStore import powerstore_conn
 

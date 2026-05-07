@@ -1,5 +1,11 @@
+"""Base module for PowerStore unit tests."""
+
+# pylint: disable=too-many-instance-attributes
+
 from unittest import mock
 
+# testtools is a test framework dependency, will be available in test environment
+# pylint: disable=import-error
 from testtools import TestCase
 
 from PyPowerStore.powerstore_conn import PowerStoreConn
@@ -44,7 +50,26 @@ from PyPowerStore.tests.unit_tests.mock_client import MockClient
 
 
 class TestBase(TestCase):
+    """
+    Base test case for PowerStore.
+
+    This class provides a common setup for all test cases, including the creation of
+    a PowerStore connection and the initialization of various data objects.
+    """
+    # setUp is the standard unittest method name, pylint disable for naming convention
+    # pylint: disable=invalid-name
     def setUp(self):
+        """
+        Setup method to initialize objects and connections for testing.
+
+        This method is called before each test case to ensure that all the required
+        objects and connections are initialized and ready for use.
+
+        It initializes the following:
+        - Common data objects for testing
+        - PowerStore connection and its various components
+        - Mock client for testing
+        """
         super().setUp()
         self.data = CommonData()
         self.certificate_data = CertificateData()
@@ -95,3 +120,12 @@ class TestBase(TestCase):
         self.smb_server = self.conn.smb_server
         self.nfs_server = self.conn.nfs_server
         self.snmp_server = self.conn.snmp_server
+        self.metrics = self.conn.metrics
+
+    def get_test_config(self):
+        """Get the test configuration.
+        
+        :return: Test configuration object
+        :rtype: PowerStoreConfig
+        """
+        return self.conf

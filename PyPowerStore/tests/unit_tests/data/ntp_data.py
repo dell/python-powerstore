@@ -1,5 +1,9 @@
-class NtpData:
+"""Data for NTP unit tests"""
 
+# pylint: disable=too-few-public-methods,duplicate-code
+
+class NtpData:
+    """This class holds the required data for NTP unit tests."""
     ntp_id = "NTP1"
 
     ntp_list = [{"id": ntp_id}]

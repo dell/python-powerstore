@@ -1,4 +1,9 @@
+"""Data for virtual volume unit tests."""
+
+# pylint: disable=too-few-public-methods
+
 class VirtualVolumeData:
+    """This class contains data for virtual volume unit tests."""
     virtual_volume_id = "42d08c86-f958-4fbb-82f0-3ce1a5d99d1e"
     virtual_volume_list = [
         {

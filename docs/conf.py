@@ -1,4 +1,4 @@
-# Copyright: (c) 2024, Dell Technologies
+# Copyright: (c) 2026, Dell Technologies
 
 # Configuration file for the Sphinx documentation builder.
 #
@@ -12,6 +12,11 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+
+"""Config file for document builder"""
+
+# pylint: disable=invalid-name, redefined-builtin
+
 import os
 import sys
 
@@ -21,11 +26,11 @@ sys.path.insert(0, os.path.abspath(".."))
 # -- Project information -----------------------------------------------------
 
 project = "PyPowerStore"
-copyright = "2024, Dell"
+copyright = "2026, Dell"
 author = "Dell"
 
 # The full version, including alpha/beta/rc tags
-release = "3.4.0.0"
+release = "3.4.2.0"
 
 
 # -- General configuration ---------------------------------------------------

@@ -2,6 +2,8 @@
 
 """Volume Group Module Operations"""
 
+# pylint: disable=duplicate-code
+
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(
@@ -51,12 +53,11 @@ REMOVE_VOL_FROM_AG = CONN.provisioning.remove_members_from_volume_group(
 print(REMOVE_VOL_FROM_AG)
 
 # Modify Volume Group
-MODIFY_AG = CONN.provisioning.modify_volume_group(
+CONN.provisioning.modify_volume_group(
     volume_group_id=AG["id"],
     name="modified-ag-name-sdk",
     description="modified description sdk",
 )
-print(MODIFY_AG)
 
 # Get Volume group by name
 AG_BY_NAME = CONN.provisioning.get_volume_group_by_name(

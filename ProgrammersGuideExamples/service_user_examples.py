@@ -2,6 +2,8 @@
 
 """Service user module operations"""
 
+# pylint: disable=duplicate-code
+
 from PyPowerStore import powerstore_conn
 
 CONN = powerstore_conn.PowerStoreConn(

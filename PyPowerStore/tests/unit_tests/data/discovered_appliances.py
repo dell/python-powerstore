@@ -1,4 +1,11 @@
+"""Data for Discovered appliance unit tests."""
+
+# pylint: disable=too-few-public-methods
+
 class DiscoveredApplianceData:
+    """
+    A class that holds the data for discovered appliances.
+    """
     discovered_appliance_id = "51d0dc86-f0e8-2fdb-81g0-5cd1hgfhhd1e"
     discovered_appliance_list = [
         {

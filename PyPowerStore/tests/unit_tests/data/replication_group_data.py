@@ -1,4 +1,9 @@
+"""Data for replication group unit tests."""
+
+# pylint: disable=too-few-public-methods
+
 class ReplicationGroupData:
+    """This class contains the data for replication group unit tests."""
     replication_group_list = [
         {
             "id": "643b5c66-0d51-49ea-9113-dc13a1a454e2",

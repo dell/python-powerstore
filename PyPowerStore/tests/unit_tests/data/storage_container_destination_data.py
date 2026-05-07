@@ -1,4 +1,9 @@
+"""Data for Storage Container Destination test cases."""
+
+# pylint: disable=too-few-public-methods
+
 class StorageContainerDestinationData:
+    """This class contains data for Storage Container Destination unit tests."""
     storage_container_destination_list = ["e0ccd953-5650-41d8-9bce-f36d876d6a2a"]
 
     storage_container_destination_details = {

@@ -1,4 +1,9 @@
+"""Data for Filesystem unit tests."""
+
+# pylint: disable=too-few-public-methods
+
 class FileSystemData:
+    """This class contains the data required for Filesystem unit tests."""
     # FileSystem
     fs_id1 = "5efc3ec5-ea0d-58d9-e21b-42079d64ae37"
     fs_name1 = "my_fs1"

@@ -1,4 +1,9 @@
+"""Data for LDAP unit tests."""
+
+# pylint: disable=too-few-public-methods,duplicate-code
+
 class LdapData:
+    """This class contains data for LDAP unit tests."""
     ldap_list = [
         "37b76535-612b-456a-a694-1389f17632c7",
         "37b76535-612b-456a-a694-1389f17632c",

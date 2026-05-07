@@ -2,10 +2,11 @@
 
 """Collection of provisioning related functions for PowerStore"""
 
+# pylint: disable=too-many-lines,too-many-arguments,too-many-positional-arguments,too-many-public-methods,redefined-builtin,global-statement
+
 from PyPowerStore.client import Client
 from PyPowerStore.utils import constants, helpers
 
-# TODO: kept LOG as global for now will improve it to avoid overriding
 LOG = helpers.get_logger(__name__)
 
 
@@ -43,13 +44,13 @@ class Provisioning:
         :param enable_log: (optional) Whether to enable log or not
         :type enable_log: bool
         """
-        global LOG
         if port_no is None:
             port_no = 443
         self.server_ip = server_ip + ":" + str(port_no)
         self.client = Client(
             username, password, verify, application_type, timeout, enable_log=enable_log,
         )
+        global LOG # Reset LOG based on param
         LOG = helpers.get_logger(__name__, enable_log=enable_log)
         helpers.set_provisioning_obj(self)
 
@@ -99,7 +100,7 @@ class Provisioning:
         :param appliance_id: (optional) The appliance ID
         """
         if app_type is not None and not helpers.is_malka_or_higher():
-            raise Exception(
+            raise ValueError(
                 "'app_type' parameter is supported only from "
                 "Powerstore version 2.1.0.0 onwards",
             )
@@ -202,7 +203,7 @@ class Provisioning:
         :rtype: None
         """
         if app_type is not None and not helpers.is_malka_or_higher():
-            raise Exception(
+            raise ValueError(
                 "'app_type' parameter is supported only from "
                 "Powerstore version 2.1.0.0 onwards",
             )
@@ -512,7 +513,7 @@ class Provisioning:
                     key in constants.FILESYSTEM_PRIME
                     and not helpers.is_foot_hill_prime_or_higher()
                 ):
-                    raise Exception(
+                    raise ValueError(
                         key + " is supported for PowerStore version 3.0.0.0 and above.",
                     )
                 payload[key] = value
@@ -825,7 +826,7 @@ class Provisioning:
                 metro_url.format(self.server_ip, volume_id),
                 payload=payload,
             )
-        raise Exception("Not supported for PowerStore version less than 3.0.0.0")
+        raise ValueError("Not supported for PowerStore version less than 3.0.0.0")
 
     def end_volume_metro_config(self, volume_id, delete_remote_volume=None):
         """End a metro configuration from a volume and keep both copies.The local
@@ -851,7 +852,7 @@ class Provisioning:
                 end_metro_url.format(self.server_ip, volume_id),
                 payload=payload,
             )
-        raise Exception("Not supported for PowerStore version less than 3.0.0.0")
+        raise ValueError("Not supported for PowerStore version less than 3.0.0.0")
 
     def get_hosts(self, filter_dict=None, all_pages=False):
         """Get a list of all the registered hosts.
@@ -1666,6 +1667,8 @@ class Provisioning:
     ):
         """Add members to volume group.
 
+        :param volume_group_id: The volume group ID
+        :type volume_group_id: str
         :param volume_ids: The volume IDs to be added
         :type volume_ids: list
         :param force_internal: (optional) The force internal flag
@@ -1702,8 +1705,10 @@ class Provisioning:
     ):
         """Remove members from volume group.
 
+        :param volume_group_id: The volume group ID
+        :type volume_group_id: str
         :param volume_ids: The list of volume IDs to be removed
-        :type volume_ids: str
+        :type volume_ids: list
         :param force_internal: (optional) The force internal flag
         :type force_internal: bool
         :return: None if success else raise exception
@@ -1880,7 +1885,7 @@ class Provisioning:
             "protection-policy" in payload
             and not helpers.is_foot_hill_prime_or_higher()
         ):
-            raise Exception(
+            raise ValueError(
                 "Protection policy is supported for PowerStore"
                 " version 3.0.0.0 and above.",
             )
@@ -2034,7 +2039,7 @@ class Provisioning:
                     key in constants.FILESYSTEM_PRIME
                     and not helpers.is_foot_hill_prime_or_higher()
                 ):
-                    raise Exception(
+                    raise ValueError(
                         key + " is supported for PowerStore version 3.0.0.0 and above.",
                     )
                 payload[key] = value
@@ -2093,7 +2098,7 @@ class Provisioning:
                     key in constants.FILESYSTEM_PRIME
                     and not helpers.is_foot_hill_prime_or_higher()
                 ):
-                    raise Exception(
+                    raise ValueError(
                         key + " is supported for PowerStore version 3.0.0.0 and above.",
                     )
                 if value is not None:
@@ -2328,7 +2333,7 @@ class Provisioning:
             payload=payload,
         )
 
-    def update_smb_share(self, idd, **kw_smb_other_params):
+    def update_smb_share(self, id, **kw_smb_other_params):
         """Modify a SMB Share.
 
         :param id: The ID of SMB Share.
@@ -2338,11 +2343,11 @@ class Provisioning:
         """
         LOG.info(
             "Modifying smbshare: '%s' with params: '%s'",
-                idd, kw_smb_other_params
+                id, kw_smb_other_params
         )
         return self.client.request(
             constants.PATCH,
-            constants.MODIFY_SMB_SHARE_URL.format(self.server_ip, idd),
+            constants.MODIFY_SMB_SHARE_URL.format(self.server_ip, id),
             payload=kw_smb_other_params,
         )
 

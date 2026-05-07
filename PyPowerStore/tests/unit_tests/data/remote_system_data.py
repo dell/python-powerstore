@@ -1,5 +1,9 @@
-class RemoteSystemData:
+"""Data for remote system unit tests."""
 
+# pylint: disable=too-few-public-methods
+
+class RemoteSystemData:
+    """This class contains the data for remote system unit tests."""
     remote_system_id_1 = "55d14477-de22-4d39-b24d-07cf08ba329f"
     remote_system_name_1 = "AB-C1001"
     mgmt_ip_1 = "1xx.2xx.3xx.4xx"

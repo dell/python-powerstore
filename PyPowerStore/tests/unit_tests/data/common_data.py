@@ -1,4 +1,9 @@
+"""Common data for PowerStore unit tests."""
+
+# pylint: disable=too-few-public-methods,too-many-lines,duplicate-code
+
 class CommonData:
+    """This class contains common sample data for PowerStore unit tests."""
     size_used = 1623195648
     size_total = 5368709120
     uuid = "5f474e2d-1a45-5980-5175-9245647c527e"

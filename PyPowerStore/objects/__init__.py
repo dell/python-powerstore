@@ -13,6 +13,8 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+"Init module for powerstore objects"
+
 from PyPowerStore.objects.file_dns import FileDNS
 from PyPowerStore.objects.file_interface import FileInterface
 from PyPowerStore.objects.file_nis import FileNIS
