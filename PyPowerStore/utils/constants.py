@@ -165,7 +165,7 @@ SELECT_ALL_FILESYSTEM = {
     "creator_type, filesystem_type_l10n,"
     "access_policy_l10n, locking_policy_l10n,"
     "folder_rename_policy_l10n, access_type_l10n,"
-    "creator_type_l10n,nas_server(name,id),"
+    "creator_type_l10n,is_secure,nas_server(name,id),"
     "protection_policy(name,id)",
 }
 
@@ -191,7 +191,7 @@ SELECT_ALL_FILESYSTEM_PRIME = {
     "file_events_publishing_mode,"
     "file_events_publishing_mode_l10n,"
     "config_type, config_type_l10n,flr_attributes,"
-    "host_io_size,host_io_size_l10n",
+    "is_secure,host_io_size,host_io_size_l10n",
 }
 
 FILESYSTEM_PRIME = [
