@@ -20,7 +20,7 @@ POLICY_TYPE = namedtuple("PolicyType", "protection performance")(
 # Snapshot Rule
 SNAPSHOT_RULE_DETAILS_QUERY = {
     "select": "id,name,interval,days_of_week,time_of_day,desired_retention,"
-    "policies(id,name)",
+    "is_secure,policies(id,name)",
 }
 # Replication Rule
 REPLICATION_RULE_DETAILS_QUERY = {
@@ -113,6 +113,7 @@ class ProtectionFunctions:
         description=None,
         performance_policy_id=None,
         expiration_timestamp=None,
+        is_secure=None,
     ):
         """Create a snapshot of a volume.
 
@@ -135,6 +136,9 @@ class ProtectionFunctions:
                                      '12:31:9999T23:59:59.999Z' to set an
                                      expiration to never expire.
         :type expiration_timestamp: str
+        :param is_secure: (optional) Indicates whether the snapshot is a
+                          secure snapshot.
+        :type is_secure: bool
         :return: Volume snapshot details.
         :rtype: dict
         """
@@ -144,6 +148,7 @@ class ProtectionFunctions:
             description=description,
             performance_policy_id=performance_policy_id,
             expiration_timestamp=expiration_timestamp,
+            is_secure=is_secure,
         )
         response = self.rest_client.request(
             constants.POST,
@@ -156,6 +161,7 @@ class ProtectionFunctions:
 
     def modify_volume_snapshot(
         self, snapshot_id, name=None, description=None, expiration_timestamp=None,
+        is_secure=None,
     ):
         """Modify a snapshot of a volume.
 
@@ -172,6 +178,10 @@ class ProtectionFunctions:
                                      the maximum timestamp value of
                                      '12:31:9999T23:59:59.999Z' to set an
                                      expiration to never expire.
+        :param is_secure: (optional) Indicates whether the snapshot is a
+                          secure snapshot. Once set to True, this is a one-way
+                          operation and cannot be reverted.
+        :type is_secure: bool
         :return: Volume snapshot details.
         :rtype: dict
         """
@@ -180,6 +190,7 @@ class ProtectionFunctions:
             name=name,
             description=description,
             expiration_timestamp=expiration_timestamp,
+            is_secure=is_secure,
         )
         self.rest_client.request(
             constants.PATCH,
@@ -236,6 +247,7 @@ class ProtectionFunctions:
 
     def create_volume_group_snapshot(
         self, volume_group_id, name=None, description=None, expiration_timestamp=None,
+        is_secure=None,
     ):
         """Create a snapshot of a volume group.
 
@@ -256,6 +268,9 @@ class ProtectionFunctions:
                                      yyyy-MM-dd'T'HH:mm:ss.SSSZ. By default,
                                      expiration time will not be set.
         :type expiration_timestamp: str
+        :param is_secure: (optional) Indicates whether the snapshot is a
+                          secure snapshot.
+        :type is_secure: bool
         :return: Volume Group snapshot details.
         :rtype: dict
         """
@@ -264,6 +279,7 @@ class ProtectionFunctions:
             name=name,
             description=description,
             expiration_timestamp=expiration_timestamp,
+            is_secure=is_secure,
         )
         response = self.rest_client.request(
             constants.POST,
@@ -278,6 +294,7 @@ class ProtectionFunctions:
 
     def modify_volume_group_snapshot(
         self, snapshot_id, name=None, description=None, expiration_timestamp=None,
+        is_secure=None,
     ):
         """Modify a snapshot of a volume group.
 
@@ -296,6 +313,10 @@ class ProtectionFunctions:
                                      is yyyy-MM-dd'T'HH:mm:ssZ or
                                      yyyy-MM-dd'T'HH:mm:ss.SSSZ. By default,
                                      expiration time will not be set.
+        :param is_secure: (optional) Indicates whether the snapshot is a
+                          secure snapshot. Once set to True, this is a one-way
+                          operation and cannot be reverted.
+        :type is_secure: bool
         :return: Volume snapshot details.
         :rtype: dict
         """
@@ -304,6 +325,7 @@ class ProtectionFunctions:
             name=name,
             description=description,
             expiration_timestamp=expiration_timestamp,
+            is_secure=is_secure,
         )
         self.rest_client.request(
             constants.PATCH,
@@ -386,6 +408,7 @@ class ProtectionFunctions:
 
     def create_snapshot_rule_by_interval(
         self, name, desired_retention, interval, days_of_week=None,
+        is_secure=None,
     ):
         """Create a new snapshot rule to take snapshots with time interval
         between.
@@ -407,6 +430,9 @@ class ProtectionFunctions:
                              should be applied. Applies only for rules where
                              the interval parameter is set.
         :type days_of_week: list[str]
+        :param is_secure: (optional) Indicates whether snapshots created by
+                          this rule will be secure snapshots.
+        :type is_secure: bool
         :return: Snapshot rule details.
         :rtype: dict
         """
@@ -416,10 +442,12 @@ class ProtectionFunctions:
             desired_retention=desired_retention,
             interval=interval,
             days_of_week=days_of_week,
+            is_secure=is_secure,
         )
 
     def create_snapshot_rule_by_time_of_day(
         self, name, desired_retention, time_of_day, days_of_week=None,
+        is_secure=None,
     ):
         """Create a new snapshot rule to take daily snapshots at the specified
         time of day.
@@ -439,6 +467,9 @@ class ProtectionFunctions:
                              should be applied. Applies only for rules where
                              the time_of_day parameter is set.
         :type days_of_week: list[str]
+        :param is_secure: (optional) Indicates whether snapshots created by
+                          this rule will be secure snapshots.
+        :type is_secure: bool
         :return: Snapshot rule details.
         :rtype: dict
         """
@@ -448,6 +479,7 @@ class ProtectionFunctions:
             desired_retention=desired_retention,
             time_of_day=time_of_day,
             days_of_week=days_of_week,
+            is_secure=is_secure,
         )
 
     def _create_snapshot_rule(self, **kwargs):
@@ -474,6 +506,7 @@ class ProtectionFunctions:
         interval=None,
         time_of_day=None,
         days_of_week=None,
+        is_secure=None,
     ):
         """Modify a snapshot rule. If the rule is associated with a policy that
         is currently applied to a storage resource, the modified rule is
@@ -503,6 +536,9 @@ class ProtectionFunctions:
                              should be applied. Applies only for rules where
                              the time_of_day parameter is set.
         :type days_of_week: list[str]
+        :param is_secure: (optional) Indicates whether snapshots created by
+                          this rule will be secure snapshots.
+        :type is_secure: bool
         :return: Snapshot rule details.
         :rtype: dict
         """
@@ -513,6 +549,7 @@ class ProtectionFunctions:
             interval=interval,
             time_of_day=time_of_day,
             days_of_week=days_of_week,
+            is_secure=is_secure,
         )
         self.rest_client.request(
             constants.PATCH,
@@ -1444,6 +1481,7 @@ class ProtectionFunctions:
             "description",
             "performance_policy_id",
             "expiration_timestamp",
+            "is_secure",
         ):
             if kwargs.get(argname) is not None:
                 payload[argname] = kwargs[argname]
@@ -1464,6 +1502,7 @@ class ProtectionFunctions:
             "interval",
             "time_of_day",
             "days_of_week",
+            "is_secure",
         ):
             if kwargs.get(argname) is not None:
                 payload[argname] = kwargs[argname]
