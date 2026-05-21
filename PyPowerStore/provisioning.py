@@ -2709,3 +2709,113 @@ class Provisioning:
         )
 
     # LDAP method end
+
+    # IO Limit Rule methods (v4.0.0.0+)
+
+    def get_io_limit_rules(self, filter_dict=None, all_pages=False):
+        """Get a list of IO limit rules.
+
+        :param filter_dict: (optional) Filter detail
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all elements
+        :type all_pages: bool
+        :return: IO limit rule list
+        :rtype: list of dict
+        """
+        LOG.info(
+            "Getting io_limit_rules with filter: '%s' and all_pages: %s",
+            filter_dict, all_pages,
+        )
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID_AND_NAME, filter_dict,
+        )
+        return self.client.request(
+            constants.GET,
+            constants.IO_LIMIT_RULE_LIST_URL.format(self.server_ip),
+            payload=None,
+            querystring=querystring,
+            all_pages=all_pages,
+        )
+
+    def get_io_limit_rule_details(self, rule_id):
+        """Get details of an IO limit rule.
+
+        :param rule_id: The IO limit rule ID
+        :type rule_id: str
+        :return: IO limit rule details
+        :rtype: dict
+        """
+        LOG.info("Getting io_limit_rule details by ID: '%s'", rule_id)
+        return self.client.request(
+            constants.GET,
+            constants.IO_LIMIT_RULE_OBJECT_URL.format(self.server_ip, rule_id),
+            payload=None,
+            querystring=constants.IO_LIMIT_RULE_DETAILS_QUERY,
+        )
+
+    def get_io_limit_rule_by_name(self, rule_name):
+        """Get IO limit rule details by name.
+
+        :param rule_name: The IO limit rule name
+        :type rule_name: str
+        :return: IO limit rule details
+        :rtype: list of dict
+        """
+        LOG.info("Getting io_limit_rule details by name: '%s'", rule_name)
+        return self.client.request(
+            constants.GET,
+            constants.IO_LIMIT_RULE_LIST_URL.format(self.server_ip),
+            payload=None,
+            querystring=helpers.prepare_querystring(
+                constants.IO_LIMIT_RULE_DETAILS_QUERY,
+                name=constants.EQUALS + rule_name,
+            ),
+        )
+
+    def create_io_limit_rule(self, payload):
+        """Create a new IO limit rule.
+
+        :param payload: Request payload
+        :type payload: dict
+        :return: ID of the created IO limit rule
+        :rtype: dict
+        """
+        LOG.info("Creating io_limit_rule with payload: '%s'", payload)
+        return self.client.request(
+            constants.POST,
+            constants.IO_LIMIT_RULE_LIST_URL.format(self.server_ip),
+            payload=payload,
+        )
+
+    def modify_io_limit_rule(self, rule_id, payload):
+        """Modify an IO limit rule.
+
+        :param rule_id: The IO limit rule ID
+        :type rule_id: str
+        :param payload: Modification payload
+        :type payload: dict
+        :return: None
+        :rtype: None
+        """
+        LOG.info("Modifying io_limit_rule '%s' with payload: '%s'", rule_id, payload)
+        return self.client.request(
+            constants.PATCH,
+            constants.IO_LIMIT_RULE_OBJECT_URL.format(self.server_ip, rule_id),
+            payload=payload,
+        )
+
+    def delete_io_limit_rule(self, rule_id):
+        """Delete an IO limit rule.
+
+        :param rule_id: The IO limit rule ID
+        :type rule_id: str
+        :return: None
+        :rtype: None
+        """
+        LOG.info("Deleting io_limit_rule: '%s'", rule_id)
+        return self.client.request(
+            constants.DELETE,
+            constants.IO_LIMIT_RULE_OBJECT_URL.format(self.server_ip, rule_id),
+        )
+
+    # IO Limit Rule methods end

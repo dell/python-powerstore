@@ -517,6 +517,23 @@ LOGIN_SESSION_DETAILS_QUERY = {
 LDAP_ACCOUNT_DETAILS_QUERY = {"select": "id,role_id,domain_id,name,type,type_l10n,dn"}
 # Select all Snapshot
 
+# IO Limit Rule query
+IO_LIMIT_RULE_DETAILS_QUERY = {
+    "select": "id,name,max_bw,max_iops,burst_percentage,type,type_l10n,policies(id,name)",
+}
+
+# File IO Limit Rule query
+FILE_IO_LIMIT_RULE_DETAILS_QUERY = {
+    "select": "id,name,max_bw,policies(id,name)",
+}
+
+# QoS / File_Performance Policy query
+QOS_POLICY_DETAILS_QUERY = {
+    "select": "id,name,description,type,type_l10n,"
+    "io_limit_rules(id,name),"
+    "file_io_limit_rules(id,name)",
+}
+
 EQUALS = "eq."
 
 # API endpoints
@@ -622,6 +639,18 @@ GET_REMOTE_APPLIANCE_URL = "https://{0}/api/rest/remote_system/{1}/query_applian
 # Protection Policy endpoint
 PROTECTION_POLICY_LIST_URL = "https://{0}/api/rest/policy"
 PROTECTION_POLICY_OBJECT_URL = "https://{0}/api/rest/policy/{1}"
+
+# IO Limit Rule endpoints (v4.0.0.0+)
+IO_LIMIT_RULE_LIST_URL = "https://{0}/api/rest/io_limit_rule"
+IO_LIMIT_RULE_OBJECT_URL = "https://{0}/api/rest/io_limit_rule/{1}"
+
+# File IO Limit Rule endpoints (v4.1.0.0+)
+FILE_IO_LIMIT_RULE_LIST_URL = "https://{0}/api/rest/file_io_limit_rule"
+FILE_IO_LIMIT_RULE_OBJECT_URL = "https://{0}/api/rest/file_io_limit_rule/{1}"
+
+# QoS Policy endpoints (reuses PROTECTION_POLICY_LIST/OBJECT URLs - same /policy endpoint)
+QOS_POLICY_TYPE_FILTER = {"type": EQUALS + "QoS"}
+FILE_PERFORMANCE_POLICY_TYPE_FILTER = {"type": EQUALS + "File_Performance"}
 
 # Host Volume Mapping endpoints
 HOST_VOLUME_MAPPING_URL = "https://{0}/api/rest/host_volume_mapping"

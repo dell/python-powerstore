@@ -847,6 +847,102 @@ class ProtectionFunctions:
             constants.PROTECTION_POLICY_OBJECT_URL.format(self.server_ip, policy_id),
         )
 
+    # QoS / File_Performance Policy Methods
+
+    def get_policy_details(self, policy_id):
+        """Get details of a QoS or File_Performance policy by ID.
+
+        :param policy_id: Policy unique identifier.
+        :type policy_id: str
+        :return: Policy details.
+        :rtype: dict
+        """
+        LOG.info("Getting QoS policy details by ID: '%s'", policy_id)
+        # Use singular field names: io_limit_rule, file_io_limit_rule
+        # The API reference incorrectly shows plural forms
+        querystring = {
+            "select": "id,name,description,type,type_l10n,io_limit_rule(id,name),file_io_limit_rule(id,name)",
+        }
+        return self.rest_client.request(
+            constants.GET,
+            constants.PROTECTION_POLICY_OBJECT_URL.format(self.server_ip, policy_id),
+            querystring=querystring,
+        )
+
+    def get_policy_by_name(self, name, policy_type=None):
+        """Get a QoS or File_Performance policy by name.
+
+        :param name: Policy name.
+        :type name: str
+        :param policy_type: Optional policy type filter (QoS or File_Performance).
+        :type policy_type: str
+        :return: List of matching policies.
+        :rtype: list[dict]
+        """
+        LOG.info("Getting QoS policy details by name: '%s'", name)
+        # Use singular field names: io_limit_rule, file_io_limit_rule
+        querystring = {
+            "select": "id,name,description,type,type_l10n,io_limit_rule(id,name),file_io_limit_rule(id,name)",
+            "name": constants.EQUALS + name,
+        }
+        if policy_type:
+            querystring["type"] = constants.EQUALS + policy_type
+        return self.rest_client.request(
+            constants.GET,
+            constants.PROTECTION_POLICY_LIST_URL.format(self.server_ip),
+            querystring=querystring,
+        )
+
+    def create_policy(self, payload):
+        """Create a new QoS or File_Performance policy.
+
+        :param payload: Request payload containing 'name', and either
+                        'io_limit_rule_id' (QoS) or 'file_io_limit_rule_id'
+                        (File_Performance).
+        :type payload: dict
+        :return: Response dict with policy ID.
+        :rtype: dict
+        """
+        LOG.info("Creating QoS policy with payload: '%s'", payload)
+        return self.rest_client.request(
+            constants.POST,
+            constants.PROTECTION_POLICY_LIST_URL.format(self.server_ip),
+            payload,
+        )
+
+    def modify_policy(self, policy_id, payload):
+        """Modify a QoS or File_Performance policy.
+
+        :param policy_id: Policy unique identifier.
+        :type policy_id: str
+        :param payload: Modification payload.
+        :type payload: dict
+        :return: None
+        :rtype: None
+        """
+        LOG.info("Modifying QoS policy '%s' with payload: '%s'", policy_id, payload)
+        return self.rest_client.request(
+            constants.PATCH,
+            constants.PROTECTION_POLICY_OBJECT_URL.format(self.server_ip, policy_id),
+            payload,
+        )
+
+    def delete_policy(self, policy_id):
+        """Delete a QoS or File_Performance policy.
+
+        :param policy_id: Policy unique identifier.
+        :type policy_id: str
+        :return: None if success else raise exception.
+        :rtype: None
+        """
+        LOG.info("Deleting QoS policy: '%s'", policy_id)
+        return self.rest_client.request(
+            constants.DELETE,
+            constants.PROTECTION_POLICY_OBJECT_URL.format(self.server_ip, policy_id),
+        )
+
+    # QoS / File_Performance Policy Methods End
+
     # FS Snapshot Methods
 
     def get_filesystem_snapshot_details_by_name(
