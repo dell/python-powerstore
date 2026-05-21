@@ -129,6 +129,8 @@ SELECT_ALL_VOL_GROUP = {
     "timestamp,"
     "is_protectable, protection_policy_id,"
     "protection_policy(name,id),"
+    "qos_performance_policy_id,"
+    "qos_performance_policy(id,name),"
     "migration_session_id,"
     "is_write_order_consistent,"
     "placement_rule,type,"
@@ -166,6 +168,7 @@ SELECT_ALL_FILESYSTEM = {
     "access_policy_l10n, locking_policy_l10n,"
     "folder_rename_policy_l10n, access_type_l10n,"
     "creator_type_l10n,is_secure,nas_server(name,id),"
+    "performance_policy_id,"
     "protection_policy(name,id)",
 }
 
@@ -187,6 +190,7 @@ SELECT_ALL_FILESYSTEM_PRIME = {
     "access_policy_l10n, locking_policy_l10n,"
     "folder_rename_policy_l10n, access_type_l10n,"
     "creator_type_l10n,nas_server(name,id),"
+    "performance_policy_id,"
     "protection_policy(name,id),"
     "file_events_publishing_mode,"
     "file_events_publishing_mode_l10n,"
@@ -216,6 +220,7 @@ FHP_NAS_QUERYSTRING = {
     "current_preferred_IPv4_interface_id,"
     "current_preferred_IPv6_interface_id,"
     "protection_policy_id,"
+    "performance_policy_id,"
     "operational_status_l10n,"
     "current_unix_directory_service_l10n,"
     "file_interfaces(name,id,ip_address),"
@@ -243,6 +248,7 @@ SELECT_ALL_NAS_SERVER = {
     "current_preferred_IPv6_interface_id,"
     "operational_status_l10n,"
     "current_unix_directory_service_l10n,"
+    "performance_policy_id,"
     "file_interfaces(name,id,ip_address),"
     "nfs_servers,smb_servers,"
     "file_ldaps,file_nises,file_systems(id,name)",

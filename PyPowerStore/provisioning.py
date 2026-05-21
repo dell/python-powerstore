@@ -82,6 +82,7 @@ class Provisioning:
         volume_group_id=None,
         protection_policy_id=None,
         performance_policy_id=None,
+        qos_performance_policy_id=None,
         app_type=None,
         app_type_other=None,
         appliance_id=None,
@@ -94,6 +95,7 @@ class Provisioning:
         :param volume_group_id: (optional) The volume group ID
         :param protection_policy_id: (optional) The protection policy ID
         :param performance_policy_id: (optional) The performance policy ID
+        :param qos_performance_policy_id: (optional) The QoS performance policy ID
         :param app_type: (optional) The application type
         :param app_type_other: (optional) Describes application type when
             app_type is set to other
@@ -113,6 +115,7 @@ class Provisioning:
             volume_group_id,
             protection_policy_id,
             performance_policy_id,
+            qos_performance_policy_id,
             app_type,
             app_type_other,
             appliance_id,
@@ -129,6 +132,7 @@ class Provisioning:
         volume_group_id,
         protection_policy_id,
         performance_policy_id,
+        qos_performance_policy_id,
         app_type,
         app_type_other,
         appliance_id,
@@ -146,6 +150,8 @@ class Provisioning:
             create_volume_dict["protection_policy_id"] = protection_policy_id
         if performance_policy_id is not None:
             create_volume_dict["performance_policy_id"] = performance_policy_id
+        if qos_performance_policy_id is not None:
+            create_volume_dict["qos_performance_policy_id"] = qos_performance_policy_id
         if app_type is not None:
             create_volume_dict["app_type"] = app_type
         if app_type_other is not None:
@@ -178,12 +184,13 @@ class Provisioning:
         size=None,
         protection_policy_id=None,
         performance_policy_id=None,
+        qos_performance_policy_id=None,
         app_type=None,
         app_type_other=None,
     ):
         """Modify a volume.
 
-        :param volume_id: The volume ID
+        :param volume_id: The Volume ID
         :type volume_id: str
         :param name: The name of the volume
         :type name: str
@@ -195,6 +202,8 @@ class Provisioning:
         :type protection_policy_id: str
         :param performance_policy_id: The performance policy ID
         :type performance_policy_id: str
+        :param qos_performance_policy_id: The QoS performance policy ID
+        :type qos_performance_policy_id: str
         :param app_type: The application type
         :type app_type: str
         :param app_type_other: Describes application type when
@@ -215,6 +224,7 @@ class Provisioning:
             size,
             protection_policy_id,
             performance_policy_id,
+            qos_performance_policy_id,
             app_type,
             app_type_other,
         )
@@ -231,6 +241,7 @@ class Provisioning:
         size=None,
         protection_policy_id=None,
         performance_policy_id=None,
+        qos_performance_policy_id=None,
         app_type=None,
         app_type_other=None,
     ):
@@ -245,6 +256,8 @@ class Provisioning:
             modify_volume_dict["protection_policy_id"] = protection_policy_id
         if performance_policy_id is not None:
             modify_volume_dict["performance_policy_id"] = performance_policy_id
+        if qos_performance_policy_id is not None:
+            modify_volume_dict["qos_performance_policy_id"] = qos_performance_policy_id
         if app_type is not None:
             modify_volume_dict["app_type"] = app_type
         if app_type_other is not None:
@@ -262,6 +275,7 @@ class Provisioning:
         logical_unit_number=None,
         protection_policy_id=None,
         performance_policy_id=None,
+        qos_performance_policy_id=None,
     ):
         """Clone a volume.
 
@@ -281,6 +295,8 @@ class Provisioning:
         :type protection_policy_id: str
         :param performance_policy_id: The performance policy ID
         :type performance_policy_id: str
+        :param qos_performance_policy_id: The QoS performance policy ID
+        :type qos_performance_policy_id: str
         :return: 'id' Unique identifier of the new clone volume if success else raise exception
         :rtype: dict
         """
@@ -293,6 +309,7 @@ class Provisioning:
             logical_unit_number,
             protection_policy_id,
             performance_policy_id,
+            qos_performance_policy_id,
         )
         return self.client.request(
             constants.POST,
@@ -309,6 +326,7 @@ class Provisioning:
         logical_unit_number=None,
         protection_policy_id=None,
         performance_policy_id=None,
+        qos_performance_policy_id=None,
     ):
         clone_volume_dict = {}
         if name is not None:
@@ -325,6 +343,8 @@ class Provisioning:
             clone_volume_dict["protection_policy_id"] = protection_policy_id
         if performance_policy_id is not None:
             clone_volume_dict["performance_policy_id"] = performance_policy_id
+        if qos_performance_policy_id is not None:
+            clone_volume_dict["qos_performance_policy_id"] = qos_performance_policy_id
 
         return clone_volume_dict
 
@@ -1384,6 +1404,7 @@ class Provisioning:
         volume_ids=None,
         is_write_order_consistent=None,
         protection_policy_id=None,
+        qos_performance_policy_id=None,
     ):
         """Create a volume group.
 
@@ -1401,6 +1422,8 @@ class Provisioning:
                                      protection policy to assign
                                      to the volume group.
         :type protection_policy_id: str
+        :param qos_performance_policy_id: (optional) The QoS performance policy ID
+        :type qos_performance_policy_id: str
         :return: Volume ID if success else raise exception
         :rtype: dict
         """
@@ -1411,6 +1434,7 @@ class Provisioning:
             volume_ids,
             is_write_order_consistent,
             protection_policy_id,
+            qos_performance_policy_id,
         )
         return self.client.request(
             constants.POST,
@@ -1420,6 +1444,7 @@ class Provisioning:
 
     def clone_volume_group(
         self, volume_group_id, name, description=None, protection_policy_id=None,
+        qos_performance_policy_id=None,
     ):
         """Clone a volume group.
 
@@ -1429,16 +1454,23 @@ class Provisioning:
         :type name: str
         :param description: (optional) Description for the clone volume group.
         :type description: str
-        :param protection_policy_id: (optional) Unique identifier of the protection
-                                     policy to assign to the clone volume group
+        :param protection_policy_id: (optional) Protection policy ID for clone.
         :type protection_policy_id: str
-        :return: Unique identifier of the new instance created if success else raise exception
+        :param qos_performance_policy_id: (optional) QoS performance policy ID for clone.
+        :type qos_performance_policy_id: str
+        :return: ID of the cloned volume group if success else raise exception
         :rtype: dict
         """
-        LOG.info( "Cloning volumegroup: '%s'", volume_group_id)
-        payload = self._prepare_clone_vg_payload(
-            name, description, protection_policy_id,
-        )
+        LOG.info("Cloning volume group: '%s'", volume_group_id)
+        payload = {}
+        if name is not None:
+            payload["name"] = name
+        if description is not None:
+            payload["description"] = description
+        if protection_policy_id is not None:
+            payload["protection_policy_id"] = protection_policy_id
+        if qos_performance_policy_id is not None:
+            payload["qos_performance_policy_id"] = qos_performance_policy_id
         return self.client.request(
             constants.POST,
             constants.CLONE_VOLUME_GROUP_URL.format(self.server_ip, volume_group_id),
@@ -1541,6 +1573,7 @@ class Provisioning:
         volume_ids,
         is_write_order_consistent,
         protection_policy_id,
+        qos_performance_policy_id,
     ):
         create_volume_group_dict = {}
         if name is not None:
@@ -1555,6 +1588,8 @@ class Provisioning:
             )
         if protection_policy_id is not None:
             create_volume_group_dict["protection_policy_id"] = protection_policy_id
+        if qos_performance_policy_id is not None:
+            create_volume_group_dict["qos_performance_policy_id"] = qos_performance_policy_id
 
         return create_volume_group_dict
 
@@ -1602,6 +1637,7 @@ class Provisioning:
         description=None,
         is_write_order_consistent=None,
         protection_policy_id=None,
+        qos_performance_policy_id=None,
     ):
         """Modify a volume group.
 
@@ -1621,10 +1657,13 @@ class Provisioning:
                                      is specified, protection policy will be
                                      removed from the volume group.
         :type protection_policy_id: str
+        :param qos_performance_policy_id: (optional) The QoS performance policy ID
+        :type qos_performance_policy_id: str
         """
         LOG.info( "Modifying volumegroup: '%s'", volume_group_id)
         payload = self._prepare_modify_vg_payload(
             name, description, is_write_order_consistent, protection_policy_id,
+            qos_performance_policy_id,
         )
         self.client.request(
             constants.PATCH,
@@ -1634,6 +1673,7 @@ class Provisioning:
 
     def _prepare_modify_vg_payload(
         self, name, description, is_write_order_consistent, protection_policy_id,
+        qos_performance_policy_id,
     ):
         modify_vg_dict = {}
         if name is not None:
@@ -1644,6 +1684,8 @@ class Provisioning:
             modify_vg_dict["is_write_order_consistent"] = is_write_order_consistent
         if protection_policy_id is not None:
             modify_vg_dict["protection_policy_id"] = protection_policy_id
+        if qos_performance_policy_id is not None:
+            modify_vg_dict["qos_performance_policy_id"] = qos_performance_policy_id
 
         return modify_vg_dict
 

@@ -58,7 +58,7 @@ class TestQosPolicy(TestBase):
 
     def test_get_policy_details_uses_qos_query(self):
         """
-        Test get_policy_details uses QOS_POLICY_DETAILS_QUERY
+        Test get_policy_details uses correct querystring
 
         Validates the querystring contains the QoS select fields
         """
@@ -66,9 +66,11 @@ class TestQosPolicy(TestBase):
             mock_request.return_value = self.data.qos_policy1
             self.protection.get_policy_details(self.data.qos_policy_id1)
             _, kwargs = mock_request.call_args
-            self.assertEqual(
-                kwargs.get("querystring"), constants.QOS_POLICY_DETAILS_QUERY,
-            )
+            expected_query = {
+                "select": "id,name,description,type,type_l10n,"
+                "io_limit_rule(id,name),file_io_limit_rule(id,name)"
+            }
+            self.assertEqual(kwargs.get("querystring"), expected_query)
 
     def test_get_policy_details_uses_object_url(self):
         """
@@ -126,7 +128,10 @@ class TestQosPolicy(TestBase):
 
         Validates that mock_request is called with POST
         """
-        payload = {"name": self.data.qos_policy_name1, "io_limit_rule_id": self.data.io_limit_rule_id1}
+        payload = {
+            "name": self.data.qos_policy_name1,
+            "io_limit_rule_id": self.data.io_limit_rule_id1
+        }
         with mock.patch.object(self.protection.rest_client, "request") as mock_request:
             mock_request.return_value = {"id": self.data.qos_policy_id1}
             self.protection.create_policy(payload)

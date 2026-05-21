@@ -861,7 +861,8 @@ class ProtectionFunctions:
         # Use singular field names: io_limit_rule, file_io_limit_rule
         # The API reference incorrectly shows plural forms
         querystring = {
-            "select": "id,name,description,type,type_l10n,io_limit_rule(id,name),file_io_limit_rule(id,name)",
+            "select": "id,name,description,type,type_l10n,"
+            "io_limit_rule(id,name),file_io_limit_rule(id,name)",
         }
         return self.rest_client.request(
             constants.GET,
@@ -882,7 +883,8 @@ class ProtectionFunctions:
         LOG.info("Getting QoS policy details by name: '%s'", name)
         # Use singular field names: io_limit_rule, file_io_limit_rule
         querystring = {
-            "select": "id,name,description,type,type_l10n,io_limit_rule(id,name),file_io_limit_rule(id,name)",
+            "select": "id,name,description,type,type_l10n,"
+            "io_limit_rule(id,name),file_io_limit_rule(id,name)",
             "name": constants.EQUALS + name,
         }
         if policy_type:
