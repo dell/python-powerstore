@@ -384,7 +384,10 @@ class CommonData:
                 {
                     "arguments": [invalid_io_limit_rule_id],
                     "code": "0xE0A090010001",
-                    "message_l10n": f"Unable to find the IO limit rule with ID {invalid_io_limit_rule_id}",
+                    "message_l10n": (
+                        f"Unable to find the IO limit rule with ID "
+                        f"{invalid_io_limit_rule_id}"
+                    ),
                     "severity": "Error",
                 },
             ],
@@ -425,7 +428,10 @@ class CommonData:
                 {
                     "arguments": [invalid_file_io_limit_rule_id],
                     "code": "0xE0A090010001",
-                    "message_l10n": f"Unable to find the file IO limit rule with ID {invalid_file_io_limit_rule_id}",
+                    "message_l10n": (
+                        f"Unable to find the file IO limit rule with ID "
+                        f"{invalid_file_io_limit_rule_id}"
+                    ),
                     "severity": "Error",
                 },
             ],

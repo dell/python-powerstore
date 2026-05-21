@@ -159,17 +159,37 @@ class PolicyResponse(Entity):
         return 204, None
 
     def get_qos_policy_by_name(self):
+        """Get QoS policy by name.
+
+        Returns:
+            Tuple of status code and policy
+        """
         return self.status_code, [self.data.qos_policy1]
 
     def get_qos_policy_details(self):
+        """Get QoS policy details by ID.
+
+        Returns:
+            Tuple of status code and policy details
+        """
         if self.data.qos_policy_id2 in self.url:
             return self.status_code, self.data.file_perf_policy1
         return self.status_code, self.data.qos_policy1
 
     def create_qos_policy(self):
+        """Create a new QoS policy.
+
+        Returns:
+            Tuple of status code and created policy ID
+        """
         return 201, {"id": self.data.qos_policy_id1}
 
     def modify_qos_policy(self):
+        """Modify an existing QoS policy.
+
+        Returns:
+            Tuple of status code and modified policy
+        """
         if self.data.invalid_qos_policy_id in self.url:
             return 404, self.data.qos_policy_error[404]
         if self.data.qos_policy_id1 not in self.url and self.data.qos_policy_id2 not in self.url:
@@ -177,6 +197,11 @@ class PolicyResponse(Entity):
         return 204, self.data.qos_policy1_modified
 
     def delete_qos_policy(self):
+        """Delete a QoS policy.
+
+        Returns:
+            Tuple of status code and response
+        """
         if self.data.invalid_qos_policy_id in self.url:
             return 404, self.data.qos_policy_error[404]
         if self.data.qos_policy_id1 not in self.url and self.data.qos_policy_id2 not in self.url:

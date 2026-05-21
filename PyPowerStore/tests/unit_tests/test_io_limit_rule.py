@@ -77,7 +77,7 @@ class TestIoLimitRule(TestBase):
         with mock.patch.object(self.provisioning.client, "request") as mock_request:
             mock_request.return_value = [self.data.io_limit_rule1]
             self.provisioning.get_io_limit_rule_by_name(self.data.io_limit_rule_name1)
-            args, kwargs = mock_request.call_args
+            args, _ = mock_request.call_args
             self.assertIn(
                 constants.IO_LIMIT_RULE_LIST_URL.format(self.provisioning.server_ip),
                 args,
