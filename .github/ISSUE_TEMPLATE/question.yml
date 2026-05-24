@@ -1,0 +1,124 @@
+name: "Question"
+description: "Ask usage questions about PyPowerStore"
+title: "[QUESTION]: "
+labels: ["type/question", "needs-triage"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: "[QUESTION]: prefix is required and cannot be removed"
+      value: "[QUESTION]: "
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for asking a question about PyPowerStore! Please provide the information below.
+        
+        ## Community Note
+        * Please vote on this question by adding a reaction to help prioritize this request
+        * Please do not leave "+1" or other comments that do not add relevant new information or questions
+        * If you are interested in working on this issue or have submitted a pull request, please leave a comment
+
+  - type: input
+    id: module-name
+    attributes:
+      label: Module/Function Name
+      description: Specify the relevant module or function name
+      placeholder: "e.g., volume, storage_pool, nfs_export, user"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: question-category
+    attributes:
+      label: Question Category
+      description: What type of question do you have?
+      options:
+        - Module Usage
+        - Installation/Setup
+        - Authentication
+        - Error Troubleshooting
+        - Best Practices
+        - API Documentation
+        - Integration
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    id: python-environment
+    attributes:
+      label: Python Environment
+      description: If relevant, provide your Python environment details
+      placeholder: |
+        Python Version: e.g., 3.9.10
+        PyPowerStore Version: e.g., 1.0.0
+        OS: e.g., Ubuntu 20.04, Windows 10
+        Installation: e.g., pip install pypowerstore
+    validations:
+      required: false
+
+  - type: textarea
+    id: powerstore-environment
+    attributes:
+      label: PowerStore Environment
+      description: If relevant, provide PowerStore environment details
+      placeholder: |
+        PowerStore Version: e.g., 4.0, 3.6
+        PowerStore IP: e.g., 192.168.1.100
+        Auth: e.g., Username/Password, API Key
+    validations:
+      required: false
+
+  - type: textarea
+    id: question-details
+    attributes:
+      label: Question Details
+      description: Provide detailed information about your question
+    validations:
+      required: true
+
+  - type: textarea
+    id: troubleshooting
+    attributes:
+      label: What have you tried so far?
+      description: Describe any troubleshooting steps you've already tried
+    validations:
+      required: false
+
+  - type: textarea
+    id: code-example
+    attributes:
+      label: Code Example
+      description: If relevant, include your Python code (remove sensitive data)
+      placeholder: |
+        ```python
+        from pypowerstore import PowerStore
+        
+        # Initialize PowerStore connection
+        powerstore = PowerStore(
+            server_ip="192.168.1.100",
+            username="admin",
+            password="password"
+        )
+        
+        # Your code here
+        result = powerstore.volume.get_all_volumes()
+        print(f"Found {len(result)} volumes")
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    id: error-messages
+    attributes:
+      label: Error Messages
+      description: Include any error messages you're encountering
+      placeholder: |
+        ```
+        # Paste error messages here
+        ```
+    validations:
+      required: false
