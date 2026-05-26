@@ -2631,3 +2631,115 @@ class Configuration:
             payload["security_config"] = security_config
 
         return payload
+
+    # File IO Limit Rule methods (v4.1.0.0+)
+
+    def get_file_io_limit_rules(self, filter_dict=None, all_pages=False):
+        """Get a list of file IO limit rules.
+
+        :param filter_dict: (optional) Filter detail
+        :type filter_dict: dict
+        :param all_pages: (optional) Indicates whether to return all elements
+        :type all_pages: bool
+        :return: File IO limit rule list
+        :rtype: list of dict
+        """
+        LOG.info(
+            "Getting file_io_limit_rules with filter: '%s' and all_pages: %s",
+            filter_dict, all_pages,
+        )
+        querystring = helpers.prepare_querystring(
+            constants.SELECT_ID_AND_NAME, filter_dict,
+        )
+        return self.config_client.request(
+            constants.GET,
+            constants.FILE_IO_LIMIT_RULE_LIST_URL.format(self.server_ip),
+            payload=None,
+            querystring=querystring,
+            all_pages=all_pages,
+        )
+
+    def get_file_io_limit_rule_details(self, rule_id):
+        """Get details of a file IO limit rule.
+
+        :param rule_id: The file IO limit rule ID
+        :type rule_id: str
+        :return: File IO limit rule details
+        :rtype: dict
+        """
+        LOG.info("Getting file_io_limit_rule details by ID: '%s'", rule_id)
+        return self.config_client.request(
+            constants.GET,
+            constants.FILE_IO_LIMIT_RULE_OBJECT_URL.format(self.server_ip, rule_id),
+            payload=None,
+            querystring=constants.FILE_IO_LIMIT_RULE_DETAILS_QUERY,
+        )
+
+    def get_file_io_limit_rule_by_name(self, rule_name):
+        """Get file IO limit rule details by name.
+
+        :param rule_name: The file IO limit rule name
+        :type rule_name: str
+        :return: File IO limit rule details
+        :rtype: list of dict
+        """
+        LOG.info("Getting file_io_limit_rule details by name: '%s'", rule_name)
+        return self.config_client.request(
+            constants.GET,
+            constants.FILE_IO_LIMIT_RULE_LIST_URL.format(self.server_ip),
+            payload=None,
+            querystring=helpers.prepare_querystring(
+                constants.FILE_IO_LIMIT_RULE_DETAILS_QUERY,
+                name=constants.EQUALS + rule_name,
+            ),
+        )
+
+    def create_file_io_limit_rule(self, payload):
+        """Create a new file IO limit rule.
+
+        :param payload: Request payload (must contain 'name' and 'max_bw')
+        :type payload: dict
+        :return: ID of the created file IO limit rule
+        :rtype: dict
+        """
+        LOG.info("Creating file_io_limit_rule with payload: '%s'", payload)
+        return self.config_client.request(
+            constants.POST,
+            constants.FILE_IO_LIMIT_RULE_LIST_URL.format(self.server_ip),
+            payload=payload,
+        )
+
+    def modify_file_io_limit_rule(self, rule_id, payload):
+        """Modify a file IO limit rule.
+
+        :param rule_id: The file IO limit rule ID
+        :type rule_id: str
+        :param payload: Modification payload
+        :type payload: dict
+        :return: None
+        :rtype: None
+        """
+        LOG.info(
+            "Modifying file_io_limit_rule '%s' with payload: '%s'", rule_id, payload,
+        )
+        return self.config_client.request(
+            constants.PATCH,
+            constants.FILE_IO_LIMIT_RULE_OBJECT_URL.format(self.server_ip, rule_id),
+            payload=payload,
+        )
+
+    def delete_file_io_limit_rule(self, rule_id):
+        """Delete a file IO limit rule.
+
+        :param rule_id: The file IO limit rule ID
+        :type rule_id: str
+        :return: None
+        :rtype: None
+        """
+        LOG.info("Deleting file_io_limit_rule: '%s'", rule_id)
+        return self.config_client.request(
+            constants.DELETE,
+            constants.FILE_IO_LIMIT_RULE_OBJECT_URL.format(self.server_ip, rule_id),
+        )
+
+    # File IO Limit Rule methods end

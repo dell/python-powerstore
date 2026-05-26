@@ -30,6 +30,10 @@ from PyPowerStore.tests.unit_tests.entity.network import NetworkResponse
 from PyPowerStore.tests.unit_tests.entity.nfs_export import NFSExportResponse
 from PyPowerStore.tests.unit_tests.entity.nfs_server import NFSServerResponse
 from PyPowerStore.tests.unit_tests.entity.ntp import NtpResponse
+from PyPowerStore.tests.unit_tests.entity.file_io_limit_rule import (
+    FileIoLimitRuleResponse,
+)
+from PyPowerStore.tests.unit_tests.entity.io_limit_rule import IoLimitRuleResponse
 from PyPowerStore.tests.unit_tests.entity.policy import PolicyResponse
 from PyPowerStore.tests.unit_tests.entity.remote_support import RemoteSupportResponse
 from PyPowerStore.tests.unit_tests.entity.remote_support_contact import (
@@ -120,6 +124,8 @@ ENTITY_CLASS_MAPPING = {
     "file_dns": FileDNSResponse,
     "file_nis": FileNISResponse,
     "snmp_server": SNMPServerResponse,
+    "io_limit_rule": IoLimitRuleResponse,
+    "file_io_limit_rule": FileIoLimitRuleResponse,
 }
 
 

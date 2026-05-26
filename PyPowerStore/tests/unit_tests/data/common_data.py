@@ -344,6 +344,159 @@ class CommonData:
 
     # ProtectionPolicy End
 
+    # IO Limit Rule
+    io_limit_rule_id1 = "a1b2c3d4-1111-2222-3333-aabbccddeeff"
+    io_limit_rule_name1 = "my_io_rule1"
+    io_limit_rule_id2 = "b2c3d4e5-2222-3333-4444-bbccddeeff00"
+    io_limit_rule_name2 = "my_io_rule2"
+    invalid_io_limit_rule_id = "00000000-0000-0000-0000-000000000bad"
+
+    io_limit_rule_list = [
+        {"id": io_limit_rule_id1, "name": io_limit_rule_name1},
+        {"id": io_limit_rule_id2, "name": io_limit_rule_name2},
+    ]
+
+    io_limit_rule1 = {
+        "id": io_limit_rule_id1,
+        "name": io_limit_rule_name1,
+        "max_bw": 102400,
+        "max_iops": 5000,
+        "burst_percentage": 20,
+        "type": "Absolute",
+        "type_l10n": "Absolute",
+        "policies": [],
+    }
+
+    io_limit_rule1_modified = {
+        "id": io_limit_rule_id1,
+        "name": io_limit_rule_name1,
+        "max_bw": 204800,
+        "max_iops": 10000,
+        "burst_percentage": 20,
+        "type": "Absolute",
+        "type_l10n": "Absolute",
+        "policies": [],
+    }
+
+    io_limit_rule_error = {
+        404: {
+            "messages": [
+                {
+                    "arguments": [invalid_io_limit_rule_id],
+                    "code": "0xE0A090010001",
+                    "message_l10n": (
+                        f"Unable to find the IO limit rule with ID "
+                        f"{invalid_io_limit_rule_id}"
+                    ),
+                    "severity": "Error",
+                },
+            ],
+        },
+    }
+
+    # IO Limit Rule End
+
+    # File IO Limit Rule
+    file_io_limit_rule_id1 = "c3d4e5f6-3333-4444-5555-ccddeeff0011"
+    file_io_limit_rule_name1 = "my_file_rule1"
+    file_io_limit_rule_id2 = "d4e5f6a7-4444-5555-6666-ddeeff001122"
+    file_io_limit_rule_name2 = "my_file_rule2"
+    invalid_file_io_limit_rule_id = "00000000-0000-0000-0000-000000000bad"
+
+    file_io_limit_rule_list = [
+        {"id": file_io_limit_rule_id1, "name": file_io_limit_rule_name1},
+        {"id": file_io_limit_rule_id2, "name": file_io_limit_rule_name2},
+    ]
+
+    file_io_limit_rule1 = {
+        "id": file_io_limit_rule_id1,
+        "name": file_io_limit_rule_name1,
+        "max_bw": 500,
+        "policies": [],
+    }
+
+    file_io_limit_rule1_modified = {
+        "id": file_io_limit_rule_id1,
+        "name": file_io_limit_rule_name1,
+        "max_bw": 1000,
+        "policies": [],
+    }
+
+    file_io_limit_rule_error = {
+        404: {
+            "messages": [
+                {
+                    "arguments": [invalid_file_io_limit_rule_id],
+                    "code": "0xE0A090010001",
+                    "message_l10n": (
+                        f"Unable to find the file IO limit rule with ID "
+                        f"{invalid_file_io_limit_rule_id}"
+                    ),
+                    "severity": "Error",
+                },
+            ],
+        },
+    }
+
+    # File IO Limit Rule End
+
+    # QoS Policy
+    qos_policy_id1 = "e5f6a7b8-5555-6666-7777-eeff00112233"
+    qos_policy_name1 = "my_qos_policy1"
+    qos_policy_id2 = "f6a7b8c9-6666-7777-8888-ff0011223344"
+    qos_policy_name2 = "my_file_perf_policy1"
+    invalid_qos_policy_id = "00000000-0000-0000-0000-000000000bad"
+
+    qos_policy_list = [
+        {"id": qos_policy_id1, "name": qos_policy_name1},
+        {"id": qos_policy_id2, "name": qos_policy_name2},
+    ]
+
+    qos_policy1 = {
+        "id": qos_policy_id1,
+        "name": qos_policy_name1,
+        "description": "Gold QoS policy",
+        "type": "QoS",
+        "type_l10n": "QoS",
+        "io_limit_rule": {"id": io_limit_rule_id1, "name": io_limit_rule_name1},
+        "file_io_limit_rule": None,
+    }
+
+    qos_policy1_modified = {
+        "id": qos_policy_id1,
+        "name": qos_policy_name1,
+        "description": "Updated Gold QoS policy",
+        "type": "QoS",
+        "type_l10n": "QoS",
+        "io_limit_rule": {"id": io_limit_rule_id2, "name": io_limit_rule_name2},
+        "file_io_limit_rule": None,
+    }
+
+    file_perf_policy1 = {
+        "id": qos_policy_id2,
+        "name": qos_policy_name2,
+        "description": "",
+        "type": "File_Performance",
+        "type_l10n": "File_Performance",
+        "io_limit_rule": None,
+        "file_io_limit_rule": {"id": file_io_limit_rule_id1, "name": file_io_limit_rule_name1},
+    }
+
+    qos_policy_error = {
+        404: {
+            "messages": [
+                {
+                    "arguments": [invalid_qos_policy_id],
+                    "code": "0xE0A090010001",
+                    "message_l10n": f"Unable to find the policy with ID {invalid_qos_policy_id}",
+                    "severity": "Error",
+                },
+            ],
+        },
+    }
+
+    # QoS Policy End
+
     # SnapshotRule
     snap_rule_id1 = "f24c1295-f73f-48f3-8e82-3e45c5444fcc"
     snap_rule_name1 = "my_sn_rule1"
