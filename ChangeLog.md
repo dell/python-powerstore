@@ -1,4 +1,8 @@
 # PyPowerStore Change Log
+## Version 3.5.0.0 - released on 23/06/26
+- Added QoS functionalities
+- Added is_secure parameter to snapshot and snapshot rule methods
+
 ## Version 3.4.2.0 - released on 17/03/26
 - Added support for PowerStore 4.3.0.0 version
 
