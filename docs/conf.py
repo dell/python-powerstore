@@ -30,7 +30,7 @@ copyright = "2026, Dell"
 author = "Dell"
 
 # The full version, including alpha/beta/rc tags
-release = "3.4.2.0"
+release = "3.5.0.0"
 
 
 # -- General configuration ---------------------------------------------------
