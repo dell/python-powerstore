@@ -1,0 +1,138 @@
+name: "Feature Request"
+description: "Suggest an enhancement for PyPowerStore"
+title: "[FEATURE]: "
+labels: ["type/feature-request", "needs-triage"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: "[FEATURE]: prefix is required and cannot be removed"
+      value: "[FEATURE]: "
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a feature enhancement for PyPowerStore!
+        
+        ## Community Note
+        * Please vote on this issue by adding a reaction to help prioritize this request
+        * Please do not leave "+1" or other comments that do not add relevant new information or questions
+        * If you are interested in working on this issue or have submitted a pull request, please leave a comment
+
+  - type: input
+    id: module-name
+    attributes:
+      label: Module/Function Name (if applicable)
+      description: Enter the specific module or function name this relates to (e.g., volume, storage_pool, nfs_export)
+      placeholder: "volume"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: request-type
+    attributes:
+      label: Request Type
+      description: What type of enhancement are you requesting?
+      options:
+        - New Module/Function
+        - New Function Parameter
+        - Module Enhancement
+        - Documentation Improvement
+        - Performance Improvement
+        - Error Handling Enhancement
+        - API Coverage Enhancement
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: Problem Statement
+      description: What problem are you trying to solve with this feature request?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: A clear and concise description of what you want to happen
+    validations:
+      required: true
+
+  - type: textarea
+    id: python-use-case
+    attributes:
+      label: Python Use Case
+      description: |
+        Describe how this feature would be used in Python code.
+        Include example code if possible.
+        
+        Example:
+        ```python
+        from pypowerstore import PowerStore
+        
+        # Initialize PowerStore connection
+        powerstore = PowerStore(
+            server_ip="192.168.1.100",
+            username="admin",
+            password="password"
+        )
+        
+        # Proposed new functionality
+        result = powerstore.volume.new_functionality(
+            name="example_volume",
+            size=100,
+            new_parameter="value"
+        )
+        print(f"Result: {result}")
+        ```
+      render: markdown
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions Considered
+      description: A clear and concise description of any alternative solutions or workarounds you've considered
+    validations:
+      required: false
+
+  - type: textarea
+    id: api-considerations
+    attributes:
+      label: API/Backend Considerations
+      description: |
+        If this feature involves PowerStore API calls, describe:
+        - Relevant API endpoints (if known)
+        - API version requirements
+        - Authentication considerations
+        - Rate limiting or performance concerns
+    validations:
+      required: false
+
+  - type: dropdown
+    id: contribution-interest
+    attributes:
+      label: Contribution Interest
+      description: Would you be interested in contributing to this feature?
+      options:
+        - Yes, I can implement this feature
+        - Yes, I can help with testing
+        - Yes, I can help with documentation
+        - No, but I can provide guidance
+        - No contribution interest at this time
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other context, screenshots, or examples about the feature request
+    validations:
+      required: false
