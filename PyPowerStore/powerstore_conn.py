@@ -24,7 +24,7 @@ class PowerStoreConn:
         username,
         password,
         server_ip,
-        verify=False,
+        verify=True,
         application_type=None,
         timeout=None,
         enable_log=False,
