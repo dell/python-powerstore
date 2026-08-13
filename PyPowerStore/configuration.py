@@ -364,7 +364,6 @@ class Configuration:
                 )
                 del modify_parameters["password"]
                 del modify_parameters["current_password"]
-                LOG.info("Modifying passwords: '%s'", payload)
 
             for key, value in modify_parameters.items():
                 if value is not None:
