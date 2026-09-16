@@ -15,7 +15,8 @@ setup(
         "urllib3>=1.26.7", 
         "requests>=2.23.0", 
         "packaging>=26.0", 
-        "setuptools>=80.10.2"
+        "setuptools>=80.10.2",
+        "idna>=3.19"
     ],
     license_files=("LICENSE",),
     classifiers=["License :: OSI Approved :: Apache Software License"],
