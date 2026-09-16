@@ -15,14 +15,17 @@ jobs:
         uses: actions/setup-python@v4  
         with:  
           python-version: ${{ matrix.python-version }}  
-      - name: Install dependencies  
-        run: |  
+      - name: Install dependencies
+        run: |
           python -m pip install --upgrade pip
           pip install testtools
           pip install requests
           pip install pytest
-          pip install pytest-coverage
+          pip install pytest-cov
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Test with pytest  
-        run: |  
+      - name: Test with pytest
+        run: |
           python -m unittest -v PyPowerStore/tests/unit_tests/test_*.py
+      - name: Test with coverage
+        run: |
+          python -m pytest --cov=PyPowerStore --cov-report=term-missing PyPowerStore/tests/unit_tests/
