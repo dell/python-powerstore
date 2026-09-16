@@ -1,0 +1,38 @@
+name: Demo Metrics App Pipeline
+
+on: [push]
+
+jobs:
+  build-test-scan:
+    name: Test, build, and scan demo_metrics_app
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the source code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install PyPowerStore and demo_metrics_app dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install -r demo_metrics_app/requirements.txt
+          pip install pytest
+
+      - name: Run demo_metrics_app tests
+        run: python -m pytest demo_metrics_app/tests/ -v
+
+      - name: Build demo-metrics-app Docker image
+        run: docker build -f demo_metrics_app/Dockerfile -t demo-metrics-app:${{ github.sha }} .
+
+      - name: Scan image with Trivy (fail on HIGH/CRITICAL)
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: demo-metrics-app:${{ github.sha }}
+          format: table
+          exit-code: '1'
+          severity: HIGH,CRITICAL
