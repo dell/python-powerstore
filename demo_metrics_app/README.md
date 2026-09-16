@@ -1,14 +1,5 @@
 # demo_metrics_app
 
-Task 3/4 for my DevOps & Cloud postgrad module. Built on top of Dell's
-open-source PowerStore SDK, [dell/python-powerstore](https://github.com/dell/python-powerstore).
-Everything under `PyPowerStore/` is Dell's original code and I haven't
-touched it. Everything in this folder, plus `k8s/` and the extra
-workflows in `.github/workflows/`, is mine, added on top for the
-assignment.
-
-## What it does
-
 A small Flask app, two routes:
 
 - `/health` returns `{"status": "ok"}` — used as the k8s liveness/readiness
