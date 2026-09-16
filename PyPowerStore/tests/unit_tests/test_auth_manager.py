@@ -24,7 +24,7 @@ class TestAuthenticationManager:
         return AuthenticationManager(
             username="test_user",
             password="test_password",
-            verify=False,
+            verify=True,
             application_type="test_app",
             timeout=10,
         )
