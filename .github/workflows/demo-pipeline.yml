@@ -29,10 +29,15 @@ jobs:
       - name: Build demo-metrics-app Docker image
         run: docker build -f demo_metrics_app/Dockerfile -t demo-metrics-app:${{ github.sha }} .
 
-      - name: Scan image with Trivy (fail on HIGH/CRITICAL)
+      - name: Scan image with Trivy (fail on fixable HIGH/CRITICAL)
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: demo-metrics-app:${{ github.sha }}
           format: table
           exit-code: '1'
           severity: HIGH,CRITICAL
+          # Base OS images (Debian, in this case) routinely carry HIGH
+          # findings with no fix published yet. Failing on those blocks
+          # every build for issues nobody can act on, so only fail when
+          # a fixed package version actually exists to upgrade to.
+          ignore-unfixed: true

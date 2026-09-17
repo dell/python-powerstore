@@ -5,6 +5,12 @@
 
 FROM python:3.12-slim
 
+# Pick up whatever OS-level security patches Debian has published since
+# this base image was built (perl, libsqlite3, libpcre2, etc.) - the
+# demo-pipeline.yml Trivy scan flags these even though they're not our
+# code, so keep them current here rather than ignoring them.
+RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 # Install PyPowerStore itself first - Dell's SDK this demo app builds on.
