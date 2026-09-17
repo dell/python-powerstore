@@ -11,7 +11,6 @@ printed so they're visible in the CI log, but do not fail the build.
 
 import json
 import math
-import re
 import subprocess
 import sys
 import urllib.request
@@ -30,10 +29,12 @@ CVSS_V3_WEIGHTS = {
 
 
 def run_pip_audit(requirements_file):
+    """Run pip-audit against requirements_file and return its parsed JSON output."""
     result = subprocess.run(
         ["pip-audit", "-r", requirements_file, "-f", "json", "--desc", "off"],
         capture_output=True,
         text=True,
+        check=False,
     )
     if result.returncode not in (0, 1):
         print(result.stdout)
@@ -81,7 +82,9 @@ def severity_of(vuln_id):
     try:
         with urllib.request.urlopen(url, timeout=10) as resp:
             data = json.loads(resp.read())
-    except Exception as exc:
+    # A lookup failure (network, HTTP, or malformed JSON) shouldn't crash the
+    # whole scan - treat it as an unknown severity and keep going.
+    except Exception as exc:  # pylint: disable=broad-exception-caught
         print(f"  warning: could not fetch severity for {vuln_id}: {exc}")
         return "UNKNOWN", "lookup failed"
 
@@ -103,6 +106,7 @@ def severity_of(vuln_id):
 
 
 def main():
+    """Run the audit and severity gate, exiting 1 only on HIGH/CRITICAL findings."""
     requirements_file = sys.argv[1] if len(sys.argv) > 1 else "requirements.txt"
     audit = run_pip_audit(requirements_file)
 
@@ -129,7 +133,10 @@ def main():
             print(f"  {name}=={version}: {vuln_id} ({label})")
         sys.exit(1)
 
-    print("\nNo HIGH or CRITICAL severity issues found - lower-severity findings above do not fail the build.")
+    print(
+        "\nNo HIGH or CRITICAL severity issues found - lower-severity "
+        "findings above do not fail the build.",
+    )
 
 
 if __name__ == "__main__":
