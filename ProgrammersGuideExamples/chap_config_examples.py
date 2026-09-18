@@ -1,4 +1,4 @@
-# Copyright: (c) 2024, Dell Technologies
+# Copyright: (c) 2024-2026, Dell Technologies
 
 """CHAP config operations"""
 
