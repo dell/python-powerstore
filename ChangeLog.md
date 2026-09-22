@@ -1,4 +1,9 @@
 # PyPowerStore Change Log
+## Version 3.5.1.0 - released on 18/09/26
+- Updated idna to version 3.19 to resolve BlackDuck vulnerability
+- Fixed SSL certificate verification default
+- Removed plaintext password logging for CWE-532
+
 ## Version 3.5.0.0 - released on 23/06/26
 - Added QoS functionalities
 - Added is_secure parameter to snapshot and snapshot rule methods

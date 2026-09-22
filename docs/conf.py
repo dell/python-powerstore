@@ -1,4 +1,4 @@
-# Copyright: (c) 2026, Dell Technologies
+# Copyright: (c) 2024-2026, Dell Technologies
 
 # Configuration file for the Sphinx documentation builder.
 #
@@ -26,11 +26,11 @@ sys.path.insert(0, os.path.abspath(".."))
 # -- Project information -----------------------------------------------------
 
 project = "PyPowerStore"
-copyright = "2026, Dell"
+copyright = "2024-2026, Dell"
 author = "Dell"
 
 # The full version, including alpha/beta/rc tags
-release = "3.5.0.0"
+release = "3.5.1.0"
 
 
 # -- General configuration ---------------------------------------------------

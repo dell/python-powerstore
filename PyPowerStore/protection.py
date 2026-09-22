@@ -1,5 +1,5 @@
-# Copyright: (c) 2024, Dell Technologies
-# Copyright: (c) 2024, Ivan Pchelintsev <Ivan.Pchelintsev@emc.com>
+# Copyright: (c) 2024-2026, Dell Technologies
+# Copyright: (c) 2024-2026, Ivan Pchelintsev <Ivan.Pchelintsev@emc.com>
 
 """Collection of protection related functions for PowerStore"""
 
