@@ -1,4 +1,4 @@
-# Copyright: (c) 2024, Dell Technologies
+# Copyright: (c) 2024-2026, Dell Technologies
 
 """Setup file for PowerStore SDK"""
 
@@ -7,7 +7,7 @@ from setuptools import setup
 
 setup(
     name="PyPowerStore",
-    version="3.5.0.0",
+    version="3.5.1.0",
     description="Python Library for Dell PowerStore",
     author="Ansible Team at Dell",
     author_email="ansible.team@dell.com",
